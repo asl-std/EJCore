@@ -31,6 +31,10 @@ public class YAML {
 		}
 	}
 
+	public YAML(String path) {
+		this(new File(path));
+	}
+
 	public File getFile() { return file; }
 
 	public void load() throws FileNotFoundException, IOException, InvalidConfigurationException { yaml.load(file); }
@@ -38,7 +42,7 @@ public class YAML {
 
 	protected boolean fileExists() { return file.exists(); }
 
-	private void reload() {
+	protected void reload() {
 		try {
 			save();
 			load();
