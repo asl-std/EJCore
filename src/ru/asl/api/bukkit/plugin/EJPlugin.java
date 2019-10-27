@@ -4,8 +4,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class EJPlugin extends JavaPlugin {
 
-	protected boolean showLoadMessage;
-
 	@Override
 	public void onEnable() {
 		super.onEnable();
