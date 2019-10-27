@@ -1,10 +1,14 @@
 package ru.asl.api.bukkit.message;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-
 
 public class EText {
 
@@ -20,6 +24,29 @@ public class EText {
 	public static void fine(String msg) { sendRaw(c(prefix + " &3> &a" + msg)); }
 
 	public static void debug(String msg) { sendRaw(c(prefix + " &3> &e" + msg)); }
+
+	public static DecimalFormat df;
+
+	static {
+		df = new DecimalFormat();
+
+		df.setDecimalFormatSymbols(new DecimalFormatSymbols(new Locale("en", "US")));
+		// Default decimal separator: '.'
+		df.getDecimalFormatSymbols().setDecimalSeparator('.');
+		// Default decimals will rounded to 2 digits
+		df.applyPattern("0.0#");
+
+		// Don't change this
+		df.setNegativePrefix("-");
+		df.setPositivePrefix("");
+
+		df.setRoundingMode(RoundingMode.CEILING);
+	}
+
+	/**
+	 * Rounds decimals to 2 digits after separator
+	 */
+	public static String format(double value) { return df.format(value); }
 
 	/**
 	 * Send raw message to console.
