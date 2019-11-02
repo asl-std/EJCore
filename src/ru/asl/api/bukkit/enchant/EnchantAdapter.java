@@ -6,7 +6,7 @@ import java.util.Map;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 
-import ru.asl.api.ejcore.resolver.ServerVersion;
+import ru.asl.api.ejcore.utils.ServerVersion;
 
 public class EnchantAdapter {
 

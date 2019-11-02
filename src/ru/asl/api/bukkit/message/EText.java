@@ -44,7 +44,7 @@ public class EText {
 	}
 
 	/**
-	 * Rounds decimals to 2 digits after separator
+	 * Round decimals to 2 digits after separator
 	 */
 	public static String format(double value) { return df.format(value); }
 

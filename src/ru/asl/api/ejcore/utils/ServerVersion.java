@@ -1,4 +1,4 @@
-package ru.asl.api.ejcore.resolver;
+package ru.asl.api.ejcore.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,7 +82,7 @@ public class ServerVersion {
 	}
 
 	public static boolean isUUID() { return ServerVersion.isVersionAtLeast(ServerVersion.VER_1_7_5); }
-	public static boolean isVersionAtLeast(int version) { return ServerVersion.VERSION <= version; }
-	public static boolean isVersionAtMost(int version) { return ServerVersion.VERSION > version; }
+	public static boolean isVersionAtLeast(int version) { return ServerVersion.VERSION < version; }
+	public static boolean isVersionAtMost(int version) { return ServerVersion.VERSION >= version; }
 
 }
