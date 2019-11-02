@@ -20,25 +20,27 @@ public abstract class BasicCommand implements ECommand {
 		}
 	}
 
-	protected SenderType							senderType	= SenderType.ALL;
-	private   String								commandLabel;
+	protected SenderType	senderType	= SenderType.ALL;
+	private   String		commandLabel;
+
 	private final Usable<CommandSender, String[]>	func;
 
+	public String getHelp() { return ChatColor.GOLD + getUsage() + " - " + ChatColor.GREEN + getDescription(); }
 
-	public String getHelp() {return ChatColor.GOLD + this.getUsage() + " - " + ChatColor.GREEN + this.getDescription();}
 	public BasicCommand(String command, Usable<CommandSender, String[]> func) {
-		this.commandLabel = command;
+		commandLabel = command;
 		this.func = func;
 	}
 
+	@Override
+	public String getName() { return commandLabel; }
 
 	@Override
-	public String getName() {return this.commandLabel;}
-	@Override
-	public SenderType getSenderType() {return this.senderType;}
+	public SenderType getSenderType() { return senderType; }
+
 	@Override
 	public void use(CommandSender sender, String[] args) {
-		if (BasicCommand.isValid(sender, this.senderType)) this.func.execute(sender, args);
+		if (isValid(sender, senderType)) func.execute(sender, args);
 	}
 
 }
