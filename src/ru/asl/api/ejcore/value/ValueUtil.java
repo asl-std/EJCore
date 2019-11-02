@@ -1,6 +1,34 @@
 package ru.asl.api.ejcore.value;
 
-public class ValueParser {
+public class ValueUtil {
+
+	public static boolean isNegative(String value) {
+		if (isNumber(value) && Double.parseDouble(value) < 0) return true;
+		return false;
+	}
+
+	public static boolean isNumber(String value) {
+		try {
+			Double.parseDouble(value);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
+	public static boolean isPercent(String value) {
+		if (isString(value)) return value.contains("%");
+		return false;
+	}
+
+	public static boolean isString(String value) {
+		try {
+			Double.parseDouble(value);
+			return false;
+		} catch (NumberFormatException e) {
+			return true;
+		}
+	}
 
 	public static Long parseLong(String value) {
 		try {
@@ -21,7 +49,7 @@ public class ValueParser {
 	}
 
 	public static Integer parseInteger(String value) {
-		Long req = ValueParser.parseLong(value);
+		Long req = parseLong(value);
 
 		return new Integer((req < Integer.MIN_VALUE ? Integer.MIN_VALUE :
 							req > Integer.MAX_VALUE ? Integer.MAX_VALUE :
@@ -29,7 +57,7 @@ public class ValueParser {
 	}
 
 	public static Short parseShort(String value) {
-		Long req = ValueParser.parseLong(value);
+		Long req = parseLong(value);
 
 		return new Short((req < Short.MIN_VALUE ? Short.MIN_VALUE :
 						  req > Short.MAX_VALUE ? Short.MAX_VALUE :
@@ -37,7 +65,7 @@ public class ValueParser {
 	}
 
 	public static Float parseFloat(String value) {
-		Double req = ValueParser.parseDouble(value);
+		Double req = parseDouble(value);
 
 		return new Float((req < Float.MIN_VALUE ? Float.MIN_VALUE :
 						  req > Float.MAX_VALUE ? Float.MAX_VALUE :
