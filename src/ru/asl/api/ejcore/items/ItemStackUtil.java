@@ -91,6 +91,12 @@ public class ItemStackUtil {
 		return 0;
 	}
 
+	public static ItemFlag getFlagByName(String key) {
+		for (ItemFlag flag : ItemFlag.values())
+			if (flag.name().equalsIgnoreCase(key)) return flag;
+		return null;
+	}
+
 	public static void incrementDamage(ItemStack stack) { ItemStackUtil.setDamage(stack,ItemStackUtil.getDamage(stack)+1); }
 	public static void incrementDamage(ItemStack stack, int value) { ItemStackUtil.setDamage(stack,ItemStackUtil.getDamage(stack)+value); }
 
@@ -118,8 +124,8 @@ public class ItemStackUtil {
 			case IS_UNBREAKABLE:
 				if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_11_2))
 					return stack.getItemMeta().isUnbreakable();
-				else
-					return stack.getItemMeta().spigot().isUnbreakable();
+				//else
+					//return stack.getItemMeta().spigot().isUnbreakable();
 			default:
 				return false;
 		}
@@ -133,29 +139,29 @@ public class ItemStackUtil {
 
 		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_11_2))
 			meta.setUnbreakable(true);
-		else
-			meta.spigot().setUnbreakable(true);
+		//else
+			//meta.spigot().setUnbreakable(true);
 
 		clone.setItemMeta(meta);
 
 		return clone;
 	}
 
-	public static boolean isHelmet		(Material mat) { return mat.name().toUpperCase().contains("HELMET"); 		}
-	public static boolean isChestplate	(Material mat) { return mat.name().toUpperCase().contains("CHESTPLATE"); 	}
-	public static boolean isLeggings	(Material mat) { return mat.name().toUpperCase().contains("LEGGINGS"); 		}
-	public static boolean isBoots		(Material mat) { return mat.name().toUpperCase().contains("BOOTS"); 		}
-	public static boolean isPickaxe		(Material mat) { return mat.name().toUpperCase().contains("PICKAXE"); 		}
-	public static boolean isAxe			(Material mat) { return mat.name().toUpperCase().contains("_AXE"); 			}
-	public static boolean isHoe			(Material mat) { return mat.name().toUpperCase().contains("HOE"); 			}
+	public static boolean isHelmet		(Material mat) { return mat.name().toUpperCase().contains("HELMET"); 	}
+	public static boolean isChestplate	(Material mat) { return mat.name().toUpperCase().contains("CHESTPLATE"); }
+	public static boolean isLeggings	(Material mat) { return mat.name().toUpperCase().contains("LEGGINGS"); 	}
+	public static boolean isBoots		(Material mat) { return mat.name().toUpperCase().contains("BOOTS"); 	}
+	public static boolean isPickaxe		(Material mat) { return mat.name().toUpperCase().contains("PICKAXE"); 	}
+	public static boolean isAxe			(Material mat) { return mat.name().toUpperCase().contains("_AXE"); 		}
+	public static boolean isHoe			(Material mat) { return mat.name().toUpperCase().contains("HOE"); 		}
 	public static boolean isSpade		(Material mat) { return (mat.name().toUpperCase().contains("SPADE") || mat.toString().toUpperCase().contains("SHOVEL")); }
-	public static boolean isFishingRod	(Material mat) { return mat.name().toUpperCase().contains("FISHING"); 		}
-	public static boolean isFlintSteel	(Material mat) { return mat.name().toUpperCase().contains("_STEEL"); 		}
-	public static boolean isCarrotRod	(Material mat) { return mat.name().toUpperCase().contains("CARROT_ON"); 	}
-	public static boolean isBow			(Material mat) { return mat.name().toUpperCase().contains("BOW"); 			}
-	public static boolean isElytra		(Material mat) { return mat.name().toUpperCase().contains("ELYTRA"); 		}
-	public static boolean isShield		(Material mat) { return mat.name().toUpperCase().contains("SHIELD"); 		}
-	public static boolean isSword		(Material mat) { return mat.name().toUpperCase().contains("SWORD"); 		}
+	public static boolean isFishingRod	(Material mat) { return mat.name().toUpperCase().contains("FISHING"); 	}
+	public static boolean isFlintSteel	(Material mat) { return mat.name().toUpperCase().contains("_STEEL"); 	}
+	public static boolean isCarrotRod	(Material mat) { return mat.name().toUpperCase().contains("CARROT_ON"); }
+	public static boolean isRanged		(Material mat) { return mat.name().toUpperCase().contains("BOW"); 		}
+	public static boolean isElytra		(Material mat) { return mat.name().toUpperCase().contains("ELYTRA"); 	}
+	public static boolean isShield		(Material mat) { return mat.name().toUpperCase().contains("SHIELD"); 	}
+	public static boolean isSword		(Material mat) { return mat.name().toUpperCase().contains("SWORD"); 	}
 
 	public static boolean isArmor		(Material mat) {
 		return ItemStackUtil.isBoots(mat) || ItemStackUtil.isHelmet(mat) || ItemStackUtil.isChestplate(mat) || ItemStackUtil.isLeggings(mat);
@@ -165,10 +171,9 @@ public class ItemStackUtil {
 	}
 	public static boolean isAnotherTool	(Material mat) {
 		return ItemStackUtil.isCarrotRod(mat) || ItemStackUtil.isFlintSteel(mat) || ItemStackUtil.isFishingRod(mat);
-
 	}
 	public static boolean isWeapon		(Material mat) {
-		return ItemStackUtil.isSword(mat) || ItemStackUtil.isBow(mat);
+		return ItemStackUtil.isSword(mat) || ItemStackUtil.isRanged(mat);
 	}
 	public static boolean hasDurability (Material mat) {
 		return ItemStackUtil.isWeapon(mat) || ItemStackUtil.isArmor(mat) || ItemStackUtil.isAnotherTool(mat) || ItemStackUtil.isTool(mat);
