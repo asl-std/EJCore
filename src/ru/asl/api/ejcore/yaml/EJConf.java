@@ -1,4 +1,4 @@
-package ru.asl.api.bukkit.yaml;
+package ru.asl.api.ejcore.yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +29,7 @@ public abstract class EJConf extends YAML {
 
 	public abstract void loadConfig();
 
+	@Override
 	public void reload(){
 		super.reload();
 		loadConfig();

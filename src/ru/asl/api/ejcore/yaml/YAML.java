@@ -1,4 +1,4 @@
-package ru.asl.api.bukkit.yaml;
+package ru.asl.api.ejcore.yaml;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,7 +42,7 @@ public class YAML {
 
 	protected boolean fileExists() { return file.exists(); }
 
-	protected void reload() {
+	public void reload() {
 		try {
 			save();
 			load();
@@ -142,8 +142,8 @@ public class YAML {
 	public List<String>  getStringList(String path) { return yaml.getStringList(path); }
 
 	public static YAML getPlayerFile(Player p) {
-		File file = new File("plugins/EJCore/players/" + p.getUniqueId().toString() + ".yml");
-		File folder = new File("plugins/EJCore/players/");
+		File file = new File("plugins/ejCore/players/" + p.getUniqueId().toString() + ".yml");
+		File folder = new File("plugins/ejCore/players/");
 		if (!file.exists()) try {
 			folder.mkdirs();
 			file.createNewFile();
@@ -165,6 +165,13 @@ public class YAML {
 		yaml.set("stored-names", storedNames);
 
 		return yaml;
+	}
+
+	public static String getFileExtension(File file) {
+		String fileName = file.getName();
+
+		if (fileName.lastIndexOf(".") > 0) return fileName.substring(fileName.lastIndexOf(".") + 1);
+		else return "";
 	}
 
 }
