@@ -2,8 +2,9 @@ package ru.asl.api.ejcore.value;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.yaml.YAML;
@@ -12,7 +13,7 @@ public class Settings {
 	public static final String base = "base";
 	public static final String scale = "scale";
 
-	public ConcurrentHashMap<String, Double> settings = new ConcurrentHashMap<>();
+	public ConcurrentMap<String, Double> settings = new ConcurrentHashMap<>();
 
 	/**
 	 * Checks if settings has a custom key
@@ -20,7 +21,10 @@ public class Settings {
 	 * @return true if {@link java.util.Map} has a key
 	 */
 	public boolean hasKey(String key) {
-		return settings.containsKey(key);
+		for (Entry<String,Double> entry : settings.entrySet()) {
+			return entry.getKey().equals(key);
+		}
+		return false;
 	}
 
 	/**
@@ -170,26 +174,30 @@ public class Settings {
 		return base + (scale * modifier);
 	}
 
-	public void replaceRange(String key, double first, double second) {
-		replaceCustom(key+".first", first);
-		replaceCustom(key+".second", second);
+	public void copyValueFrom(String key, Settings from) {
+		setValue(key, from.getBase(key), from.getScale(key));
 	}
 
-	public void replaceCustom(String key, double value) {
+	public void setRange(String key, double first, double second) {
+		setCustom(key+".first", first);
+		setCustom(key+".second", second);
+	}
+
+	public void setCustom(String key, double value) {
 		settings.put(key, value);
 	}
 
-	public void replaceBase(String key, double base) {
+	public void setBase(String key, double base) {
 		settings.put(key+".base", base);
 	}
 
-	public void replaceScale(String key, double scale) {
+	public void setScale(String key, double scale) {
 		settings.put(key+".scale", scale);
 	}
 
-	public void replaceValue(String key, double value, double scale) {
-		replaceBase(key, value);
-		replaceScale(key, scale);
+	public void setValue(String key, double value, double scale) {
+		setBase(key, value);
+		setScale(key, scale);
 	}
 
 	public void addRange(String key, double first, double second) {
@@ -215,8 +223,8 @@ public class Settings {
 		if (hasScale(key))
 			vScale = this.getScale(key);
 
-		replaceBase(key, vBase + base);
-		replaceScale(key, vScale + scale);
+		setBase(key, vBase + base);
+		setScale(key, vScale + scale);
 	}
 
 	public void addBase(String key, double value) {
@@ -224,7 +232,7 @@ public class Settings {
 		if (hasBase(key))
 			val = this.getBase(key,0D);
 
-		replaceBase(key, val + value);
+		setBase(key, val + value);
 	}
 
 	public void addScale(String key, double scale) {
@@ -232,7 +240,7 @@ public class Settings {
 		if (hasScale(key))
 			val = this.getScale(key, 0D);
 
-		replaceScale(key, val + scale);
+		setScale(key, val + scale);
 	}
 
 	public void remove(String key) {
@@ -241,37 +249,18 @@ public class Settings {
 	}
 
 	public void removePath(String path) {
-		Enumeration<String> keys = settings.keys();
-		for (String key = "NPE" ; keys.hasMoreElements() ; ) {
-			key = keys.nextElement();
-			EText.send(key);
-			EText.send(path);
-
-			if (key.startsWith(path))
-				settings.remove(key);
-
-			continue;
-		}
+		for (Entry<String,Double> entry : settings.entrySet())
+			if (entry.getKey().contains(path))
+				settings.remove(entry.getKey());
 	}
 
 	public void removePathByPart(String partOfPath) {
-		Enumeration<String> keys = settings.keys();
-		for (String key = "NPE" ; keys.hasMoreElements() ; ) {
-			key = keys.nextElement();
-			EText.send(key);
-			EText.send(partOfPath);
-
-			if (key.contains(partOfPath)) {
-				EText.send("removed");
-				settings.remove(key);
-			}
-
-			continue;
-		}
+		for (Entry<String,Double> entry : settings.entrySet())
+			if (entry.getKey().contains(partOfPath))
+				settings.remove(entry.getKey());
 	}
 
 	public void dumpToFile() {
-		Enumeration<String> keys = settings.keys();
 
 		File dumpFile = new File("plugins/ejCore/dump." + System.currentTimeMillis() + "." + toString() + ".yml");
 		try { dumpFile.createNewFile(); }
@@ -279,17 +268,15 @@ public class Settings {
 
 		YAML dump = new YAML(dumpFile);
 
-		for (String path = keys.nextElement() ; keys.hasMoreElements() ; path = keys.nextElement()) {
-			if (path == null || path.equalsIgnoreCase("")) continue;
-			dump.set(path, get(path));
+		for (Entry<String,Double> entry : settings.entrySet()) {
+			if (entry.getKey() == null || entry.getKey().equalsIgnoreCase("")) continue;
+			dump.set(entry.getKey(), entry.getValue());
 		}
 	}
 
 	public void dumpToConsole() {
-		Enumeration<String> keys = settings.keys();
-
-		for (String path = keys.nextElement() ; keys.hasMoreElements() ; path = keys.nextElement())
-			EText.warn(path + ": &a" + get(path));
+		for (Entry<String,Double> entry : settings.entrySet())
+			EText.warn(entry.getKey() + ": &a" + entry.getValue());
 	}
 
 }
