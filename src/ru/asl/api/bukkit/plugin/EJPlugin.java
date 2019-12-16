@@ -13,13 +13,16 @@ public abstract class EJPlugin extends JavaPlugin {
 
 	private List<EJConf> cfgs = new ArrayList<>();
 
+	/**
+	 * EJPlugin::preInit() used for initialise features without using ListenerLoader and ModuleLoader
+	 *
+	 * EJPlugin::init() will be started automatically from Core when all EJPlugin's will be enabled
+	 */
 	@Override
 	public void onEnable() {
 		super.onEnable();
 
 		preInit();
-
-		init();
 
 		reloadConfigurations();
 	}
