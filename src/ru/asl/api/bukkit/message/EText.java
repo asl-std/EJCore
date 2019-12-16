@@ -25,6 +25,12 @@ public class EText {
 
 	public static void debug(String msg) { sendRaw(c(prefix + " &3> &e" + msg)); }
 
+	public static void warn(String msg, String prefix) { sendRaw(c("&5[&2"+ prefix +"&5]&f: &4> " + msg)); }
+
+	public static void fine(String msg, String prefix) { sendRaw(c("&5[&2"+ prefix +"&5]&f: &3> &a" + msg)); }
+
+	public static void debug(String msg, String prefix) { sendRaw(c("&5[&2"+ prefix +"&5]&f: &3> &e" + msg)); }
+
 	public static DecimalFormat df;
 
 	static {
