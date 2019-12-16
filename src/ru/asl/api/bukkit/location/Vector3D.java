@@ -2,6 +2,8 @@ package ru.asl.api.bukkit.location;
 
 import org.bukkit.Location;
 
+import com.sk89q.worldedit.math.BlockVector3;
+
 import ru.asl.api.ejcore.value.ValueUtil;
 
 public class Vector3D implements Cloneable {
@@ -11,6 +13,10 @@ public class Vector3D implements Cloneable {
 	public Vector3D(int x, int y, int z) {
 		this.x = x; this.y = y; this.z = z;
 	}
+
+	public int getX() { return x; }
+	public int getY() { return y; }
+	public int getZ() { return z; }
 
 	public static Vector3D fromLocation(Location loc) {
 		return new Vector3D(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
@@ -27,6 +33,14 @@ public class Vector3D implements Cloneable {
 			return null;
 		}
 	}
+
+	public static boolean compareIsPositive(Vector3D fst, Vector3D snd) {
+		return fst.getX() < snd.getX() && fst.getZ() < snd.getZ();
+	}
+
+	public Vector3D setX(int x) { this.x = x; return this; }
+	public Vector3D setY(int y) { this.y = y; return this; }
+	public Vector3D setZ(int z) { this.z = z; return this; }
 
 	public Vector3D incrementX() { return incrementX(1); }
 	public Vector3D incrementX(int x) { this.x += x; return this; }
@@ -71,6 +85,10 @@ public class Vector3D implements Cloneable {
 		copy.setZ(z+0.5);
 
 		return copy;
+	}
+
+	public BlockVector3 toBlockVector3() {
+		return BlockVector3.at(x,y,z);
 	}
 
 	@Override
