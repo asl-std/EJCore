@@ -8,28 +8,40 @@ import ru.asl.api.bukkit.command.interfaze.ECommand;
 import ru.asl.api.bukkit.command.interfaze.SenderType;
 import ru.asl.api.bukkit.command.interfaze.Usable;
 
-public abstract class BasicCommand implements ECommand {
-
-	public static boolean isValid(Object obj, SenderType senderType) {
-		boolean isPlayer = obj instanceof Player;
-		switch (senderType) {
-			case ALL:			return true;
-			case CONSOLE_ONLY:	if (isPlayer) return false;
-			case PLAYER_ONLY:	if (isPlayer) return true;
-			default:			return false;
-		}
-	}
+public class BasicCommand implements ECommand {
 
 	protected SenderType	senderType	= SenderType.ALL;
-	private   String		commandLabel;
+	protected String		commandLabel;
 
-	private final Usable<CommandSender, String[]>	func;
+	protected Usable<CommandSender, String[]>	func;
+
+	private String description, permission, arguments;
+	private BasicCommandHandler handler;
+
+	public BasicCommand(BasicCommandHandler handler, String label, Usable<CommandSender, String[]> func) {
+		commandLabel = handler.cmdFile.getString(label + ".command-name", label, true);
+		description = handler.cmdFile.getString(label + ".description", label + " command description", true);
+		permission = handler.cmdFile.getString(label + ".permission", handler.plugin.getName().toLowerCase() + ".command." + label, true);
+		arguments = handler.cmdFile.getString(label + ".arguments", "<>", true);
+		senderType = SenderType.fromString(handler.cmdFile.getString(label + ".sender-type", "ALL", true));
+		this.func = func;
+	}
 
 	public String getHelp() { return ChatColor.GOLD + getUsage() + " - " + ChatColor.GREEN + getDescription(); }
 
-	public BasicCommand(String command, Usable<CommandSender, String[]> func) {
-		commandLabel = command;
-		this.func = func;
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public String getPermission() {
+		return permission;
+	}
+
+	@Override
+	public String getUsage() {
+		return "/" + handler.getLabel() + " " + getName() + " " + arguments;
 	}
 
 	@Override
@@ -40,7 +52,17 @@ public abstract class BasicCommand implements ECommand {
 
 	@Override
 	public void use(CommandSender sender, String[] args) {
-		if (isValid(sender, senderType)) func.execute(sender, args);
+		if (func == null) return; if (isValid(sender, senderType)) func.execute(sender, args);
+	}
+
+	public static boolean isValid(Object obj, SenderType senderType) {
+		final boolean isPlayer = obj instanceof Player;
+		switch (senderType) {
+		case ALL:			return true;
+		case CONSOLE_ONLY:	if (isPlayer) return false;
+		case PLAYER_ONLY:	if (isPlayer) return true;
+		default:			return false;
+		}
 	}
 
 }

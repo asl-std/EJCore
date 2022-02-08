@@ -4,19 +4,19 @@ import org.bukkit.Location;
 
 import com.sk89q.worldedit.math.BlockVector3;
 
-import ru.asl.api.ejcore.value.ValueUtil;
+import ru.asl.api.ejcore.value.util.ValueUtil;
 
 public class Vector3D implements Cloneable {
 
-	private int x = 0, y = 0, z = 0;
+	private double x = 0, y = 0, z = 0;
 
-	public Vector3D(int x, int y, int z) {
+	public Vector3D(double x, double y, double z) {
 		this.x = x; this.y = y; this.z = z;
 	}
 
-	public int getX() { return x; }
-	public int getY() { return y; }
-	public int getZ() { return z; }
+	public double getX() { return x; }
+	public double getY() { return y; }
+	public double getZ() { return z; }
 
 	public static Vector3D fromLocation(Location loc) {
 		return new Vector3D(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
@@ -24,18 +24,37 @@ public class Vector3D implements Cloneable {
 
 	public static Vector3D fromString(String loc) {
 		if (loc == null) return null;
-		String[] prep = loc.split(";");
-		if (prep != null && prep.length < 3) return null;
+		final String[] prep = loc.split(";");
+		if (prep == null || prep.length < 3) return null;
 
 		try {
 			return new Vector3D(ValueUtil.parseInteger(prep[0]),ValueUtil.parseInteger(prep[1]),ValueUtil.parseInteger(prep[2]));
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			return null;
 		}
 	}
 
-	public static boolean compareIsPositive(Vector3D fst, Vector3D snd) {
-		return fst.getX() < snd.getX() && fst.getZ() < snd.getZ();
+	public static Vector3D getMaximum(Vector3D fst, Vector3D scd) {
+		return new Vector3D(
+				Math.max(fst.getX(), scd.getX()),
+				Math.max(fst.getY(), scd.getY()),
+				Math.max(fst.getZ(), scd.getZ())
+				);
+	}
+
+	public static Vector3D getMinimum(Vector3D fst, Vector3D scd) {
+		return new Vector3D(
+				Math.min(fst.getX(), scd.getX()),
+				Math.min(fst.getY(), scd.getY()),
+				Math.min(fst.getZ(), scd.getZ())
+				);
+	}
+	public double getDistance(Vector3D vec) {
+		final double x = this.x-vec.x;
+		final double y = this.y-vec.y;
+		final double z = this.z-vec.z;
+
+		return Math.sqrt(x * x + y * y + z * z);
 	}
 
 	public Vector3D setX(int x) { this.x = x; return this; }
@@ -69,7 +88,7 @@ public class Vector3D implements Cloneable {
 	public boolean equals(Object obj) {
 
 		if (obj instanceof Location) {
-			Location loc = (Location) obj;
+			final Location loc = (Location) obj;
 			return loc.getBlockX() == x && loc.getBlockY() == y && loc.getBlockZ() == z;
 		}
 
@@ -79,7 +98,7 @@ public class Vector3D implements Cloneable {
 	}
 
 	public Location toLocation(Location playerLocation) {
-		Location copy = playerLocation;
+		final Location copy = playerLocation;
 		copy.setX(x+0.5);
 		copy.setY(y);
 		copy.setZ(z+0.5);

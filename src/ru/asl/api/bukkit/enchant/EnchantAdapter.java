@@ -6,6 +6,7 @@ import java.util.Map;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 
+import lombok.Getter;
 import ru.asl.api.ejcore.utils.ServerVersion;
 
 public class EnchantAdapter {
@@ -38,7 +39,7 @@ public class EnchantAdapter {
 
 	public static final EnchantAdapter FIRE_ASPECT 					= new EnchantAdapter("FIRE_ASPECT","fire_aspect");
 
-	public static final EnchantAdapter FROST_WALKER 					= new EnchantAdapter("FROST_WALKER","frost_walker", ServerVersion.VER_1_9_0);
+	public static final EnchantAdapter FROST_WALKER 				= new EnchantAdapter("FROST_WALKER","frost_walker", ServerVersion.VER_1_9_0);
 
 	public static final EnchantAdapter IMPALING 					= new EnchantAdapter("IMPALING","impaling", ServerVersion.VER_1_13);
 
@@ -78,6 +79,8 @@ public class EnchantAdapter {
 
 	public static final EnchantAdapter SILK_TOUCH 					= new EnchantAdapter("SILK_TOUCH","silk_touch");
 
+	public static final EnchantAdapter SOUL_SPEED					= new EnchantAdapter("SOUL_SPEED", "soul_speed", ServerVersion.VER_1_16);
+
 	public static final EnchantAdapter SWEEPING_EDGE 				= new EnchantAdapter("SWEEPING_EDGE","sweeping", ServerVersion.VER_1_11_1);
 
 	public static final EnchantAdapter THORNS 						= new EnchantAdapter("THORNS","thorns");
@@ -89,20 +92,19 @@ public class EnchantAdapter {
 	private static final Map<String, EnchantAdapter> byName;
 	private static final Map<String, EnchantAdapter> byKey;
 
-	private String name;
-	public	String getName() { return name; }
-	private String toResolve;
+	@Getter private String name;
+	@Getter private String keyName;
 
-	public EnchantAdapter(String name, String toResolve) {
+	private EnchantAdapter(String name, String toResolve) {
 		this.name = name;
-		this.toResolve = toResolve;
+		keyName = toResolve;
 		EnchantAdapter.byName.put(name, this);
 		EnchantAdapter.byKey.put(toResolve, this);
 	}
 
-	public EnchantAdapter(String name, String toResolve, int version) {
+	private EnchantAdapter(String name, String toResolve, int version) {
 		this.name = name;
-		this.toResolve = toResolve;
+		keyName = toResolve;
 		if (!ServerVersion.isVersionAtLeast(version)) {
 			EnchantAdapter.byName.put(name, this);
 			EnchantAdapter.byKey.put(toResolve, this);
@@ -110,7 +112,10 @@ public class EnchantAdapter {
 	}
 
 	public Enchantment toEnchant() {
-		return Enchantment.getByKey(NamespacedKey.minecraft(toResolve));
+		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
+			return Enchantment.getByKey(NamespacedKey.minecraft(keyName));
+		else
+			return Enchantment.getByName(name);
 	}
 
 	public static EnchantAdapter getByKey(String key) {
@@ -124,7 +129,9 @@ public class EnchantAdapter {
 	}
 
 	public static EnchantAdapter getByKey(Enchantment ench) {
-		return EnchantAdapter.getByKey(ench.getKey().getKey());
+		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
+			return EnchantAdapter.getByKey(ench.getKey().getKey());
+		else return EnchantAdapter.byName.get(ench.getName());
 	}
 
 }

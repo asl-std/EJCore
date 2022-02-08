@@ -10,23 +10,23 @@ public class InventoryUtil {
 	public static boolean addItem(ItemStack stack, Player p) {
 		if (stack == null) return false;
 
-		for (ItemStack item : p.getInventory().getStorageContents())
+		for (final ItemStack item : p.getInventory().getStorageContents())
 			if (item == null || item.getType() == Material.AIR) {
 				p.getInventory().addItem(stack);
 				return true;
 			}
 
-		Item item = p.getWorld().dropItem(p.getLocation(), stack);
+		final Item item = p.getWorld().dropItem(p.getLocation(), stack);
 		item.setPickupDelay(0);
 		return true;
 	}
 
 	public static void decreaseItemAmount(ItemStack stack, Player p, int amount) {
-		ItemStack[] storage = p.getInventory().getStorageContents();
-		String stackString = ItemStackUtil.toString(stack);
+		final ItemStack[] storage = p.getInventory().getContents();
+		final String stackString = ItemStackUtil.toString(stack);
 		for (int i = 0; i < storage.length; i++)
 			if (stackString.equals(ItemStackUtil.toString(storage[i]))) {
-				ItemStack inv = storage[i];
+				final ItemStack inv = storage[i];
 
 				if (inv.getAmount() > 1) {
 					inv.setAmount(inv.getAmount() - amount);
@@ -35,16 +35,17 @@ public class InventoryUtil {
 					storage[i] = new ItemStack(Material.AIR, 0);
 				p.getInventory().setStorageContents(storage);
 				return;
-			} else continue;
+			}
 	}
 
 	public static void decreaseItemChecksNameAmount(ItemStack stack, String name, Player p, int amount) {
-		ItemStack[] storage = p.getInventory().getStorageContents();
-		String toCheck = stack == null ? name : ItemStackUtil.getDisplayName(stack);
-		Material type = stack.getType();
+		if (stack == null) return;
+		final ItemStack[] storage = p.getInventory().getStorageContents();
+		final String toCheck = stack == null ? name : ItemStackUtil.getDisplayName(stack);
+		final Material type = stack.getType();
 		for (int i = 0; i < storage.length; i++)
 			if (ItemStackUtil.getDisplayName(storage[i]).equals(toCheck) && storage[i].getType() == type) {
-				ItemStack inv = storage[i];
+				final ItemStack inv = storage[i];
 
 				if (inv.getAmount() > 1) {
 					inv.setAmount(inv.getAmount() - 1);
@@ -53,7 +54,7 @@ public class InventoryUtil {
 					storage[i] = new ItemStack(Material.AIR, 0);
 				p.getInventory().setStorageContents(storage);
 				return;
-			} else continue;
+			}
 	}
 
 	public static void decreaseItem(ItemStack stack, Player p) {
@@ -69,13 +70,13 @@ public class InventoryUtil {
 	}
 
 	public static void removeItem(ItemStack stack, Player p) {
-		ItemStack[] storage = p.getInventory().getStorageContents();
+		final ItemStack[] storage = p.getInventory().getStorageContents();
 		for (int i = 0; i < storage.length; i++)
 			if (ItemStackUtil.toString(stack).equals(ItemStackUtil.toString(storage[i]))) {
 				storage[i] = new ItemStack(Material.AIR, 0);
 				p.getInventory().setStorageContents(storage);
 				return;
-			} else continue;
+			}
 	}
 
 }

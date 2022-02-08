@@ -1,41 +1,49 @@
 package ru.asl.api.ejcore.time;
 
-import java.util.concurrent.ConcurrentHashMap;
+import org.bukkit.entity.Player;
 
-import ru.asl.api.ejcore.value.Settings;
+import ru.asl.api.ejcore.entity.EPlayer;
+import ru.asl.api.ejcore.entity.interfaze.EJPlayer;
+import ru.asl.api.ejcore.value.util.ValueUtil;
 
 public class Cooldown {
 
-	private ConcurrentHashMap<String, Long> cooldownList = new ConcurrentHashMap<>();
+	public static void removeCooldown(Player p, String key) {
+		final EJPlayer ejp = EPlayer.getEPlayer(p);
 
-	public Cooldown(Settings settings) { }
+		if (!ejp.getSettings().hasKey(key)) return;
 
-	public boolean removeCooldown(String key) {
-		if (!cooldownList.containsKey(key))
-			return true;
-		return cooldownList.remove(key) == null;
+		ejp.getSettings().remove(key);
 	}
 
-	public void addCooldown(String key, long millis) {
-		if (isCooldownEnded(key))
-			cooldownList.put(key, Long.valueOf(System.currentTimeMillis() + millis));
+	public static void setCooldown(Player p, String key, long millis) {
+		final EJPlayer ejp = EPlayer.getEPlayer(p);
+
+		ejp.getSettings().setValue(key, System.currentTimeMillis() + millis + "");
 	}
 
-	public void setCooldown(String key, long millis) {
-		cooldownList.put(key, Long.valueOf(System.currentTimeMillis() + millis));
+	public static long getCooldown(Player p, String key) {
+		final EJPlayer ejp = EPlayer.getEPlayer(p);
+
+		if (ejp.getSettings().hasKey(key)) {
+			final String val = ejp.getSettings().getValue(key);
+
+			if (!ValueUtil.isNumber(val)) return 0L;
+
+			final long cd = ValueUtil.parseLong(val);
+
+			return cd - System.currentTimeMillis();
+		}
+
+		return 0L;
 	}
 
-	public long getCooldown(String key) {
-		if (!cooldownList.containsKey(key))
-			return 0l;
+	public static boolean isCooldownEnded(Player p, String key) {
+		final EJPlayer ejp = EPlayer.getEPlayer(p);
 
-		return cooldownList.get(key).longValue() - System.currentTimeMillis();
-	}
-
-	public boolean isCooldownEnded(String key) {
-		if (!cooldownList.containsKey(key)) return true;
-		if (getCooldown(key) <= 0) {
-			removeCooldown(key);
+		if (!ejp.getSettings().hasKey(key)) return true;
+		if (getCooldown(p, key) <= 0) {
+			removeCooldown(p, key);
 			return true;
 		}
 		return false;

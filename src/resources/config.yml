@@ -1,0 +1,20 @@
+######################################################
+# OUR DISCORD CHANNEL: HTTPS://DISCORD.GG/s9aqQSMqRy #
+######################################################
+
+enable-console-colors: true
+health-bar:
+  fix-to-one-line: false
+  health-per-bar: 20
+
+debug:
+  enable-debug: true
+  less-console-messages: false
+
+# Time in seconds (default 8 hours)
+check-period: 28800
+check-updates: true
+
+#if true, decreases damage when player attacks before attack delay get fully restored
+#Otherwise damage will be static every-time
+enable-attack-cooldown: true

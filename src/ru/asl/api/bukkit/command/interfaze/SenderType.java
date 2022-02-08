@@ -6,4 +6,12 @@ public enum SenderType {
 	PLAYER_ONLY,
 	;
 
+	public static SenderType fromString(String type) {
+		switch(type.toUpperCase()) {
+		case "CONSOLE_ONLY": return CONSOLE_ONLY;
+		case "PLAYER_ONLY": return PLAYER_ONLY;
+		default: return ALL;
+		}
+	}
+
 }

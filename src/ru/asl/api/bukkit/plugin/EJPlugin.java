@@ -7,11 +7,20 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.Getter;
+import lombok.Setter;
 import ru.asl.api.ejcore.yaml.EJConf;
 
 public abstract class EJPlugin extends JavaPlugin {
 
 	private List<EJConf> cfgs = new ArrayList<>();
+
+	@Getter protected int resourceId = -1;
+
+	@Getter @Setter protected int build;
+	@Getter @Setter protected int latestBuild;
+
+	@Getter @Setter protected String latestVersion;
 
 	/**
 	 * EJPlugin::preInit() used for initialise features without using ListenerLoader and ModuleLoader
@@ -37,11 +46,15 @@ public abstract class EJPlugin extends JavaPlugin {
 
 	public abstract void init();
 
+	public int getPriority() { return 10; }
+
 	public void preInit() {}
 
 	public void disabling() {}
 
-	public void loadConfigurations(EJConf... cfgs) { for (EJConf cfg : cfgs) loadConfiguration(cfg); }
+	public void reloadPlugin() {}
+
+	public void loadConfigurations(EJConf... cfgs) { for (final EJConf cfg : cfgs) loadConfiguration(cfg); }
 	public void loadListener(Listener listener) {getServer().getPluginManager().registerEvents(listener, this);}
 
 	public void loadConfiguration(EJConf cfg) {
@@ -51,7 +64,7 @@ public abstract class EJPlugin extends JavaPlugin {
 	}
 
 	public void reloadConfigurations() {
-		for (EJConf cfg : cfgs)
+		for (final EJConf cfg : cfgs)
 			cfg.reload();
 	}
 
