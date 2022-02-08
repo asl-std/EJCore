@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import ru.asl.core.Core;
-import ru.asl.core.configs.EConfig;
 import ru.asl.modules.playerstats.Absorption;
 import ru.asl.modules.playerstats.Blocking;
 import ru.asl.modules.playerstats.CriticalChance;
@@ -25,102 +23,12 @@ import ru.asl.modules.playerstats.Reflect;
 public class StatManager {
 	public final BasicAttr
 	MAX_HEALTH 			= new MaxHealth			("MAX_HEALTH", 			"player.health"				 , 20.0, 0.0),
-	HEALTH_REGEN 		= new BasicAttr			("HEALTH_REGEN", 		"player.health-regen"		 , 1.0, 0.0)
-	{
-		@Override
-		public void initCustomSettings() {
-			final EConfig cfg = Core.getCfg();
-
-			if (cfg.contains("health-regen")) {
-				double base = 20.0;
-				if (cfg.contains("health-regen.base")) {
-					base = cfg.getDouble("health-regen.base");
-					cfg.set("health-regen.base", null);
-				}
-				double cost = 0.0;
-				if (cfg.contains("health-regen.cost-value")) {
-					cost = cfg.getDouble("health-regen.cost-value");
-					cfg.set("health-regen.cost-value", null);
-				}
-				double perLevel = 0.0;
-				if (cfg.contains("health-regen.per-level")) {
-					perLevel = cfg.getDouble("health-regen.per-level");
-					cfg.set("health-regen.per-level", null);
-				}
-				String visualName = getVisualName();
-				if (cfg.contains("health-regen.visual-name")) {
-					visualName = cfg.getString("health-regen.visual-name");
-					cfg.set("health-regen.visual-name", null);
-				}
-				boolean isEnabled = true;
-				if (cfg.contains("health-regen.is-enabled")) {
-					isEnabled = cfg.getBoolean("health-regen.is-enabled");
-					cfg.set("health-regen.is-enabled", null);
-				}
-
-				cfg.set("health-regen", null);
-
-				statCfg.set("health-regen.is-enabled", isEnabled);
-				statCfg.set("health-regen.base", base);
-				statCfg.set("health-regen.per-level", perLevel);
-				statCfg.set("health-regen.visual-name", visualName);
-				statCfg.set("health-regen.cost-value", cost);
-			}
-
-		}
-	},
-	MAX_HUNGER			= new BasicAttr			("MAX_HUNGER", 			"player.hunger-max"			 , 20.0, 0.0)
-	{
-		@Override
-		public void initCustomSettings() {
-			final EConfig cfg = Core.getCfg();
-
-			if (cfg.contains("max-hunger")) {
-				double base = 20.0;
-				if (cfg.contains("max-hunger.base")) {
-					base = cfg.getDouble("max-hunger.base");
-					cfg.set("max-hunger.base", null);
-				}
-				double cost = 0.0;
-				if (cfg.contains("max-hunger.cost-value")) {
-					cost = cfg.getDouble("max-hunger.cost-value");
-					cfg.set("max-hunger.cost-value", null);
-				}
-				double perLevel = 0.0;
-				if (cfg.contains("max-hunger.per-level")) {
-					perLevel = cfg.getDouble("max-hunger.per-level");
-					cfg.set("max-hunger.per-level", null);
-				}
-				String visualName = getVisualName();
-				if (cfg.contains("max-hunger.visual-name")) {
-					visualName = cfg.getString("max-hunger.visual-name");
-					cfg.set("max-hunger.visual-name", null);
-				}
-				boolean isEnabled = true;
-				if (cfg.contains("max-hunger.is-enabled")) {
-					isEnabled = cfg.getBoolean("max-hunger.is-enabled");
-					cfg.set("max-hunger.is-enabled", null);
-				}
-
-				cfg.set("max-hunger", null);
-
-				statCfg.set("max-hunger.is-enabled", isEnabled);
-				statCfg.set("max-hunger.base", base);
-				statCfg.set("max-hunger.per-level", perLevel);
-				statCfg.set("max-hunger.visual-name", visualName);
-				statCfg.set("max-hunger.cost-value", cost);
-			}
-		}
-	},
+	HEALTH_REGEN 		= new BasicAttr			("HEALTH_REGEN", 		"player.health-regen"		 , 1.0, 0.0),
+	MAX_HUNGER			= new BasicAttr			("MAX_HUNGER", 			"player.hunger-max"			 , 20.0, 0.0),
 
 	MANA 				= new BasicAttr			("MANA", 				"player.mana"				 , 0.0, 0.0),
 	MANA_REGEN			= new BasicAttr			("MANA_REGEN", 			"player.mana-regen"			 , 0.0, 0.0),
-	FIST_DAMAGE			= new BasicAttr			("FIST_DAMAGE",			"player.damage.fist"		 , 1.0, 1.0) {
-		@Override
-		public void initCustomSettings() {
-			type = StatType.RANGE;
-		}
-	},
+
 	EXP_BONUS 			= new ExperienceBonus	("EXP_BONUS", 			"player.exp-bonus"			 , 1.0, 0.0),
 	SPEED 				= new BasicAttr			("SPEED", 				"player.speed"				 , 100.0, 0.0),
 
@@ -130,8 +38,10 @@ public class StatManager {
 	PVP_DEFENCE_MODIFIER= new BasicAttr			("PVP_DEFENCE_MODIFIER","player.modifier.pvp.defence", 100.0, 0.0),
 	PVE_DEFENCE_MODIFIER= new BasicAttr			("PVE_DEFENCE_MODIFIER","player.modifier.pve.defence", 100.0, 0.0),
 
+
 	PHYSICAL_DAMAGE 	= new PhysicalDamage	("PHYSICAL_DAMAGE", 	"player.damage.physical"	 , 0.0, 0.0),
 	RANGED_DAMAGE		= new RangedDamage		("RANGED_DAMAGE", 		"player.damage.ranged"		 , 0.0, 0.0),
+	FIST_DAMAGE			= new BasicAttr			("FIST_DAMAGE",			"player.damage.fist"		 , 1.0, 1.0, StatType.RANGE),
 	//MAGICAL_DAMAGE 	= new MagicalDamage		("MAGICAL_DAMAGE", 		"player.damage.magical"		 , 0.0, 0.0),
 	//SPELL_POWER 		= new BasicStat			("SPELL_POWER", 		"player.damage.spell"		 , 1.0, 0.0),
 

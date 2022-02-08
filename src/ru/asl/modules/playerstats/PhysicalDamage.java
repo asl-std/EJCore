@@ -15,8 +15,7 @@ import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
 public final class PhysicalDamage extends BasicAttr implements ListeningCombat {
 
 	public PhysicalDamage(String keyName, String path, double defBase, double defPerLevel) {
-		super(keyName, path, defBase, defPerLevel);
-		type = StatType.RANGE;
+		super(keyName, path, defBase, defPerLevel, StatType.RANGE);
 	}
 
 	@SuppressWarnings({ "null" })
@@ -50,13 +49,11 @@ public final class PhysicalDamage extends BasicAttr implements ListeningCombat {
 			statDef = statDef*(receiver.getStatValue(Core.getStats().PVP_DEFENCE_MODIFIER)[0]/100);
 		}
 
-		if (e.getType() == CombatType.PLAYER_TO_ENTITY) {
+		if (e.getType() == CombatType.PLAYER_TO_ENTITY)
 			statDmg = statDmg*(attacker.getStatValue(Core.getStats().PVE_DAMAGE_MODIFIER)[0]/100);
-		}
 
-		if (e.getType() == CombatType.ENTITY_TO_PLAYER) {
+		if (e.getType() == CombatType.ENTITY_TO_PLAYER)
 			statDef = statDef*(receiver.getStatValue(Core.getStats().PVE_DEFENCE_MODIFIER)[0]/100);
-		}
 
 		double summdmg = (fistDmg+statDmg+vanillaDmg);
 

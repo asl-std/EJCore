@@ -22,18 +22,11 @@ public class BasicAttr {
 	}
 
 	protected YAML statCfg = null;
-	private int priority = 1;
+	@Getter private int priority = 1;
 	@Getter @Setter private int uniquePosition = 0;
 
-	public int getPriority() { return priority; }
-
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
-
-	public void setPriority(Priority priority) {
-		setPriority(priority.getPriority());
-	}
+	public void setPriority(int priority) { this.priority = priority; }
+	public void setPriority(Priority priority) { setPriority(priority.getPriority()); }
 
 	@Getter private final String key;
 	@Getter protected String path;
@@ -55,6 +48,24 @@ public class BasicAttr {
 			return getFirstValue();
 		}
 		return getFirstValue() + getSecondValue() * modifier;
+	}
+
+	public BasicAttr(String keyName, String path, double defBase, double defPerLevel, StatType type) {
+		key = keyName;
+		this.path = path;
+		this.defBase = defBase;
+		this.defPerLevel = defPerLevel;
+		this.type = type;
+
+		if (statCfg == null)
+			statCfg = new YAML(Core.instance().getDataFolder() + "/stats/" + toString() + ".yml");
+
+		initCustomSettings();
+		initializeBasicValues(defBase, defPerLevel);
+
+		getVisualName();
+		getCostValue();
+		getColorDecorator();
 	}
 
 	public BasicAttr(String keyName, String path, double defBase, double defPerLevel) {

@@ -15,9 +15,8 @@ import ru.asl.modules.playerstats.basic.StatType;
 public final class ExperienceBonus extends BasicAttr implements Listener {
 
 	public ExperienceBonus(String keyName, String path, double base, double perLevel) {
-		super(keyName, path, base, perLevel);
+		super(keyName, path, base, perLevel, StatType.PER_LEVEL);
 		Core.getEventLoader().addPreReg("exp-bonus", this);
-		type = StatType.PER_LEVEL;
 	}
 
 	@EventHandler

@@ -39,13 +39,11 @@ public final class RangedDamage extends BasicAttr implements ListeningCombat {
 			statDef = statDef*(receiver.getStatValue(Core.getStats().PVP_DEFENCE_MODIFIER)[0]/100);
 		}
 
-		if (e.getType() == CombatType.PLAYER_TO_ENTITY) {
+		if (e.getType() == CombatType.PLAYER_TO_ENTITY)
 			statDmg = statDmg*(attacker.getStatValue(Core.getStats().PVE_DAMAGE_MODIFIER)[0]/100);
-		}
 
-		if (e.getType() == CombatType.ENTITY_TO_PLAYER) {
+		if (e.getType() == CombatType.ENTITY_TO_PLAYER)
 			statDef = statDef*(receiver.getStatValue(Core.getStats().PVE_DEFENCE_MODIFIER)[0]/100);
-		}
 
 		e.setDamage(statDmg*(1-0.00675*statDef/(1+0.00675*statDef)));
 	}
