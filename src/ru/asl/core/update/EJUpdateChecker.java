@@ -1,4 +1,4 @@
-package ru.asl.core;
+package ru.asl.core.update;
 
 import java.io.IOException;
 import java.io.InputStream;

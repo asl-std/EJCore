@@ -1,7 +1,9 @@
-package ru.asl.core;
+package ru.asl.core.update;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import ru.asl.core.Core;
 
 public class CheckUpdateTask extends BukkitRunnable {
 

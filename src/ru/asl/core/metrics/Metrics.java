@@ -1,4 +1,4 @@
-package ru.asl.core;
+package ru.asl.core.metrics;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

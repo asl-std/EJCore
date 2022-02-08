@@ -12,7 +12,7 @@ import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.equip.EquipSlot;
 import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
-import ru.asl.core.EJUpdateChecker;
+import ru.asl.core.update.EJUpdateChecker;
 import ru.aslteam.module.ehunger.entity.Eater;
 
 public class PlayerListener implements Listener {

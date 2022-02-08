@@ -6,13 +6,14 @@ import org.bukkit.configuration.InvalidConfigurationException;
 
 import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
+import ru.asl.core.managers.ModuleManager;
 
 public abstract class EJAddon implements EJModule {
 
 	protected YAML moduleConfiguration;
 
 	public boolean isModuleRegistered() {
-		return Core.isRegistered(getModuleName());
+		return ModuleManager.isRegistered(getModuleName());
 	}
 
 	public EJAddon() { }
@@ -23,7 +24,7 @@ public abstract class EJAddon implements EJModule {
 			moduleConfiguration = new YAML(getModuleName().toLowerCase() + ".yml", Core.instance());
 			if (!moduleConfiguration.getFile().exists()) try {
 				moduleConfiguration.getFile().createNewFile();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
