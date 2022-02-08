@@ -10,11 +10,11 @@ public enum Priority {
 
 	@Getter private int priority;
 
-	public static int before(BasicStat stat) {
+	public static int before(BasicAttr stat) {
 		return stat.getPriority()-1;
 	}
 
-	public static int after(BasicStat stat) {
+	public static int after(BasicAttr stat) {
 		return stat.getPriority()+1;
 	}
 

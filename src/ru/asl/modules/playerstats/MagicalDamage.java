@@ -1,11 +1,11 @@
 package ru.asl.modules.playerstats;
 
 import ru.asl.api.bukkit.events.CombatEvent;
-import ru.asl.modules.playerstats.basic.BasicStat;
+import ru.asl.modules.playerstats.basic.BasicAttr;
 import ru.asl.modules.playerstats.basic.StatType;
 import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
 
-public final class MagicalDamage extends BasicStat implements ListeningCombat {
+public final class MagicalDamage extends BasicAttr implements ListeningCombat {
 
 	public MagicalDamage(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);

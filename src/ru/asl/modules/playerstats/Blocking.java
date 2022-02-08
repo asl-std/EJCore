@@ -6,10 +6,10 @@ import ru.asl.api.bukkit.events.CombatEvent;
 import ru.asl.api.bukkit.events.CombatType;
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.value.util.ValueUtil;
-import ru.asl.modules.playerstats.basic.BasicStat;
+import ru.asl.modules.playerstats.basic.BasicAttr;
 import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
 
-public final class Blocking extends BasicStat implements ListeningCombat {
+public final class Blocking extends BasicAttr implements ListeningCombat {
 	public Blocking(String keyName, String path, double base, double perLevel) {
 		super(keyName, path, base, perLevel);
 	}

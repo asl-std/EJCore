@@ -7,11 +7,11 @@ import ru.asl.api.bukkit.events.CombatEvent;
 import ru.asl.api.bukkit.events.CombatType;
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicStat;
+import ru.asl.modules.playerstats.basic.BasicAttr;
 import ru.asl.modules.playerstats.basic.StatType;
 import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
 
-public final class RangedDamage extends BasicStat implements ListeningCombat {
+public final class RangedDamage extends BasicAttr implements ListeningCombat {
 
 	public RangedDamage(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);

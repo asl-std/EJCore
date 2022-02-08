@@ -9,10 +9,10 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicStat;
+import ru.asl.modules.playerstats.basic.BasicAttr;
 import ru.asl.modules.playerstats.basic.StatType;
 
-public final class ExperienceBonus extends BasicStat implements Listener {
+public final class ExperienceBonus extends BasicAttr implements Listener {
 
 	public ExperienceBonus(String keyName, String path, double base, double perLevel) {
 		super(keyName, path, base, perLevel);

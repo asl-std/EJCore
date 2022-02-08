@@ -22,7 +22,7 @@ import ru.asl.api.ejcore.value.util.MathUtil;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicStat;
+import ru.asl.modules.playerstats.basic.BasicAttr;
 /**
  * Paths for Settings:<br>
  * &#8192;&#8192;player:<br>
@@ -131,7 +131,7 @@ public class EPlayer implements EJPlayer {
 		Bukkit.getServer().getPluginManager().callEvent(event);
 
 		if (Core.getStats() != null) {
-			for (final BasicStat stat : Core.getStats().getRegistered()) {
+			for (final BasicAttr stat : Core.getStats().getRegistered()) {
 				if (!stat.isEnabled())
 					continue;
 				switch (stat.getType()) {
@@ -147,14 +147,14 @@ public class EPlayer implements EJPlayer {
 		}
 	}
 
-	public double getDamage(BasicStat stat) { // TODO
+	public double getDamage(BasicAttr stat) { // TODO
 		if (!stat.getKey().contains("DAMAGE")) return 0d;
 
 		final double[] damage = getStatValue(stat);
 		return MathUtil.getRandomRange(damage[0], damage[1]);
 	}
 
-	public double[] getBaseStatValue(BasicStat stat) {
+	public double[] getBaseStatValue(BasicAttr stat) {
 		double[] values = { 0.0d, 0.0d };
 		switch(stat.getType()) {
 		case PER_LEVEL:
@@ -170,7 +170,7 @@ public class EPlayer implements EJPlayer {
 		return values;
 	}
 
-	public double[] getStatValue(BasicStat stat) {
+	public double[] getStatValue(BasicAttr stat) {
 		final double[] values = getBaseStatValue(stat);
 		final double[] multiplier = new double[] { 0D, 0D };
 

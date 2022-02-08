@@ -12,12 +12,12 @@ import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
 
 // Базовый класс атрибутов.
-public class BasicStat {
+public class BasicAttr {
 	public static final String
 	FIRST_VALUE 				= "base-values.first",
 	SECOND_VALUE 				= "base-values.second";
 
-	public static final Pattern getRegexPattern(BasicStat stat) { //\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)
+	public static final Pattern getRegexPattern(BasicAttr stat) { //\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)
 		return Pattern.compile(EText.e(stat.getVisualName().toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
 
@@ -57,7 +57,7 @@ public class BasicStat {
 		return getFirstValue() + getSecondValue() * modifier;
 	}
 
-	public BasicStat(String keyName, String path, double defBase, double defPerLevel) {
+	public BasicAttr(String keyName, String path, double defBase, double defPerLevel) {
 		key = keyName;
 		this.path = path;
 		this.defBase = defBase;

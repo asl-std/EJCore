@@ -4,10 +4,10 @@ import org.bukkit.entity.LivingEntity;
 
 import ru.asl.core.Core;
 import ru.asl.core.configs.EConfig;
-import ru.asl.modules.playerstats.basic.BasicStat;
+import ru.asl.modules.playerstats.basic.BasicAttr;
 import ru.asl.modules.playerstats.basic.interfaze.AffectingEntity;
 
-public class MaxHealth extends BasicStat implements AffectingEntity {
+public class MaxHealth extends BasicAttr implements AffectingEntity {
 
 	public MaxHealth(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
