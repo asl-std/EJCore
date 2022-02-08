@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ru.asl.api.bukkit.command.BasicCommand;
 import ru.asl.api.bukkit.command.BasicCommandHandler;
 import ru.asl.api.bukkit.command.interfaze.ECommand;
 import ru.asl.api.bukkit.message.EText;
@@ -32,30 +33,10 @@ public class CoreCommandHandler extends BasicCommandHandler {
 
 	public CoreCommandHandler() {
 		super(Core.instance(), "ejc");
-		CoreCommandHandler.handler = this;
-		registerCommand(CoreCommandHandler.getHelpCommand());
-		registerCommand(CoreCommandHandler.getDumpCommand());
-		//registerCommand(CoreCommandHandler.getReloadCommand());
-	}
-
-	private static CoreHelp help;
-	private static CoreDump dump;
-	private static CoreReload reload;
-	protected static CoreCommandHandler handler;
-
-	private static ECommand getDumpCommand() {
-		return CoreCommandHandler.dump == null ? CoreCommandHandler.dump = new CoreDump(handler, "dump", (s, args) -> {
-			final EPlayer p = EPlayer.getEPlayer((Player)s);
-			p.getTempSettings().dumpToFile();
-			p.getSettings().dumpToFile();
-		}) : CoreCommandHandler.dump;
-	}
-
-	private static ECommand getHelpCommand() {
-		return CoreCommandHandler.help == null ? CoreCommandHandler.help = new CoreHelp(handler, "help", (s, args) -> {
+		registerCommand(new BasicCommand(this, "help", (s, args) -> {
 			EText.send(s, "&c»------>&5[&6Elephant&Jaguar RPG Core&5&l]");
-			final List<ECommand> commands = new ArrayList<>(CoreCommandHandler.handler.getRegisteredCommands());
-			commands.add(CoreCommandHandler.help);
+			final List<ECommand> commands = new ArrayList<>(getRegisteredCommands());
+			commands.add(getDefaultCommand());
 			for (final ECommand command : commands)
 				if (s.hasPermission(command.getPermission()))
 					EText.send(s,
@@ -63,14 +44,14 @@ public class CoreCommandHandler extends BasicCommandHandler {
 							" - &2" + command.getDescription() +
 							(s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
 			EText.send(s, "&c»------>&5[&6Elephant&Jaguar RPG Core&5&l]");
-		}) : CoreCommandHandler.help;
-	}
+		}));
 
-	@SuppressWarnings("unused")
-	private static ECommand getReloadCommand() {
-		return CoreCommandHandler.reload == null ? CoreCommandHandler.reload = new CoreReload(handler, "reload", (s, args) -> {
-
-		}) : CoreCommandHandler.reload;
+		registerCommand(new BasicCommand(this, "dump", (s, args) -> {
+			final EPlayer p = EPlayer.getEPlayer((Player)s);
+			p.getTempSettings().dumpToFile();
+			p.getSettings().dumpToFile();
+		}));
+		//registerCommand(CoreCommandHandler.getReloadCommand());
 	}
 
 }

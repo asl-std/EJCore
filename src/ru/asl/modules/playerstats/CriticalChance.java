@@ -29,17 +29,17 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 
 	@Override
 	public void initCustomSettings() {
-		settings.setCustom("tier1-max-chance",statCfg.getDouble("stats-name." + toString() +".unique.tier1.max-chance", 10.0D, true));
-		settings.setCustom("tier1-cooldown", statCfg.getLong("stats-name." + toString() +".unique.tier1.value", 0, true));
-		settings.setCustom("tier1-increase-divider", statCfg.getDouble("stats-name." + toString() +".unique.tier1.increase-divider", 1.0D, true));
+		settings.setCustom("tier1-max-chance", statCfg.getDouble(toString() +".settings.tier1.max-chance", 10.0D, true));
+		settings.setCustom("tier1-cooldown", statCfg.getLong(toString() +".settings.tier1.value", 0, true));
+		settings.setCustom("tier1-increase-divider", statCfg.getDouble(toString() + ".settings.tier1.increase-divider", 1.0D, true));
 
-		settings.setCustom("tier2-max-chance", statCfg.getDouble("stats-name." + toString() +".unique.tier2.max-chance", 20.0D, true));
-		settings.setCustom("tier2-cooldown", statCfg.getLong("stats-name." + toString() +".unique.tier2.value", 0, true));
-		settings.setCustom("tier2-increase-divider", statCfg.getDouble("stats-name." + toString() +".unique.tier2.increase-divider", 1.0D, true));
+		settings.setCustom("tier2-max-chance", statCfg.getDouble(toString() + ".settings.tier2.max-chance", 20.0D, true));
+		settings.setCustom("tier2-cooldown", statCfg.getLong(toString() + ".settings.tier2.value", 0, true));
+		settings.setCustom("tier2-increase-divider", statCfg.getDouble(toString() + ".settings.tier2.increase-divider", 1.0D, true));
 
-		settings.setCustom("tier3-max-chance", statCfg.getDouble("stats-name." + toString() +".unique.tier3.max-chance", 100.0D, true));
-		settings.setCustom("tier3-cooldown", statCfg.getLong("stats-name." + toString() +".unique.tier3.value", 0, true));
-		settings.setCustom("tier3-increase-divider", statCfg.getDouble("stats-name." + toString() +".unique.tier3.increase-divider", 1.0D, true));
+		settings.setCustom("tier3-max-chance", statCfg.getDouble(toString() + ".settings.tier3.max-chance", 100.0D, true));
+		settings.setCustom("tier3-cooldown", statCfg.getLong(toString() + ".settings.tier3.value", 0, true));
+		settings.setCustom("tier3-increase-divider", statCfg.getDouble(toString() + ".settings.tier3.increase-divider", 1.0D, true));
 	}
 
 	@Override

@@ -18,3 +18,6 @@ check-updates: true
 #if true, decreases damage when player attacks before attack delay get fully restored
 #Otherwise damage will be static every-time
 enable-attack-cooldown: true
+
+modules:
+  player-stats-enabled: false

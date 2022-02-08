@@ -14,8 +14,7 @@ import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
 public final class RangedDamage extends BasicAttr implements ListeningCombat {
 
 	public RangedDamage(String keyName, String path, double defBase, double defPerLevel) {
-		super(keyName, path, defBase, defPerLevel);
-		type = StatType.RANGE;
+		super(keyName, path, defBase, defPerLevel, StatType.RANGE);
 	}
 
 	@Override @SuppressWarnings("null")

@@ -28,17 +28,17 @@ public final class Absorption extends BasicAttr implements ListeningCombat {
 	@Override
 	public void initCustomSettings() {
 
-		settings.setCustom("tier1-max-chance",statCfg.getDouble("stats-name." + toString() +".unique.tier1.max-chance", 7.0D, true));
-		settings.setCustom("tier1-value", statCfg.getDouble("stats-name." + toString() +".unique.tier1.value", 7.0D, true));
-		settings.setCustom("tier1-increase-divider", statCfg.getDouble("stats-name." + toString() +".unique.tier1.increase-divider", 1.0D, true));
+		settings.setCustom("tier1-max-chance",statCfg.getDouble(toString() + ".settings.tier1.max-chance", 7.0D, true));
+		settings.setCustom("tier1-value", statCfg.getDouble(toString() + ".settings.tier1.value", 7.0D, true));
+		settings.setCustom("tier1-increase-divider", statCfg.getDouble(toString() + ".settings.tier1.increase-divider", 1.0D, true));
 
-		settings.setCustom("tier2-max-chance", statCfg.getDouble("stats-name." + toString() +".unique.tier2.max-chance", 12.0D, true));
-		settings.setCustom("tier2-value", statCfg.getDouble("stats-name." + toString() +".unique.tier2.value", 14.0D, true));
-		settings.setCustom("tier2-increase-divider", statCfg.getDouble("stats-name." + toString() +".unique.tier2.increase-divider", 2.1D, true));
+		settings.setCustom("tier2-max-chance", statCfg.getDouble(toString() + ".settings.tier2.max-chance", 12.0D, true));
+		settings.setCustom("tier2-value", statCfg.getDouble(toString() + ".settings.tier2.value", 14.0D, true));
+		settings.setCustom("tier2-increase-divider", statCfg.getDouble(toString() + ".settings.tier2.increase-divider", 2.1D, true));
 
-		settings.setCustom("tier3-max-chance", statCfg.getDouble("stats-name." + toString() +".unique.tier3.max-chance", 17.0D, true));
-		settings.setCustom("tier3-value", statCfg.getDouble("stats-name." + toString() +".unique.tier3.value", 21.0D, true));
-		settings.setCustom("tier3-increase-divider", statCfg.getDouble("stats-name." + toString() +".unique.tier3.increase-divider", 3.3D, true));
+		settings.setCustom("tier3-max-chance", statCfg.getDouble(toString() + ".settings.tier3.max-chance", 17.0D, true));
+		settings.setCustom("tier3-value", statCfg.getDouble(toString() + ".settings.tier3.value", 21.0D, true));
+		settings.setCustom("tier3-increase-divider", statCfg.getDouble(toString() + ".settings.tier3.increase-divider", 3.3D, true));
 
 	}
 

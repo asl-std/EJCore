@@ -1,0 +1,12 @@
+help:
+  command-name: help
+  description: Show all available commands
+  permission: ejcore.command.help
+  arguments: <>
+  sender-type: ALL
+dump:
+  command-name: dump
+  description: Dumps all stored player settings into 'yml' file which is located in the plugin root folder
+  permission: ejc.command.dump.self
+  arguments: <>
+  sender-type: ALL

@@ -9,3 +9,4 @@ err:
   player-online: '&4Offline player can''t be used in commands'
 util:
   durability: '&7Durability'
+  durability-suffix-color-decorator: '&7'
