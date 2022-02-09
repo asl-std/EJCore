@@ -93,7 +93,7 @@ public class EJUpdateChecker {
 	}
 
 	private static String cleanVersion(String version, boolean fromSite) {
-		String prepaired = version.replaceAll("\s", "");
+		String prepaired = version.replaceAll("\\s", "");
 
 		prepaired = prepaired.substring(0, (prepaired.indexOf("[") == -1 ? prepaired.length() : prepaired.indexOf("[")));
 		prepaired = prepaired.substring(0, (prepaired.indexOf("-") == -1 ? prepaired.length() : prepaired.indexOf("-")));

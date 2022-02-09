@@ -116,6 +116,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+
 				</configuration>
 			</plugin>
 
@@ -125,6 +126,20 @@
 				<version>3.2.0</version>
 				<configuration>
 					<outputDirectory>C:\Plugin Test 1.18.1\plugins</outputDirectory>
+					<excludes>
+						<exclude>**/varsystem</exclude>
+						<exclude>**/varsystem/*</exclude>
+						<exclude>**/varsystem/annotations/*</exclude>
+						<exclude>**/varsystem/intefaces/*</exclude>
+						<exclude>**/varsystem/reader/*</exclude>
+						<exclude>**/varsystem/tags/*</exclude>
+						<exclude>**/varsystem/triggers/*</exclude>
+						<exclude>**/property</exclude>
+						<exclude>**/property/*</exclude>
+						<exclude>**/property/binding/*</exclude>
+						<exclude>**/property/observable/*</exclude>
+						<exclude>**/property/writeable/*</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 

@@ -10,7 +10,7 @@ public class VarReader {
 
 	public static StringSettings readLine(String line) {
 		final StringSettings result = new StringSettings();
-		final String prepaired = line.toLowerCase().replaceAll("\s", "");
+		final String prepaired = line.toLowerCase().replaceAll("\\s", "");
 		VarTarget target = null;
 
 		for (final VarTarget t : VarTarget.values())

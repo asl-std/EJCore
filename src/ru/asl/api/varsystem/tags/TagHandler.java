@@ -18,7 +18,7 @@ public class TagHandler {
 			final List<String> array = file.getStringList(key);
 			if (array == null || array.isEmpty())
 				continue;
-			String prepaired = key.replaceAll("\s", "");
+			String prepaired = key.replaceAll("\\s", "");
 			if (key.indexOf("{") != -1)
 				prepaired = key.substring(0, key.indexOf("{") - 1);
 

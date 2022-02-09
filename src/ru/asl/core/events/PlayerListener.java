@@ -13,7 +13,6 @@ import ru.asl.api.ejcore.equip.EquipSlot;
 import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
 import ru.asl.core.update.EJUpdateChecker;
-import ru.aslteam.module.ehunger.entity.Eater;
 
 public class PlayerListener implements Listener {
 
@@ -30,9 +29,6 @@ public class PlayerListener implements Listener {
 				}
 
 				p.getSettings().importFromYAML(YAML.getPlayerFile(e.getPlayer()), "");
-
-				if (Bukkit.getPluginManager().getPlugin("ElephantModule-eHunger") != null)
-					Eater.initPlayer(e.getPlayer());
 			}
 
 		}.runTask(Core.instance());
