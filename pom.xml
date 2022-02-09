@@ -100,7 +100,7 @@
 
 		<resources>
 			<resource>
-				<directory>src/resources</directory>
+				<directory>resources</directory>
 				<filtering>true</filtering>
 				<includes>
 					<include>*.yml</include>
