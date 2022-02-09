@@ -1,4 +1,4 @@
-package ru.asl.modules.playerstats;
+package ru.asl.modules.playerattr;
 
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Monster;
@@ -9,14 +9,14 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.StatType;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.AttrType;
 
 public final class ExperienceBonus extends BasicAttr implements Listener {
 
 	public ExperienceBonus(String keyName, String path, double base, double perLevel) {
-		super(keyName, path, base, perLevel, StatType.PER_LEVEL);
-		Core.getEventLoader().addPreReg("exp-bonus", this);
+		super(keyName, path, base, perLevel, AttrType.PER_LEVEL);
+		Core.getEventLoader().addListener("exp-bonus", this);
 	}
 
 	@EventHandler

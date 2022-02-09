@@ -1,4 +1,4 @@
-package ru.asl.modules.playerstats;
+package ru.asl.modules.playerattr;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -7,8 +7,8 @@ import ru.asl.api.bukkit.events.CombatEvent;
 import ru.asl.api.bukkit.events.CombatType;
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.value.util.ValueUtil;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.interfaze.ListeningCombat;
 
 public final class Reflect extends BasicAttr implements ListeningCombat {
 

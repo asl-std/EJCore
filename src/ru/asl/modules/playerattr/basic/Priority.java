@@ -1,4 +1,4 @@
-package ru.asl.modules.playerstats.basic;
+package ru.asl.modules.playerattr.basic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

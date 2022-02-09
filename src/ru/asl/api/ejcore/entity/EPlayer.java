@@ -22,7 +22,7 @@ import ru.asl.api.ejcore.value.util.MathUtil;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.BasicAttr;
 /**
  * Paths for Settings:<br>
  * &#8192;&#8192;player:<br>
@@ -130,8 +130,8 @@ public class EPlayer implements EJPlayer {
 		final EPlayerRegisteredEvent event = new EPlayerRegisteredEvent(this);
 		Bukkit.getServer().getPluginManager().callEvent(event);
 
-		if (Core.getStats() != null) {
-			for (final BasicAttr stat : Core.getStats().getRegistered()) {
+		if (Core.getAttr() != null) {
+			for (final BasicAttr stat : Core.getAttr().getRegistered()) {
 				if (!stat.isEnabled())
 					continue;
 				switch (stat.getType()) {
@@ -231,17 +231,17 @@ public class EPlayer implements EJPlayer {
 	@Override
 	public void updateStats() {
 		double defHealth = 20;
-		if (Core.getStats() != null)
-			defHealth = getStatValue(Core.getStats().MAX_HEALTH)[0];
+		if (Core.getAttr() != null)
+			defHealth = getStatValue(Core.getAttr().getByKey("MAX_HEALTH"))[0];
 
 		final double classHealth = tempSettings.getValue(CLASS_HEALTH, getLevel());
 
 		final double maxHealth = defHealth + classHealth;
 		changeMaxHealth(maxHealth >= 0 ? maxHealth : 1);
 
-		if (Core.getStats() == null) return;
+		if (Core.getAttr() == null) return;
 
-		final double speed = getStatValue(Core.getStats().SPEED)[0];
+		final double speed = getStatValue(Core.getAttr().getByKey("SPEED"))[0];
 
 		if ((speed >= 0)) getPlayer().setWalkSpeed((float) ((MathUtil.getPercentsOfValue(20, speed) / 100) >= 1.0f ? 1.0f : MathUtil.getPercentsOfValue(20, speed) / 100));
 	}
@@ -271,7 +271,7 @@ public class EPlayer implements EJPlayer {
 	 * @param saturation количество восполняемого насыщения (может быть негативным)
 	 */
 	public void feed(int hunger, float saturation) {
-		final double maxHunger = Core.getStats() == null ? 20.0 : Math.floor(getStatValue(Core.getStats().MAX_HUNGER)[0]);
+		final double maxHunger = Core.getAttr() == null ? 20.0 : Math.floor(getStatValue(Core.getAttr().getByKey("MAX_HUNGER"))[0]);
 		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 		float currSaturation = player.getSaturation();
 
@@ -302,7 +302,7 @@ public class EPlayer implements EJPlayer {
 	}
 
 	public void changeMaxHunger(double newValue) {
-		final double maxHunger = Core.getStats() == null ? 20.0 : Math.floor(getStatValue(Core.getStats().MAX_HUNGER)[0]);
+		final double maxHunger = Core.getAttr() == null ? 20.0 : Math.floor(getStatValue(Core.getAttr().getByKey("MAX_HUNGER"))[0]);
 		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 
 		final double hungerModifier = currHunger / maxHunger;

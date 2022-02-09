@@ -1,4 +1,4 @@
-package ru.asl.modules.playerstats;
+package ru.asl.modules.playerattr;
 
 import org.bukkit.entity.Player;
 
@@ -7,8 +7,8 @@ import ru.asl.api.bukkit.events.CombatType;
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.interfaze.ListeningCombat;
 
 @SuppressWarnings("unused")
 public final class CriticalChance extends BasicAttr implements ListeningCombat {
@@ -76,7 +76,7 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 			}*/
 
 		if (ValueUtil.isTrue(value, 100)) {
-			damage = damage * (rpg.getStatValue(Core.getStats().CRITICAL_DAMAGE)[0]/100);
+			damage = damage * (rpg.getStatValue(Core.getAttr().getByKey("CRITICAL_DAMAGE"))[0]/100);
 			crit = true;
 		}
 

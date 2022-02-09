@@ -14,8 +14,8 @@ import ru.asl.api.bukkit.events.CombatEvent;
 import ru.asl.api.bukkit.events.CombatType;
 import ru.asl.api.bukkit.events.EntityDamagePrepareEvent;
 import ru.asl.core.Core;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.interfaze.ListeningCombat;
 
 public class CombatListener implements Listener {
 
@@ -40,8 +40,8 @@ public class CombatListener implements Listener {
 		if (attacker != null && receiver != null) {
 			final CombatEvent event = new CombatEvent(attacker, receiver, cause, edpe.getDamage(), CombatType.from(receiver, attacker), ranged, e.isCancelled());
 
-			if (Core.getStats() != null) {
-				final List<BasicAttr> stats = Core.getStats().getSortedList();
+			if (Core.getAttr() != null) {
+				final List<BasicAttr> stats = Core.getAttr().getSortedList();
 
 				for (final BasicAttr stat : stats) {
 					if (stat instanceof ListeningCombat)

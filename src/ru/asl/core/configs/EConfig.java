@@ -7,7 +7,7 @@ public class EConfig extends EJConf {
 
 	public boolean	ONE_HP_BAR, ENABLE_CONSOLE_COLORS;
 	public int		HEALTH_PER_BAR, UPDATE_PERIOD;
-	public boolean	DEBUG_RUNNING, ENABLE_ATTACK_COOLDOWN, CHECK_UPDATE, PLAYER_STATS_ENABLED;
+	public boolean	DEBUG_RUNNING, ENABLE_ATTACK_COOLDOWN, CHECK_UPDATE, PLAYER_ATTRIBUTES_ENABLED;
 
 	public EConfig(String fileName, EJPlugin plugin) {
 		super(fileName, plugin);
@@ -23,7 +23,7 @@ public class EConfig extends EJConf {
 		ENABLE_ATTACK_COOLDOWN = this.getBoolean("enable-attack-cooldown", true, true);
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);
 		UPDATE_PERIOD = this.getInt("check-period", 28800, true);
-		PLAYER_STATS_ENABLED = this.getBoolean("modules.player-stats-enabled", false, true);
+		PLAYER_ATTRIBUTES_ENABLED = this.getBoolean("modules.player-attributes-enabled", false, true);
 	}
 
 }

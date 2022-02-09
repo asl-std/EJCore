@@ -1,4 +1,4 @@
-package ru.asl.modules.playerstats.basic.interfaze;
+package ru.asl.modules.playerattr.basic.interfaze;
 
 import org.bukkit.entity.LivingEntity;
 

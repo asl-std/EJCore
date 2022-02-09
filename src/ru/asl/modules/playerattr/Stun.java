@@ -1,8 +1,8 @@
-package ru.asl.modules.playerstats;
+package ru.asl.modules.playerattr;
 
 import ru.asl.api.bukkit.events.CombatEvent;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.interfaze.ListeningCombat;
 
 public final class Stun extends BasicAttr implements ListeningCombat {
 

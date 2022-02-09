@@ -1,11 +1,11 @@
-package ru.asl.modules.playerstats;
+package ru.asl.modules.playerattr;
 
 import org.bukkit.entity.LivingEntity;
 
 import ru.asl.core.Core;
 import ru.asl.core.configs.EConfig;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.interfaze.AffectingEntity;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.interfaze.AffectingEntity;
 
 public class MaxHealth extends BasicAttr implements AffectingEntity {
 

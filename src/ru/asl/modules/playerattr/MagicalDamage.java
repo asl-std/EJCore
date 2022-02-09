@@ -1,15 +1,15 @@
-package ru.asl.modules.playerstats;
+package ru.asl.modules.playerattr;
 
 import ru.asl.api.bukkit.events.CombatEvent;
-import ru.asl.modules.playerstats.basic.BasicAttr;
-import ru.asl.modules.playerstats.basic.StatType;
-import ru.asl.modules.playerstats.basic.interfaze.ListeningCombat;
+import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.playerattr.basic.AttrType;
+import ru.asl.modules.playerattr.basic.interfaze.ListeningCombat;
 
 public final class MagicalDamage extends BasicAttr implements ListeningCombat {
 
 	public MagicalDamage(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
-		type = StatType.RANGE;
+		type = AttrType.RANGE;
 	}
 
 	@Override

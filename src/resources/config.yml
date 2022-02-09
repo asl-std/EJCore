@@ -20,4 +20,4 @@ check-updates: true
 enable-attack-cooldown: true
 
 modules:
-  player-stats-enabled: false
+  player-attributes-enabled: false

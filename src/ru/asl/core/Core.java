@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
 
 import lombok.Getter;
@@ -31,7 +30,7 @@ import ru.asl.core.managers.ModuleManager;
 import ru.asl.core.managers.Tests;
 import ru.asl.core.metrics.Metrics;
 import ru.asl.core.tasks.InitialiseEJPluginsTask;
-import ru.asl.modules.playerstats.basic.StatManager;
+import ru.asl.modules.playerattr.managers.AttrManager;
 
 public class Core extends EJPlugin {
 
@@ -55,7 +54,7 @@ public class Core extends EJPlugin {
 	@Getter private static ListenerManager eventLoader = null;
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static RefUtils reflections = null;
-	@Getter private static StatManager stats = null;
+	@Getter private static AttrManager attr = null;
 
 	private static Core instance = null;
 	public  static Core instance() { return Core.instance; }
@@ -92,12 +91,11 @@ public class Core extends EJPlugin {
 
 		Tests.start();
 
-		Core.getEventLoader().addPreReg("playerJoin", new PlayerListener());
-		Core.getEventLoader().addPreReg("paneInteract", new PaneInteractListener());
-		Core.getEventLoader().addPreReg("combatEventCustom", new CombatListener());
-		Core.getEventLoader().addPreReg("equip", new EquipListener());
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
-			Core.getEventLoader().addPreReg("equip", new EquipListener1_13());
+		Core.getEventLoader().addListener("playerJoin", new PlayerListener());
+		Core.getEventLoader().addListener("paneInteract", new PaneInteractListener());
+		Core.getEventLoader().addListener("combatEventCustom", new CombatListener());
+		Core.getEventLoader().addListener("equip", new EquipListener());
+		Core.getEventLoader().addListener("equip", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
 		ModuleManager.loadModules(getClassLoader());
 
@@ -112,7 +110,7 @@ public class Core extends EJPlugin {
 			ModuleManager.enableModules();
 		} else {
 			ModuleManager.enableModules();
-			Core.eventLoader.register();
+			Core.getEventLoader().register();
 		}
 		registerStatManager();
 
@@ -127,26 +125,16 @@ public class Core extends EJPlugin {
 	public void disabling() {
 		for (final Player p : Bukkit.getOnlinePlayers())
 			EPlayer.removeRegistered(p);
-		Core.eventLoader.unregisterAll();
+		Core.getEventLoader().unregisterAll();
 	}
 
 	public void registerStatManager() {
-		if (stats != null) return;
+		if (attr != null) return;
 
-		if (cfg.PLAYER_STATS_ENABLED) {
-			stats = new StatManager();
-			stats.register();
+		if (cfg.PLAYER_ATTRIBUTES_ENABLED) {
+			attr = new AttrManager();
+			attr.registerDefaultAttributes();
 		}
 	}
-
-	@Override
-	public void reloadPlugin() {}
-
-
-	public void unregisterListeners() {
-		HandlerList.unregisterAll(getEventLoader().getMainPlugin());
-	}
-
-
 
 }

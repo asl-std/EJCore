@@ -1,4 +1,4 @@
-package ru.asl.modules.playerstats.basic;
+package ru.asl.modules.playerattr.basic;
 
 import java.util.regex.Pattern;
 
@@ -30,8 +30,8 @@ public class BasicAttr {
 
 	@Getter private final String key;
 	@Getter protected String path;
-	@Getter protected StatType type = StatType.PER_LEVEL;
-	protected double defBase, defPerLevel;
+	@Getter protected AttrType type = AttrType.PER_LEVEL;
+	@Getter protected double defaultValue, defaultPerLevel;
 
 	protected DoubleSettings settings = new DoubleSettings();
 
@@ -43,25 +43,25 @@ public class BasicAttr {
 	public boolean isEnabled() { return statCfg.getBoolean(toString() + ".is-enabled", true, true); }
 
 	public double getAndScale(int modifier) {
-		if (getType() != StatType.PER_LEVEL) {
+		if (getType() != AttrType.PER_LEVEL) {
 			EText.warn(toString() + ": You can't scale values from RANGE or STATIC stats, skipped.");
 			return getFirstValue();
 		}
 		return getFirstValue() + getSecondValue() * modifier;
 	}
 
-	public BasicAttr(String keyName, String path, double defBase, double defPerLevel, StatType type) {
+	public BasicAttr(String keyName, String path, double defBase, double defPerLevel, AttrType type) {
 		key = keyName;
 		this.path = path;
-		this.defBase = defBase;
-		this.defPerLevel = defPerLevel;
+		defaultValue = defBase;
+		defaultPerLevel = defPerLevel;
 		this.type = type;
 
 		if (statCfg == null)
-			statCfg = new YAML(Core.instance().getDataFolder() + "/stats/" + toString() + ".yml");
+			statCfg = new YAML(Core.instance().getDataFolder() + "/attr/" + toString() + ".yml");
 
 		initCustomSettings();
-		initializeBasicValues(defBase, defPerLevel);
+		initializeBasicValues();
 
 		getVisualName();
 		getCostValue();
@@ -71,14 +71,14 @@ public class BasicAttr {
 	public BasicAttr(String keyName, String path, double defBase, double defPerLevel) {
 		key = keyName;
 		this.path = path;
-		this.defBase = defBase;
-		this.defPerLevel = defPerLevel;
+		defaultValue = defBase;
+		defaultPerLevel = defPerLevel;
 
 		if (statCfg == null)
-			statCfg = new YAML(Core.instance().getDataFolder() + "/stats/" + toString() + ".yml");
+			statCfg = new YAML(Core.instance().getDataFolder() + "/attr/" + toString() + ".yml");
 
 		initCustomSettings();
-		initializeBasicValues(defBase, defPerLevel);
+		initializeBasicValues();
 
 		getVisualName();
 		getCostValue();
@@ -94,7 +94,7 @@ public class BasicAttr {
 	// 0 = minus or plus, 1 = first value, 2 = "-" if needed, or %, 3 = second
 	// value, 4 = "%" if needed.
 	public String getVisualTemplate() {
-		if (getType() == StatType.RANGE)
+		if (getType() == AttrType.RANGE)
 			return getVisualName() + ": " + getColorDecorator() + "$0$1$2$3$4";
 		else
 			return getVisualName() + ": " + getColorDecorator() + "$0$1$2";
@@ -119,19 +119,19 @@ public class BasicAttr {
 
 	public void initCustomSettings() {}
 
-	protected void initializeBasicValues(double defBase, double defPerLevel) {
+	public void initializeBasicValues() {
 		switch(type) {
 		case PER_LEVEL:
-			setFirstValue(statCfg.getDouble(toString() + ".base", defBase, true));
-			setSecondValue(statCfg.getDouble(toString() + ".per-level", defPerLevel, true));
+			setFirstValue(statCfg.getDouble(toString() + ".base", getDefaultValue(), true));
+			setSecondValue(statCfg.getDouble(toString() + ".per-level", getDefaultPerLevel(), true));
 			break;
 		case RANGE:
-			final String[] values = statCfg.getString(toString() + ".range-value", defBase + "-" + defPerLevel, true).replace(" ", "").split("-");
+			final String[] values = statCfg.getString(toString() + ".range-value", getDefaultValue() + "-" + getDefaultPerLevel(), true).replace(" ", "").split("-");
 			if (values.length < 2) {
 				EText.warn(toString() + ": found incorrect template, don't set only one value for this stat, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
-				EText.warn(toString() + ": initialisation skipped.. using " + defBase + "-" + defPerLevel + " as base value");
-				setFirstValue(defBase);
-				setSecondValue(defPerLevel);
+				EText.warn(toString() + ": initialisation skipped.. using " + getDefaultValue() + "-" + getDefaultPerLevel() + " as base value");
+				setFirstValue(getDefaultValue());
+				setSecondValue(getDefaultPerLevel());
 				break;
 			}
 			try {
@@ -147,19 +147,19 @@ public class BasicAttr {
 				setSecondValue(second);
 			} catch(final NumberFormatException e) {
 				EText.warn("RANGE value: &5" + toString()+ ": &5" + values[0] + "-" + values[1] + " |  has incorrect symbols, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
-				setFirstValue(defBase);
-				setSecondValue(defPerLevel);
+				setFirstValue(getDefaultValue());
+				setSecondValue(getDefaultPerLevel());
 			}
 			break;
 		case SINGLE:
-			setFirstValue(statCfg.getDouble(toString() + ".value", defBase, true));
+			setFirstValue(statCfg.getDouble(toString() + ".value", getDefaultValue(), true));
 			break;
 		}
 	}
 
 	@Override
 	public String toString() {
-		return key.toLowerCase().replace('_', '-');
+		return key.toLowerCase();
 	}
 
 }
