@@ -154,17 +154,17 @@ public class EPlayer implements EJPlayer {
 		return MathUtil.getRandomRange(damage[0], damage[1]);
 	}
 
-	public double[] getBaseStatValue(BasicAttr stat) {
+	public double[] getBaseStatValue(BasicAttr attr) {
 		double[] values = { 0.0d, 0.0d };
-		switch(stat.getType()) {
+		switch(attr.getType()) {
 		case PER_LEVEL:
-			values[0] = tempSettings.getAndScale(stat.getPath(), getLevel());
+			values[0] = tempSettings.getAndScale(attr.getPath(), getLevel());
 			break;
 		case RANGE:
-			values = tempSettings.getRange(stat.getPath());
+			values = tempSettings.getRange(attr.getPath());
 			break;
 		case SINGLE:
-			values[0] = tempSettings.getValue(stat.getPath(), stat.getFirstValue());
+			values[0] = tempSettings.getValue(attr.getPath(), attr.getFirstValue());
 			break;
 		}
 		return values;

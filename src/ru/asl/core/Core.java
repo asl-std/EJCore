@@ -3,9 +3,12 @@ package ru.asl.core;
 import java.util.LinkedList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
 import ru.asl.api.bukkit.item.Material1_12;
 import ru.asl.api.bukkit.item.Material1_13;
@@ -59,9 +62,16 @@ public class Core extends EJPlugin {
 	private static Core instance = null;
 	public  static Core instance() { return Core.instance; }
 
-	@Override public void preInit() { init(); }
+	@Override public void preInit() {
+		init();
+		// Just NBT-API init :)
+		final NBTItem it = new NBTItem(new ItemStack(Material.IRON_INGOT, 1));
+		it.setBoolean("init", true);
+	}
 
-	@Override public int getPriority() { return 0; }
+	@Override public int getPriority() {
+		return 0;
+	}
 
 	@Override public void init() {
 		for (final String str : ANCIITAG) EText.send(str);
@@ -112,7 +122,7 @@ public class Core extends EJPlugin {
 			ModuleManager.enableModules();
 			Core.getEventLoader().register();
 		}
-		registerStatManager();
+		registerAttrManager();
 
 		new CoreCommandHandler().registerHandler();
 
@@ -128,7 +138,7 @@ public class Core extends EJPlugin {
 		Core.getEventLoader().unregisterAll();
 	}
 
-	public void registerStatManager() {
+	public void registerAttrManager() {
 		if (attr != null) return;
 
 		if (cfg.PLAYER_ATTRIBUTES_ENABLED) {
