@@ -60,6 +60,20 @@
 			<version>2.8.8</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.elmakers.mine.bukkit</groupId>
+			<artifactId>EffectLib</artifactId>
+			<version>9.4</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.tr7zw</groupId>
+			<artifactId>item-nbt-api</artifactId>
+			<version>2.9.2-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -76,9 +90,6 @@
 			<url>https://papermc.io/repo/repository/maven-public/</url>
 		</repository>
 
-		<!-- <repository> <id>dmulloy2-repo</id> <url>https://repo.dmulloy2.net/nexus/repository/public/</url> 
-			</repository> -->
-
 		<!-- EngineHub -->
 		<repository>
 			<id>sk89q-repo</id>
@@ -89,6 +100,18 @@
 		<repository>
 			<id>placeholderapi</id>
 			<url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+		</repository>
+		
+		<repository>
+			<id>Maven Central</id>
+			<url>https://repo1.maven.org/maven2/</url>
+			<layout>default</layout>
+		</repository>
+
+		<repository>
+			<id>codemc-repo</id>
+			<url>https://repo.codemc.org/repository/maven-public/</url>
+			<layout>default</layout>
 		</repository>
 
 	</repositories>
@@ -141,6 +164,43 @@
 						<exclude>**/property/writeable/*</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<minimizeJar>false</minimizeJar>
+					<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+					<relocations>
+						<relocation>
+							<pattern>de.slikey</pattern>
+							<shadedPattern>ru.asl.api.slikey</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>de.tr7zw</pattern>
+							<shadedPattern>ru.asl.api.tr7zw</shadedPattern>
+						</relocation>
+					</relocations>
+					<filters>
+						<filter>
+							<artifact>com.elmakers.mine.bukkit:EffectLib</artifact>
+							<excludes>
+								<exclude>plugin.yml</exclude>
+								<exclude>META-INF/MANIFEST.MF</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
