@@ -25,6 +25,7 @@ public class BasicCommand implements ECommand {
 		arguments = handler.cmdFile.getString(label + ".arguments", "<>", true);
 		senderType = SenderType.fromString(handler.cmdFile.getString(label + ".sender-type", "ALL", true));
 		this.func = func;
+		this.handler = handler;
 	}
 
 	public String getHelp() { return ChatColor.GOLD + getUsage() + " - " + ChatColor.GREEN + getDescription(); }
