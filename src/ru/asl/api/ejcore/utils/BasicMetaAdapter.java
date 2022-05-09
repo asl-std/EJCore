@@ -20,7 +20,7 @@ import ru.asl.api.ejcore.value.util.ValueUtil;
 /**
  * Will be included in ItemStackUtil in future
  */
-public class BasicMetaAdapter { // Basic Lore Adapter
+public final class BasicMetaAdapter { // Basic Lore Adapter
 
 	private static Matcher matcher;
 
@@ -63,7 +63,6 @@ public class BasicMetaAdapter { // Basic Lore Adapter
 
 		stack.setItemMeta(meta);
 		return stack;
-
 	}
 
 	public static ItemStack setLore(ItemStack stack, int index, String loreString) {

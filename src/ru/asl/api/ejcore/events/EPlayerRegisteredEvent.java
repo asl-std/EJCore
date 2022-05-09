@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import lombok.Getter;
 import ru.asl.api.ejcore.entity.EPlayer;
 
-public class EPlayerRegisteredEvent extends Event {
+public final class EPlayerRegisteredEvent extends Event {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 

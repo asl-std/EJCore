@@ -5,18 +5,20 @@ import java.lang.reflect.Method;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 
+import net.minecraft.server.packs.VanillaPackResources;
 import ru.asl.api.bukkit.message.EText;
+import ru.asl.api.ejcore.utils.ServerVersion;
 
-public class RefUtils {
+public final class RefUtils {
 
-	public static String cbPackage  = "org.bukkit.craftbukkit.UNSPECIFIC.";
-	public static String nmsPackage = "net.minecraft.server.UNSPECIFIC.";
+	public static final String CRAFTBUKKIT  = "org.bukkit.craftbukkit.UNSPECIFIC.";
+	public static final String NMS = "net.minecraft.server.UNSPECIFIC.";
 
 	public RefUtils() { init(); }
 
 	public static Class<?> getClass(String name) { try { return Class.forName(name); } catch(final Exception e) { return null; } }
-	public static Class<?> getNMS(String name) { return getClass(nmsPackage + name); }
-	public static Class<?> getCraft(String name) { return getClass(cbPackage + name); }
+	public static Class<?> getNMS(String name) { return getClass(NMS + name); }
+	public static Class<?> getCraft(String name) { return getClass(CRAFTBUKKIT + name); }
 
 	private void init() {
 		if (Bukkit.getServer() == null)
@@ -28,19 +30,23 @@ public class RefUtils {
 		String debug = "Reflections { CraftBukkit:";
 
 		if (pckg.length == 5) {
-			cbPackage.replace("UNSPECIFIC", pckg[3]);
+			CRAFTBUKKIT.replace("UNSPECIFIC", pckg[3]);
 			debug += pckg[3] + " | NMS:";
 		} else
 			debug += "Unknown | NMS:";
 
 		try {
-			final Method getHandle = bktServer.getDeclaredMethod("getHandle");
-			final Object handle = getHandle.invoke(srv);
-			final Class<?> hndlClass = handle.getClass();
+			if (ServerVersion.isVersionAtLeast(ServerVersion.VER_1_18)) {
+				final Method getHandle = bktServer.getDeclaredMethod("getHandle");
+				final Object handle = getHandle.invoke(srv);
+				final Class<?> hndlClass = handle.getClass();
 
-			pckg = hndlClass.getName().split("\\.");
+				pckg = hndlClass.getName().split("\\.");
+			} else {
+				final VanillaPackResources a = null;
+			}
 			if (pckg.length == 5) {
-				nmsPackage.replace("UNSPECIFIC", pckg[3]);
+				NMS.replace("UNSPECIFIC", pckg[3]);
 				debug += pckg[3] + " }";
 			} else
 				debug += "Unknown }";

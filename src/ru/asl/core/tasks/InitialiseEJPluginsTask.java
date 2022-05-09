@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.bukkit.plugin.EJPlugin;
 import ru.asl.core.Core;
-import ru.asl.core.events.temp.CancelJoinBeforeFullLoading;
+import ru.asl.core.listeners.temp.CancelJoinBeforeFullLoading;
 import ru.asl.core.update.CheckUpdateTask;
 import ru.asl.core.update.EJUpdateChecker;
 
@@ -50,8 +50,8 @@ public class InitialiseEJPluginsTask extends BukkitRunnable {
 		EText.fine("&aAll EJPlugins succesfuly loaded in " + EText.format((aft-bef)/1e9) +" sec.");
 		EText.sendLB();
 
-		CancelJoinBeforeFullLoading.unregister();
 		Bukkit.getScheduler().cancelTask(getTaskId());
+		CancelJoinBeforeFullLoading.unregister();
 	}
 }
 

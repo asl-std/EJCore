@@ -12,7 +12,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class TXTReader {
+public final class TXTReader {
 
 	@NonNull File txtFile;
 

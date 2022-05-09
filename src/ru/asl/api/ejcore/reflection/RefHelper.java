@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import lombok.NonNull;
 import ru.asl.api.bukkit.message.EText;
 
-public class RefHelper {
+public final class RefHelper {
 
 	public static void invokeMethod(@NonNull Method method, Object instance, Object... args) {
 		try {

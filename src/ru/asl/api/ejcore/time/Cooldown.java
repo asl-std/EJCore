@@ -6,7 +6,7 @@ import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.entity.interfaze.EJPlayer;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 
-public class Cooldown {
+public final class Cooldown {
 
 	public static void removeCooldown(Player p, String key) {
 		final EJPlayer ejp = EPlayer.getEPlayer(p);

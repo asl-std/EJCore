@@ -105,7 +105,7 @@ public class DoubleSettings extends Settings<Double> {
 
 	/**
 	 * Checks if settings has a custom key <br>
-	 * if this true, returns value or def if false <br>
+	 * if this true, returns value or def <br>
 	 *
 	 * @param key to search value in {@link java.util.Map}
 	 * @return value or def
@@ -119,7 +119,7 @@ public class DoubleSettings extends Settings<Double> {
 
 	/**
 	 * Checks if settings has a BASE <br>
-	 * if this true, returns value or def if false <br>
+	 * if this true, returns value or def <br>
 	 *
 	 * @param key to search value in {@link java.util.Map}
 	 * @param def returns if value not found
@@ -131,7 +131,7 @@ public class DoubleSettings extends Settings<Double> {
 
 	/**
 	 * Checks if settings has a SCALE <br>
-	 * if this true, returns value or  if false <br>
+	 * if this true, returns value or <br>
 	 *
 	 * @param key to search value in {@link java.util.Map}
 	 * @param def returns if value not found
@@ -143,7 +143,7 @@ public class DoubleSettings extends Settings<Double> {
 
 	/**
 	 * Checks if settings has a BASE and SCALE <br>
-	 * if this true, returns value or  if false <br>
+	 * if this true, returns value <br>
 	 *
 	 * @param key to search value in {@link java.util.Map}
 	 * @param modifier for scale

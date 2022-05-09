@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import lombok.Getter;
 import ru.asl.api.bukkit.message.EText;
 
-public class ServerVersion {
+public final class ServerVersion {
 
 	public static final int
 	/////////////////////// VERSION CONSTANS
@@ -37,7 +37,9 @@ public class ServerVersion {
 	VER_1_15	 = 11500,//
 	VER_1_15_2	 = 11502,//
 	VER_1_16	 = 11600,//
-	VER_1_16_4	 = 11604;//
+	VER_1_16_4	 = 11604,//
+	VER_1_17	 = 11700,//
+	VER_1_18	 = 11800;//
 	///////////////////////
 
 

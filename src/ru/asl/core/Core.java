@@ -15,25 +15,29 @@ import ru.asl.api.bukkit.item.Material1_13;
 import ru.asl.api.bukkit.item.interfaze.MaterialAdapter;
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.bukkit.plugin.EJPlugin;
+import ru.asl.api.bukkit.plugin.Incompatibility;
 import ru.asl.api.bukkit.plugin.hook.HookManager;
+import ru.asl.api.bukkit.redstone.RedstoneParts;
+import ru.asl.api.bukkit.redstone.impl.RedstoneParts1_12;
+import ru.asl.api.bukkit.redstone.impl.RedstoneParts1_13;
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.reflection.utils.RefUtils;
 import ru.asl.api.ejcore.utils.ServerVersion;
 import ru.asl.core.commands.CoreCommandHandler;
 import ru.asl.core.configs.EConfig;
 import ru.asl.core.configs.LangConfig;
-import ru.asl.core.events.CombatListener;
-import ru.asl.core.events.EquipListener;
-import ru.asl.core.events.EquipListener1_13;
-import ru.asl.core.events.PaneInteractListener;
-import ru.asl.core.events.PlayerListener;
-import ru.asl.core.events.temp.CancelJoinBeforeFullLoading;
+import ru.asl.core.listeners.CombatListener;
+import ru.asl.core.listeners.EquipListener;
+import ru.asl.core.listeners.EquipListener1_13;
+import ru.asl.core.listeners.PaneInteractListener;
+import ru.asl.core.listeners.PlayerListener;
+import ru.asl.core.listeners.temp.CancelJoinBeforeFullLoading;
 import ru.asl.core.managers.ListenerManager;
 import ru.asl.core.managers.ModuleManager;
 import ru.asl.core.managers.Tests;
 import ru.asl.core.metrics.Metrics;
 import ru.asl.core.tasks.InitialiseEJPluginsTask;
-import ru.asl.modules.playerattr.managers.AttrManager;
+import ru.asl.modules.attributes.managers.WeaponAttributesManager;
 
 public class Core extends EJPlugin {
 
@@ -49,7 +53,7 @@ public class Core extends EJPlugin {
 			"&5  ███▄  ▄███&5 ██▄ ▄███&4 ███    ███ ███▄  ▄███   ███▀  ▀███   ███▄  ▄███ ",
 			"&5 █████████▀ &5  ▀████▀ &4  ▀██████▀   ▀██████▀    ███    ███    ▀██████▀  ",
 			"&5",
-			"&b         OUR DISCORD CHANNEL:  HTTPS://DISCORD.GG/s9aqQSMqRy         ",
+			"&b         OUR DISCORD CHANNEL:  HTTPS://DISCORD.GG/4NVRjHrcxM         ",
 			"&4#####################################################################", };
 
 	@Getter private static EConfig cfg;
@@ -57,10 +61,16 @@ public class Core extends EJPlugin {
 	@Getter private static ListenerManager eventLoader = null;
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static RefUtils reflections = null;
-	@Getter private static AttrManager attr = null;
+	@Getter private static WeaponAttributesManager attr = null;
+
+	@Getter private static RedstoneParts redstoneParts = null;
 
 	private static Core instance = null;
 	public  static Core instance() { return Core.instance; }
+
+	/*@Override public void onLoad() {
+		NBTInjector.inject();
+	}*/
 
 	@Override public void preInit() {
 		init();
@@ -92,10 +102,13 @@ public class Core extends EJPlugin {
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
 
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
+		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13)) {
 			Core.materialAdapter = new Material1_13();
-		else
+			Core.redstoneParts = new RedstoneParts1_13();
+		} else {
 			Core.materialAdapter = new Material1_12();
+			Core.redstoneParts = new RedstoneParts1_12();
+		}
 
 		HookManager.tryHookPAPI();
 
@@ -121,14 +134,17 @@ public class Core extends EJPlugin {
 		} else {
 			ModuleManager.enableModules();
 			Core.getEventLoader().register();
+			CancelJoinBeforeFullLoading.unregister();
 		}
 		registerAttrManager();
 
 		new CoreCommandHandler().registerHandler();
 
+
 		final long aft = System.nanoTime();
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
 		EText.sendLB();
+		Incompatibility.check();
 	}
 
 	@Override
@@ -142,7 +158,7 @@ public class Core extends EJPlugin {
 		if (attr != null) return;
 
 		if (cfg.PLAYER_ATTRIBUTES_ENABLED) {
-			attr = new AttrManager();
+			attr = new WeaponAttributesManager();
 			attr.registerDefaultAttributes();
 		}
 	}

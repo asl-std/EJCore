@@ -9,9 +9,9 @@ import org.bukkit.enchantments.Enchantment;
 import lombok.Getter;
 import ru.asl.api.ejcore.utils.ServerVersion;
 
-public class EnchantAdapter {
+public final class EnchantAdapter {
 
-	static { 	byName = new HashMap<>(); byKey = new HashMap<>(); }
+	static { byName = new HashMap<>(); byKey = new HashMap<>(); }
 
 	public static final EnchantAdapter ARROW_DAMAGE 				= new EnchantAdapter("ARROW_DAMAGE","power");
 
@@ -95,20 +95,22 @@ public class EnchantAdapter {
 	@Getter private String name;
 	@Getter private String keyName;
 
-	private EnchantAdapter(String name, String toResolve) {
+	private EnchantAdapter(String name, String keyName) {
 		this.name = name;
-		keyName = toResolve;
-		EnchantAdapter.byName.put(name, this);
-		EnchantAdapter.byKey.put(toResolve, this);
+		this.keyName = keyName;
+		register(name, keyName);
 	}
 
-	private EnchantAdapter(String name, String toResolve, int version) {
+	private EnchantAdapter(String name, String keyName, int version) {
 		this.name = name;
-		keyName = toResolve;
-		if (!ServerVersion.isVersionAtLeast(version)) {
-			EnchantAdapter.byName.put(name, this);
-			EnchantAdapter.byKey.put(toResolve, this);
-		}
+		this.keyName = keyName;
+		if (!ServerVersion.isVersionAtLeast(version))
+			register(name, keyName);
+	}
+
+	private void register(String name, String keyName) {
+		EnchantAdapter.byName.put(name, this);
+		EnchantAdapter.byKey.put(keyName, this);
 	}
 
 	public Enchantment toEnchant() {
@@ -120,6 +122,7 @@ public class EnchantAdapter {
 
 	public static EnchantAdapter getByKey(String key) {
 		EnchantAdapter enchant = null;
+
 		if (EnchantAdapter.byName.containsKey(key.toUpperCase()))
 			enchant = EnchantAdapter.byName.get(key.toUpperCase());
 		if (EnchantAdapter.byKey.containsKey(key.toLowerCase()))
@@ -131,7 +134,8 @@ public class EnchantAdapter {
 	public static EnchantAdapter getByKey(Enchantment ench) {
 		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
 			return EnchantAdapter.getByKey(ench.getKey().getKey());
-		else return EnchantAdapter.byName.get(ench.getName());
+		else
+			return EnchantAdapter.byName.get(ench.getName());
 	}
 
 }

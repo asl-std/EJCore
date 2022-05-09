@@ -10,12 +10,12 @@ import org.bukkit.entity.Tameable;
 public class PlayerProtection {
 
 	public static boolean canAttack(EPlayer attacker, LivingEntity target) {
-		if (attacker == target) return false;
+		if (attacker.getPlayer() == target) return false;
 
 		if (target instanceof Tameable) {
-			Tameable tame = (Tameable) target;
+			final Tameable tame = (Tameable) target;
 			if (tame.isTamed() && tame.getOwner() instanceof OfflinePlayer) {
-				OfflinePlayer ofp = (OfflinePlayer) tame.getOwner();
+				final OfflinePlayer ofp = (OfflinePlayer) tame.getOwner();
 				if (ofp.isOnline())
 					return canAttack(attacker, ofp.getPlayer());
 				else
@@ -30,8 +30,8 @@ public class PlayerProtection {
 	public static boolean isAlly(EPlayer attacker, LivingEntity target) { return !canAttack(attacker,target); }
 
 	public static List<LivingEntity> canAttack(EPlayer attacker, List<LivingEntity> targets) {
-		List<LivingEntity> list = new ArrayList<>();
-		for (LivingEntity ent : targets)
+		final List<LivingEntity> list = new ArrayList<>();
+		for (final LivingEntity ent : targets)
 			if (canAttack(attacker,ent))
 				list.add(ent);
 
@@ -39,8 +39,8 @@ public class PlayerProtection {
 	}
 
 	public static List<LivingEntity> cannotAttack(EPlayer attacker, List<LivingEntity> targets) {
-		List<LivingEntity> list = new ArrayList<>();
-		for (LivingEntity ent : targets)
+		final List<LivingEntity> list = new ArrayList<>();
+		for (final LivingEntity ent : targets)
 			if (!canAttack(attacker,ent))
 				list.add(ent);
 

@@ -14,16 +14,24 @@ public class Area3D {
 	public Vector3D getFirstPosition() { return from.clone(); }
 	public Vector3D getSecondPosition() { return to.clone(); }
 
-	public boolean isInArea(Location loc) {
-		return isInArea(new Vector3D(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
-	}
+	public boolean isInArea2D(Location loc) { return isInArea2D(Vector3D.fromLocation(loc)); }
 
-	public boolean isInArea(Vector3D point) {
+	public boolean isInArea3D(Location loc) { return isInArea3D(Vector3D.fromLocation(loc)); }
+
+	public boolean isInArea2D(Vector3D point) {
 		return 	point.getX() >= from.getX() &&
 				point.getX() <= to.getX() &&
 				point.getZ() >= from.getZ() &&
 				point.getZ() <= to.getZ();
 	}
 
+	public boolean isInArea3D(Vector3D point) {
+		return  point.getX() >= from.getX() &&
+				point.getX() <= to.getX() &&
+				point.getY() >= from.getY() &&
+				point.getY() <= to.getY() &&
+				point.getZ() >= from.getZ() &&
+				point.getZ() <= to.getZ();
+	}
 
 }

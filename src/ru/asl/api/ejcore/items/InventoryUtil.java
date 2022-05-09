@@ -5,7 +5,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryUtil {
+public final class InventoryUtil {
 
 	public static boolean addItem(ItemStack stack, Player p) {
 		if (stack == null) return false;
@@ -32,7 +32,7 @@ public class InventoryUtil {
 					inv.setAmount(inv.getAmount() - amount);
 					storage[i] = inv;
 				} else
-					storage[i] = new ItemStack(Material.AIR, 0);
+					storage[i] = null;
 				p.getInventory().setStorageContents(storage);
 				return;
 			}
@@ -51,7 +51,7 @@ public class InventoryUtil {
 					inv.setAmount(inv.getAmount() - 1);
 					storage[i] = inv;
 				} else
-					storage[i] = new ItemStack(Material.AIR, 0);
+					storage[i] = null;
 				p.getInventory().setStorageContents(storage);
 				return;
 			}
@@ -63,10 +63,6 @@ public class InventoryUtil {
 
 	public static void decreaseItemChecksName(ItemStack stack, Player p) {
 		InventoryUtil.decreaseItemChecksNameAmount(stack,"",p,1);
-	}
-
-	public static void decreaseItemChecksName(String name, Player p) {
-		InventoryUtil.decreaseItemChecksNameAmount(null,name,p,1);
 	}
 
 	public static void removeItem(ItemStack stack, Player p) {

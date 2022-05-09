@@ -20,8 +20,8 @@ public class BasicCommand implements ECommand {
 
 	public BasicCommand(BasicCommandHandler handler, String label, Usable<CommandSender, String[]> func) {
 		commandLabel = handler.cmdFile.getString(label + ".command-name", label, true);
-		description = handler.cmdFile.getString(label + ".description", label + " command description", true);
-		permission = handler.cmdFile.getString(label + ".permission", handler.plugin.getName().toLowerCase() + ".command." + label, true);
+		description = handler.cmdFile.getString(label + ".description", getDescription() == null ? label + " command description" : getDescription(), true);
+		permission = handler.cmdFile.getString(label + ".permission", getPermission() == null ? handler.plugin.getName().toLowerCase() + ".command." + label : getPermission(), true);
 		arguments = handler.cmdFile.getString(label + ".arguments", "<>", true);
 		senderType = SenderType.fromString(handler.cmdFile.getString(label + ".sender-type", "ALL", true));
 		this.func = func;

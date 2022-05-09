@@ -19,7 +19,8 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.utils.ServerVersion;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 
-public class ItemStackUtil {
+// ISUv1
+public final class ItemStackUtil {
 
 	private static HashMap<String,ItemStack> itemsCache = new HashMap<>();
 

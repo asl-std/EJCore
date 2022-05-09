@@ -86,7 +86,7 @@ public class EJUpdateChecker {
 		ejp.setBuild(build);
 
 		if (ejp.getResourceId() == -1)
-			ejp.setLatestVersion(ejp.getDescription().getVersion());
+			return;
 
 		registeredEJPlugins.add(ejp);
 

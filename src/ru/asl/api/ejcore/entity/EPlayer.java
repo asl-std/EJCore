@@ -1,5 +1,9 @@
 package ru.asl.api.ejcore.entity;
 
+import static ru.asl.core.Core.getAttr;
+
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -22,11 +26,11 @@ import ru.asl.api.ejcore.value.util.MathUtil;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
-import ru.asl.modules.playerattr.basic.BasicAttr;
+import ru.asl.modules.attributes.BasicAttr;
 /**
  * Paths for Settings:<br>
  * &#8192;&#8192;player:<br>
- * &#8192;&#8192;• health<br>
+ * &#8192;&#8192;• health-max<br>
  * &#8192;&#8192;• health-regen<br>
  * &#8192;&#8192;• hunger-max<br>
  * &#8192;&#8192;• hunger-current<br>
@@ -66,27 +70,41 @@ import ru.asl.modules.playerattr.basic.BasicAttr;
  * В начале класса описаны константы путей переменных в {@link EPlayer#tempSettings}
  *
  */
-public class EPlayer implements EJPlayer {
+public final class EPlayer implements EJPlayer {
 
-	public static final String	LEVEL 				= "player.level",
-			HEALTH_MAX 			= "player.health",
-			HEALTH_REGEN 		= "player.health-regen",
-			HUNGER_MAX 			= "player.hunger-max",
-			HUNGER_CURRENT 		= "player.hunger-current",
-			CLASS_HEALTH 		= "player.classes.health",
-			CLASS_HEALTH_REGEN 	= "player.classes.health-regen",
-			CLASS_MANA 			= "player.classes.mana",
-			CLASS_MANA_REGEN 	= "player.classes.mana-regen",
-			CLASS_STAMINA 		= "player.classes.stamina",
-			CLASS_STAMINA_REGEN = "player.classes.stamina-regen",
-			CLASS_NAME 			= "player.classes.class-name",
-			CLASS_STRENGTH 		= "player.classes.attributes.strength",
-			CLASS_DEXTERITY 	= "player.classes.attributes.dexterity",
-			CLASS_INTELLIGENCE 	= "player.classes.attributes.intelligence",
-			CLASS_ENDURANCE 	= "player.classes.attributes.endurance",
+	public static final String
+	LEVEL 				= "player.level",
+	HEALTH_MAX 			= "player.health-max",
+	HEALTH_REGEN 		= "player.health-regen",
+	HUNGER_MAX 			= "player.hunger-max",
+	HUNGER_CURRENT 		= "player.hunger-current",
 
-			PARTY_ID			= "player.party",
-			GUILD_ID			= "player.guild";
+	CLASS_HEALTH 		= "player.classes.health-max",
+	CLASS_HEALTH_REGEN 	= "player.classes.health-regen",
+	CLASS_MANA 			= "player.classes.mana-max",
+	CLASS_MANA_REGEN 	= "player.classes.mana-regen",
+	CLASS_STAMINA 		= "player.classes.stamina-max",
+	CLASS_STAMINA_REGEN = "player.classes.stamina-regen",
+	CLASS_NAME 			= "player.classes.class-name",
+	CLASS_STRENGTH 		= "player.classes.attributes.strength",
+	CLASS_DEXTERITY 	= "player.classes.attributes.dexterity",
+	CLASS_INTELLIGENCE 	= "player.classes.attributes.intelligence",
+	CLASS_ENDURANCE 	= "player.classes.attributes.endurance",
+
+	RACE_HEALTH			= "player.race.health-max",
+	RACE_HEALTH_REGEN	= "player.race.health-regen",
+	RACE_MANA			= "player.race.mana-max",
+	RACE_MANA_REGEN		= "player.race.mana-regen",
+	RACE_STAMINA		= "player.race.stamina-max",
+	RACE_STAMINA_REGEN	= "player.race.stamina-regen",
+	RACE_NAME			= "player.race.race-name",
+	RACE_STRENGTH		= "player.race.attributes.strength",
+	RACE_DEXTERITY		= "player.race.attributes.dexterity",
+	RACE_INTELLIGENCE	= "player.race.attributes.intelligence",
+	RACE_ENDURANCE		= "player.race.attributes.endurance",
+
+	PARTY_ID			= "player.party",
+	GUILD_ID			= "player.guild";
 
 	public static ConcurrentMap<UUID, EPlayer> registeredEPlayers = new ConcurrentHashMap<>();
 
@@ -193,6 +211,17 @@ public class EPlayer implements EJPlayer {
 		return new double[] { values[0] + (values[0] * (multiplier[0] / 100)), values[1] + (values[1] * (multiplier[1] / 100)) };
 	}
 
+	public double getHealthSumm() {
+		final List<Entry<String, Double>> entryList = tempSettings.getKey("health-max");
+
+		double val = 0d;
+		for (final Entry<String,Double> entry : entryList) {
+			val+= entry.getValue();
+		}
+
+		return val;
+	}
+
 	/**
 	 * Добавляет предмет в слот виртуального инвентаря
 	 *
@@ -231,17 +260,17 @@ public class EPlayer implements EJPlayer {
 	@Override
 	public void updateStats() {
 		double defHealth = 20;
-		if (Core.getAttr() != null)
-			defHealth = getStatValue(Core.getAttr().getByKey("MAX_HEALTH"))[0];
+		if (getAttr() != null)
+			defHealth = getStatValue(getAttr().getByKey("MAX_HEALTH"))[0];
 
 		final double classHealth = tempSettings.getValue(CLASS_HEALTH, getLevel());
 
 		final double maxHealth = defHealth + classHealth;
 		changeMaxHealth(maxHealth >= 0 ? maxHealth : 1);
 
-		if (Core.getAttr() == null) return;
+		if (getAttr() == null) return;
 
-		final double speed = getStatValue(Core.getAttr().getByKey("SPEED"))[0];
+		final double speed = getStatValue(getAttr().getByKey("SPEED"))[0];
 
 		if ((speed >= 0)) getPlayer().setWalkSpeed((float) ((MathUtil.getPercentsOfValue(20, speed) / 100) >= 1.0f ? 1.0f : MathUtil.getPercentsOfValue(20, speed) / 100));
 	}
@@ -271,7 +300,7 @@ public class EPlayer implements EJPlayer {
 	 * @param saturation количество восполняемого насыщения (может быть негативным)
 	 */
 	public void feed(int hunger, float saturation) {
-		final double maxHunger = Core.getAttr() == null ? 20.0 : Math.floor(getStatValue(Core.getAttr().getByKey("MAX_HUNGER"))[0]);
+		final double maxHunger = getAttr() == null ? 20.0 : Math.floor(getStatValue(getAttr().getByKey("MAX_HUNGER"))[0]);
 		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 		float currSaturation = player.getSaturation();
 
@@ -302,7 +331,7 @@ public class EPlayer implements EJPlayer {
 	}
 
 	public void changeMaxHunger(double newValue) {
-		final double maxHunger = Core.getAttr() == null ? 20.0 : Math.floor(getStatValue(Core.getAttr().getByKey("MAX_HUNGER"))[0]);
+		final double maxHunger = getAttr() == null ? 20.0 : Math.floor(getStatValue(getAttr().getByKey("MAX_HUNGER"))[0]);
 		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 
 		final double hungerModifier = currHunger / maxHunger;

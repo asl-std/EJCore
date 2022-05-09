@@ -14,22 +14,22 @@ public abstract class PAPI extends PlaceholderExpansion {
 	public PAPI(JavaPlugin plugin, String identifier) {
 		this.plugin = plugin;
 		this.identifier = "ejc_" + identifier;
-		this.register();
+		register();
 	}
 
 	@Override
 	public String getAuthor() {
-		return "ASLTeam";
+		return "ASL";
 	}
 
 	@Override
 	public String getIdentifier() {
-		return this.identifier;
+		return identifier;
 	}
 
 	@Override
 	public String getPlugin() {
-		return "[EJCore] >" + this.plugin.getName();
+		return "[EJC] > " + plugin.getName();
 	}
 
 	@Override
