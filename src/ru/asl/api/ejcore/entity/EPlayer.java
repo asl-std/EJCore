@@ -251,6 +251,7 @@ public final class EPlayer implements EJPlayer {
 	public void unequipAll() {
 		for (final EquipSlot slot : EquipSlot.values())
 			removeEquip(slot);
+
 		updateStats();
 	}
 
@@ -327,7 +328,10 @@ public final class EPlayer implements EJPlayer {
 		attr.setBaseValue(newValue);
 		fixHealthBarScale();
 
-		player.setHealth(newValue * healthModifier);
+		if (newValue * healthModifier >= newValue)
+			player.setHealth(newValue);
+		else
+			player.setHealth(newValue * healthModifier);
 	}
 
 	public void changeMaxHunger(double newValue) {
