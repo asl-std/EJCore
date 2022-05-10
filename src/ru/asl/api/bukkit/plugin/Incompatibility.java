@@ -36,7 +36,7 @@ public class Incompatibility {
 			EText.warn(target.getName() + ": Plugin incompatibility found -> " + source.getName());
 		}
 
-		if (!it.hasNext()) {
+		if (!it.hasNext() && f) {
 			EText.warn("You will not receive any support due to plugin incompatibility");
 			EText.warn("            <---------- CAUTION ---------->");
 			EText.sendLB();
