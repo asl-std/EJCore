@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 
-import net.minecraft.server.packs.VanillaPackResources;
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.utils.ServerVersion;
 
@@ -42,9 +41,8 @@ public final class RefUtils {
 				final Class<?> hndlClass = handle.getClass();
 
 				pckg = hndlClass.getName().split("\\.");
-			} else {
-				final VanillaPackResources a = null;
 			}
+
 			if (pckg.length == 5) {
 				NMS.replace("UNSPECIFIC", pckg[3]);
 				debug += pckg[3] + " }";

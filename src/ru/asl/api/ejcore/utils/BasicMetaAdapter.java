@@ -175,6 +175,15 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		return -1;
 	}
 
+	public static int indexOf(List<String> lore, String check) {
+		for (int i = 0 ; i < lore.size() ; i++) {
+			if (EText.e(lore.get(i)).startsWith(EText.e(check)))
+				return i;
+		}
+
+		return -1;
+	}
+
 	public static boolean isPercent(List<String> lore, Pattern patt) {
 		matcher = patt.matcher(lore.toString().toLowerCase());
 		if (matcher.find())

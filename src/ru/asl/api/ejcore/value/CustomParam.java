@@ -14,7 +14,7 @@ public abstract class CustomParam {
 	@Getter private final String key;
 	@Getter private final String visualName;
 
-	private final Pattern patt;
+	@Getter private final Pattern pattern;
 
 	protected abstract boolean isAllowedValue(String value);
 
@@ -22,13 +22,13 @@ public abstract class CustomParam {
 		this.key = key;
 		visualName = file.getString("eimodule.util." + key, "&7" + WordUtils.capitalizeFully(toString()), true);
 
-		patt = Pattern.compile(EText.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)");
+		pattern = Pattern.compile(EText.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)");
 	}
 
 	public final String getValue(String from) {
 		String val = null;
 
-		final Matcher match = patt.matcher(EText.e(from).toLowerCase());
+		final Matcher match = pattern.matcher(EText.e(from).toLowerCase());
 
 		if (match.find())
 			val = match.group(1);
