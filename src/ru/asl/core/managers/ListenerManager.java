@@ -29,7 +29,8 @@ public class ListenerManager {
 	}
 
 	public void addListener(String pluginName, Listener listener) {
-		if (!ListenerManager.listeners.containsKey(pluginName)) ListenerManager.listeners.put(pluginName, listener);
+		if (!ListenerManager.listeners.containsKey(pluginName))
+			ListenerManager.listeners.put(pluginName, listener);
 	}
 
 	public void addListener(String pluginName, Listener listener, boolean condition) {
@@ -38,7 +39,8 @@ public class ListenerManager {
 	}
 
 	public void removeListener(String pluginName) {
-		if (ListenerManager.listeners.containsKey(pluginName)) ListenerManager.listeners.remove(pluginName);
+		if (ListenerManager.listeners.containsKey(pluginName))
+			ListenerManager.listeners.remove(pluginName);
 	}
 
 	public final void unregisterAll() {
