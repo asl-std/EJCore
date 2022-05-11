@@ -64,6 +64,8 @@ public class Core extends EJPlugin {
 	@Getter private static RefUtils reflections = null;
 	@Getter private static WeaponAttributesManager attr = null;
 
+	@Getter private static Server webServer;
+
 	@Getter private static RedstoneParts redstoneParts = null;
 
 	private static Core instance = null;
@@ -120,8 +122,11 @@ public class Core extends EJPlugin {
 		Core.getEventLoader().addListener("combatEventCustom", new CombatListener());
 		Core.getEventLoader().addListener("equip", new EquipListener());
 		Core.getEventLoader().addListener("equip", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
-		
-		Server.createServer();
+
+		if (Server.createServer()) {
+			webServer = new Server();
+			webServer.start();
+		}
 
 		ModuleManager.loadModules(getClassLoader());
 
@@ -148,8 +153,6 @@ public class Core extends EJPlugin {
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
 		EText.sendLB();
 		Incompatibility.check();
-		
-		new Server();
 	}
 
 	@Override
