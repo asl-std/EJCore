@@ -21,3 +21,7 @@ enable-attack-cooldown: true
 
 modules:
   player-attributes-enabled: false
+
+#ejServer settings
+ej-server-enabled: false
+ej-server-port: 8080

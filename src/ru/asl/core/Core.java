@@ -37,6 +37,7 @@ import ru.asl.core.managers.ModuleManager;
 import ru.asl.core.managers.Tests;
 import ru.asl.core.metrics.Metrics;
 import ru.asl.core.tasks.InitialiseEJPluginsTask;
+import ru.asl.core.webserver.Server;
 import ru.asl.modules.attributes.managers.WeaponAttributesManager;
 
 public class Core extends EJPlugin {
@@ -119,6 +120,8 @@ public class Core extends EJPlugin {
 		Core.getEventLoader().addListener("combatEventCustom", new CombatListener());
 		Core.getEventLoader().addListener("equip", new EquipListener());
 		Core.getEventLoader().addListener("equip", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
+		
+		Server.createServer();
 
 		ModuleManager.loadModules(getClassLoader());
 
@@ -145,6 +148,8 @@ public class Core extends EJPlugin {
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
 		EText.sendLB();
 		Incompatibility.check();
+		
+		new Server();
 	}
 
 	@Override
