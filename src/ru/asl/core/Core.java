@@ -36,6 +36,7 @@ import ru.asl.core.managers.ListenerManager;
 import ru.asl.core.managers.ModuleManager;
 import ru.asl.core.managers.Tests;
 import ru.asl.core.metrics.Metrics;
+import ru.asl.core.social.bots.discord.BotMain;
 import ru.asl.core.tasks.InitialiseEJPluginsTask;
 import ru.asl.core.webserver.Server;
 import ru.asl.modules.attributes.managers.WeaponAttributesManager;
@@ -65,6 +66,7 @@ public class Core extends EJPlugin {
 	@Getter private static WeaponAttributesManager attr = null;
 
 	@Getter private static Server webServer;
+	@Getter private static BotMain EJDiscordBot;
 
 	@Getter private static RedstoneParts redstoneParts = null;
 
@@ -126,6 +128,10 @@ public class Core extends EJPlugin {
 		if (Server.createServer()) {
 			webServer = new Server();
 			webServer.start();
+		}
+		EJDiscordBot = new BotMain();
+		if(Core.getCfg().getBoolean("discord.ej-discordbot-enabled",false,true)) {
+			new Thread(EJDiscordBot).start();
 		}
 
 		ModuleManager.loadModules(getClassLoader());

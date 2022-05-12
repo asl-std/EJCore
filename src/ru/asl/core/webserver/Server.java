@@ -14,7 +14,6 @@ public class Server extends Thread {
 
 	@Getter private static HttpServer EJServer;
 
-	@Getter private static Object[] endpoints;
 
 	public Server() {}
 

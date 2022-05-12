@@ -25,3 +25,8 @@ modules:
 #ejServer settings
 ej-server-enabled: false
 ej-server-port: 8080
+
+#ejDiscordBot settings
+discord:
+  ej-discordbot-enabled: false
+  bot-token: replace here with token

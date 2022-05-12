@@ -171,6 +171,12 @@
   			<version>2.9.2-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency> -->
+		
+		<dependency>
+    		<groupId>net.dv8tion</groupId>
+    		<artifactId>JDA</artifactId>
+    	<version>5.0.0-alpha.11</version> 
+</dependency>
 
 	</dependencies>
 
