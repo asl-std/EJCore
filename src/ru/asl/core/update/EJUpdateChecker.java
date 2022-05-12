@@ -19,7 +19,7 @@ import ru.asl.api.ejcore.value.util.ValueUtil;
 
 public class EJUpdateChecker {
 
-	public static List<EJPlugin> registeredEJPlugins = new ArrayList<>();
+	private static List<EJPlugin> registeredEJPlugins = new ArrayList<>();
 
 	public static void checkUpdates() {
 
@@ -43,7 +43,7 @@ public class EJUpdateChecker {
 		final String prefix = ((p instanceof ConsoleCommandSender) ? "&5[&2EJC&5]&f: &3> " : "");
 
 		if (p instanceof Player)
-			EText.send(p, "&c»------>&5 ejRPG Update Checker");
+			EText.send(p, "&c»------>&5 ejCore Update Checker");
 
 		for (final EJPlugin plugin : registeredEJPlugins) {
 
@@ -58,7 +58,7 @@ public class EJUpdateChecker {
 		EText.send(p, prefix + "&3https://www.spigotmc.org/resources/authors/115181/");
 
 		if (p instanceof Player)
-			EText.send(p, "&c»------>&5 ejRPG Update Checker");
+			EText.send(p, "&c»------>&5 ejCore Update Checker");
 
 		if (p instanceof ConsoleCommandSender)
 			EText.sendLB();

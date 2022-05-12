@@ -34,7 +34,7 @@ public class CoreCommandHandler extends BasicCommandHandler {
 	public CoreCommandHandler() {
 		super(Core.instance(), "ejc");
 		registerCommand(new BasicCommand(this, "help", (s, args) -> {
-			EText.send(s, "&c»------>&5[&6Elephant&Jaguar RPG Core&5&l]");
+			EText.send(s, "&c»------>&5[&6Elephant&Jaguar Plugin Core&5&l]");
 			final List<ECommand> commands = new ArrayList<>(getRegisteredCommands());
 			commands.add(getDefaultCommand());
 			for (final ECommand command : commands)
@@ -43,13 +43,18 @@ public class CoreCommandHandler extends BasicCommandHandler {
 							"&6" + command.getUsage() +
 							" - &2" + command.getDescription() +
 							(s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
-			EText.send(s, "&c»------>&5[&6Elephant&Jaguar RPG Core&5&l]");
+			EText.send(s, "&c»------>&5[&6Elephant&Jaguar Plugin Core&5&l]");
 		}));
 
 		registerCommand(new BasicCommand(this, "dump", (s, args) -> {
 			final EPlayer p = EPlayer.getEPlayer((Player)s);
 			p.getTempSettings().dumpToFile();
 			p.getSettings().dumpToFile();
+		}));
+
+		registerCommand(new BasicCommand(this, "reload", (s, args) -> {
+			Core.instance().reloadPlugin();
+			Core.instance().reloadPlugins();
 		}));
 		//registerCommand(CoreCommandHandler.getReloadCommand());
 	}

@@ -50,8 +50,8 @@ public class InitialiseEJPluginsTask extends BukkitRunnable {
 		EText.fine("&aAll EJPlugins succesfuly loaded in " + EText.format((aft-bef)/1e9) +" sec.");
 		EText.sendLB();
 
-		Bukkit.getScheduler().cancelTask(getTaskId());
 		CancelJoinBeforeFullLoading.unregister();
+		Bukkit.getScheduler().cancelTask(getTaskId());
 	}
 }
 

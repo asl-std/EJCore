@@ -64,6 +64,7 @@ public class Core extends EJPlugin {
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static RefUtils reflections = null;
 	@Getter private static WeaponAttributesManager attr = null;
+	private static LinkedList<EJPlugin> plugins;
 
 	@Getter private static Server webServer;
 	@Getter private static BotMain EJDiscordBot;
@@ -72,6 +73,7 @@ public class Core extends EJPlugin {
 
 	private static Core instance = null;
 	public  static Core instance() { return Core.instance; }
+
 
 	/*@Override public void onLoad() {
 		NBTInjector.inject();
@@ -136,7 +138,7 @@ public class Core extends EJPlugin {
 
 		ModuleManager.loadModules(getClassLoader());
 
-		final LinkedList<EJPlugin> plugins = new LinkedList<>();
+		plugins = new LinkedList<>();
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin instanceof EJPlugin && !plugin.getName().equalsIgnoreCase("ejCore"))
 				plugins.add((EJPlugin) plugin);
@@ -153,7 +155,6 @@ public class Core extends EJPlugin {
 		registerAttrManager();
 
 		new CoreCommandHandler().registerHandler();
-
 
 		final long aft = System.nanoTime();
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
@@ -175,6 +176,11 @@ public class Core extends EJPlugin {
 			attr = new WeaponAttributesManager();
 			attr.registerDefaultAttributes();
 		}
+	}
+
+	public void reloadPlugins() {
+		for (final EJPlugin plugin : plugins)
+			plugin.reloadPlugin();
 	}
 
 }
