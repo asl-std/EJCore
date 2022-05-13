@@ -114,7 +114,7 @@ public class EText {
 		msg = ChatColor.translateAlternateColorCodes('&', msg);
 
 		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_16)) {
-			final Pattern hexPattern = Pattern.compile("\\&\\#([A-Fa-f0-9]{6})");
+			final Pattern hexPattern = Pattern.compile("\\{\\#([A-Fa-f0-9]{6})\\}");
 			final Matcher matcher = hexPattern.matcher(msg);
 			final StringBuffer buffer = new StringBuffer(msg.length() + 4 * 8);
 			while (matcher.find())
