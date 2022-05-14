@@ -30,7 +30,7 @@ public final class ExperienceBonus extends BasicAttr implements Listener {
 
 			final double[] expBonus = rp.getStatValue(this);
 
-			final double expRec = e.getDroppedExp() + e.getDroppedExp()*(expBonus[0]/100);
+			final double expRec = e.getDroppedExp()*(expBonus[0]/100);
 			final double currExp = p.getExp()*p.getExpToLevel();
 
 			double summExp = expRec+currExp;

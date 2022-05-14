@@ -9,10 +9,16 @@ import ru.asl.api.bukkit.location.Vector3D;
 
 public class BlockUtil {
 
-	public List<Block> getBlocksInRadius(Block target, int radius) {
+	public static List<Block> getBlocksInRadius(Block target, int radius) {
 		final List<Block> blocks = new ArrayList<>();
 
 		final Vector3D center = Vector3D.fromLocation(target.getLocation());
+
+		if (radius%2 == 0)
+			radius-=1;
+
+		if (radius > 1)
+			radius /= 2;
 
 		for (int x = -radius ; x < radius ; x++)
 			for (final int y = -radius ; y < radius ; x++)
