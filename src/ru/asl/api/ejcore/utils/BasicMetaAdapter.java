@@ -34,7 +34,12 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		if (contains(lore, patt)) {
 			matcher = patt.matcher(EText.e(lore.toString()).toLowerCase());
 			if (matcher.find())
-				value = matcher.group(1);
+				try {
+					value = matcher.group(1);
+				} catch (final IllegalStateException e) {
+					EText.debug(patt.pattern());
+					EText.debug(lore.toString());
+				}
 		}
 
 		return value == null ? "" : value;

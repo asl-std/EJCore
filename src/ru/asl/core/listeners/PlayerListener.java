@@ -61,8 +61,16 @@ public class PlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void throwPlayerBlockMove(PlayerMoveEvent e) {
 		if (!e.isCancelled())
-			if (Vector3D.blockEquals(e.getFrom(), e.getTo()))
+			if (Vector3D.blockEquals(e.getFrom(), e.getTo())) {
+				final PlayerBlockMoveEvent event = new PlayerBlockMoveEvent(e.getPlayer(),e.getFrom(),e.getTo());
 				Bukkit.getPluginManager().callEvent(new PlayerBlockMoveEvent(e.getPlayer(),e.getFrom(),e.getTo()));
+				if (event.isCancelled()) {
+					e.setCancelled(true);
+					return;
+				}
+				if (event.isLocChanged())
+					e.setTo(e.getTo().add(event.getTo().getX(), event.getTo().getY(), event.getTo().getZ()));
+			}
 	}
 
 }

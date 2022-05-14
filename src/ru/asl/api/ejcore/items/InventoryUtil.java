@@ -33,14 +33,14 @@ public final class InventoryUtil {
 					storage[i] = inv;
 				} else
 					storage[i] = null;
-				p.getInventory().setStorageContents(storage);
+				p.getInventory().setContents(storage);
 				return;
 			}
 	}
 
 	public static void decreaseItemChecksNameAmount(ItemStack stack, String name, Player p, int amount) {
 		if (stack == null) return;
-		final ItemStack[] storage = p.getInventory().getStorageContents();
+		final ItemStack[] storage = p.getInventory().getContents();
 		final String toCheck = stack == null ? name : ItemStackUtil.getDisplayName(stack);
 		final Material type = stack.getType();
 		for (int i = 0; i < storage.length; i++)
@@ -52,7 +52,7 @@ public final class InventoryUtil {
 					storage[i] = inv;
 				} else
 					storage[i] = null;
-				p.getInventory().setStorageContents(storage);
+				p.getInventory().setContents(storage);
 				return;
 			}
 	}

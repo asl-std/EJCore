@@ -7,9 +7,9 @@ public class HookManager {
 
 	public static void tryHookPAPI() {
 		if (!isPluginEnabled("PlaceholderAPI"))
-			EText.warn("&4I can't create new PAPI expansion because PlaceholderAPI not installed.");
+			EText.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
 		else
-			EText.warn("&4PAPI expansion loaded!");
+			EText.fine("PAPI expansion loaded!");
 	}
 
 	public static boolean isPluginEnabled(String pluginName) {
