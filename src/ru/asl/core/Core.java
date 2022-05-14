@@ -26,6 +26,7 @@ import ru.asl.api.ejcore.utils.ServerVersion;
 import ru.asl.core.commands.CoreCommandHandler;
 import ru.asl.core.configs.EConfig;
 import ru.asl.core.configs.LangConfig;
+import ru.asl.core.database.DBinit;
 import ru.asl.core.listeners.CombatListener;
 import ru.asl.core.listeners.EquipListener;
 import ru.asl.core.listeners.EquipListener1_13;
@@ -127,13 +128,14 @@ public class Core extends EJPlugin {
 		Core.getEventLoader().addListener("equip", new EquipListener());
 		Core.getEventLoader().addListener("equip", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
+		new DBinit().init(instance);
+		
 		if (Server.createServer()) {
 			webServer = new Server();
 			webServer.start();
 		}
-		EJDiscordBot = new BotMain();
 		if(Core.getCfg().getBoolean("discord.ej-discordbot-enabled",false,true)) {
-			new Thread(EJDiscordBot).start();
+			new Thread(new BotMain()).start();
 		}
 
 		ModuleManager.loadModules(getClassLoader());

@@ -33,10 +33,10 @@ public class Server extends Thread {
 	}
 
 	public static boolean createServer() {
-		if (Core.getCfg().getBoolean("ej-server-enabled"))
+		if (Core.getCfg().getBoolean("ej-server.server-enabled", false, true))
 			try {
 				EJServer = HttpServer.create(
-						new InetSocketAddress(Core.getCfg().getInt("ej-server-port", 8080, true)), 0
+						new InetSocketAddress(Core.getCfg().getInt("ej-server.server-port", 8080, true)), 0
 						);
 				return true;
 			} catch (final IOException e) { e.printStackTrace(); }

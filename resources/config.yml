@@ -23,10 +23,17 @@ modules:
   player-attributes-enabled: false
 
 #ejServer settings
-ej-server-enabled: false
-ej-server-port: 8080
+ej-server:
+  server-enabled: false
+  server-port: 8080
 
 #ejDiscordBot settings
 discord:
   ej-discordbot-enabled: false
   bot-token: replace here with token
+  
+#MySQL prop
+mysql:
+  mysql-enabled: false
+  mysql-username: root
+  mysql-password: toor
