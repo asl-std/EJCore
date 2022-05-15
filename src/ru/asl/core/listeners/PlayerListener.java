@@ -58,7 +58,7 @@ public class PlayerListener implements Listener {
 		}.runTask(Core.instance());
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void throwPlayerBlockMove(PlayerMoveEvent e) {
 		if (!e.isCancelled())
 			if (Vector3D.blockEquals(e.getFrom(), e.getTo())) {
