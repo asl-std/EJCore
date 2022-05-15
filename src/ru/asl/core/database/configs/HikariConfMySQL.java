@@ -23,7 +23,7 @@ public class HikariConfMySQL {
 	        String url = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	        Connection connection = DriverManager.getConnection(url,username, password);
 
-	        String sql = "CREATE DATABASE " + databaseName;
+	        String sql = "CREATE DATABASE IF NOT EXISTS " + databaseName;
 
 	        Statement statement = connection.createStatement();
 	        statement.executeUpdate(sql);
@@ -35,8 +35,8 @@ public class HikariConfMySQL {
 		config.setPoolName("EJDataBaseMySQL");
 		config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		config.setJdbcUrl("jdbc:mysql://localhost:3306/"+databaseName+"?useSSL=false");
-		config.setUsername(Core.getCfg().getString("mysql-username"));
-		config.setPassword(Core.getCfg().getString("mysql-password"));
+		config.setUsername(username);
+		config.setPassword(password);
 		config.addDataSourceProperty("cachePrepStmts", "true");
 		config.addDataSourceProperty("prepStmtCacheSize", "250");
 		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
