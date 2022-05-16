@@ -43,8 +43,15 @@ import ru.asl.core.tasks.InitialiseEJPluginsTask;
 import ru.asl.core.webserver.Server;
 import ru.asl.modules.attributes.managers.WeaponAttributesManager;
 
+/**
+ * <p>Core class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class Core extends EJPlugin {
 
+	/** Constant <code>ANCIITAG</code> */
 	public static final String[] ANCIITAG = {
 			"&4#####################################################################",
 			"&5",
@@ -62,6 +69,7 @@ public class Core extends EJPlugin {
 
 	@Getter private static EConfig cfg;
 	@Getter private static LangConfig lang;
+	@Deprecated
 	@Getter private static ListenerManager eventLoader = null;
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static RefUtils reflections = null;
@@ -74,6 +82,11 @@ public class Core extends EJPlugin {
 	@Getter private static RedstoneParts redstoneParts = null;
 
 	private static Core instance = null;
+	/**
+	 * <p>instance.</p>
+	 *
+	 * @return a {@link ru.asl.core.Core} object
+	 */
 	public  static Core instance() { return Core.instance; }
 
 
@@ -81,6 +94,7 @@ public class Core extends EJPlugin {
 		NBTInjector.inject();
 	}*/
 
+	/** {@inheritDoc} */
 	@Override public void preInit() {
 		init();
 		// Just NBT-API init :)
@@ -88,10 +102,12 @@ public class Core extends EJPlugin {
 		it.setBoolean("init", true);
 	}
 
+	/** {@inheritDoc} */
 	@Override public int getPriority() {
 		return 0;
 	}
 
+	/** {@inheritDoc} */
 	@Override public void init() {
 		for (final String str : ANCIITAG) EText.send(str);
 		final long bef = System.nanoTime();
@@ -166,6 +182,7 @@ public class Core extends EJPlugin {
 		Incompatibility.check();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void disabling() {
 		for (final Player p : Bukkit.getOnlinePlayers())
@@ -173,6 +190,9 @@ public class Core extends EJPlugin {
 		Core.getEventLoader().unregisterAll();
 	}
 
+	/**
+	 * <p>registerAttrManager.</p>
+	 */
 	public void registerAttrManager() {
 		if (attr != null) return;
 
@@ -182,6 +202,9 @@ public class Core extends EJPlugin {
 		}
 	}
 
+	/**
+	 * <p>reloadPlugins.</p>
+	 */
 	public void reloadPlugins() {
 		for (final EJPlugin plugin : plugins)
 			plugin.reloadPlugin();

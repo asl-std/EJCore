@@ -15,8 +15,19 @@ import ru.asl.api.ejcore.items.InventoryUtil;
 import ru.asl.api.ejinventory.Pane;
 import ru.asl.core.Core;
 
+/**
+ * <p>PaneInteractListener class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class PaneInteractListener implements Listener {
 
+	/**
+	 * <p>onPaneClick.</p>
+	 *
+	 * @param event a {@link org.bukkit.event.inventory.InventoryClickEvent} object
+	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPaneClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null) return;
@@ -44,12 +55,22 @@ public class PaneInteractListener implements Listener {
 		}
 	}
 
+	/**
+	 * <p>onPageClose.</p>
+	 *
+	 * @param event a {@link org.bukkit.event.inventory.InventoryCloseEvent} object
+	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPageClose(InventoryCloseEvent event) {
 		if (event.getInventory().getHolder() instanceof Pane)
 			((Pane) event.getInventory().getHolder()).returnItems((Player) event.getPlayer(), event);
 	}
 
+	/**
+	 * <p>onPaneDrag.</p>
+	 *
+	 * @param event a {@link org.bukkit.event.inventory.InventoryDragEvent} object
+	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPaneDrag(InventoryDragEvent event) {
 		if (event.getInventory().getHolder() instanceof Pane)

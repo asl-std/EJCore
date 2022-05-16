@@ -9,6 +9,12 @@ import org.bukkit.plugin.Plugin;
 
 import ru.asl.api.bukkit.message.EText;
 
+/**
+ * <p>Incompatibility class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class Incompatibility {
 
 	private static final Map<String, String> pluginsIncompat = new HashMap<String, String>() {{
@@ -16,6 +22,9 @@ public class Incompatibility {
 		put("ExecutableBlocks", "ElephantItems");
 	}};
 
+	/**
+	 * <p>check.</p>
+	 */
 	public static void check() {
 		Plugin source, target;
 		boolean f = false;

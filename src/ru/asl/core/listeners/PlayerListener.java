@@ -18,8 +18,19 @@ import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
 import ru.asl.core.update.EJUpdateChecker;
 
+/**
+ * <p>PlayerListener class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class PlayerListener implements Listener {
 
+	/**
+	 * <p>registerEPlayer.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.PlayerJoinEvent} object
+	 */
 	@EventHandler
 	public void registerEPlayer(PlayerJoinEvent e) {
 		new BukkitRunnable() {
@@ -42,6 +53,11 @@ public class PlayerListener implements Listener {
 
 	}
 
+	/**
+	 * <p>unregisterEPlayer.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.PlayerQuitEvent} object
+	 */
 	@EventHandler
 	public void unregisterEPlayer(PlayerQuitEvent e) {
 		new BukkitRunnable() {
@@ -58,6 +74,11 @@ public class PlayerListener implements Listener {
 		}.runTask(Core.instance());
 	}
 
+	/**
+	 * <p>throwPlayerBlockMove.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.PlayerMoveEvent} object
+	 */
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void throwPlayerBlockMove(PlayerMoveEvent e) {
 		if (!e.isCancelled())

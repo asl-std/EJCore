@@ -5,24 +5,31 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Consumer;
 
+/**
+ * <p>DoubleSettings class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class DoubleSettings extends Settings<Double> {
 
+	/** Constant <code>GlobalBinds</code> */
 	protected static ConcurrentMap<String, List<Consumer<Double>>> GlobalBinds = new ConcurrentHashMap<>();
 
 	/**
 	 * Checks if settings has a range custom key
 	 *
 	 * @return true if {@link java.util.Map} has a key
+	 * @param key a {@link java.lang.String} object
 	 */
 	public boolean hasRange(String key) {
 		return settings.containsKey(key+".first");
 	}
 
 	/**
-	 * Checks if settings has a BASE and SCALE
+	 * {@inheritDoc}
 	 *
-	 * @param key to search value in {@link java.util.Map}
-	 * @return true if {@link java.util.Map} has a key.base & key.scale
+	 * Checks if settings has a BASE and SCALE
 	 */
 	@Override
 	public boolean hasValue(String key) {
@@ -98,6 +105,7 @@ public class DoubleSettings extends Settings<Double> {
 		return range;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Double getValue(String key) {
 		return getValue(key, 0d);
@@ -109,6 +117,7 @@ public class DoubleSettings extends Settings<Double> {
 	 *
 	 * @param key to search value in {@link java.util.Map}
 	 * @return value or def
+	 * @param def a double
 	 */
 	public double getValue(String key, double def) {
 		if (hasKey(key))
@@ -162,37 +171,88 @@ public class DoubleSettings extends Settings<Double> {
 		return base + (scale * modifier);
 	}
 
+	/**
+	 * <p>copyValueFrom.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param from a {@link ru.asl.api.ejcore.value.DoubleSettings} object
+	 */
 	public void copyValueFrom(String key, DoubleSettings from) {
 		setValue(key, from.getBase(key), from.getScale(key));
 	}
 
+	/**
+	 * <p>setRange.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param first a double
+	 * @param second a double
+	 */
 	public void setRange(String key, double first, double second) {
 		setCustom(key+".first", first);
 		setCustom(key+".second", second);
 	}
 
+	/**
+	 * <p>setCustom.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param value a double
+	 */
 	public void setCustom(String key, double value) {
 		settings.put(key, value);
 	}
 
+	/**
+	 * <p>setBase.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param base a double
+	 */
 	public void setBase(String key, double base) {
 		setCustom(key+".base", base);
 	}
 
+	/**
+	 * <p>setScale.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param scale a double
+	 */
 	public void setScale(String key, double scale) {
 		setCustom(key+".scale", scale);
 	}
 
+	/**
+	 * <p>setValue.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param value a double
+	 * @param scale a double
+	 */
 	public void setValue(String key, double value, double scale) {
 		setBase(key, value);
 		setScale(key, scale);
 	}
 
+	/**
+	 * <p>addRange.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param first a double
+	 * @param second a double
+	 */
 	public void addRange(String key, double first, double second) {
 		addCustom(key+".first", first);
 		addCustom(key+".second", second);
 	}
 
+	/**
+	 * <p>addCustom.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param value a double
+	 */
 	public void addCustom(String key, double value) {
 		double val = 0D;
 		if (hasKey(key))
@@ -201,6 +261,13 @@ public class DoubleSettings extends Settings<Double> {
 		setCustom(key, val + value);
 	}
 
+	/**
+	 * <p>addValue.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param base a double
+	 * @param scale a double
+	 */
 	public void addValue(String key, double base, double scale) {
 		double vBase = 0D;
 		double vScale = 0D;
@@ -214,6 +281,12 @@ public class DoubleSettings extends Settings<Double> {
 		setScale(key, vScale + scale);
 	}
 
+	/**
+	 * <p>addBase.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param value a double
+	 */
 	public void addBase(String key, double value) {
 		double val = 0D;
 		if (hasBase(key))
@@ -222,6 +295,12 @@ public class DoubleSettings extends Settings<Double> {
 		setBase(key, val + value);
 	}
 
+	/**
+	 * <p>addScale.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param scale a double
+	 */
 	public void addScale(String key, double scale) {
 		double val = 0D;
 		if (hasScale(key))
@@ -230,6 +309,7 @@ public class DoubleSettings extends Settings<Double> {
 		setScale(key, val + scale);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setValue(String key, Double value) { this.setValue(key, value, 0D); }
 

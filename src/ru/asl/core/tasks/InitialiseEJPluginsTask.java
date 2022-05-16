@@ -13,16 +13,28 @@ import ru.asl.core.listeners.temp.CancelJoinBeforeFullLoading;
 import ru.asl.core.update.CheckUpdateTask;
 import ru.asl.core.update.EJUpdateChecker;
 
+/**
+ * <p>InitialiseEJPluginsTask class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class InitialiseEJPluginsTask extends BukkitRunnable {
 
 	private final List<EJPlugin> plugins;
 
+	/**
+	 * <p>Constructor for InitialiseEJPluginsTask.</p>
+	 *
+	 * @param plugins a {@link java.util.List} object
+	 */
 	public InitialiseEJPluginsTask(List<EJPlugin> plugins) {
 		this.plugins = plugins;
 
 		plugins.sort(Comparator.comparingInt(EJPlugin::getPriority));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	synchronized public void run() {
 		final long bef = System.nanoTime();

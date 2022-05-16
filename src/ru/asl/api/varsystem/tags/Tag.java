@@ -8,6 +8,12 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.value.StringSettings;
 import ru.asl.api.varsystem.reader.VarReader;
 
+/**
+ * <p>Tag class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class Tag extends ArrayList<String> {
 
 	private static final long serialVersionUID = 1L;
@@ -20,6 +26,11 @@ public class Tag extends ArrayList<String> {
 
 	@Getter private TagType type = TagType.DEFAULT;
 
+	/**
+	 * <p>Constructor for Tag.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 */
 	public Tag(String key) {
 		this.key = key.indexOf("{") == -1 ? key : key.substring(0, key.indexOf("{"));
 
@@ -40,6 +51,12 @@ public class Tag extends ArrayList<String> {
 
 	}
 
+	/**
+	 * <p>Constructor for Tag.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @param elements a {@link java.lang.String} object
+	 */
 	public Tag(String key, String... elements) {
 		this(key);
 
@@ -48,6 +65,12 @@ public class Tag extends ArrayList<String> {
 		}
 	}
 
+	/**
+	 * <p>get.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public String get(String key) {
 		if (type == TagType.DEFAULT) {
 			for (final String search : this.toArray(new String[size()])) {
@@ -63,6 +86,7 @@ public class Tag extends ArrayList<String> {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String get(int index) {
 		if (type == TagType.DEFAULT)
@@ -73,6 +97,7 @@ public class Tag extends ArrayList<String> {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean add(String e) {
 		final boolean ret = super.add(e);
@@ -80,11 +105,13 @@ public class Tag extends ArrayList<String> {
 		return ret;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void add(int index, String element) {
 		super.add(index, element);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean addAll(Collection<? extends String> c) {
 		final boolean ret = super.addAll(c);
@@ -92,6 +119,7 @@ public class Tag extends ArrayList<String> {
 		return ret;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean addAll(int index, Collection<? extends String> c) {
 		final boolean ret = super.addAll(index, c);

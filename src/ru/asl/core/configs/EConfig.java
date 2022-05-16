@@ -3,16 +3,29 @@ package ru.asl.core.configs;
 import ru.asl.api.bukkit.plugin.EJPlugin;
 import ru.asl.api.ejcore.yaml.EJConf;
 
+/**
+ * <p>EConfig class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class EConfig extends EJConf {
 
 	public boolean	ONE_HP_BAR, ENABLE_CONSOLE_COLORS;
 	public int		HEALTH_PER_BAR, UPDATE_PERIOD;
 	public boolean	DEBUG_RUNNING, ENABLE_ATTACK_COOLDOWN, CHECK_UPDATE, PLAYER_ATTRIBUTES_ENABLED;
 
+	/**
+	 * <p>Constructor for EConfig.</p>
+	 *
+	 * @param fileName a {@link java.lang.String} object
+	 * @param plugin a {@link ru.asl.api.bukkit.plugin.EJPlugin} object
+	 */
 	public EConfig(String fileName, EJPlugin plugin) {
 		super(fileName, plugin);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void loadConfig() {
 		ENABLE_CONSOLE_COLORS = this.getBoolean("enable-console-colors", true, true);

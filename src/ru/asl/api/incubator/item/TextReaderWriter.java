@@ -11,8 +11,20 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 
+/**
+ * <p>TextReaderWriter class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class TextReaderWriter {
 
+	/**
+	 * <p>write.</p>
+	 *
+	 * @param list a {@link java.lang.Class} object
+	 * @param toFile a {@link java.io.File} object
+	 */
 	public static void write(Class<? extends Enum<?>> list, File toFile) {
 		try(final BufferedWriter fw = new BufferedWriter (new FileWriter(toFile));) {
 			final Map<String, String> mat = new ConcurrentHashMap<>();
@@ -52,6 +64,14 @@ public class TextReaderWriter {
 		}
 	}
 
+	/**
+	 * <p>levenshtein.</p>
+	 *
+	 * @param stringOne a {@link java.lang.String} object
+	 * @param stringTwo a {@link java.lang.String} object
+	 * @param caseSensitive a boolean
+	 * @return a int
+	 */
 	public static int levenshtein(String stringOne, String stringTwo, boolean caseSensitive) {
 		// if we want to ignore case sensitivity, lower case the strings
 		if (!caseSensitive) {

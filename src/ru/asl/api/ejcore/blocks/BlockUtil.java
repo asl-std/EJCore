@@ -7,8 +7,21 @@ import org.bukkit.block.Block;
 
 import ru.asl.api.bukkit.location.Vector3D;
 
+/**
+ * <p>BlockUtil class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class BlockUtil {
 
+	/**
+	 * <p>getBlocksCuboid.</p>
+	 *
+	 * @param target a {@link org.bukkit.block.Block} object
+	 * @param radius a int
+	 * @return a {@link java.util.List} object
+	 */
 	public static List<Block> getBlocksCuboid(Block target, int radius) {
 		final List<Block> blocks = new ArrayList<>();
 
@@ -26,6 +39,13 @@ public class BlockUtil {
 		return blocks;
 	}
 
+	/**
+	 * <p>getBlocksFlat.</p>
+	 *
+	 * @param target a {@link org.bukkit.block.Block} object
+	 * @param radius a int
+	 * @return a {@link java.util.List} object
+	 */
 	public static List<Block> getBlocksFlat(Block target, int radius) {
 		final List<Block> blocks = new ArrayList<>();
 

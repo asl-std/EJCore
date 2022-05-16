@@ -11,12 +11,21 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.core.Core;
 
+/**
+ * <p>CancelJoinBeforeFullLoading class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class CancelJoinBeforeFullLoading implements Listener {
 
 	private static CancelJoinBeforeFullLoading instance;
 
 	private static boolean registered = false;
 
+	/**
+	 * <p>register.</p>
+	 */
 	public static void register() {
 		if (instance != null) return;
 		instance = new CancelJoinBeforeFullLoading();
@@ -24,11 +33,19 @@ public class CancelJoinBeforeFullLoading implements Listener {
 		registered = true;
 	}
 
+	/**
+	 * <p>unregister.</p>
+	 */
 	public static void unregister() {
 		if (registered)
 			HandlerList.unregisterAll(instance);
 	}
 
+	/**
+	 * <p>onJoin.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.AsyncPlayerPreLoginEvent} object
+	 */
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(AsyncPlayerPreLoginEvent e) {
 		e.setLoginResult(Result.KICK_OTHER);

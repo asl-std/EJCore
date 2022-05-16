@@ -15,10 +15,21 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.bukkit.plugin.EJPlugin;
 import ru.asl.api.ejcore.yaml.YAML;
 
+/**
+ * <p>Abstract BasicCommandHandler class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 	protected Map<String, ECommand> commands = new HashMap<>();
 
+	/**
+	 * <p>getRegisteredCommands.</p>
+	 *
+	 * @return a {@link java.util.Collection} object
+	 */
 	public Collection<ECommand> getRegisteredCommands() { return commands.values(); }
 
 	private ECommand defCommand;
@@ -27,15 +38,23 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 	@Getter private String label;
 	protected EJPlugin plugin;
 
+	/**
+	 * <p>Constructor for BasicCommandHandler.</p>
+	 *
+	 * @param plugin a {@link ru.asl.api.bukkit.plugin.EJPlugin} object
+	 * @param label a {@link java.lang.String} object
+	 */
 	public BasicCommandHandler(EJPlugin plugin, String label) {
 		this.plugin = plugin;
 		cmdFile = new YAML(plugin.getDataFolder() + "/commands.yml", plugin);
 		this.label = label; //cmdFile.getString("main-label", label, true);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public ECommand getDefaultCommand() { return defCommand; }
 
+	/** {@inheritDoc} */
 	@Override
 	public void registerCommand(ECommand command) {
 		if (defCommand == null) { defCommand = command; return; }
@@ -43,10 +62,14 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 		commands.put(command.getName(), command);
 	}
 
+	/**
+	 * <p>registerHandler.</p>
+	 */
 	public void registerHandler() {
 		plugin.getCommand(label).setExecutor(this);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		ECommand cmd = null;

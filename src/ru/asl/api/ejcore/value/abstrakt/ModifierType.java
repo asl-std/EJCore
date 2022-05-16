@@ -3,6 +3,12 @@ package ru.asl.api.ejcore.value.abstrakt;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>ModifierType class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public enum ModifierType {
 	POSITIVE,
 	POSITIVE_PERCENTS,
@@ -10,8 +16,16 @@ public enum ModifierType {
 	NEGATIVE,
 	NEGATIVE_PERCENTS;
 
+	/** Constant <code>check</code> */
 	public static final Pattern check = Pattern.compile("^([-+]?)(\\d*\\.?\\d*)\\-?\\d*\\.?\\d*([%]?)$");
 
+	/** Constant <code>matcher</code> */
+	/**
+	 * <p>getFromValue.</p>
+	 *
+	 * param val a {@link java.lang.String} object
+	 * return a {@link ru.asl.api.ejcore.value.abstrakt.ModifierType} object
+	 */
 	public static Matcher matcher;
 
 	public static ModifierType getFromValue(String val) {
@@ -39,6 +53,13 @@ public enum ModifierType {
 		throw new NumberFormatException("Can't get number type from value: " + val);
 	}
 
+	/**
+	 * <p>getFromValue.</p>
+	 *
+	 * @param value a double
+	 * @param percents a boolean
+	 * @return a {@link ru.asl.api.ejcore.value.abstrakt.ModifierType} object
+	 */
 	public static ModifierType getFromValue(double value, boolean percents) {
 		if (value > 0)
 			if (percents)
@@ -52,18 +73,38 @@ public enum ModifierType {
 				return NEGATIVE;
 	}
 
+	/**
+	 * <p>isNegative.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isNegative() {
 		return this == NEGATIVE || this == NEGATIVE_PERCENTS;
 	}
 
+	/**
+	 * <p>isPositive.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isPositive() {
 		return this == POSITIVE || this == POSITIVE_PERCENTS;
 	}
 
+	/**
+	 * <p>isPercents.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isPercents() {
 		return this == POSITIVE_PERCENTS || this == ModifierType.NEGATIVE_PERCENTS;
 	}
 
+	/**
+	 * <p>reverse.</p>
+	 *
+	 * @return a {@link ru.asl.api.ejcore.value.abstrakt.ModifierType} object
+	 */
 	public ModifierType reverse() {
 		switch(this) {
 			case NEGATIVE:

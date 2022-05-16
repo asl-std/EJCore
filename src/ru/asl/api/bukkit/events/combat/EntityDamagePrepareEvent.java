@@ -11,16 +11,28 @@ import lombok.NonNull;
 import lombok.Setter;
 import ru.asl.api.bukkit.events.combat.CombatEvent.CombatType;
 
+/**
+ * <p>EntityDamagePrepareEvent class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @AllArgsConstructor
 public class EntityDamagePrepareEvent extends Event {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
+	/** {@inheritDoc} */
 	@Override
 	public HandlerList getHandlers() {
 		return HANDLERS;
 	}
 
+	/**
+	 * <p>getHandlerList.</p>
+	 *
+	 * @return a {@link org.bukkit.event.HandlerList} object
+	 */
 	public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}

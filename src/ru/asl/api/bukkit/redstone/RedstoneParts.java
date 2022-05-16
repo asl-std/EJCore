@@ -11,10 +11,28 @@ import org.bukkit.block.Block;
 import ru.asl.api.bukkit.location.Vector3D;
 import ru.asl.core.Core;
 
+/**
+ * <p>Abstract RedstoneParts class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class RedstoneParts {
 
+	/**
+	 * <p>getBlocks.</p>
+	 *
+	 * @param from a {@link org.bukkit.block.Block} object
+	 * @return a {@link java.util.List} object
+	 */
 	public abstract List<Block> getBlocks(Block from);
 
+	/**
+	 * <p>isEnabledRedstone.</p>
+	 *
+	 * @param mat a {@link org.bukkit.Material} object
+	 * @return a boolean
+	 */
 	public abstract boolean isEnabledRedstone(Material mat);
 
 	private static List<Block> collectPoweredBlocks(List<Block> list) {
@@ -31,6 +49,12 @@ public abstract class RedstoneParts {
 		return list;
 	}
 
+	/**
+	 * <p>getNearBlocks.</p>
+	 *
+	 * @param from a {@link org.bukkit.block.Block} object
+	 * @return a {@link java.util.List} object
+	 */
 	public static List<Block> getNearBlocks(Block from) {
 		final List<Block> near = new ArrayList<>();
 		final World w = from.getLocation().getWorld();
@@ -41,6 +65,12 @@ public abstract class RedstoneParts {
 		return near;
 	}
 
+	/**
+	 * <p>blockWillBePowered.</p>
+	 *
+	 * @param from a {@link org.bukkit.block.Block} object
+	 * @return a boolean
+	 */
 	public static boolean blockWillBePowered(Block from) {
 		final List<Block> powered = new ArrayList<>();
 		final World w = from.getLocation().getWorld();

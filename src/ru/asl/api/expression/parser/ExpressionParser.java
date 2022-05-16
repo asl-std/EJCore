@@ -23,16 +23,31 @@ import ru.asl.api.expression.operations.Pow;
 import ru.asl.api.expression.operations.Subtract;
 import ru.asl.api.expression.operations.Variable;
 
+/**
+ * <p>ExpressionParser class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class ExpressionParser extends BaseParser implements Parser {
 	final static int MAX_LEVEL = levels.size() - 1;
 	private EnumBinaryOperation operation = Undefined;
 
+	/**
+	 * <p>Constructor for ExpressionParser.</p>
+	 *
+	 * @param source a {@link ru.asl.api.expression.parser.ExpressionSource} object
+	 */
 	public ExpressionParser(ExpressionSource source) {
 		setSource(source);
 	}
 
+	/**
+	 * <p>Constructor for ExpressionParser.</p>
+	 */
 	public ExpressionParser() { }
 
+	/** {@inheritDoc} */
 	@Override
 	public Expression parse(String expression) throws ParsingException {
 		return parse(new StringSource(expression));

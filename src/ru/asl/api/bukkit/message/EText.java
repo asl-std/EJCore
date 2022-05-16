@@ -15,29 +15,74 @@ import org.bukkit.entity.Player;
 import ru.asl.api.ejcore.utils.ServerVersion;
 import ru.asl.core.Core;
 
+/**
+ * <p>EText class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class EText {
 
+	/** Constant <code>enableConsoleColoring=true</code> */
 	public static boolean enableConsoleColoring = true;
 
+	/** Constant <code>COLOR_CHAR='\u00A7'</code> */
 	public static final char COLOR_CHAR = '\u00A7';
 
+	/** Constant <code>lineBreak="&amp;4#################################"{trunked}</code> */
 	public static final String lineBreak = "&4######################################################################";
+	/** Constant <code>halfLineBreak="&amp;4#################################"{trunked}</code> */
 	public static final String halfLineBreak = "&4###################################";
 
+	/** Constant <code>prefix="EJC"</code> */
 	public static final String prefix = "EJC";
 
+	/**
+	 * <p>warn.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 */
 	public static void warn(String msg) { warn(msg, prefix); }
 
+	/**
+	 * <p>fine.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 */
 	public static void fine(String msg) { fine(msg, prefix); }
 
+	/**
+	 * <p>debug.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 */
 	public static void debug(String msg) { debug(msg, prefix); }
 
+	/**
+	 * <p>warn.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 * @param prefix a {@link java.lang.String} object
+	 */
 	public static void warn(String msg, String prefix) { send("&5[&2"+ prefix +"&5]&f: &4> " + msg); }
 
+	/**
+	 * <p>fine.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 * @param prefix a {@link java.lang.String} object
+	 */
 	public static void fine(String msg, String prefix) { send("&5[&2"+ prefix +"&5]&f: &3> &a" + msg); }
 
+	/**
+	 * <p>debug.</p>
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 * @param prefix a {@link java.lang.String} object
+	 */
 	public static void debug(String msg, String prefix) { if (Core.getCfg().DEBUG_RUNNING) send("&5[&2"+ prefix +"&5]&f: &3> &e" + msg); }
 
+	/** Constant <code>df</code> */
 	public static DecimalFormat df;
 
 	static {
@@ -58,11 +103,16 @@ public class EText {
 
 	/**
 	 * Round decimals to 2 digits after separator
+	 *
+	 * @param value a double
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String format(double value) { return df.format(value); }
 
 	/**
 	 * Send raw message to console.
+	 *
+	 * @param msg a {@link java.lang.Object} object
 	 */
 	public static void sendRaw(Object msg) {
 		if (msg == null)
@@ -73,14 +123,17 @@ public class EText {
 
 	/**
 	 * Send array with raw messages to console
-	 * {@link EText#sendRaw(Object)}
+	 * {@link ru.asl.api.bukkit.message.EText#sendRaw(Object)}
+	 *
+	 * @param msg an array of {@link java.lang.Object} objects
 	 */
 	public static void send(Object[] msg) { for(final Object obj : msg) sendRaw(obj); }
 
 	/**
 	 * Send message to CommandSender (Player or Console)
 	 *
-	 * @param receiver can be {@link Player} or {@link ConsoleCommandSender}
+	 * @param receiver can be {@link org.bukkit.entity.Player} or {@link org.bukkit.command.ConsoleCommandSender}
+	 * @param msg a {@link java.lang.String} object
 	 */
 	public static void send(Object receiver, String msg) {
 		if (receiver instanceof Player)
@@ -92,6 +145,8 @@ public class EText {
 
 	/**
 	 * Send formatted message to console
+	 *
+	 * @param msg a {@link java.lang.String} object
 	 */
 	public static void send(String msg) {
 		sendRaw(enableConsoleColoring ? c(msg) : e(msg));
@@ -108,7 +163,10 @@ public class EText {
 	public static void sendHLB() { send(halfLineBreak); }
 
 	/**
-	 * Colorises all '&' and hex colors
+	 * Colorizes all "&amp;" and hex colors
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String c(String msg) {
 		msg = ChatColor.translateAlternateColorCodes('&', msg);
@@ -134,14 +192,26 @@ public class EText {
 
 	/**
 	 * Strips all '§' color codes
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String s(String msg) { return ChatColor.stripColor(msg); }
 
 	/**
-	 * Erases all '&' and '§' color codes
+	 * Erases all '&amp;' and '§amp;' color codes
+	 *
+	 * @param msg a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
 	 */
 	public static String e(String msg) { return s(c(msg)); }
 
+	/**
+	 * <p>translateHexColorCodes.</p>
+	 *
+	 * @param message a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public String translateHexColorCodes(String message) {
 		final Pattern hexPattern = Pattern.compile("[#" + "([A-Fa-f0-9]{6})" + "]");
 		final Matcher matcher = hexPattern.matcher(message);
@@ -161,6 +231,9 @@ public class EText {
 
 	/**
 	 * Trims first argument and return all others
+	 *
+	 * @param args an array of {@link java.lang.String} objects
+	 * @return an array of {@link java.lang.String} objects
 	 */
 	public static String[] trimArgs(String[] args) {
 		if (args.length == 0) return new String[0];
@@ -169,6 +242,12 @@ public class EText {
 		return ret;
 	}
 
+	/**
+	 * <p>getSpaced.</p>
+	 *
+	 * @param args a {@link java.lang.Object} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public static String getSpaced(Object... args) {
 		final StringBuffer buff = new StringBuffer();
 

@@ -10,13 +10,23 @@ import com.sun.net.httpserver.HttpServer;
 import lombok.Getter;
 import ru.asl.core.Core;
 
+/**
+ * <p>Server class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class Server extends Thread {
 
 	@Getter private static HttpServer EJServer;
 
 
+	/**
+	 * <p>Constructor for Server.</p>
+	 */
 	public Server() {}
 
+	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		EJServer.createContext("/about", (exchange -> {
@@ -32,6 +42,11 @@ public class Server extends Thread {
 		EJServer.start();
 	}
 
+	/**
+	 * <p>createServer.</p>
+	 *
+	 * @return a boolean
+	 */
 	public static boolean createServer() {
 		if (Core.getCfg().getBoolean("ej-server.server-enabled", false, true))
 			try {

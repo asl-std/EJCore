@@ -5,8 +5,21 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * <p>InventoryUtil class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class InventoryUtil {
 
+	/**
+	 * <p>addItem.</p>
+	 *
+	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 * @return a boolean
+	 */
 	public static boolean addItem(ItemStack stack, Player p) {
 		if (stack == null) return false;
 
@@ -21,6 +34,13 @@ public final class InventoryUtil {
 		return true;
 	}
 
+	/**
+	 * <p>decreaseItemAmount.</p>
+	 *
+	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 * @param amount a int
+	 */
 	public static void decreaseItemAmount(ItemStack stack, Player p, int amount) {
 		final ItemStack[] storage = p.getInventory().getContents();
 		final String stackString = ItemStackUtil.toString(stack);
@@ -38,6 +58,14 @@ public final class InventoryUtil {
 			}
 	}
 
+	/**
+	 * <p>decreaseItemChecksNameAmount.</p>
+	 *
+	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * @param name a {@link java.lang.String} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 * @param amount a int
+	 */
 	public static void decreaseItemChecksNameAmount(ItemStack stack, String name, Player p, int amount) {
 		if (stack == null) return;
 		final ItemStack[] storage = p.getInventory().getContents();
@@ -57,14 +85,32 @@ public final class InventoryUtil {
 			}
 	}
 
+	/**
+	 * <p>decreaseItem.</p>
+	 *
+	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 */
 	public static void decreaseItem(ItemStack stack, Player p) {
 		InventoryUtil.decreaseItemAmount(stack,p,1);
 	}
 
+	/**
+	 * <p>decreaseItemChecksName.</p>
+	 *
+	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 */
 	public static void decreaseItemChecksName(ItemStack stack, Player p) {
 		InventoryUtil.decreaseItemChecksNameAmount(stack,"",p,1);
 	}
 
+	/**
+	 * <p>removeItem.</p>
+	 *
+	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 */
 	public static void removeItem(ItemStack stack, Player p) {
 		final ItemStack[] storage = p.getInventory().getStorageContents();
 		for (int i = 0; i < storage.length; i++)

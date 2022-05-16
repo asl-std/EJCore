@@ -3,6 +3,12 @@ package ru.asl.api.varsystem.reader;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * <p>VarTarget class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @AllArgsConstructor
 public enum VarTarget {
 	/** Создаёт новый объект указанного класса */

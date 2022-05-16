@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * <p>ValuePair class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @AllArgsConstructor
 public class ValuePair<T> {
 

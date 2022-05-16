@@ -6,6 +6,12 @@ import ru.asl.api.ejcore.value.abstrakt.ModifierType;
 import ru.asl.api.ejcore.value.util.MathUtil;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 
+/**
+ * <p>RandomSingleValue class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class RandomSingleValue implements RandomValue {
 
 	@Getter private boolean 		hasChance = false;
@@ -19,6 +25,15 @@ public class RandomSingleValue implements RandomValue {
 
 	private boolean isInteger = false;
 
+	/**
+	 * <p>Constructor for RandomSingleValue.</p>
+	 *
+	 * @param chance a double
+	 * @param firstValue a double
+	 * @param secondValue a double
+	 * @param perLevelValue a double
+	 * @param type a {@link ru.asl.api.ejcore.value.abstrakt.ModifierType} object
+	 */
 	public RandomSingleValue(double chance,	double firstValue, double secondValue, double perLevelValue,  @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }
 		this.perLevelValue = perLevelValue;
@@ -34,6 +49,7 @@ public class RandomSingleValue implements RandomValue {
 		this.secondValue = new Value(secondValue);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Value roll(double lvl) {
 		if (!ValueGenerator.isTrue(chance*10, 1000) && hasChance) return null;

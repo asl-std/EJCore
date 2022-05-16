@@ -9,6 +9,12 @@ import ru.asl.api.varsystem.triggers.OnDamage;
 import ru.asl.api.varsystem.triggers.OnItemEquip;
 import ru.asl.api.varsystem.triggers.OnSkill;
 
+/**
+ * <p>Abstract Trigger class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class Trigger {
 	/** Срабатывает когда цель атакует другая цель. (Моб, Игрок, Энтити) */
 	public static final Trigger ON_DAMAGE = new OnDamage("onDamage");
@@ -22,6 +28,11 @@ public abstract class Trigger {
 	@Getter private final String key;
 	@Getter private final List<Condition> allowedConditions;
 
+	/**
+	 * <p>Constructor for Trigger.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 */
 	protected Trigger(String key) {
 		this.key = key;
 		allowedConditions = new ArrayList<>();

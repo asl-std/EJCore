@@ -12,10 +12,22 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+/**
+ * <p>CombatEvent class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @AllArgsConstructor()
 public class CombatEvent extends Event implements Cancellable {
 	private static final HandlerList HANDLERS = new HandlerList();
+	/** {@inheritDoc} */
 	@Override public HandlerList getHandlers() { return HANDLERS; }
+	/**
+	 * <p>getHandlerList.</p>
+	 *
+	 * @return a {@link org.bukkit.event.HandlerList} object
+	 */
 	public static HandlerList getHandlerList() { return HANDLERS; }
 
 	@Getter @NonNull private Entity attacker;

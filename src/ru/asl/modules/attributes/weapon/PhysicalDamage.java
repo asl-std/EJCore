@@ -12,12 +12,27 @@ import ru.asl.modules.attributes.AttrType;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>PhysicalDamage class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class PhysicalDamage extends BasicAttr implements ListeningCombat {
 
+	/**
+	 * <p>Constructor for PhysicalDamage.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public PhysicalDamage(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel, AttrType.RANGE);
 	}
 
+	/** {@inheritDoc} */
 	@SuppressWarnings({ "null" })
 	@Override
 	public void listen(CombatEvent e) {

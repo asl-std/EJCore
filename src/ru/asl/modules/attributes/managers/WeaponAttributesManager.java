@@ -21,6 +21,12 @@ import ru.asl.modules.attributes.weapon.PhysicalDamage;
 import ru.asl.modules.attributes.weapon.RangedDamage;
 import ru.asl.modules.attributes.weapon.Reflect;
 
+/**
+ * <p>WeaponAttributesManager class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class WeaponAttributesManager {
 	/*public final BasicAttr
 	MAX_HEALTH 			= new MaxHealth			("MAX_HEALTH", 			"player.health"				 , 20.0, 0.0),
@@ -66,12 +72,22 @@ public class WeaponAttributesManager {
 
 	private final Map<String, BasicAttr> attributes = new ConcurrentHashMap<>();
 
+	/**
+	 * <p>getRegistered.</p>
+	 *
+	 * @return a {@link java.util.Collection} object
+	 */
 	public  final Collection<BasicAttr> getRegistered() { return attributes.values(); }
 
 	private List<BasicAttr> sortedList = new ArrayList<>();
 
 	private int size = -1;
 
+	/**
+	 * <p>Getter for the field <code>sortedList</code>.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public final  List<BasicAttr> getSortedList() {
 		if (size == attributes.size()) { return sortedList; }
 
@@ -84,6 +100,11 @@ public class WeaponAttributesManager {
 		return sortedList;
 	}
 
+	/**
+	 * <p>register.</p>
+	 *
+	 * @param attr a {@link ru.asl.modules.attributes.BasicAttr} object
+	 */
 	public final void register(BasicAttr attr) {
 		if (attr != null && !attributes.containsKey(attr.getKey())) {
 			attr.setUniquePosition(attributes.size());
@@ -107,6 +128,12 @@ public class WeaponAttributesManager {
 		}
 	}*/
 
+	/**
+	 * <p>getByKey.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @return a {@link ru.asl.modules.attributes.BasicAttr} object
+	 */
 	public final BasicAttr getByKey(String key) {
 		if (attributes.containsKey(key.toUpperCase()))
 			return attributes.get(key.toUpperCase());
@@ -114,6 +141,9 @@ public class WeaponAttributesManager {
 		return null;
 	}
 
+	/**
+	 * <p>reloadAttributes.</p>
+	 */
 	public final void reloadAttributes() {
 		for (final BasicAttr attr : getRegistered()) {
 			attr.initCustomSettings();
@@ -124,6 +154,9 @@ public class WeaponAttributesManager {
 		}
 	}
 
+	/**
+	 * <p>registerDefaultAttributes.</p>
+	 */
 	public final void registerDefaultAttributes() {
 
 		register(new MaxHealth		("MAX_HEALTH", 			"player.health-max"			 , 20.0, 	0.0));

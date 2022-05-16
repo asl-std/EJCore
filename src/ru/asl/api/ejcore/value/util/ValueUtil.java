@@ -2,8 +2,20 @@ package ru.asl.api.ejcore.value.util;
 
 import java.util.Random;
 
+/**
+ * <p>ValueUtil class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class ValueUtil {
 
+	/**
+	 * <p>isNegative.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a boolean
+	 */
 	public static boolean isNegative(String value) {
 		if (isNumber(value) && Double.parseDouble(value) < 0) return true;
 
@@ -11,6 +23,12 @@ public class ValueUtil {
 		return false;
 	}
 
+	/**
+	 * <p>isNumber.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a boolean
+	 */
 	public static boolean isNumber(String value) {
 		try {
 			Double.parseDouble(value);
@@ -20,19 +38,44 @@ public class ValueUtil {
 		}
 	}
 
+	/**
+	 * <p>isTrue.</p>
+	 *
+	 * @param chance a double
+	 * @param random a int
+	 * @return a boolean
+	 */
 	public static boolean isTrue(double chance, int random) {
 		return chance >= new Random().nextInt(random);
 	}
 
+	/**
+	 * <p>isString.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a boolean
+	 */
 	public static boolean isString(String value) {
 		return !isNumber(value);
 	}
 
+	/**
+	 * <p>isPercent.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a boolean
+	 */
 	public static boolean isPercent(String value) {
 		if (isString(value)) return value.contains("%");
 		return false;
 	}
 
+	/**
+	 * <p>parseLong.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a {@link java.lang.Long} object
+	 */
 	public static Long parseLong(String value) {
 		try {
 			return new Long(Long.parseLong(value));
@@ -42,6 +85,12 @@ public class ValueUtil {
 		}
 	}
 
+	/**
+	 * <p>parseDouble.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a {@link java.lang.Double} object
+	 */
 	public static Double parseDouble(String value) {
 		try {
 			return new Double(Double.parseDouble(value));
@@ -51,6 +100,12 @@ public class ValueUtil {
 		}
 	}
 
+	/**
+	 * <p>parseDouble.</p>
+	 *
+	 * @param values a {@link java.lang.String} object
+	 * @return an array of {@link double} objects
+	 */
 	public static double[] parseDouble(String... values) {
 		if (values.length < 1 || values[0] == null || !isNumber(values[0])) return new double[] { 0d };
 		final double[] result = new double[values.length];
@@ -62,6 +117,12 @@ public class ValueUtil {
 		return result;
 	}
 
+	/**
+	 * <p>parseInteger.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a {@link java.lang.Integer} object
+	 */
 	public static Integer parseInteger(String value) {
 		final Long req = parseLong(value);
 
@@ -70,6 +131,12 @@ public class ValueUtil {
 				req.intValue()));
 	}
 
+	/**
+	 * <p>parseShort.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a {@link java.lang.Short} object
+	 */
 	public static Short parseShort(String value) {
 		final Integer req = parseInteger(value);
 
@@ -78,6 +145,12 @@ public class ValueUtil {
 				req.shortValue()));
 	}
 
+	/**
+	 * <p>parseFloat.</p>
+	 *
+	 * @param value a {@link java.lang.String} object
+	 * @return a {@link java.lang.Float} object
+	 */
 	public static Float parseFloat(String value) {
 		final Double req = parseDouble(value);
 

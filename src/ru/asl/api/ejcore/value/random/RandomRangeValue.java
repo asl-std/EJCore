@@ -7,6 +7,12 @@ import lombok.NonNull;
 import ru.asl.api.ejcore.value.abstrakt.ModifierType;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 
+/**
+ * <p>RandomRangeValue class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class RandomRangeValue implements RandomValue {
 
 	@Getter private boolean 		hasChance;
@@ -21,6 +27,15 @@ public class RandomRangeValue implements RandomValue {
 
 	private boolean isInteger = false;
 
+	/**
+	 * <p>Constructor for RandomRangeValue.</p>
+	 *
+	 * @param chance a double
+	 * @param firstValue a {@link java.lang.String} object
+	 * @param secondValue a {@link java.lang.String} object
+	 * @param perLevelValue a {@link java.lang.String} object
+	 * @param type a {@link ru.asl.api.ejcore.value.abstrakt.ModifierType} object
+	 */
 	public RandomRangeValue(double chance, @NonNull String firstValue, @NonNull String secondValue, String perLevelValue, @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }
 
@@ -43,6 +58,7 @@ public class RandomRangeValue implements RandomValue {
 		this.secondValue = new Value(secondValue);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Value roll(double lvl) {
 		if (!ValueGenerator.isTrue(chance, 100)) return null;

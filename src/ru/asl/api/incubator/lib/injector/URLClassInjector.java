@@ -6,11 +6,23 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
 
+/**
+ * <p>Abstract URLClassInjector class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class URLClassInjector {
 	protected final URLClassLoader classLoader;
 
 	private static URLClassInjector injector;
 
+	/**
+	 * <p>Getter for the field <code>injector</code>.</p>
+	 *
+	 * @param classLoader a {@link java.net.URLClassLoader} object
+	 * @return a {@link ru.asl.api.incubator.lib.injector.URLClassInjector} object
+	 */
 	public static URLClassInjector getInjector(URLClassLoader classLoader) {
 		if (injector == null) {
 			if (ReflectionClassInjector.isSupported())
@@ -28,10 +40,20 @@ public abstract class URLClassInjector {
 				+ "'--add-opens java.base/java.lang=ALL-UNNAMED'", exception);
 	}
 
+	/**
+	 * <p>Constructor for URLClassInjector.</p>
+	 *
+	 * @param classLoader a {@link java.net.URLClassLoader} object
+	 */
 	public URLClassInjector(URLClassLoader classLoader) {
 		this.classLoader = classLoader;
 	}
 
+	/**
+	 * <p>addURL.</p>
+	 *
+	 * @param path a {@link java.net.URL} object
+	 */
 	public abstract void addURL(URL path);
 
 	public static class ReflectionClassInjector extends URLClassInjector {

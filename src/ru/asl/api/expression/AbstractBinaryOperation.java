@@ -7,10 +7,23 @@ import ru.asl.api.expression.exceptions.DivideByZeroException;
 import ru.asl.api.expression.exceptions.OverflowException;
 import ru.asl.api.expression.exceptions.ParsingException;
 
+/**
+ * <p>Abstract AbstractBinaryOperation class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class AbstractBinaryOperation implements CommonExpression {
 	EnumBinaryOperation op;
 	private final CommonExpression left, right;
 	private final List<String> variables;
+	/**
+	 * <p>Constructor for AbstractBinaryOperation.</p>
+	 *
+	 * @param left a {@link ru.asl.api.expression.CommonExpression} object
+	 * @param right a {@link ru.asl.api.expression.CommonExpression} object
+	 * @param op a {@link ru.asl.api.expression.EnumBinaryOperation} object
+	 */
 	public AbstractBinaryOperation(final CommonExpression left, final CommonExpression right, final EnumBinaryOperation op) {
 		this.left = left;
 		this.right = right;
@@ -20,24 +33,45 @@ public abstract class AbstractBinaryOperation implements CommonExpression {
 		variables.addAll(right.getVariables());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<String> getVariables() {
 		return new ArrayList<>(variables);
 	}
 
+	/**
+	 * <p>doubleCalculate.</p>
+	 *
+	 * @param x a double
+	 * @param y a double
+	 * @return a double
+	 * @throws java.lang.ArithmeticException if any.
+	 */
 	public abstract double doubleCalculate(double x, double y) throws ArithmeticException;
 
+	/**
+	 * <p>getOperation.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getOperation() {
 		return EnumBinaryOperation.getStringByOp(op);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public abstract int getPriority();
 
+	/**
+	 * <p>isAssocOperation.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isAssocOperation() {
 		return op == EnumBinaryOperation.Add || op == EnumBinaryOperation.Mult;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		//return toMiniString();
@@ -58,6 +92,7 @@ public abstract class AbstractBinaryOperation implements CommonExpression {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toMiniString() {
 		final StringBuilder sb = new StringBuilder();
@@ -67,11 +102,13 @@ public abstract class AbstractBinaryOperation implements CommonExpression {
 		return sb.toString();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public double evaluate(double ...args) throws OverflowException, DivideByZeroException, ParsingException {
 		return doubleCalculate(left.evaluate(args), right.evaluate(args));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object b) {
 		if (b == this) {
@@ -85,6 +122,7 @@ public abstract class AbstractBinaryOperation implements CommonExpression {
 				&&  op == ((AbstractBinaryOperation) b).op;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		return left.hashCode() + 31 * (right.hashCode() +  31 * getOperation().hashCode());

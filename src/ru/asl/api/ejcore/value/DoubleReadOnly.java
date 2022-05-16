@@ -1,10 +1,21 @@
 package ru.asl.api.ejcore.value;
 
+/**
+ * <p>DoubleReadOnly class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @Deprecated /*Not required*/
 public class DoubleReadOnly {
 
 	private DoubleSettings settings;
 
+	/**
+	 * <p>Constructor for DoubleReadOnly.</p>
+	 *
+	 * @param settings a {@link ru.asl.api.ejcore.value.DoubleSettings} object
+	 */
 	public DoubleReadOnly(DoubleSettings settings) {
 		this.settings = settings;
 	}
@@ -13,6 +24,7 @@ public class DoubleReadOnly {
 	 * Checks if settings has a custom key
 	 *
 	 * @return true if {@link java.util.Map} has a key
+	 * @param key a {@link java.lang.String} object
 	 */
 	public boolean hasKey(String key) {
 		return settings.hasKey(key);
@@ -21,7 +33,8 @@ public class DoubleReadOnly {
 	/**
 	 * Checks if settings has a BASE and SCALE
 	 *
-	 * @return true if {@link java.util.Map} has a key.base & key.scale
+	 * @return true if {@link java.util.Map} has a key.base &amp; key.scale
+	 * @param key a {@link java.lang.String} object
 	 */
 	public boolean hasValue(String key) {
 		return settings.hasValue(key);
@@ -86,6 +99,7 @@ public class DoubleReadOnly {
 	 *
 	 * @param key to search value in {@link java.util.Map}
 	 * @return value or def
+	 * @param def a double
 	 */
 	public double getValue(String key, double def) {
 		return settings.getValue(key, def);
@@ -127,10 +141,16 @@ public class DoubleReadOnly {
 		return settings.getAndScale(key, modifier);
 	}
 
+	/**
+	 * <p>dumpToFile.</p>
+	 */
 	public void dumpToFile() {
 		settings.dumpToFile();
 	}
 
+	/**
+	 * <p>dumpToConsole.</p>
+	 */
 	public void dumpToConsole() {
 		settings.dumpToConsole();
 	}

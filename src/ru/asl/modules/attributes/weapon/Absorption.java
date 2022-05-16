@@ -9,7 +9,21 @@ import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>Absorption class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class Absorption extends BasicAttr implements ListeningCombat {
+	/**
+	 * <p>Constructor for Absorption.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param base a double
+	 * @param perLevel a double
+	 */
 	public Absorption(String keyName, String path, double base, double perLevel) {
 		super(keyName, path, base, perLevel);
 	}
@@ -25,6 +39,7 @@ public final class Absorption extends BasicAttr implements ListeningCombat {
 	private double getV (String tier) { return settings.get(tier+"."+V);  }
 	private double getD (String tier) { return settings.get(tier+"."+D);  }
 
+	/** {@inheritDoc} */
 	@Override
 	public void initCustomSettings() {
 
@@ -42,6 +57,7 @@ public final class Absorption extends BasicAttr implements ListeningCombat {
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void listen(CombatEvent e) {
 		if (e.getType() != CombatType.ENTITY_TO_PLAYER && e.getType() != CombatType.PLAYER_TO_PLAYER) return;

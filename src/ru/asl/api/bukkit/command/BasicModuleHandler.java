@@ -16,8 +16,20 @@ import ru.asl.api.bukkit.command.interfaze.ECommand;
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.core.Core;
 
+/**
+ * <p>Abstract BasicModuleHandler class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class BasicModuleHandler extends BukkitCommand implements CommandHandler {
 
+	/**
+	 * <p>Constructor for BasicModuleHandler.</p>
+	 *
+	 * @param def a {@link ru.asl.api.bukkit.command.interfaze.ECommand} object
+	 * @param name a {@link java.lang.String} object
+	 */
 	public BasicModuleHandler(ECommand def, String name) {
 		super(name);
 		defCommand = def;
@@ -25,27 +37,36 @@ public abstract class BasicModuleHandler extends BukkitCommand implements Comman
 
 	protected Map<String, ECommand> commands = new HashMap<>();
 
+	/**
+	 * <p>getRegisteredCommands.</p>
+	 *
+	 * @return a {@link java.util.Collection} object
+	 */
 	public Collection<ECommand> getRegisteredCommands() {
 		return commands.values();
 	}
 
 	private ECommand defCommand;
 
+	/** {@inheritDoc} */
 	@Override
 	public ECommand getDefaultCommand() {
 		return defCommand;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void registerCommand(ECommand command) {
 		commands.put(command.getName(), command);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		return true;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		ECommand cmd;
@@ -61,6 +82,12 @@ public abstract class BasicModuleHandler extends BukkitCommand implements Comman
 		return true;
 	}
 
+	/**
+	 * <p>registerModuleCommand.</p>
+	 *
+	 * @param moduleCommand a {@link ru.asl.api.bukkit.command.BasicModuleHandler} object
+	 * @param mainAlias a {@link java.lang.String} object
+	 */
 	public static void registerModuleCommand(BasicModuleHandler moduleCommand, String mainAlias) {
 		try {
 			Method craftServer = Core.instance().getServer().getClass().getMethod("getCommandMap");

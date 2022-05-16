@@ -16,6 +16,12 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.core.database.configs.HikariConfMySQL;
 import ru.asl.core.database.configs.HikariConfSQLite;
 
+/**
+ * <p>DB class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @Builder
 public class DB {
 	
@@ -47,6 +53,11 @@ public class DB {
 		}
 	}
 	
+	/**
+	 * <p>execSQL.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean execSQL(){	
         try(PreparedStatement stmt = connection().prepareStatement(sql)){
         	if (setData != null && !setData.isEmpty()) {
@@ -63,6 +74,11 @@ public class DB {
     }
 	
 	
+	/**
+	 * <p>getMultiResultSet.</p>
+	 *
+	 * @return a {@link java.util.ArrayList} object
+	 */
 	public ArrayList<HashMap<String, Object>> getMultiResultSet() {
 		ArrayList<HashMap<String, Object>> tmpHashMaps = new ArrayList<>();
 		ArrayList<String> colNames = new ArrayList<>();

@@ -27,8 +27,19 @@ import ru.asl.api.ejcore.equip.EquipSlot;
 import ru.asl.api.ejcore.utils.ServerVersion;
 import ru.asl.core.Core;
 
+/**
+ * <p>EquipListener class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class EquipListener implements Listener {
 
+	/**
+	 * <p>inventoryClick.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.inventory.InventoryClickEvent} object
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void inventoryClick(InventoryClickEvent e) {
 		if (e.isCancelled()) return;
@@ -68,12 +79,22 @@ public class EquipListener implements Listener {
 		}.runTask(Core.instance());
 	}
 
+	/**
+	 * <p>onHeldChange.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.PlayerItemHeldEvent} object
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onHeldChange(PlayerItemHeldEvent e) {
 		if (!e.isCancelled())
 			Bukkit.getServer().getPluginManager().callEvent(new EquipChangeEvent(EquipSlot.HAND, null, e.getPlayer()));
 	}
 
+	/**
+	 * <p>onEquipWearing.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.PlayerInteractEvent} object
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEquipWearing(PlayerInteractEvent e) {
 		if (e.useInteractedBlock() == Result.DENY || e.useItemInHand() == Result.DENY) return;
@@ -99,6 +120,11 @@ public class EquipListener implements Listener {
 		}.runTask(Core.instance());
 	}
 
+	/**
+	 * <p>onDragEvent.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.inventory.InventoryDragEvent} object
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onDragEvent(InventoryDragEvent e) {
 		if (e.isCancelled()) return;
@@ -129,6 +155,11 @@ public class EquipListener implements Listener {
 		}.runTask(Core.instance());
 	}
 
+	/**
+	 * <p>onItemPickup.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.entity.EntityPickupItemEvent} object
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onItemPickup(EntityPickupItemEvent e) {
 		if (!e.isCancelled())
@@ -136,12 +167,22 @@ public class EquipListener implements Listener {
 				Bukkit.getServer().getPluginManager().callEvent(new EquipChangeEvent(EquipSlot.HAND, null, (Player) e.getEntity()));
 	}
 
+	/**
+	 * <p>onItemDrop.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.player.PlayerDropItemEvent} object
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onItemDrop(PlayerDropItemEvent e) {
 		if (!e.isCancelled())
 			Bukkit.getServer().getPluginManager().callEvent(new EquipChangeEvent(EquipSlot.HAND, null, e.getPlayer()));
 	}
 
+	/**
+	 * <p>onPlayerDie.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.entity.PlayerDeathEvent} object
+	 */
 	@EventHandler
 	public void onPlayerDie(PlayerDeathEvent e) {
 		if (e.getKeepInventory()) return;

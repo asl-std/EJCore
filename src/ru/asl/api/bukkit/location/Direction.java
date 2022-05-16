@@ -1,6 +1,12 @@
 package ru.asl.api.bukkit.location;
 
 
+/**
+ * <p>Direction class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public enum Direction {
 	XZ(new Vector3D(1,0,1)),
 	XZR(new Vector3D(1,0,-1)),
@@ -14,8 +20,19 @@ public enum Direction {
 	Direction() {}
 	Direction(Vector3D vec) { this.vec = vec; }
 
+	/**
+	 * <p>getVector3D.</p>
+	 *
+	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
+	 */
 	public Vector3D getVector3D() { return vec.clone(); }
 
+	/**
+	 * <p>getBy.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @return a {@link ru.asl.api.bukkit.location.Direction} object
+	 */
 	public static Direction getBy(String key) {
 		switch(key.toUpperCase()) {
 			case "UP":

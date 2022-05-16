@@ -8,15 +8,25 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import ru.asl.core.Core;
+/**
+ * <p>BotMain class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class BotMain implements Runnable{
 	
 	@Getter private static JDA jda;
 	
 	
+	/**
+	 * <p>Constructor for BotMain.</p>
+	 */
 	public BotMain() {
 		
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		try {

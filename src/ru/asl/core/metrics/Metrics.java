@@ -39,6 +39,9 @@ import com.google.gson.JsonPrimitive;
  * bStats collects some data for plugin authors.
  * <p>
  * Check out https://bStats.org/ to learn more about bStats!
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
  */
 @SuppressWarnings("deprecation")
 public class Metrics {
@@ -58,6 +61,7 @@ public class Metrics {
 	}
 
 	// The version of this bStats class
+	/** Constant <code>B_STATS_VERSION=1</code> */
 	public static final int B_STATS_VERSION = 1;
 
 	// The url to which the data is sent

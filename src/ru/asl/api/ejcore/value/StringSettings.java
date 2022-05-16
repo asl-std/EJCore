@@ -7,18 +7,41 @@ import java.util.Set;
 
 import ru.asl.api.ejcore.yaml.YAML;
 
+/**
+ * <p>StringSettings class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class StringSettings extends Settings<String> {
 
+	/**
+	 * <p>importArray.</p>
+	 *
+	 * @param array a {@link java.util.List} object
+	 * @param key a {@link java.lang.String} object
+	 */
 	public void importArray(List<? extends Object> array, String key) {
 		for (int i = 0; i < array.size(); i++)
 			settings.put(String.valueOf(key.toLowerCase()) + "." + i, array.get(i).toString());
 	}
 
+	/**
+	 * <p>removeArray.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 */
 	public void removeArray(String key) {
 		for (int i = 0; hasKey(String.valueOf(key) + "." + i); i++)
 			remove(String.valueOf(key) + "." + i);
 	}
 
+	/**
+	 * <p>exportArray.</p>
+	 *
+	 * @param key a {@link java.lang.String} object
+	 * @return a {@link java.util.List} object
+	 */
 	public List<String> exportArray(String key) {
 		final List<String> keys = new ArrayList<>();
 		for (int i = 0 ; hasKey(String.valueOf(key) + "." + i); i++)
@@ -26,6 +49,12 @@ public class StringSettings extends Settings<String> {
 		return keys;
 	}
 
+	/**
+	 * <p>importFromYAML.</p>
+	 *
+	 * @param file a {@link ru.asl.api.ejcore.yaml.YAML} object
+	 * @param section a {@link java.lang.String} object
+	 */
 	public void importFromYAML(YAML file, String section) {
 		final Set<String> keys = (section != null && !section.equalsIgnoreCase("")) ? file.getSection(section).getKeys(true)
 				: file.getKeys(true);
@@ -47,6 +76,11 @@ public class StringSettings extends Settings<String> {
 		}
 	}
 
+	/**
+	 * <p>importFromSettings.</p>
+	 *
+	 * @param settings a {@link ru.asl.api.ejcore.value.Settings} object
+	 */
 	public void importFromSettings(Settings<String> settings) {
 		final Set<Map.Entry<String, String>> keys = settings.getKeys();
 
@@ -61,6 +95,12 @@ public class StringSettings extends Settings<String> {
 		}
 	}
 
+	/**
+	 * <p>exportToYAML.</p>
+	 *
+	 * @param file a {@link ru.asl.api.ejcore.yaml.YAML} object
+	 * @param section a {@link java.lang.String} object
+	 */
 	public void exportToYAML(YAML file, String section) {
 		for (final Map.Entry<String, String> key : getKeys()) {
 			if (key.getKey().matches("^.*\\.[1-9]*"))

@@ -6,8 +6,20 @@ import java.util.concurrent.ConcurrentMap;
 
 import ru.asl.api.ejcore.value.StringSettings;
 
+/**
+ * <p>VarReader class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class VarReader {
 
+	/**
+	 * <p>readLine.</p>
+	 *
+	 * @param line a {@link java.lang.String} object
+	 * @return a {@link ru.asl.api.ejcore.value.StringSettings} object
+	 */
 	public static StringSettings readLine(String line) {
 		final StringSettings result = new StringSettings();
 		final String prepaired = line.toLowerCase().replaceAll("\\s", "");

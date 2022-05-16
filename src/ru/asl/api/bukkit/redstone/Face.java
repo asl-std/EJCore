@@ -9,6 +9,12 @@ import lombok.AllArgsConstructor;
 import ru.asl.api.bukkit.location.Vector3D;
 import ru.asl.api.ejcore.value.Pair;
 
+/**
+ * <p>Face class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @AllArgsConstructor
 public enum Face {
 	NORTH(new Vector3D(0,0,-1)),
@@ -18,12 +24,23 @@ public enum Face {
 	UP(new Vector3D(0,1,0)),
 	DOWN(new Vector3D(0,-1,0));
 
+	/**
+	 * <p>vec.</p>
+	 *
+	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
+	 */
 	final Vector3D vec;
 
 	public Vector3D vec() {
 		return vec;
 	}
 
+	/**
+	 * <p>sides.</p>
+	 *
+	 * @param height a int
+	 * @return a {@link java.util.List} object
+	 */
 	public static List<Pair<Face, Vector3D>> sides(int height) {
 		return Arrays.asList(
 				new Pair<>(NORTH, NORTH.vec.setY(height)),
@@ -33,6 +50,11 @@ public enum Face {
 				);
 	}
 
+	/**
+	 * <p>toInt.</p>
+	 *
+	 * @return a int
+	 */
 	public int toInt() {
 		switch(this) {
 		case NORTH:
@@ -48,6 +70,11 @@ public enum Face {
 		}
 	}
 
+	/**
+	 * <p>next.</p>
+	 *
+	 * @return a {@link ru.asl.api.bukkit.redstone.Face} object
+	 */
 	public Face next() {
 		switch(this) {
 		case NORTH:
@@ -67,6 +94,11 @@ public enum Face {
 		}
 	}
 
+	/**
+	 * <p>previous.</p>
+	 *
+	 * @return a {@link ru.asl.api.bukkit.redstone.Face} object
+	 */
 	public Face previous() {
 		switch(this) {
 		case NORTH:
@@ -86,6 +118,11 @@ public enum Face {
 		}
 	}
 
+	/**
+	 * <p>opposite.</p>
+	 *
+	 * @return a {@link ru.asl.api.bukkit.redstone.Face} object
+	 */
 	public Face opposite() {
 		switch(this) {
 		case NORTH:
@@ -105,6 +142,11 @@ public enum Face {
 		}
 	}
 
+	/**
+	 * <p>toBlockFace.</p>
+	 *
+	 * @return a {@link org.bukkit.block.BlockFace} object
+	 */
 	public BlockFace toBlockFace() {
 		switch(this) {
 		case NORTH:
@@ -124,6 +166,12 @@ public enum Face {
 		}
 	}
 
+	/**
+	 * <p>fromString.</p>
+	 *
+	 * @param face a {@link java.lang.String} object
+	 * @return a {@link ru.asl.api.bukkit.redstone.Face} object
+	 */
 	public static Face fromString(String face) {
 		switch(face.toUpperCase()) {
 		case "NORTH":

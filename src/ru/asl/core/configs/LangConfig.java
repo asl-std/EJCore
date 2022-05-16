@@ -3,15 +3,28 @@ package ru.asl.core.configs;
 import ru.asl.api.bukkit.plugin.EJPlugin;
 import ru.asl.api.ejcore.yaml.EJConf;
 
+/**
+ * <p>LangConfig class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class LangConfig extends EJConf {
 
 	public String NAME_DURABILITY, DURABILITY_SUFFIX_COLOR_DECORATOR;
 	public String ERR_CONSOLE, ERR_NO_PERMISSION, ERR_ARG_CANT_BE_NULL, ERR_PLAYER_ONLINE;
 
+	/**
+	 * <p>Constructor for LangConfig.</p>
+	 *
+	 * @param fileName a {@link java.lang.String} object
+	 * @param plugin a {@link ru.asl.api.bukkit.plugin.EJPlugin} object
+	 */
 	public LangConfig(String fileName, EJPlugin plugin) {
 		super(fileName, plugin);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void loadConfig() {
 		ERR_CONSOLE = this.getString("err.console-error", "&4Join to server for using this command.", true);

@@ -7,10 +7,18 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+/**
+ * <p>BotListener class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class BotListener extends ListenerAdapter{
 	
+	/** Constant <code>classes</code> */
 	public static ArrayList<Object> classes = new ArrayList<>();
 	
+	/** {@inheritDoc} */
 	@Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (!event.getAuthor().isBot()) {

@@ -11,12 +11,27 @@ import ru.asl.modules.attributes.AttrType;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>RangedDamage class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class RangedDamage extends BasicAttr implements ListeningCombat {
 
+	/**
+	 * <p>Constructor for RangedDamage.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public RangedDamage(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel, AttrType.RANGE);
 	}
 
+	/** {@inheritDoc} */
 	@Override @SuppressWarnings("null")
 	public void listen(CombatEvent e) {
 		if (!e.isRanged()) return;

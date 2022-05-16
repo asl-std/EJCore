@@ -7,12 +7,27 @@ import ru.asl.core.configs.EConfig;
 import ru.asl.modules.attributes.AffectingEntity;
 import ru.asl.modules.attributes.BasicAttr;
 
+/**
+ * <p>MaxHealth class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class MaxHealth extends BasicAttr implements AffectingEntity {
 
+	/**
+	 * <p>Constructor for MaxHealth.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public MaxHealth(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void initCustomSettings() {
 		final EConfig cfg = Core.getCfg();
@@ -54,6 +69,7 @@ public class MaxHealth extends BasicAttr implements AffectingEntity {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void affectEntity(LivingEntity entity) {
 

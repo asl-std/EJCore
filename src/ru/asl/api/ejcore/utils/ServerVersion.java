@@ -11,8 +11,39 @@ import org.bukkit.entity.Player;
 import lombok.Getter;
 import ru.asl.api.bukkit.message.EText;
 
+/**
+ * <p>ServerVersion class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class ServerVersion {
 
+	/** Constant <code>VER_1_5_2=1502</code> */
+	/** Constant <code>VER_1_6_2=1602</code> */
+	/** Constant <code>VER_1_6_4=1604</code> */
+	/** Constant <code>VER_1_7_2=1702</code> */
+	/** Constant <code>VER_1_7_5=1705</code> */
+	/** Constant <code>VER_1_7_8=1708</code> */
+	/** Constant <code>VER_1_7_9=1709</code> */
+	/** Constant <code>VER_1_8_0=1800</code> */
+	/** Constant <code>VER_1_8_3=1803</code> */
+	/** Constant <code>VER_1_8_8=1808</code> */
+	/** Constant <code>VER_1_9_0=1900</code> */
+	/** Constant <code>VER_1_10_2=11002</code> */
+	/** Constant <code>VER_1_11_0=11100</code> */
+	/** Constant <code>VER_1_11_1=11101</code> */
+	/** Constant <code>VER_1_11_2=11102</code> */
+	/** Constant <code>VER_1_12_2=11202</code> */
+	/** Constant <code>VER_1_13=11300</code> */
+	/** Constant <code>VER_1_14=11400</code> */
+	/** Constant <code>VER_1_14_4=11404</code> */
+	/** Constant <code>VER_1_15=11500</code> */
+	/** Constant <code>VER_1_15_2=11502</code> */
+	/** Constant <code>VER_1_16=11600</code> */
+	/** Constant <code>VER_1_16_4=11604</code> */
+	/** Constant <code>VER_1_17=11700</code> */
+	/** Constant <code>VER_1_18=11800</code> */
 	public static final int
 	/////////////////////// VERSION CONSTANS
 	VER_1_5_2	 = 1502 ,//
@@ -46,6 +77,11 @@ public final class ServerVersion {
 	@Getter private static int		VERSION		= -1;
 	private static String	TYPE		= "UNKNOWN";
 
+	/**
+	 * <p>getOnlinePlayers.</p>
+	 *
+	 * @return an array of {@link org.bukkit.entity.Player} objects
+	 */
 	@SuppressWarnings("unchecked")
 	public static Player[] getOnlinePlayers() {
 		if (ServerVersion.isVersionAtLeast(ServerVersion.VER_1_8_8)) {
@@ -68,6 +104,12 @@ public final class ServerVersion {
 		return new Player[0];
 	}
 
+	/**
+	 * <p>init.</p>
+	 *
+	 * @param version a {@link java.lang.String} object
+	 * @param serverType a {@link java.lang.String} object
+	 */
 	public static void init(String version, String serverType) {
 		if (serverType != null) ServerVersion.TYPE = serverType;
 
@@ -88,8 +130,25 @@ public final class ServerVersion {
 		EText.fine("&aServer version: &5'" + ServerVersion.TYPE + "-" + ServerVersion.VERSION + "'");
 	}
 
+	/**
+	 * <p>isUUID.</p>
+	 *
+	 * @return a boolean
+	 */
 	public static boolean isUUID() { return ServerVersion.isVersionAtLeast(ServerVersion.VER_1_7_5); }
+	/**
+	 * <p>isVersionAtLeast.</p>
+	 *
+	 * @param version a int
+	 * @return a boolean
+	 */
 	public static boolean isVersionAtLeast(int version) { return ServerVersion.VERSION < version; }
+	/**
+	 * <p>isVersionAtMost.</p>
+	 *
+	 * @param version a int
+	 * @return a boolean
+	 */
 	public static boolean isVersionAtMost(int version) { return ServerVersion.VERSION >= version; }
 
 }

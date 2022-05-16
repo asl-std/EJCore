@@ -15,11 +15,20 @@ import ru.asl.api.ejcore.module.EJAddon;
 import ru.asl.api.ejcore.module.EJModule;
 import ru.asl.core.Core;
 
+/**
+ * <p>ModuleManager class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class ModuleManager {
 
 	@Getter private static final HashMap<String, EJModule> eJModules = new HashMap<>();
 	private static final ArrayList<String> loadedJars = new ArrayList<>();
 
+	/**
+	 * <p>enableModules.</p>
+	 */
 	public static void enableModules() {
 		for (final EJModule module : ModuleManager.getEJModules().values()) {
 			module.loadModule();
@@ -27,6 +36,11 @@ public class ModuleManager {
 		}
 	}
 
+	/**
+	 * <p>loadModules.</p>
+	 *
+	 * @param loader a {@link java.lang.ClassLoader} object
+	 */
 	public static void loadModules(ClassLoader loader) {
 		final File folder = new File(Core.instance().getDataFolder(), "modules");
 		folder.mkdirs();
@@ -86,10 +100,19 @@ public class ModuleManager {
 		}
 	}
 
+	/**
+	 * <p>isRegistered.</p>
+	 *
+	 * @param moduleName a {@link java.lang.String} object
+	 * @return a boolean
+	 */
 	public static boolean isRegistered(String moduleName) {
 		return eJModules.containsKey(moduleName.toLowerCase());
 	}
 
+	/**
+	 * <p>reloadModules.</p>
+	 */
 	public static void reloadModules() {
 		for (final EJModule module : eJModules.values())
 			module.reloadModule();

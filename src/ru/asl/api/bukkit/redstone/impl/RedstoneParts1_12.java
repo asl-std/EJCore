@@ -12,9 +12,13 @@ import ru.asl.api.bukkit.redstone.RedstoneParts;
 /**
  * 1.12.2 - Lever on floor = UP;
  * 1.13.+ - Lever on floor = DOWN;
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
  */
 public class RedstoneParts1_12 extends RedstoneParts {
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Block> getBlocks(Block from) {
 		final String typeName = from.getType().name();
@@ -57,6 +61,7 @@ public class RedstoneParts1_12 extends RedstoneParts {
 		return FloorRedstoneTorch.getBlocks(from, false);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isEnabledRedstone(Material mat) {
 		if (mat.name().contains("REDSTONE_TORCH") ||

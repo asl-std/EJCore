@@ -12,8 +12,15 @@ import ru.asl.api.ejinventory.Page;
 import ru.asl.api.ejinventory.Pane;
 import ru.asl.api.ejinventory.page.LockedPage;
 
+/**
+ * <p>SimplePane class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class SimplePane implements Pane {
 	/* Заглушка */
+	/** {@inheritDoc} */
 	@Override @Deprecated
 	public Inventory getInventory() { return Bukkit.createInventory(null, 9); }
 
@@ -23,6 +30,13 @@ public class SimplePane implements Pane {
 
 	private boolean returnItems = true;
 
+	/**
+	 * <p>Constructor for SimplePane.</p>
+	 *
+	 * @param title a {@link java.lang.String} object
+	 * @param size a int
+	 * @param page a {@link ru.asl.api.ejinventory.Page} object
+	 */
 	public SimplePane(@NonNull String title, int size, Page page) {
 		this.title = title;
 		this.size = size;
@@ -30,12 +44,28 @@ public class SimplePane implements Pane {
 		this.page = page;
 	}
 
+	/**
+	 * <p>Setter for the field <code>title</code>.</p>
+	 *
+	 * @param title a {@link java.lang.String} object
+	 */
 	public void setTitle(String title) { this.title = title; }
 
+	/**
+	 * <p>Setter for the field <code>page</code>.</p>
+	 *
+	 * @param page a {@link ru.asl.api.ejinventory.Page} object
+	 */
 	public void setPage(Page page) { this.page = page; }
 
+	/**
+	 * <p>returnItems.</p>
+	 *
+	 * @param ret a boolean
+	 */
 	public void returnItems(boolean ret) { returnItems = ret; }
 
+	/** {@inheritDoc} */
 	@Override
 	public void fire(InventoryClickEvent event) {
 		if (page instanceof LockedPage) {
@@ -51,6 +81,7 @@ public class SimplePane implements Pane {
 		page.fire(event);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void showTo(Player... players) {
 		final Inventory inventory = Bukkit.createInventory(this, size, title);
@@ -63,6 +94,7 @@ public class SimplePane implements Pane {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void returnItems(Player p, InventoryCloseEvent event) {
 		if (page instanceof LockedPage && returnItems) {

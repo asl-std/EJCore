@@ -9,7 +9,10 @@ import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.api.ejcore.items.ItemStackUtil;
 
 /**
- *  To get Id for HAND you must use {@link EPlayer#getHeldSlot()}
+ *  To get Id for HAND you must use {link ru.asl.api.ejcore.entity.EPlayer#????}
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
  */
 public enum EquipSlot {
 	HAND(0), OFF(40), HEAD(39), BODY(38), LEGGS(37), FOOTS(36);
@@ -21,12 +24,25 @@ public enum EquipSlot {
 		this.slotId = slotId;
 	}
 
+	/**
+	 * <p>byID.</p>
+	 *
+	 * @param id a int
+	 * @return a {@link ru.asl.api.ejcore.equip.EquipSlot} object
+	 */
 	public static EquipSlot byID(int id) {
 		for (final EquipSlot slot : values())
 			if (id == slot.slotId) return slot;
 		return null;
 	}
 
+	/**
+	 * <p>getFromItemType.</p>
+	 *
+	 * @param mat a {@link org.bukkit.Material} object
+	 * @param checkoff a boolean
+	 * @return a {@link ru.asl.api.ejcore.equip.EquipSlot} object
+	 */
 	public static EquipSlot getFromItemType(Material mat, boolean checkoff) {
 		if (ItemStackUtil.isHelmet(mat)) return HEAD;
 		if (ItemStackUtil.isChestplate(mat)) return BODY;
@@ -36,6 +52,13 @@ public enum EquipSlot {
 		return HAND;
 	}
 
+	/**
+	 * <p>getStackFromSlot.</p>
+	 *
+	 * @param slot a {@link ru.asl.api.ejcore.equip.EquipSlot} object
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 * @return a {@link org.bukkit.inventory.ItemStack} object
+	 */
 	public static ItemStack getStackFromSlot(EquipSlot slot, Player p) {
 		switch(slot) {
 		case HEAD:

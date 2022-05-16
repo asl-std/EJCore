@@ -7,11 +7,23 @@ import java.util.regex.Pattern;
 import ru.asl.api.ejcore.value.abstrakt.ModifierType;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 
+/**
+ * <p>ValueGenerator class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class ValueGenerator {
 
 	private static final Pattern singlePattern = Pattern.compile("\\s*(chance\\s*([0-9]*[.,]?[0-9]+)%\\s*)?from\\s*([-+]?([0-9]*[.,]?[0-9]+%?))\\s*to\\s*((([-+]?([0-9]*[.,]?[0-9]+%?))))\\s*((per\\s*level\\s*([-+]?([0-9]*[.,]?[0-9]+%?))))?\\s*");
 	private static final Pattern rangePattern  = Pattern.compile("\\s*(chance\\s*([0-9]*[.,]?[0-9]+)%\\s*)?from\\s*([-+]?([0-9]*[.,]?[0-9]+)(-([0-9]*[.,]?[0-9]+)))\\s*to\\s*([-+]?([0-9]*[.,]?[0-9]+)(-([0-9]*[.,]?[0-9]+)))\\s*(per\\s*level\\s*([-+]?([0-9]*[.,]?[0-9]+)(-([0-9]*[.,]?[0-9]+))))?\\s*");
 
+	/**
+	 * <p>getRandomHolder.</p>
+	 *
+	 * @param from a {@link java.lang.String} object
+	 * @return a {@link ru.asl.api.ejcore.value.random.RandomValue} object
+	 */
 	public static RandomValue getRandomHolder(String from) {
 		RandomValue val = getSingleValue(from);
 
@@ -21,6 +33,12 @@ public class ValueGenerator {
 		return val;
 	}
 
+	/**
+	 * <p>getSingleValue.</p>
+	 *
+	 * @param from a {@link java.lang.String} object
+	 * @return a {@link ru.asl.api.ejcore.value.random.RandomSingleValue} object
+	 */
 	public static RandomSingleValue getSingleValue(String from) {
 		final Matcher match = singlePattern.matcher(from.toLowerCase());
 
@@ -37,6 +55,12 @@ public class ValueGenerator {
 		return result;
 	}
 
+	/**
+	 * <p>getRangeValue.</p>
+	 *
+	 * @param from a {@link java.lang.String} object
+	 * @return a {@link ru.asl.api.ejcore.value.random.RandomRangeValue} object
+	 */
 	public static RandomRangeValue getRangeValue(String from) {
 		final Matcher match = rangePattern.matcher(from.toLowerCase());
 
@@ -59,6 +83,13 @@ public class ValueGenerator {
 		return result;
 	}
 
+	/**
+	 * <p>isTrue.</p>
+	 *
+	 * @param value a double
+	 * @param to a int
+	 * @return a boolean
+	 */
 	public static boolean isTrue(double value, int to) {
 		final int b = new Random().nextInt(to);
 		return value >= b;

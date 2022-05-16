@@ -6,8 +6,21 @@ import java.lang.reflect.Method;
 import lombok.NonNull;
 import ru.asl.api.bukkit.message.EText;
 
+/**
+ * <p>RefHelper class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class RefHelper {
 
+	/**
+	 * <p>invokeMethod.</p>
+	 *
+	 * @param method a {@link java.lang.reflect.Method} object
+	 * @param instance a {@link java.lang.Object} object
+	 * @param args a {@link java.lang.Object} object
+	 */
 	public static void invokeMethod(@NonNull Method method, Object instance, Object... args) {
 		try {
 			method.invoke(instance, args);
@@ -20,6 +33,12 @@ public final class RefHelper {
 		}
 	}
 
+	/**
+	 * <p>getClass.</p>
+	 *
+	 * @param path a {@link java.lang.String} object
+	 * @return a {@link java.lang.Class} object
+	 */
 	public static Class<?> getClass(@NonNull String path) {
 		try {
 			return Class.forName(path);

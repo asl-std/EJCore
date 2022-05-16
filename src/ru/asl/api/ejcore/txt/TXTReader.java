@@ -11,11 +11,22 @@ import java.util.Scanner;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * <p>TXTReader class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @RequiredArgsConstructor
 public final class TXTReader {
 
 	@NonNull File txtFile;
 
+	/**
+	 * <p>getLines.</p>
+	 *
+	 * @return a {@link java.util.List} object
+	 */
 	public List<String> getLines() {
 		final List<String> result = new ArrayList<>();
 
@@ -35,6 +46,11 @@ public final class TXTReader {
 		return result;
 	}
 
+	/**
+	 * <p>getCategorized.</p>
+	 *
+	 * @return a {@link java.util.Map} object
+	 */
 	public Map<String,List<String>> getCategorized() {
 		final Map<String,List<String>> result = new HashMap<>();
 

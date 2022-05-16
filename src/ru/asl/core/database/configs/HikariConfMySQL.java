@@ -13,8 +13,19 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import ru.asl.core.Core;
 
+/**
+ * <p>HikariConfMySQL class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class HikariConfMySQL {
 	@Getter private static Connection con;
+	/**
+	 * <p>init.</p>
+	 *
+	 * @param plugin a {@link org.bukkit.plugin.Plugin} object
+	 */
 	public void init(Plugin plugin) {
 		String databaseName = "EJdb";
 		String username = Core.getCfg().getString("mysql.mysql-username","root", true);

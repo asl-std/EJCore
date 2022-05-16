@@ -5,13 +5,28 @@ import ru.asl.modules.attributes.AttrType;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>MagicalDamage class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class MagicalDamage extends BasicAttr implements ListeningCombat {
 
+	/**
+	 * <p>Constructor for MagicalDamage.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public MagicalDamage(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
 		type = AttrType.RANGE;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void listen(CombatEvent e) {
 		/*double statDmg = e.getDamage();

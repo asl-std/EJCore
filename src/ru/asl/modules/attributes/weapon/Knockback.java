@@ -9,12 +9,27 @@ import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>Knockback class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class Knockback extends BasicAttr implements ListeningCombat {
 
+	/**
+	 * <p>Constructor for Knockback.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public Knockback(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void listen(CombatEvent e) {
 		if (e.getType() != CombatType.PLAYER_TO_ENTITY && e.getType() != CombatType.PLAYER_TO_PLAYER) return;

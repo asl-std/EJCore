@@ -11,8 +11,19 @@ import org.bukkit.event.block.BlockDispenseArmorEvent;
 import ru.asl.api.bukkit.events.equipment.EquipChangeEvent;
 import ru.asl.api.ejcore.equip.EquipSlot;
 
+/**
+ * <p>EquipListener1_13 class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class EquipListener1_13 implements Listener {
 
+	/**
+	 * <p>dispenseArmor.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.block.BlockDispenseArmorEvent} object
+	 */
 	@EventHandler
 	public void dispenseArmor(BlockDispenseArmorEvent e) {
 		if (e.getItem().getType() == Material.AIR || e.getTargetEntity().getType() != EntityType.PLAYER) return;

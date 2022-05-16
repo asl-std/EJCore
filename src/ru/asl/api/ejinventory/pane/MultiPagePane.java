@@ -16,8 +16,15 @@ import ru.asl.api.ejinventory.Pane;
 import ru.asl.api.ejinventory.element.SimpleElement;
 import ru.asl.api.ejinventory.page.LockedPage;
 
+/**
+ * <p>MultiPagePane class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class MultiPagePane implements Pane {
 	/* Обычнай заглушка */
+	/** {@inheritDoc} */
 	@Override @Deprecated
 	public Inventory getInventory() { return Bukkit.createInventory(null, 9); }
 
@@ -39,12 +46,27 @@ public class MultiPagePane implements Pane {
 
 	private int currentPage = 0;
 
+	/**
+	 * <p>Constructor for MultiPagePane.</p>
+	 *
+	 * @param title a {@link java.lang.String} object
+	 * @param size a int
+	 * @param addButtons a boolean
+	 * @param pages a {@link ru.asl.api.ejinventory.Page} object
+	 */
 	public MultiPagePane(String title, int size, boolean addButtons, Page... pages) {
 		this(title, size, addButtons);
 		for (final Page page : pages)
 			addPage(page);
 	}
 
+	/**
+	 * <p>Constructor for MultiPagePane.</p>
+	 *
+	 * @param title a {@link java.lang.String} object
+	 * @param size a int
+	 * @param addButtons a boolean
+	 */
 	public MultiPagePane(String title, int size, boolean addButtons) {
 		this.title = Objects.requireNonNull(title);
 		this.size = size;
@@ -52,6 +74,11 @@ public class MultiPagePane implements Pane {
 		pages = new LinkedList<>();
 	}
 
+	/**
+	 * <p>addPage.</p>
+	 *
+	 * @param page a {@link ru.asl.api.ejinventory.Page} object
+	 */
 	public void addPage(Page page) {
 		pages.add(page);
 		if (addButtons)
@@ -62,6 +89,7 @@ public class MultiPagePane implements Pane {
 	}
 
 
+	/** {@inheritDoc} */
 	@Override
 	public void fire(InventoryClickEvent event) {
 		final Page page = pages.get(currentPage);
@@ -79,6 +107,7 @@ public class MultiPagePane implements Pane {
 		page.fire(event);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void showTo(Player... players) {
 		final Inventory inventory = Bukkit.createInventory(this, size, title);
@@ -96,12 +125,24 @@ public class MultiPagePane implements Pane {
 		}
 	}
 
+	/**
+	 * <p>next.</p>
+	 *
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 * @param event a {@link org.bukkit.event.inventory.InventoryClickEvent} object
+	 */
 	public void next(Player p, InventoryClickEvent event) {
 		this.returnItems(p, event);
 		currentPage += 1;
 		showTo(p);
 	}
 
+	/**
+	 * <p>previous.</p>
+	 *
+	 * @param p a {@link org.bukkit.entity.Player} object
+	 * @param event a {@link org.bukkit.event.inventory.InventoryClickEvent} object
+	 */
 	public void previous(Player p, InventoryClickEvent event) {
 		this.returnItems(p, event);
 		currentPage -= 1;
@@ -119,6 +160,7 @@ public class MultiPagePane implements Pane {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void returnItems(Player p, InventoryCloseEvent event) {
 		final Page page = pages.get(currentPage);

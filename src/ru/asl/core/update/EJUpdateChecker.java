@@ -17,10 +17,19 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.bukkit.plugin.EJPlugin;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 
+/**
+ * <p>EJUpdateChecker class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class EJUpdateChecker {
 
 	private static List<EJPlugin> registeredEJPlugins = new ArrayList<>();
 
+	/**
+	 * <p>checkUpdates.</p>
+	 */
 	public static void checkUpdates() {
 
 		for (final EJPlugin plugin : registeredEJPlugins) {
@@ -36,6 +45,11 @@ public class EJUpdateChecker {
 
 	}
 
+	/**
+	 * <p>sendUpdateMessage.</p>
+	 *
+	 * @param p a {@link org.bukkit.command.CommandSender} object
+	 */
 	public static void sendUpdateMessage(CommandSender p) {
 		if (p instanceof ConsoleCommandSender)
 			EText.sendLB();
@@ -80,6 +94,11 @@ public class EJUpdateChecker {
 	}
 
 
+	/**
+	 * <p>registerEJPlugin.</p>
+	 *
+	 * @param ejp a {@link ru.asl.api.bukkit.plugin.EJPlugin} object
+	 */
 	public static void registerEJPlugin(EJPlugin ejp) {
 
 		final int build = parseBuild(ejp.getDescription().getVersion(), false);

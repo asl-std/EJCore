@@ -9,8 +9,15 @@ import org.bukkit.block.data.Directional;
 import ru.asl.api.bukkit.redstone.Face;
 import ru.asl.api.bukkit.redstone.RedstoneParts;
 
+/**
+ * <p>RedstoneParts1_13 class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class RedstoneParts1_13 extends RedstoneParts {
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Block> getBlocks(Block from) {
 		final String typeName = from.getType().name();
@@ -45,6 +52,7 @@ public class RedstoneParts1_13 extends RedstoneParts {
 		return FloorRedstoneTorch.getBlocks(from, false);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean isEnabledRedstone(Material mat) {
 		switch(mat) {

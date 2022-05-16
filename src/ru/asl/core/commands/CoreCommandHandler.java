@@ -14,8 +14,15 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.entity.EPlayer;
 import ru.asl.core.Core;
 
+/**
+ * <p>CoreCommandHandler class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class CoreCommandHandler extends BasicCommandHandler {
 
+	/** {@inheritDoc} */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		final List<String> list = new ArrayList<>();
@@ -31,6 +38,9 @@ public class CoreCommandHandler extends BasicCommandHandler {
 		return null;
 	}
 
+	/**
+	 * <p>Constructor for CoreCommandHandler.</p>
+	 */
 	public CoreCommandHandler() {
 		super(Core.instance(), "ejc");
 		registerCommand(new BasicCommand(this, "help", (s, args) -> {

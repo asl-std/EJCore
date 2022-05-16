@@ -8,15 +8,44 @@ import org.bukkit.Server;
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.utils.ServerVersion;
 
+/**
+ * <p>RefUtils class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class RefUtils {
 
+	/** Constant <code>CRAFTBUKKIT="org.bukkit.craftbukkit.UNSPECIFIC."</code> */
 	public static final String CRAFTBUKKIT  = "org.bukkit.craftbukkit.UNSPECIFIC.";
+	/** Constant <code>NMS="net.minecraft.server.UNSPECIFIC."</code> */
 	public static final String NMS = "net.minecraft.server.UNSPECIFIC.";
 
+	/**
+	 * <p>Constructor for RefUtils.</p>
+	 */
 	public RefUtils() { init(); }
 
+	/**
+	 * <p>getClass.</p>
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @return a {@link java.lang.Class} object
+	 */
 	public static Class<?> getClass(String name) { try { return Class.forName(name); } catch(final Exception e) { return null; } }
+	/**
+	 * <p>getNMS.</p>
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @return a {@link java.lang.Class} object
+	 */
 	public static Class<?> getNMS(String name) { return getClass(NMS + name); }
+	/**
+	 * <p>getCraft.</p>
+	 *
+	 * @param name a {@link java.lang.String} object
+	 * @return a {@link java.lang.Class} object
+	 */
 	public static Class<?> getCraft(String name) { return getClass(CRAFTBUKKIT + name); }
 
 	private void init() {

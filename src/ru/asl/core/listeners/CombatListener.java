@@ -17,8 +17,19 @@ import ru.asl.core.Core;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>CombatListener class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class CombatListener implements Listener {
 
+	/**
+	 * <p>throwCombatEvent.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.entity.EntityDamageByEntityEvent} object
+	 */
 	@EventHandler()
 	public void throwCombatEvent(EntityDamageByEntityEvent e) {
 		Entity attacker = e.getDamager();

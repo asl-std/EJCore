@@ -8,16 +8,31 @@ import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
 import ru.asl.core.managers.ModuleManager;
 
+/**
+ * <p>Abstract EJAddon class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public abstract class EJAddon implements EJModule {
 
 	protected YAML moduleConfiguration;
 
+	/**
+	 * <p>isModuleRegistered.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isModuleRegistered() {
 		return ModuleManager.isRegistered(getModuleName());
 	}
 
+	/**
+	 * <p>Constructor for EJAddon.</p>
+	 */
 	public EJAddon() { }
 
+	/** {@inheritDoc} */
 	@Override
 	public YAML getModuleConfig() {
 		if (moduleConfiguration == null) {
@@ -32,6 +47,7 @@ public abstract class EJAddon implements EJModule {
 		return moduleConfiguration;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void reloadModule() {
 		try {

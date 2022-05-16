@@ -9,10 +9,19 @@ import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.ejcore.items.ItemStackUtil;
 import ru.asl.api.ejcore.value.DoubleSettings;
 
+/**
+ * <p>Tests class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class Tests {
 
 	private static boolean tested = false;
 
+	/**
+	 * <p>start.</p>
+	 */
 	public static void start() {
 		if (!tested) {
 			testStringBuffer();

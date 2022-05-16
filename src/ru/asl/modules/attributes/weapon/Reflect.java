@@ -10,8 +10,22 @@ import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>Reflect class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class Reflect extends BasicAttr implements ListeningCombat {
 
+	/**
+	 * <p>Constructor for Reflect.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public Reflect(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
 	}
@@ -27,6 +41,7 @@ public final class Reflect extends BasicAttr implements ListeningCombat {
 	private double getV (String tier) { return settings.get(tier+"."+V);  }
 	private double getD (String tier) { return settings.get(tier+"."+D);  }
 
+	/** {@inheritDoc} */
 	@Override
 	public void initCustomSettings() {
 		settings.setCustom("tier1-max-chance",statCfg.getDouble(toString() + ".settings.tier1.max-chance", 8.0D, true));
@@ -43,6 +58,7 @@ public final class Reflect extends BasicAttr implements ListeningCombat {
 	}
 
 
+	/** {@inheritDoc} */
 	@Override
 	public void listen(CombatEvent e) {
 		if (e.getType() != CombatType.ENTITY_TO_PLAYER && e.getType() != CombatType.PLAYER_TO_PLAYER) return;

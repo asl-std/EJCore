@@ -10,8 +10,22 @@ import ru.asl.core.Core;
 import ru.asl.modules.attributes.BasicAttr;
 import ru.asl.modules.attributes.ListeningCombat;
 
+/**
+ * <p>CriticalChance class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 @SuppressWarnings("unused")
 public final class CriticalChance extends BasicAttr implements ListeningCombat {
+	/**
+	 * <p>Constructor for CriticalChance.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param base a double
+	 * @param perLevel a double
+	 */
 	public CriticalChance(String keyName, String path, double base, double perLevel) {
 		super(keyName, path, base, perLevel);
 	}
@@ -27,6 +41,7 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 	private long   getC (String tier) { return (long) settings.get(tier+"."+C);  }
 	private double getD (String tier) { return settings.get(tier+"."+D);  }
 
+	/** {@inheritDoc} */
 	@Override
 	public void initCustomSettings() {
 		settings.setCustom("tier1-max-chance", statCfg.getDouble(toString() +".settings.tier1.max-chance", 10.0D, true));
@@ -42,6 +57,7 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 		settings.setCustom("tier3-increase-divider", statCfg.getDouble(toString() + ".settings.tier3.increase-divider", 1.0D, true));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void listen(CombatEvent e) {
 		if (e.getType() != CombatType.PLAYER_TO_ENTITY || e.getType() != CombatType.PLAYER_TO_PLAYER) return;

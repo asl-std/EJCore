@@ -12,13 +12,32 @@ import ru.asl.core.Core;
 import ru.asl.modules.attributes.AttrType;
 import ru.asl.modules.attributes.BasicAttr;
 
+/**
+ * <p>ExperienceBonus class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public final class ExperienceBonus extends BasicAttr implements Listener {
 
+	/**
+	 * <p>Constructor for ExperienceBonus.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param base a double
+	 * @param perLevel a double
+	 */
 	public ExperienceBonus(String keyName, String path, double base, double perLevel) {
 		super(keyName, path, base, perLevel, AttrType.PER_LEVEL);
 		Core.getEventLoader().addListener("exp-bonus", this);
 	}
 
+	/**
+	 * <p>onEntityDeath.</p>
+	 *
+	 * @param e a {@link org.bukkit.event.entity.EntityDeathEvent} object
+	 */
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent e) {
 		if (e.getEntity() instanceof Monster || e.getEntity() instanceof Animals) {

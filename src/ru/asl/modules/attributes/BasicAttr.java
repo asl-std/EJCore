@@ -12,11 +12,25 @@ import ru.asl.api.ejcore.yaml.YAML;
 import ru.asl.core.Core;
 
 // Базовый класс атрибутов.
+/**
+ * <p>BasicAttr class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class BasicAttr {
+	/** Constant <code>FIRST_VALUE="base-values.first"</code> */
+	/** Constant <code>SECOND_VALUE="base-values.second"</code> */
 	public static final String
 	FIRST_VALUE 				= "base-values.first",
 	SECOND_VALUE 				= "base-values.second";
 
+	/**
+	 * <p>getRegexPattern.</p>
+	 *
+	 * @param stat a {@link ru.asl.modules.attributes.BasicAttr} object
+	 * @return a {@link java.util.regex.Pattern} object
+	 */
 	public static final Pattern getRegexPattern(BasicAttr stat) { //\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)
 		return Pattern.compile(EText.e(stat.getVisualName().toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
@@ -25,7 +39,17 @@ public class BasicAttr {
 	@Getter private int priority = 1;
 	@Getter @Setter private int uniquePosition = 0;
 
+	/**
+	 * <p>Setter for the field <code>priority</code>.</p>
+	 *
+	 * @param priority a int
+	 */
 	public void setPriority(int priority) { this.priority = priority; }
+	/**
+	 * <p>Setter for the field <code>priority</code>.</p>
+	 *
+	 * @param priority a {@link ru.asl.modules.attributes.Priority} object
+	 */
 	public void setPriority(Priority priority) { setPriority(priority.getPriority()); }
 
 	@Getter private final String key;
@@ -35,13 +59,44 @@ public class BasicAttr {
 
 	protected DoubleSettings settings = new DoubleSettings();
 
+	/**
+	 * <p>setFirstValue.</p>
+	 *
+	 * @param firstValue a double
+	 */
 	public void setFirstValue(double firstValue) 	{ settings.setCustom(FIRST_VALUE, firstValue); }
+	/**
+	 * <p>setSecondValue.</p>
+	 *
+	 * @param secondValue a double
+	 */
 	public void setSecondValue(double secondValue) 	{ settings.setCustom(SECOND_VALUE, secondValue); }
+	/**
+	 * <p>getFirstValue.</p>
+	 *
+	 * @return a double
+	 */
 	public double getFirstValue()	{ return settings.get(FIRST_VALUE); }
+	/**
+	 * <p>getSecondValue.</p>
+	 *
+	 * @return a double
+	 */
 	public double getSecondValue()	{ return settings.get(SECOND_VALUE); }
 
+	/**
+	 * <p>isEnabled.</p>
+	 *
+	 * @return a boolean
+	 */
 	public boolean isEnabled() { return statCfg.getBoolean(toString() + ".is-enabled", true, true); }
 
+	/**
+	 * <p>getAndScale.</p>
+	 *
+	 * @param modifier a int
+	 * @return a double
+	 */
 	public double getAndScale(int modifier) {
 		if (getType() != AttrType.PER_LEVEL) {
 			EText.warn(toString() + ": You can't scale values from RANGE or STATIC stats, skipped.");
@@ -50,6 +105,15 @@ public class BasicAttr {
 		return getFirstValue() + getSecondValue() * modifier;
 	}
 
+	/**
+	 * <p>Constructor for BasicAttr.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 * @param type a {@link ru.asl.modules.attributes.AttrType} object
+	 */
 	public BasicAttr(String keyName, String path, double defBase, double defPerLevel, AttrType type) {
 		key = keyName;
 		this.path = path;
@@ -68,6 +132,14 @@ public class BasicAttr {
 		getColorDecorator();
 	}
 
+	/**
+	 * <p>Constructor for BasicAttr.</p>
+	 *
+	 * @param keyName a {@link java.lang.String} object
+	 * @param path a {@link java.lang.String} object
+	 * @param defBase a double
+	 * @param defPerLevel a double
+	 */
 	public BasicAttr(String keyName, String path, double defBase, double defPerLevel) {
 		key = keyName;
 		this.path = path;
@@ -85,14 +157,34 @@ public class BasicAttr {
 		getColorDecorator();
 	}
 
+	/**
+	 * <p>getVisualName.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getVisualName() { return statCfg.getString(toString() + ".visual-name", "&7" + WordUtils.capitalizeFully(toString().replaceAll("-", " ")), true); }
 
+	/**
+	 * <p>getCostValue.</p>
+	 *
+	 * @return a double
+	 */
 	public double getCostValue() { return statCfg.getDouble(toString() + ".cost-value", 0.0D, true); }
 
+	/**
+	 * <p>getColorDecorator.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getColorDecorator() { return statCfg.getString(toString() + ".suffix-color-decorator", "&7", true); }
 
 	// 0 = minus or plus, 1 = first value, 2 = "-" if needed, or %, 3 = second
 	// value, 4 = "%" if needed.
+	/**
+	 * <p>getVisualTemplate.</p>
+	 *
+	 * @return a {@link java.lang.String} object
+	 */
 	public String getVisualTemplate() {
 		if (getType() == AttrType.RANGE)
 			return getVisualName() + ": " + getColorDecorator() + "$0$1$2$3$4";
@@ -100,6 +192,12 @@ public class BasicAttr {
 			return getVisualName() + ": " + getColorDecorator() + "$0$1$2";
 	}
 
+	/**
+	 * <p>convertToLore.</p>
+	 *
+	 * @param values a {@link java.lang.String} object
+	 * @return a {@link java.lang.String} object
+	 */
 	public String convertToLore(String... values) {
 		String converted = getVisualTemplate();
 		int $ = 0;
@@ -117,8 +215,14 @@ public class BasicAttr {
 		return converted;
 	}
 
+	/**
+	 * <p>initCustomSettings.</p>
+	 */
 	public void initCustomSettings() {}
 
+	/**
+	 * <p>initializeBasicValues.</p>
+	 */
 	public void initializeBasicValues() {
 		switch(type) {
 		case PER_LEVEL:
@@ -157,6 +261,7 @@ public class BasicAttr {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return key.toLowerCase();

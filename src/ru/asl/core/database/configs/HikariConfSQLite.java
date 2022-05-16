@@ -10,8 +10,19 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.Getter;
 
+/**
+ * <p>HikariConfSQLite class.</p>
+ *
+ * @author ZooMMaX
+ * @version $Id: $Id
+ */
 public class HikariConfSQLite {
 	@Getter private static Connection con;
+	/**
+	 * <p>init.</p>
+	 *
+	 * @param plugin a {@link org.bukkit.plugin.Plugin} object
+	 */
 	public void init(Plugin plugin) {
 		HikariConfig config = new HikariConfig();
 		config.setPoolName("EJDataBaseSQLite");
