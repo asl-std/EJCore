@@ -10,6 +10,7 @@ import org.bukkit.plugin.Plugin;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
+import ru.asl.api.bukkit.events.register.RegisterEventListener;
 import ru.asl.api.bukkit.item.Material1_12;
 import ru.asl.api.bukkit.item.Material1_13;
 import ru.asl.api.bukkit.item.interfaze.MaterialAdapter;
@@ -104,6 +105,7 @@ public class Core extends EJPlugin {
 
 		Core.reflections = new RefUtils();
 		Core.eventLoader = new ListenerManager(this);
+		RegisterEventListener.init(this);
 
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
 		Core.lang = new LangConfig(getDataFolder() + "/lang.yml", this);

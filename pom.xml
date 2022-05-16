@@ -11,11 +11,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.pantherguilds>0.0.1</version.pantherguilds>
 	</properties>
+	
 
 	<build>
 
 		<sourceDirectory>src</sourceDirectory>
 		<finalName>${project.name}-${project.version}-${releaseStatus}</finalName>
+		
+		
 
 		<resources>
 			<resource>
@@ -33,6 +36,7 @@
 		</resources>
 
 		<plugins>
+		
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -42,7 +46,6 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -198,7 +201,7 @@
             <version>5.0.1</version>
         </dependency>
 		
-		
+
 
 	</dependencies>
 

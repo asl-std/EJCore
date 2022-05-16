@@ -57,7 +57,7 @@ public class DB {
             stmt.execute();
             return true;
         }catch (SQLException e){
-            EText.e(e.toString());
+            EText.warn(e.toString(), "EJC DataBase error execSQL");
             return false;
         }
     }
@@ -77,18 +77,16 @@ public class DB {
 	           	HashMap<String, Object> tmpHashMap = new HashMap<>();
 	           	for(int x = 1; x < rsmd.getColumnCount()+1; x++) {
 	           		colNames.add(rsmd.getColumnName(x));
-	           		EText.debug(x+"  "+colNames.get(x-1));
 	           		}
 	           	while(rs.next()) {
 	           		for(String s : colNames) {
 	           			tmpHashMap.put(s, rs.getObject(s));
 	           		}
-	           		tmpHashMap.put("error", "null");
 	           		tmpHashMaps.add(tmpHashMap);
 	           	}
 	           	return tmpHashMaps;
  	        }catch (SQLException e){
-	            EText.e(e.toString());
+	            EText.warn(e.toString(),"EJC DataBase error getMultiResultSet");
 	            return null;
 	        }
 	}

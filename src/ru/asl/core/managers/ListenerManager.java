@@ -27,6 +27,7 @@ public class ListenerManager {
 	public ListenerManager(EJPlugin mainPlugin) {
 		this.mainPlugin = mainPlugin;
 	}
+	
 
 	public void addListener(String pluginName, Listener listener) {
 		if (!ListenerManager.listeners.containsKey(pluginName))
