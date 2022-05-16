@@ -1,6 +1,6 @@
 package ru.asl.api.ejcore.entity;
 
-import static ru.asl.core.Core.getAttr;
+import ru.asl.core.Core;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -261,17 +261,17 @@ public final class EPlayer implements EJPlayer {
 	@Override
 	public void updateStats() {
 		double defHealth = 20;
-		if (getAttr() != null)
-			defHealth = getStatValue(getAttr().getByKey("MAX_HEALTH"))[0];
+		if (Core.getAttr() != null)
+			defHealth = getStatValue(Core.getAttr().getByKey("MAX_HEALTH"))[0];
 
 		final double classHealth = tempSettings.getValue(CLASS_HEALTH, getLevel());
 
 		final double maxHealth = defHealth + classHealth;
 		changeMaxHealth(maxHealth >= 0 ? maxHealth : 1);
 
-		if (getAttr() == null) return;
+		if (Core.getAttr() == null) return;
 
-		final double speed = getStatValue(getAttr().getByKey("SPEED"))[0];
+		final double speed = getStatValue(Core.getAttr().getByKey("SPEED"))[0];
 
 		if ((speed >= 0)) getPlayer().setWalkSpeed((float) ((MathUtil.getPercentsOfValue(20, speed) / 100) >= 1.0f ? 1.0f : MathUtil.getPercentsOfValue(20, speed) / 100));
 	}
@@ -301,7 +301,7 @@ public final class EPlayer implements EJPlayer {
 	 * @param saturation количество восполняемого насыщения (может быть негативным)
 	 */
 	public void feed(int hunger, float saturation) {
-		final double maxHunger = getAttr() == null ? 20.0 : Math.floor(getStatValue(getAttr().getByKey("MAX_HUNGER"))[0]);
+		final double maxHunger = Core.getAttr() == null ? 20.0 : Math.floor(getStatValue(Core.getAttr().getByKey("MAX_HUNGER"))[0]);
 		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 		float currSaturation = player.getSaturation();
 
@@ -335,7 +335,7 @@ public final class EPlayer implements EJPlayer {
 	}
 
 	public void changeMaxHunger(double newValue) {
-		final double maxHunger = getAttr() == null ? 20.0 : Math.floor(getStatValue(getAttr().getByKey("MAX_HUNGER"))[0]);
+		final double maxHunger = Core.getAttr() == null ? 20.0 : Math.floor(getStatValue(Core.getAttr().getByKey("MAX_HUNGER"))[0]);
 		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 
 		final double hungerModifier = currHunger / maxHunger;
