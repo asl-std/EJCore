@@ -21,9 +21,9 @@ public class BlockUtil {
 			radius /= 2;
 
 		for (int x = -radius ; x < radius ; x++)
-			for (final int y = -radius ; y < radius ; x++)
+			for (int y = -radius ; y < radius ; y++)
 				for (int z = -radius ; z < radius ; z++)
-					blocks.add(center.getWorld().getBlockAt(center.add(new Vector3D(x,y,z)).toLocation()));
+					blocks.add(target.getWorld().getBlockAt(center.add(new Vector3D(x,y,z)).toLocation()));
 
 		return blocks;
 	}
@@ -41,7 +41,7 @@ public class BlockUtil {
 
 		for (int x = -radius ; x < radius ; x++)
 			for (int z = -radius ; z < radius ; z++)
-				blocks.add(center.getWorld().getBlockAt(center.add(new Vector3D(x,0,z)).toLocation()));
+				blocks.add(target.getWorld().getBlockAt(center.add(new Vector3D(x,0,z)).toLocation()));
 
 		return blocks;
 
