@@ -60,8 +60,8 @@ public class DB {
 	public boolean execSQL(){	
         try(PreparedStatement stmt = connection().prepareStatement(sql)){
         	if (setData != null && !setData.isEmpty()) {
-				for(int x = 1; x < setData.size(); x++) {
-					stmt.setObject(x, setData.get(x));
+				for(int x = 0; x < setData.size(); x++) {
+					stmt.setObject(x+1, setData.get(x+1));
 				}
 			}
             stmt.execute();
