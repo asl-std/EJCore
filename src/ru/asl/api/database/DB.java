@@ -20,11 +20,10 @@ import ru.asl.core.database.configs.HikariConfSQLite;
  * <p>DB class.</p>
  *
  * @author ZooMMaX
- * @version $Id: $Id
+ * @version 1.2.17
  */
 @Builder
 public class DB {
-	
 	@Getter
 	@Setter
 	@NonNull
@@ -56,7 +55,7 @@ public class DB {
 	/**
 	 * <p>execSQL.</p>
 	 *
-	 * @return a boolean
+	 * @return a {@link java.lang.Boolean}
 	 */
 	public boolean execSQL(){	
         try(PreparedStatement stmt = connection().prepareStatement(sql)){
@@ -77,7 +76,7 @@ public class DB {
 	/**
 	 * <p>getMultiResultSet.</p>
 	 *
-	 * @return a {@link java.util.ArrayList} object
+	 * @return a {@link java.util.ArrayList} of the {@link java.util.HashMap}
 	 */
 	public ArrayList<HashMap<String, Object>> getMultiResultSet() {
 		ArrayList<HashMap<String, Object>> tmpHashMaps = new ArrayList<>();

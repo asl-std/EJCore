@@ -139,7 +139,6 @@ public class Core extends EJPlugin {
 		HookManager.tryHookPAPI();
 
 		Tests.start();
-
 		Core.getEventLoader().addListener("playerJoin", new PlayerListener());
 		Core.getEventLoader().addListener("paneInteract", new PaneInteractListener());
 		Core.getEventLoader().addListener("combatEventCustom", new CombatListener());
