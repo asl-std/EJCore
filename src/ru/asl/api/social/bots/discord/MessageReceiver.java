@@ -1,6 +1,7 @@
 package ru.asl.api.social.bots.discord;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 /**
  * <p>MessageReceiver interface.</p>
@@ -19,4 +20,10 @@ public interface MessageReceiver {
 	 * @param messageID a {@link java.lang.String} object
 	 */
 	void onMessageReceived(MessageChannel channel,String messageText,String messageAuthor,String authorID,String messageID);
+
+	/**
+	 *
+	 * @param event {@link ButtonInteractionEvent} object
+	 */
+	void onButtonClick(ButtonInteractionEvent event);
 }
