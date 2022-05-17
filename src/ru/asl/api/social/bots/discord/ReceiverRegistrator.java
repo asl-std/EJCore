@@ -16,13 +16,17 @@ public class ReceiverRegistrator {
 	/**
 	 * <p>init.</p>
 	 * Тут происходит регистрация для слушателя бота дискорд.<br><br>
-	 * {@code new ReceiverRegistrator().init(BotListener.class);}
+	 * {@code ReceiverRegistrator.init(new BotListener());}
 	 * @param clazz a {@link java.lang.Object} object
 	 */
 	public static void init(Object clazz) {
 		BotListener.classes.add(clazz);
 	}
 
+	/**
+	 * Получение экземпляра {@link JDA} для работы с ботом дискорд вне ejCore
+	 * @return {@link JDA}
+	 */
 	public static JDA getJDA(){
 		return BotMain.getJda();
 	}

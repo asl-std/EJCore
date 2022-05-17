@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import ru.asl.api.bukkit.message.EText;
 
 /**
  * <p>BotListener class.</p>
@@ -36,6 +37,7 @@ public class BotListener extends ListenerAdapter{
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         btn2class(event);
+        event.reply(".").queue();
     }
 
 
@@ -43,7 +45,7 @@ public class BotListener extends ListenerAdapter{
     private void msg2class(MessageChannel channel, String messageText, String messageAuthor, String authorID, String messageID){
         for (Object obj : classes) {
             if (obj != null) {
-                Class<? extends Object> clazz = obj.getClass();
+                Class clazz = obj.getClass();
                 try {
                     clazz.getMethod("onMessageReceived", MessageChannel.class,String.class,String.class,String.class,String.class)
                     	.invoke(obj, channel,messageText,messageAuthor,authorID,messageID);
@@ -57,7 +59,7 @@ public class BotListener extends ListenerAdapter{
     private void btn2class(ButtonInteractionEvent event){
         for (Object obj : classes) {
             if (obj != null) {
-                Class<? extends Object> clazz = obj.getClass();
+                Class clazz = obj.getClass();
                 try {
                     clazz.getMethod("onButtonClick", ButtonInteractionEvent.class)
                             .invoke(obj, event);
