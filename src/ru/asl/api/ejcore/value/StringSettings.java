@@ -58,20 +58,26 @@ public class StringSettings extends Settings<String> {
 	public void importFromYAML(YAML file, String section) {
 		final Set<String> keys = (section != null && !section.equalsIgnoreCase("")) ? file.getSection(section).getKeys(true)
 				: file.getKeys(true);
+
+		if (section == null || section.equalsIgnoreCase(""))
+			section = "";
+		else
+			section = section + ".";
+
 		for (final String key : keys) {
-			if (!file.getString(String.valueOf(section) + "." + key).startsWith("MemorySection[path='")
-					|| !file.getStringList(String.valueOf(section) + "." + key).isEmpty()) {
-				if (!file.getStringList(String.valueOf(section) + "." + key).isEmpty()) {
-					importArray(file.getStringList(String.valueOf(section) + "." + key), key);
+			if (!file.getString(String.valueOf(section) + key).startsWith("MemorySection[path='")
+					|| !file.getStringList(String.valueOf(section) + key).isEmpty()) {
+				if (!file.getStringList(String.valueOf(section) + key).isEmpty()) {
+					importArray(file.getStringList(String.valueOf(section) + key), key);
 					continue;
 				}
-				if (file.getString(String.valueOf(section) + "." + key).equalsIgnoreCase("remove")
-						|| file.getString(String.valueOf(section) + "." + key).equalsIgnoreCase("null")) {
+				if (file.getString(String.valueOf(section) + key).equalsIgnoreCase("remove")
+						|| file.getString(String.valueOf(section) + key).equalsIgnoreCase("null")) {
 					if (settings.containsKey(key))
 						settings.remove(key);
 					continue;
 				}
-				settings.put(key.toLowerCase(), file.getString(String.valueOf(section) + "." + key));
+				settings.put(key.toLowerCase(), file.getString(String.valueOf(section) + key));
 			}
 		}
 	}
@@ -102,14 +108,18 @@ public class StringSettings extends Settings<String> {
 	 * @param section a {@link java.lang.String} object
 	 */
 	public void exportToYAML(YAML file, String section) {
+		if (section == null || section.equalsIgnoreCase(""))
+			section = "";
+		else section = section + ".";
+
 		for (final Map.Entry<String, String> key : getKeys()) {
 			if (key.getKey().matches("^.*\\.[1-9]*"))
 				continue;
 			if (key.getKey().matches("^.*\\.0$")) {
-				file.set(String.valueOf(section) + "." + key.getKey().substring(0, key.getKey().length() - 2), exportArray(key.getKey().substring(0, key.getKey().length() - 2)));
+				file.set(String.valueOf(section) + key.getKey().substring(0, key.getKey().length() - 2), exportArray(key.getKey().substring(0, key.getKey().length() - 2)));
 				continue;
 			}
-			file.set(String.valueOf(section) + "." + key.getKey(), key.getValue());
+			file.set(String.valueOf(section) + key.getKey(), key.getValue());
 		}
 	}
 }
