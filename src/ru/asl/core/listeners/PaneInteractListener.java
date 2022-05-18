@@ -28,7 +28,7 @@ public class PaneInteractListener implements Listener {
 	 *
 	 * @param event a {@link org.bukkit.event.inventory.InventoryClickEvent} object
 	 */
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPaneClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null) return;
 		if (event.getClickedInventory() instanceof PlayerInventory) return;
@@ -60,7 +60,7 @@ public class PaneInteractListener implements Listener {
 	 *
 	 * @param event a {@link org.bukkit.event.inventory.InventoryCloseEvent} object
 	 */
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPageClose(InventoryCloseEvent event) {
 		if (event.getInventory().getHolder() instanceof Pane)
 			((Pane) event.getInventory().getHolder()).returnItems((Player) event.getPlayer(), event);
@@ -71,7 +71,7 @@ public class PaneInteractListener implements Listener {
 	 *
 	 * @param event a {@link org.bukkit.event.inventory.InventoryDragEvent} object
 	 */
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPaneDrag(InventoryDragEvent event) {
 		if (event.getInventory().getHolder() instanceof Pane)
 			event.setCancelled(true);
