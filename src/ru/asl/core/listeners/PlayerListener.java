@@ -68,7 +68,7 @@ public class PlayerListener implements Listener {
 
 				p.getSettings().exportToYAML(YAML.getPlayerFile(e.getPlayer()), "");
 
-				EPlayer.removeRegistered(e.getPlayer());
+				EPlayer.unregister(e.getPlayer());
 			}
 
 		}.runTask(Core.instance());

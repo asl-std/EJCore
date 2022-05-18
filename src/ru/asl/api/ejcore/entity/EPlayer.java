@@ -1,7 +1,5 @@
 package ru.asl.api.ejcore.entity;
 
-import ru.asl.core.Core;
-
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -25,6 +23,7 @@ import ru.asl.api.ejcore.value.StringSettings;
 import ru.asl.api.ejcore.value.util.MathUtil;
 import ru.asl.api.ejcore.value.util.ValueUtil;
 import ru.asl.api.ejcore.yaml.YAML;
+import ru.asl.core.Core;
 import ru.asl.modules.attributes.BasicAttr;
 /**
  * Paths for Settings:<br>
@@ -154,8 +153,10 @@ public final class EPlayer implements EJPlayer {
 	 *
 	 * @param p a {@link org.bukkit.entity.Player} object
 	 */
-	public static void removeRegistered(Player p) {
-		if (registeredEPlayers.containsKey(p.getUniqueId())) registeredEPlayers.remove(p.getUniqueId());
+	public static void unregister(Player p) {
+		if (registeredEPlayers.containsKey(p.getUniqueId())) {
+			registeredEPlayers.remove(p.getUniqueId()).save();
+		}
 	}
 
 	/**
@@ -487,6 +488,10 @@ public final class EPlayer implements EJPlayer {
 	 */
 	public int getLevel() {
 		return (int) Math.round(tempSettings.getValue(LEVEL, 0));
+	}
+
+	public void save() {
+		settings.exportToYAML(YAML.getPlayerFile(player), "");
 	}
 
 }

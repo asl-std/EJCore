@@ -185,7 +185,7 @@ public class Core extends EJPlugin {
 	@Override
 	public void disabling() {
 		for (final Player p : Bukkit.getOnlinePlayers())
-			EPlayer.removeRegistered(p);
+			EPlayer.unregister(p);
 		Core.getEventLoader().unregisterAll();
 	}
 

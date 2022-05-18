@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import ru.asl.api.bukkit.message.EText;
 import ru.asl.api.bukkit.plugin.EJPlugin;
@@ -395,7 +395,7 @@ public class YAML {
 	 * @param p a {@link org.bukkit.entity.Player} object
 	 * @return a {@link ru.asl.api.ejcore.yaml.YAML} object
 	 */
-	public static YAML getPlayerFile(Player p) {
+	public static YAML getPlayerFile(OfflinePlayer p) {
 		final YAML yaml = new YAML(new File(Core.instance().getDataFolder() + "/players/" + p.getUniqueId().toString() + ".yml"));
 
 		List<String> storedNames = new ArrayList<>();
