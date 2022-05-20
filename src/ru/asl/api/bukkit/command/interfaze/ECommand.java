@@ -15,7 +15,7 @@ public interface ECommand extends Perms {
 	 *
 	 * @return a {@link ru.asl.api.bukkit.command.interfaze.SenderType} object
 	 */
-	public SenderType getSenderType();
+	SenderType getSenderType();
 
 	/**
 	 * <p>getDescription.</p>
@@ -38,6 +38,8 @@ public interface ECommand extends Perms {
 	 */
 	String getUsage();
 
+	boolean testConditions(CommandSender player);
+
 	/**
 	 * <p>use.</p>
 	 *
@@ -45,4 +47,5 @@ public interface ECommand extends Perms {
 	 * @param args an array of {@link java.lang.String} objects
 	 */
 	void use(CommandSender sender, String[] args);
+
 }

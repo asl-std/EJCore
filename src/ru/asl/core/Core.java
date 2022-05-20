@@ -143,10 +143,10 @@ public class Core extends EJPlugin {
 		Core.getEventLoader().addListener("paneInteract", new PaneInteractListener());
 		Core.getEventLoader().addListener("combatEventCustom", new CombatListener());
 		Core.getEventLoader().addListener("equip", new EquipListener());
-		Core.getEventLoader().addListener("equip", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
+		Core.getEventLoader().addListener("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
 		new DBinit().init(instance);
-		
+
 		if (Server.createServer()) {
 			webServer = new Server();
 			webServer.start();

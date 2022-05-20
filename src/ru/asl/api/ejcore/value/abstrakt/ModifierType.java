@@ -20,21 +20,21 @@ public enum ModifierType {
 	public static final Pattern check = Pattern.compile("^([-+]?)(\\d*\\.?\\d*)\\-?\\d*\\.?\\d*([%]?)$");
 
 	/** Constant <code>matcher</code> */
+	public static Matcher matcher;
+
 	/**
 	 * <p>getFromValue.</p>
 	 *
 	 * param val a {@link java.lang.String} object
 	 * return a {@link ru.asl.api.ejcore.value.abstrakt.ModifierType} object
 	 */
-	public static Matcher matcher;
-
 	public static ModifierType getFromValue(String val) {
 		boolean positive, isPercents;
 
 		matcher = check.matcher(val);
 
 		if (matcher.find()) {
-			String[] params = new String[3];
+			final String[] params = new String[3];
 			for (int i = 0 ; i < params.length ; i++)
 				params[i] = matcher.group(i+1);
 
@@ -107,14 +107,14 @@ public enum ModifierType {
 	 */
 	public ModifierType reverse() {
 		switch(this) {
-			case NEGATIVE:
-				return POSITIVE;
-			case NEGATIVE_PERCENTS:
-				return POSITIVE_PERCENTS;
-			case POSITIVE:
-				return NEGATIVE;
-			case POSITIVE_PERCENTS:
-				return NEGATIVE_PERCENTS;
+		case NEGATIVE:
+			return POSITIVE;
+		case NEGATIVE_PERCENTS:
+			return POSITIVE_PERCENTS;
+		case POSITIVE:
+			return NEGATIVE;
+		case POSITIVE_PERCENTS:
+			return NEGATIVE_PERCENTS;
 		}
 
 		return POSITIVE; // UNREACHABLE

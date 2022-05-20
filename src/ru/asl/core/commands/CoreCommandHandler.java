@@ -48,7 +48,7 @@ public class CoreCommandHandler extends BasicCommandHandler {
 			final List<ECommand> commands = new ArrayList<>(getRegisteredCommands());
 			commands.add(getDefaultCommand());
 			for (final ECommand command : commands)
-				if (s.hasPermission(command.getPermission()))
+				if (command.testConditions(s))
 					EText.send(s,
 							"&6" + command.getUsage() +
 							" - &2" + command.getDescription() +

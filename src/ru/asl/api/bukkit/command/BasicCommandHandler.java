@@ -66,6 +66,9 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 	 * <p>registerHandler.</p>
 	 */
 	public void registerHandler() {
+		if (plugin.getCommand(label).getExecutor() != null)
+			plugin.getCommand(label).setExecutor(null);
+
 		plugin.getCommand(label).setExecutor(this);
 	}
 
@@ -80,7 +83,7 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 			args = EText.trimArgs(args);
 		}
 
-		if (cmd.getPermission() == null || sender.hasPermission(cmd.getPermission()) || sender.isOp())
+		if (cmd.getPermission() == null || cmd.testConditions(sender) || sender.isOp())
 			cmd.use(sender, args);
 		else
 			sender.sendMessage("Unknown command!");

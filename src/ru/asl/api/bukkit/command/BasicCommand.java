@@ -1,5 +1,9 @@
 package ru.asl.api.bukkit.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,6 +28,8 @@ public class BasicCommand implements ECommand {
 	private String description, permission, arguments;
 	private BasicCommandHandler handler;
 
+	protected List<Predicate<CommandSender>> conditions = new ArrayList<>();
+
 	/**
 	 * <p>Constructor for BasicCommand.</p>
 	 *
@@ -39,6 +45,7 @@ public class BasicCommand implements ECommand {
 		senderType = SenderType.fromString(handler.cmdFile.getString(label + ".sender-type", "ALL", true));
 		this.func = func;
 		this.handler = handler;
+		conditions.add(p -> p.hasPermission(permission) );
 	}
 
 	/**
@@ -78,6 +85,15 @@ public class BasicCommand implements ECommand {
 	@Override
 	public void use(CommandSender sender, String[] args) {
 		if (func == null) return; if (isValid(sender, senderType)) func.execute(sender, args);
+	}
+
+	@Override
+	public boolean testConditions(CommandSender sender) {
+		for (final Predicate<CommandSender> filters : conditions)
+			if (!filters.test(sender))
+				return false;
+
+		return true;
 	}
 
 	/**
