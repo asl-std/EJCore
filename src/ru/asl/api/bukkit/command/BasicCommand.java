@@ -48,6 +48,11 @@ public class BasicCommand implements ECommand {
 		conditions.add(p -> p.hasPermission(permission) );
 	}
 
+	public BasicCommand(BasicCommandHandler handler, String label, Usable<CommandSender, String[]> func, List<Predicate<CommandSender>> filters) {
+		this(handler, label, func);
+		conditions.addAll(filters);
+	}
+
 	/**
 	 * <p>getHelp.</p>
 	 *
