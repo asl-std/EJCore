@@ -112,8 +112,8 @@ public class BasicCommand implements ECommand {
 		final boolean isPlayer = obj instanceof Player;
 		switch (senderType) {
 		case ALL:			return true;
-		case CONSOLE_ONLY:	if (isPlayer) return false;
-		case PLAYER_ONLY:	if (isPlayer) return true;
+		case CONSOLE_ONLY:	return !isPlayer;
+		case PLAYER_ONLY:	return isPlayer;
 		default:			return false;
 		}
 	}
