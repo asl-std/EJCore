@@ -36,8 +36,9 @@ public class BotListener extends ListenerAdapter{
 
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
+        event.editMessage(event.getComponent().getLabel()+" clicked");
         btn2class(event);
-        event.reply(".").queue();
+
     }
 
 
