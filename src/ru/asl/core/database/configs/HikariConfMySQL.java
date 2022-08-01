@@ -1,17 +1,15 @@
 package ru.asl.core.database.configs;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.Getter;
+import org.bukkit.plugin.Plugin;
+import ru.asl.core.Core;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.bukkit.plugin.Plugin;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
-import lombok.Getter;
-import ru.asl.core.Core;
 
 /**
  * <p>HikariConfMySQL class.</p>
@@ -23,8 +21,7 @@ public class HikariConfMySQL {
 	@Getter private static Connection con;
 	/**
 	 * <p>init.</p>
-	 *
-	 * @param plugin a {@link org.bukkit.plugin.Plugin} object
+	 * @param plugin
 	 */
 	public void init(Plugin plugin) {
 		String databaseName = "EJdb";

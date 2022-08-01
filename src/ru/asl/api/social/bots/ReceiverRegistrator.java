@@ -1,7 +1,7 @@
-package ru.asl.api.social.bots.discord;
+package ru.asl.api.social.bots;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 import net.dv8tion.jda.api.JDA;
+import ru.asl.core.social.bots.Classes;
 import ru.asl.core.social.bots.discord.BotListener;
 import ru.asl.core.social.bots.discord.BotMain;
 
@@ -20,7 +20,7 @@ public class ReceiverRegistrator {
 	 * @param clazz a {@link java.lang.Object} object
 	 */
 	public static void init(Object clazz) {
-		BotListener.classes.add(clazz);
+		Classes.classes.add(clazz);
 	}
 
 	/**

@@ -155,6 +155,10 @@ public class Core extends EJPlugin {
 			new Thread(new BotMain()).start();
 		}
 
+		if (Core.getCfg().getBoolean("vk.ej-vkbot-enabled", false, true)){
+			new Thread(new ru.asl.core.social.bots.vk.BotMain()).start();
+		}
+
 		ModuleManager.loadModules(getClassLoader());
 
 		plugins = new LinkedList<>();

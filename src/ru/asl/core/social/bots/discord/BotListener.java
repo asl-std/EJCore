@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import ru.asl.api.bukkit.message.EText;
+import ru.asl.core.social.bots.Classes;
 
 /**
  * <p>BotListener class.</p>
@@ -17,9 +18,8 @@ import ru.asl.api.bukkit.message.EText;
  * @version $Id: $Id
  */
 public class BotListener extends ListenerAdapter{
-	
-	/** Constant <code>classes</code> */
-	public static ArrayList<Object> classes = new ArrayList<>();
+
+    private ArrayList<Object> classes = Classes.classes;
 	
 	/** {@inheritDoc} */
 	@Override
@@ -38,7 +38,6 @@ public class BotListener extends ListenerAdapter{
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         event.editMessage(event.getComponent().getLabel()+" clicked");
         btn2class(event);
-
     }
 
 
@@ -48,7 +47,7 @@ public class BotListener extends ListenerAdapter{
             if (obj != null) {
                 Class clazz = obj.getClass();
                 try {
-                    clazz.getMethod("onMessageReceived", MessageChannel.class,String.class,String.class,String.class,String.class)
+                    clazz.getMethod("onMessageReceivedDiscord", MessageChannel.class,String.class,String.class,String.class,String.class)
                     	.invoke(obj, channel,messageText,messageAuthor,authorID,messageID);
                 } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
@@ -62,7 +61,7 @@ public class BotListener extends ListenerAdapter{
             if (obj != null) {
                 Class clazz = obj.getClass();
                 try {
-                    clazz.getMethod("onButtonClick", ButtonInteractionEvent.class)
+                    clazz.getMethod("onButtonClickDiscord", ButtonInteractionEvent.class)
                             .invoke(obj, event);
                 } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
