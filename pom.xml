@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ru.aslteam</groupId>
 	<artifactId>ejcore</artifactId>
-	<version>1.2.17</version>
+	<version>1.2.17.1</version>
 	<name>ejCore</name>
 
 	<properties>
