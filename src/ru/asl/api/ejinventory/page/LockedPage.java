@@ -82,6 +82,13 @@ public class LockedPage implements Page {
 				}
 	}
 
+	public void unlockEmpty() {
+		for (int y = 0; isInBounds(0, y); y++)
+			for (int x = 0; isInBounds(x, y); x++)
+				if ((get(x,y) == null || get(x,y).getIcon().getType().name().contains("AIR")) && !isUnlocked(x+y*9))
+					unlock(x,y);
+	}
+
 	/**
 	 * <p>lockAll.</p>
 	 */
@@ -126,17 +133,16 @@ public class LockedPage implements Page {
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Integer> getUnlocked() {
-		List<Integer> copy = new ArrayList<>();
-		copy.addAll(unlocked);
+		final List<Integer> copy = new ArrayList<>(unlocked);
 		return copy;
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public Element[] add(Element... elements) {
-		List<Element> elem = new ArrayList<>();
+		final List<Element> elem = new ArrayList<>();
 
-		for (Element e : elements)
+		for (final Element e : elements)
 			if (!this.add(e)) elem.add(e);
 
 		return elem.toArray(new Element[] {});
@@ -262,12 +268,12 @@ public class LockedPage implements Page {
 	public boolean fire(InventoryClickEvent event) {
 		Objects.requireNonNull(event);
 
-		int x = event.getSlot()%9;
-		int y = event.getSlot()/9;
+		final int x = event.getSlot()%9;
+		final int y = event.getSlot()/9;
 
 		if (x + y * 9 == event.getSlot()) {
 			if (isUnlocked(x+y*9)) return false;
-			Element elem = elements[x][y];
+			final Element elem = elements[x][y];
 
 			if (elem.equals(event.getCursor()) || elem.equals(LockedPage.emptyElement())) return false;
 

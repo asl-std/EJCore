@@ -46,11 +46,6 @@ public class Settings<T> {
 			return;
 		}
 
-		if (!hasKey(key)) {
-			EText.warn("Tried to add bind to non existent key");
-			return;
-		}
-
 		List<Consumer<T>> list = new ArrayList<>();
 		if (hasBind(key))
 			list = getBinds(key);

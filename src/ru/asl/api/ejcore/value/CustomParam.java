@@ -22,6 +22,8 @@ public abstract class CustomParam {
 
 	@Getter private final Pattern pattern;
 
+	@Getter private final Pattern number;
+
 	/**
 	 * <p>isAllowedValue.</p>
 	 *
@@ -40,7 +42,8 @@ public abstract class CustomParam {
 		this.key = key;
 		visualName = file.getString("eimodule.util." + key, "&7" + WordUtils.capitalizeFully(toString()), true);
 
-		pattern = Pattern.compile(EText.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)");
+		pattern = Pattern.compile(EText.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)", Pattern.CASE_INSENSITIVE);
+		number = Pattern.compile(EText.e(visualName.toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
 
 	/**
@@ -53,6 +56,17 @@ public abstract class CustomParam {
 		String val = null;
 
 		final Matcher match = pattern.matcher(EText.e(from).toLowerCase());
+
+		if (match.find())
+			val = match.group(1);
+
+		return val;
+	}
+
+	public final String getDoubleValue(String from) {
+		String val = null;
+
+		final Matcher match = number.matcher(EText.e(from).toLowerCase());
 
 		if (match.find())
 			val = match.group(1);

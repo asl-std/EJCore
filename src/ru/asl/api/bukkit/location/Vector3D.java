@@ -62,7 +62,6 @@ public class Vector3D implements Cloneable {
 		final Vector3D vec = new Vector3D(0,0,0);
 		if (prep.length >= 4)
 			vec.world = Bukkit.getWorld(prep[3]);
-
 		try {
 			return vec.add(new Vector3D(ValueUtil.parseInteger(prep[0]),ValueUtil.parseInteger(prep[1]),ValueUtil.parseInteger(prep[2]))).clone();
 		} catch (final NumberFormatException e) {
@@ -131,21 +130,21 @@ public class Vector3D implements Cloneable {
 	 * @param x a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D setX(int x) { this.x = x; return clone(); }
+	public Vector3D setX(int x) { this.x = x; return this; }
 	/**
 	 * <p>Setter for the field <code>y</code>.</p>
 	 *
 	 * @param y a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D setY(int y) { this.y = y; return clone(); }
+	public Vector3D setY(int y) { this.y = y; return this; }
 	/**
 	 * <p>Setter for the field <code>z</code>.</p>
 	 *
 	 * @param z a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D setZ(int z) { this.z = z; return clone(); }
+	public Vector3D setZ(int z) { this.z = z; return this; }
 
 	/**
 	 * <p>multiply.</p>
@@ -159,7 +158,7 @@ public class Vector3D implements Cloneable {
 	 * @param mod a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D multiply(int mod) { x *= mod; y *= mod; z *= mod; return clone(); }
+	public Vector3D multiply(int mod) { x *= mod; y *= mod; z *= mod; return this; }
 
 	/**
 	 * <p>incrementX.</p>
@@ -173,7 +172,7 @@ public class Vector3D implements Cloneable {
 	 * @param x a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D incrementX(int x) { this.x += x; return clone(); }
+	public Vector3D incrementX(int x) { this.x += x; return this; }
 
 	/**
 	 * <p>incrementY.</p>
@@ -187,7 +186,7 @@ public class Vector3D implements Cloneable {
 	 * @param y a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D incrementY(int y) { this.y += y; return clone(); }
+	public Vector3D incrementY(int y) { this.y += y; return this; }
 
 	/**
 	 * <p>incrementZ.</p>
@@ -201,7 +200,7 @@ public class Vector3D implements Cloneable {
 	 * @param z a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D incrementZ(int z) { this.z += z; return clone(); }
+	public Vector3D incrementZ(int z) { this.z += z; return this; }
 
 	/**
 	 * <p>decrementX.</p>
@@ -215,7 +214,7 @@ public class Vector3D implements Cloneable {
 	 * @param x a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D decrementX(int x) { this.x -= x; return clone(); }
+	public Vector3D decrementX(int x) { this.x -= x; return this; }
 
 	/**
 	 * <p>decrementY.</p>
@@ -229,7 +228,7 @@ public class Vector3D implements Cloneable {
 	 * @param y a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D decrementY(int y) { this.y -= y; return clone(); }
+	public Vector3D decrementY(int y) { this.y -= y; return this; }
 
 	/**
 	 * <p>decrementZ.</p>
@@ -243,7 +242,7 @@ public class Vector3D implements Cloneable {
 	 * @param z a int
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D decrementZ(int z) { this.z -= z; return clone(); }
+	public Vector3D decrementZ(int z) { this.z -= z; return this; }
 
 	/**
 	 * <p>add.</p>
@@ -251,14 +250,14 @@ public class Vector3D implements Cloneable {
 	 * @param vec a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D add(Vector3D vec) { x += vec.x; y += vec.y; z += vec.z; return clone(); }
+	public Vector3D add(Vector3D vec) { x += vec.x; y += vec.y; z += vec.z; return this;  }
 	/**
 	 * <p>substract.</p>
 	 *
 	 * @param vec a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 * @return a {@link ru.asl.api.bukkit.location.Vector3D} object
 	 */
-	public Vector3D substract(Vector3D vec) { x -= vec.x; y -= vec.y; z -= vec.z; return clone(); }
+	public Vector3D substract(Vector3D vec) { x -= vec.x; y -= vec.y; z -= vec.z; return this; }
 
 	/**
 	 * <p>addTo.</p>
@@ -330,7 +329,7 @@ public class Vector3D implements Cloneable {
 	/** {@inheritDoc} */
 	@Override
 	public Vector3D clone() {
-		return new Vector3D(x,y,z);
+		return new Vector3D(x,y,z,world);
 	}
 
 	/** {@inheritDoc} */
