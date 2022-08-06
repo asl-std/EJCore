@@ -17,6 +17,9 @@
 		<module>ejCore-plugin</module>
 		<module>ejRPG-attributes</module>
 		<module>ejCore-math</module>
+		<module>ejCore-inventory</module>
+		<module>ejCore-incubator</module>
+		<module>ejCore-main</module>
 	</modules>
 
 	<build>
@@ -63,13 +66,6 @@
 					<configuration>
 						<archive></archive>
 						<outputDirectory>C:/development/Plugin Test 1.18.1/plugins</outputDirectory>
-						<excludes>
-							<exclude>**/package-info*</exclude>
-							<exclude>**/varsystem/*.class</exclude>
-							<exclude>**/varsystem/*/*.class</exclude>
-							<exclude>**/property/*.class</exclude>
-							<exclude>**/property/*/*.class</exclude>
-						</excludes>
 					</configuration>
 				</plugin>
 
@@ -129,27 +125,6 @@
 			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>com.elmakers.mine.bukkit</groupId>
-			<artifactId>EffectLib</artifactId>
-			<version>9.4</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>de.tr7zw</groupId>
-			<artifactId>item-nbt-api</artifactId>
-			<version>2.9.2-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!--<dependency>
-  			<groupId>de.tr7zw</groupId>
-  			<artifactId>nbt-injector</artifactId>
-  			<version>2.9.2-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency> -->
 
 		<dependency>
 			<groupId>net.dv8tion</groupId>

@@ -15,6 +15,7 @@ import ru.aslcraft.api.bukkit.utils.ServerVersion;
  * @author ZooMMaX
  * @version $Id: $Id
  */
+@SuppressWarnings("deprecation")
 public final class EnchantAdapter {
 
 	static { byName = new HashMap<>(); byKey = new HashMap<>(); }

@@ -2,6 +2,7 @@ package ru.aslcraft.core;
 
 import java.util.LinkedList;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -32,7 +33,6 @@ import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.core.listeners.temp.CancelJoinBeforeFullLoading;
 import ru.aslcraft.core.managers.ModuleManager;
 import ru.aslcraft.core.managers.Tests;
-import ru.aslcraft.core.metrics.Metrics;
 import ru.aslcraft.core.social.bots.discord.BotMain;
 import ru.aslcraft.core.tasks.InitialiseEJPluginsTask;
 import ru.aslcraft.core.webserver.Server;

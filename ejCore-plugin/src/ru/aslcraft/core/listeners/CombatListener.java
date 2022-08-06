@@ -27,11 +27,12 @@ public class CombatListener implements Listener {
 	 */
 	@EventHandler()
 	public void throwCombatEvent(EntityDamageByEntityEvent e) {
-		final Entity attacker = e.getDamager();
+		Entity attacker = e.getDamager();
 		boolean ranged = false;
 
 		if (attacker instanceof Projectile) {
 			final Projectile p = (Projectile) attacker;
+			attacker = (Entity) p.getShooter();
 			ranged = true;
 		}
 

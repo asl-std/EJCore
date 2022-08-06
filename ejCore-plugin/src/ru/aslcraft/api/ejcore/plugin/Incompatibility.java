@@ -15,6 +15,7 @@ import ru.aslcraft.api.bukkit.message.EText;
  * @author ZooMMaX
  * @version $Id: $Id
  */
+@SuppressWarnings("serial")
 public class Incompatibility {
 
 	private static final Map<String, String> pluginsIncompat = new HashMap<String, String>() {{

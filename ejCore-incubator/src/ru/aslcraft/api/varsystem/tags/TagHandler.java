@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import ru.aslcraft.api.bukkit.yaml.YAML;
-import ru.aslcraft.core.Core;
 
 /**
  * <p>TagHandler class.</p>
@@ -16,7 +15,7 @@ import ru.aslcraft.core.Core;
 public class TagHandler {
 
 	/** Constant <code>file</code> */
-	public static final YAML file = new YAML(Core.instance().getDataFolder() + "/tags.yml");
+	public static final YAML file = new YAML("plugins/ejCore/tags.yml");
 
 	/** Constant <code>tags</code> */
 	public static ConcurrentMap<String,Tag> tags = new ConcurrentHashMap<>();
