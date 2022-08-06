@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
+import ru.aslcraft.api.bukkit.items.ItemStackUtil;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.ejcore.items.ItemStackUtil;
-import ru.aslcraft.api.ejcore.value.DoubleSettings;
+import ru.aslcraft.api.bukkit.value.DoubleSettings;
 
 /**
  * <p>Tests class.</p>

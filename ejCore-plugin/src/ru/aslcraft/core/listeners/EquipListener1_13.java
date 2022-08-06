@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDispenseArmorEvent;
 
+import ru.aslcraft.api.bukkit.equip.EquipSlot;
 import ru.aslcraft.api.bukkit.events.equipment.EquipChangeEvent;
-import ru.aslcraft.api.ejcore.equip.EquipSlot;
 
 /**
  * <p>EquipListener1_13 class.</p>

@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import ru.aslcraft.api.bukkit.command.BasicCommand;
 import ru.aslcraft.api.bukkit.command.BasicCommandHandler;
 import ru.aslcraft.api.bukkit.command.interfaze.ECommand;
+import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.ejcore.entity.EPlayer;
 import ru.aslcraft.core.Core;
 
 /**
@@ -54,8 +54,8 @@ public class CoreCommandHandler extends BasicCommandHandler {
 
 		registerCommand(new BasicCommand(this, "dump", (s, args) -> {
 			final EPlayer p = EPlayer.getEPlayer((Player)s);
-			p.getTempSettings().dumpToFile();
-			p.getSettings().dumpToFile();
+			p.getTempSettings().dumpToFile(Core.instance());
+			p.getSettings().dumpToFile(Core.instance());
 		}));
 
 		registerCommand(new BasicCommand(this, "reload", (s, args) -> {

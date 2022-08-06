@@ -7,8 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import ru.aslcraft.api.ejcore.entity.EPlayer;
-import ru.aslcraft.core.Core;
+import ru.aslcraft.api.bukkit.entity.EPlayer;
+import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.modules.attribute.AttrType;
 import ru.aslcraft.modules.attribute.BasicAttr;
 import ru.aslcraft.modules.player.PlayerUtils;
@@ -31,7 +31,7 @@ public final class ExperienceBonus extends BasicAttr implements Listener {
 	 */
 	public ExperienceBonus(String keyName, String path, double base, double perLevel) {
 		super(keyName, path, base, perLevel, AttrType.PER_LEVEL);
-		Core.getEventLoader().addListener("exp-bonus", this);
+		RegisterEventListener.register("exp-bonus", this);
 	}
 
 	/**

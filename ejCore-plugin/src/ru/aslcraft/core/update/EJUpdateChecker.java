@@ -14,8 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Consumer;
 
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.bukkit.plugin.EJPlugin;
-import ru.aslcraft.api.ejcore.value.util.ValueUtil;
+import ru.aslcraft.api.bukkit.value.util.ValueUtil;
+import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 
 /**
  * <p>EJUpdateChecker class.</p>
@@ -97,7 +97,7 @@ public class EJUpdateChecker {
 	/**
 	 * <p>registerEJPlugin.</p>
 	 *
-	 * @param ejp a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
+	 * @param ejp a {@link ru.aslcraft.api.ejcore.plugin.EJPlugin} object
 	 */
 	public static void registerEJPlugin(EJPlugin ejp) {
 

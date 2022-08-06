@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 
-import ru.aslcraft.api.ejcore.yaml.YAML;
+import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.core.Core;
 import ru.aslcraft.core.managers.ModuleManager;
 

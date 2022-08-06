@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.bukkit.plugin.EJPlugin;
-import ru.aslcraft.core.Core;
+import ru.aslcraft.api.ejcore.plugin.EJPlugin;
+import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.core.listeners.temp.CancelJoinBeforeFullLoading;
 import ru.aslcraft.core.update.CheckUpdateTask;
 import ru.aslcraft.core.update.EJUpdateChecker;
@@ -56,7 +56,7 @@ public class InitialiseEJPluginsTask extends BukkitRunnable {
 
 		CheckUpdateTask.runTask();
 
-		Core.getEventLoader().register();
+		RegisterEventListener.getListenerManager().register();
 
 		final long aft = System.nanoTime();
 		EText.fine("&aAll EJPlugins succesfuly loaded in " + EText.format((aft-bef)/1e9) +" sec.");

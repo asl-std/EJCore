@@ -3,10 +3,10 @@ package ru.aslcraft.modules.attribute.weapon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.events.combat.CombatEvent;
 import ru.aslcraft.api.bukkit.events.combat.CombatEvent.CombatType;
-import ru.aslcraft.api.ejcore.entity.EPlayer;
-import ru.aslcraft.api.ejcore.value.util.ValueUtil;
+import ru.aslcraft.api.bukkit.value.util.ValueUtil;
 import ru.aslcraft.modules.attribute.BasicAttr;
 import ru.aslcraft.modules.attribute.ListeningCombat;
 import ru.aslcraft.modules.player.PlayerUtils;

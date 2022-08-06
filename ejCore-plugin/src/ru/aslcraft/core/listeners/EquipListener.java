@@ -21,10 +21,10 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import ru.aslcraft.api.bukkit.entity.EPlayer;
+import ru.aslcraft.api.bukkit.equip.EquipSlot;
 import ru.aslcraft.api.bukkit.events.equipment.EquipChangeEvent;
-import ru.aslcraft.api.ejcore.entity.EPlayer;
-import ru.aslcraft.api.ejcore.equip.EquipSlot;
-import ru.aslcraft.api.ejcore.utils.ServerVersion;
+import ru.aslcraft.api.bukkit.utils.ServerVersion;
 import ru.aslcraft.core.Core;
 
 /**

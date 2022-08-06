@@ -1,7 +1,7 @@
 package ru.aslcraft.core.configs;
 
-import ru.aslcraft.api.bukkit.plugin.EJPlugin;
-import ru.aslcraft.api.ejcore.yaml.EJConf;
+import ru.aslcraft.api.bukkit.yaml.EJConf;
+import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 
 /**
  * <p>EConfig class.</p>
@@ -19,7 +19,7 @@ public class EConfig extends EJConf {
 	 * <p>Constructor for EConfig.</p>
 	 *
 	 * @param fileName a {@link java.lang.String} object
-	 * @param plugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
+	 * @param plugin a {@link ru.aslcraft.api.ejcore.plugin.EJPlugin} object
 	 */
 	public EConfig(String fileName, EJPlugin plugin) {
 		super(fileName, plugin);

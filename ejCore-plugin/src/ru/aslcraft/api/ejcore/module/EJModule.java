@@ -2,8 +2,8 @@ package ru.aslcraft.api.ejcore.module;
 
 import java.util.List;
 
-import ru.aslcraft.api.bukkit.plugin.EJPlugin;
-import ru.aslcraft.api.ejcore.yaml.YAML;
+import ru.aslcraft.api.bukkit.yaml.YAML;
+import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.core.Core;
 
 /**

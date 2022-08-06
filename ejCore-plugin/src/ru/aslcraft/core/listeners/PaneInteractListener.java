@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import ru.aslcraft.api.ejcore.items.InventoryUtil;
+import ru.aslcraft.api.bukkit.items.InventoryUtil;
 import ru.aslcraft.api.ejinventory.Pane;
 import ru.aslcraft.core.Core;
 

@@ -1,8 +1,8 @@
 package ru.aslcraft.modules.player;
 
-import ru.aslcraft.api.ejcore.entity.EPlayer;
-import ru.aslcraft.api.ejcore.equip.EquipSlot;
-import ru.aslcraft.api.ejcore.value.util.MathUtil;
+import ru.aslcraft.api.bukkit.entity.EPlayer;
+import ru.aslcraft.api.bukkit.equip.EquipSlot;
+import ru.aslcraft.api.bukkit.value.util.MathUtil;
 import ru.aslcraft.modules.MAttributes;
 import ru.aslcraft.modules.attribute.BasicAttr;
 

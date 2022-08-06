@@ -7,8 +7,8 @@ import org.apache.commons.lang.WordUtils;
 import lombok.Getter;
 import lombok.Setter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.ejcore.value.DoubleSettings;
-import ru.aslcraft.api.ejcore.yaml.YAML;
+import ru.aslcraft.api.bukkit.value.DoubleSettings;
+import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.core.Core;
 
 // Базовый класс атрибутов.

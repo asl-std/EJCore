@@ -19,9 +19,6 @@ check-updates: true
 #Otherwise damage will be static every-time
 enable-attack-cooldown: true
 
-modules:
-  player-attributes-enabled: false
-
 #ejServer settings
 ej-server:
   server-enabled: false

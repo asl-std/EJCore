@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
-import ru.aslcraft.api.bukkit.events.register.RegisterEventListener;
 import ru.aslcraft.api.ejcore.module.EJAddon;
+import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.modules.attribute.managers.WeaponAttributesManager;
 import ru.aslcraft.modules.listener.CombatListener;
 import ru.aslcraft.modules.player.PlayerLoader;

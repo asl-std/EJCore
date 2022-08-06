@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import ru.aslcraft.api.ejcore.yaml.YAML;
+import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.core.Core;
 
 /**

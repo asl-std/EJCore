@@ -9,12 +9,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import ru.aslcraft.api.bukkit.entity.EPlayer;
+import ru.aslcraft.api.bukkit.equip.EquipSlot;
 import ru.aslcraft.api.bukkit.events.equipment.EquipChangeEvent;
 import ru.aslcraft.api.bukkit.events.player.PlayerBlockMoveEvent;
 import ru.aslcraft.api.bukkit.location.Vector3D;
-import ru.aslcraft.api.ejcore.entity.EPlayer;
-import ru.aslcraft.api.ejcore.equip.EquipSlot;
-import ru.aslcraft.api.ejcore.yaml.YAML;
+import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.core.Core;
 import ru.aslcraft.core.update.EJUpdateChecker;
 

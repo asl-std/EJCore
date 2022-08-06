@@ -10,20 +10,15 @@ import org.bukkit.plugin.Plugin;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
-import ru.aslcraft.api.bukkit.events.register.RegisterEventListener;
+import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.item.Material1_12;
 import ru.aslcraft.api.bukkit.item.Material1_13;
 import ru.aslcraft.api.bukkit.item.interfaze.MaterialAdapter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.bukkit.plugin.EJPlugin;
-import ru.aslcraft.api.bukkit.plugin.Incompatibility;
-import ru.aslcraft.api.bukkit.plugin.hook.HookManager;
-import ru.aslcraft.api.bukkit.redstone.RedstoneParts;
-import ru.aslcraft.api.bukkit.redstone.impl.RedstoneParts1_12;
-import ru.aslcraft.api.bukkit.redstone.impl.RedstoneParts1_13;
-import ru.aslcraft.api.ejcore.entity.EPlayer;
-import ru.aslcraft.api.ejcore.reflection.utils.RefUtils;
-import ru.aslcraft.api.ejcore.utils.ServerVersion;
+import ru.aslcraft.api.bukkit.utils.ServerVersion;
+import ru.aslcraft.api.ejcore.plugin.EJPlugin;
+import ru.aslcraft.api.ejcore.plugin.Incompatibility;
+import ru.aslcraft.api.ejcore.plugin.hook.HookManager;
 import ru.aslcraft.core.commands.CoreCommandHandler;
 import ru.aslcraft.core.configs.EConfig;
 import ru.aslcraft.core.configs.LangConfig;
@@ -33,8 +28,8 @@ import ru.aslcraft.core.listeners.EquipListener;
 import ru.aslcraft.core.listeners.EquipListener1_13;
 import ru.aslcraft.core.listeners.PaneInteractListener;
 import ru.aslcraft.core.listeners.PlayerListener;
+import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.core.listeners.temp.CancelJoinBeforeFullLoading;
-import ru.aslcraft.core.managers.ListenerManager;
 import ru.aslcraft.core.managers.ModuleManager;
 import ru.aslcraft.core.managers.Tests;
 import ru.aslcraft.core.metrics.Metrics;
@@ -68,16 +63,11 @@ public class Core extends EJPlugin {
 
 	@Getter private static EConfig cfg;
 	@Getter private static LangConfig lang;
-	@Deprecated
-	@Getter private static ListenerManager eventLoader = null;
 	@Getter private static MaterialAdapter materialAdapter = null;
-	@Getter private static RefUtils reflections = null;
 	private static LinkedList<EJPlugin> plugins;
 
 	@Getter private static Server webServer;
 	@Getter private static BotMain EJDiscordBot;
-
-	@Getter private static RedstoneParts redstoneParts = null;
 
 	private static Core instance = null;
 	/**
@@ -116,9 +106,6 @@ public class Core extends EJPlugin {
 		//EJUpdateChecker.registerEJPlugin(this);
 
 		new Metrics(instance, 2908);
-
-		Core.reflections = new RefUtils();
-		Core.eventLoader = new ListenerManager(this);
 		RegisterEventListener.init(this);
 
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
@@ -126,22 +113,19 @@ public class Core extends EJPlugin {
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
 
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13)) {
+		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
 			Core.materialAdapter = new Material1_13();
-			Core.redstoneParts = new RedstoneParts1_13();
-		} else {
+		else
 			Core.materialAdapter = new Material1_12();
-			Core.redstoneParts = new RedstoneParts1_12();
-		}
 
 		HookManager.tryHookPAPI();
 
 		Tests.start();
-		Core.getEventLoader().addListener("playerJoin", new PlayerListener());
-		Core.getEventLoader().addListener("paneInteract", new PaneInteractListener());
-		Core.getEventLoader().addListener("combatEventCustom", new CombatListener());
-		Core.getEventLoader().addListener("equip", new EquipListener());
-		Core.getEventLoader().addListener("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
+		RegisterEventListener.register("playerJoin", new PlayerListener());
+		RegisterEventListener.register("paneInteract", new PaneInteractListener());
+		RegisterEventListener.register("combatEventCustom", new CombatListener());
+		RegisterEventListener.register("equip", new EquipListener());
+		RegisterEventListener.register("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
 		new DBinit().init(instance);
 
@@ -170,7 +154,7 @@ public class Core extends EJPlugin {
 			ModuleManager.enableModules();
 		} else {
 			ModuleManager.enableModules();
-			Core.getEventLoader().register();
+			RegisterEventListener.getListenerManager().register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
 		registerAttrManager();
@@ -188,7 +172,7 @@ public class Core extends EJPlugin {
 	public void disabling() {
 		for (final Player p : Bukkit.getOnlinePlayers())
 			EPlayer.unregister(p);
-		Core.getEventLoader().unregisterAll();
+		RegisterEventListener.getListenerManager().unregisterAll();
 	}
 
 	/**

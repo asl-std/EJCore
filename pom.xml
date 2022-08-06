@@ -10,14 +10,13 @@
 	<properties>
 		<releaseStatus>BETA</releaseStatus>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.pantherguilds>0.0.1</version.pantherguilds>
 	</properties>
 
 	<modules>
-		<module>ejCore-plugin</module>
 		<module>ejCore-bukkit</module>
-		<module>ejCore-incubator</module>
+		<module>ejCore-plugin</module>
 		<module>ejRPG-attributes</module>
+		<module>ejCore-math</module>
 	</modules>
 
 	<build>

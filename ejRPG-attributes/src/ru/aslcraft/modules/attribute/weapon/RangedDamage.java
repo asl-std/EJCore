@@ -3,9 +3,9 @@ package ru.aslcraft.modules.attribute.weapon;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.events.combat.CombatEvent;
 import ru.aslcraft.api.bukkit.events.combat.CombatEvent.CombatType;
-import ru.aslcraft.api.ejcore.entity.EPlayer;
 import ru.aslcraft.core.Core;
 import ru.aslcraft.modules.MAttributes;
 import ru.aslcraft.modules.attribute.AttrType;

@@ -9,8 +9,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
-import ru.aslcraft.api.ejcore.items.InventoryUtil;
-import ru.aslcraft.api.ejcore.items.ItemStackUtil;
+import ru.aslcraft.api.bukkit.items.InventoryUtil;
+import ru.aslcraft.api.bukkit.items.ItemStackUtil;
 import ru.aslcraft.api.ejinventory.Page;
 import ru.aslcraft.api.ejinventory.Pane;
 import ru.aslcraft.api.ejinventory.element.SimpleElement;

@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
 import lombok.NonNull;
-import ru.aslcraft.api.ejcore.items.InventoryUtil;
+import ru.aslcraft.api.bukkit.items.InventoryUtil;
 import ru.aslcraft.api.ejinventory.Page;
 import ru.aslcraft.api.ejinventory.Pane;
 import ru.aslcraft.api.ejinventory.page.LockedPage;
@@ -69,7 +69,7 @@ public class SimplePane implements Pane {
 	@Override
 	public void fire(InventoryClickEvent event) {
 		if (page instanceof LockedPage) {
-			LockedPage lPage = (LockedPage) page;
+			final LockedPage lPage = (LockedPage) page;
 			if (lPage.isUnlocked(event.getSlot()))
 				return;
 			else {
@@ -88,7 +88,7 @@ public class SimplePane implements Pane {
 
 		page.display(inventory);
 
-		for (Player p : players) {
+		for (final Player p : players) {
 			p.closeInventory();
 			p.openInventory(inventory);
 		}
@@ -98,9 +98,9 @@ public class SimplePane implements Pane {
 	@Override
 	public void returnItems(Player p, InventoryCloseEvent event) {
 		if (page instanceof LockedPage && returnItems) {
-			LockedPage lPage = (LockedPage) page;
+			final LockedPage lPage = (LockedPage) page;
 			if (lPage.getUnlocked().isEmpty()) return;
-			for (Integer i : lPage.getUnlocked())
+			for (final Integer i : lPage.getUnlocked())
 				InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p);
 		}
 	}

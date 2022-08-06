@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 
 import com.sk89q.commandbook.util.PlayerUtil;
 
-import ru.aslcraft.api.ejcore.events.EPlayerRegisteredEvent;
+import ru.aslcraft.api.bukkit.events.EPlayerRegisteredEvent;
 import ru.aslcraft.modules.MAttributes;
 import ru.aslcraft.modules.attribute.BasicAttr;
 

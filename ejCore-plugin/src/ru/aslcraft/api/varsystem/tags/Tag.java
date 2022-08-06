@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import lombok.Getter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.ejcore.value.StringSettings;
+import ru.aslcraft.api.bukkit.value.StringSettings;
 import ru.aslcraft.api.varsystem.reader.VarReader;
 
 /**

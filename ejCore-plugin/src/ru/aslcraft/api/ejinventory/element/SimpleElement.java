@@ -10,10 +10,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import lombok.Getter;
+import ru.aslcraft.api.bukkit.items.IStatus;
+import ru.aslcraft.api.bukkit.items.ItemStackUtil;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.ejcore.items.IStatus;
-import ru.aslcraft.api.ejcore.items.ItemStackUtil;
-import ru.aslcraft.api.ejcore.utils.BasicMetaAdapter;
+import ru.aslcraft.api.bukkit.utils.BasicMetaAdapter;
 import ru.aslcraft.api.ejinventory.Element;
 
 /**

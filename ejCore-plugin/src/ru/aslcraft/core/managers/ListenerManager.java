@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 
 import lombok.Getter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.api.bukkit.plugin.EJPlugin;
+import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.core.Core;
 
 /**
@@ -36,7 +36,7 @@ public class ListenerManager {
 	/**
 	 * <p>Constructor for ListenerManager.</p>
 	 *
-	 * @param mainPlugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
+	 * @param mainPlugin a {@link ru.aslcraft.api.ejcore.plugin.EJPlugin} object
 	 */
 	public ListenerManager(EJPlugin mainPlugin) {
 		this.mainPlugin = mainPlugin;

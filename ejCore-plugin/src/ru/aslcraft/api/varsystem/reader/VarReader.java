@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import ru.aslcraft.api.ejcore.value.StringSettings;
+import ru.aslcraft.api.bukkit.value.StringSettings;
 
 /**
  * <p>VarReader class.</p>
