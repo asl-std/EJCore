@@ -1,4 +1,4 @@
-package ru.aslcraft.api.database;
+package ru.aslcraft.database.api;
 
 /**
  * <p>DBType class.</p>

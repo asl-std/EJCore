@@ -1,4 +1,4 @@
-package ru.aslcraft.core.database.configs;
+package ru.aslcraft.database.core.configs;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
