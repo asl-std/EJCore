@@ -2,8 +2,6 @@ package ru.aslcraft.api.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dv8tion.jda.api.exceptions.ParsingException;
-
 /**
  * <p>Abstract AbstractUnaryOperation class.</p>
  *
@@ -80,7 +78,7 @@ public abstract class AbstractUnaryOperation implements CommonExpression {
 
 	/** {@inheritDoc} */
 	@Override
-	public double evaluate(double...args) throws ArithmeticException, ParsingException {
+	public double evaluate(double...args) throws ArithmeticException {
 		return doubleCalculate(expr.evaluate(args));
 	}
 

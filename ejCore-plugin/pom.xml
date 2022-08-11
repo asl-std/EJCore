@@ -32,7 +32,6 @@
 			<scope>compile</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.elmakers.mine.bukkit</groupId>
 			<artifactId>EffectLib</artifactId>
@@ -51,6 +50,24 @@
 			<groupId>ru.aslcraft</groupId>
 			<artifactId>runtimeclassloader</artifactId>
 			<version>1.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.aslcraft</groupId>
+			<artifactId>ejCore-bots</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.aslcraft</groupId>
+			<artifactId>ejCore-webserver</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.aslcraft</groupId>
+			<artifactId>ejCore-database</artifactId>
+			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>
 

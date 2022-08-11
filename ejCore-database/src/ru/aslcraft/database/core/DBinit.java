@@ -2,7 +2,7 @@ package ru.aslcraft.database.core;
 
 import org.bukkit.plugin.Plugin;
 
-import ru.aslcraft.core.Core;
+import ru.aslcraft.api.bukkit.yaml.EJConf;
 import ru.aslcraft.database.core.configs.HikariConfMySQL;
 import ru.aslcraft.database.core.configs.HikariConfSQLite;
 
@@ -13,6 +13,7 @@ import ru.aslcraft.database.core.configs.HikariConfSQLite;
  * @version $Id: $Id
  */
 public class DBinit {
+	private static EJConf ejConf;
 	/**
 	 * <p>init.</p>
 	 *
@@ -20,7 +21,7 @@ public class DBinit {
 	 */
 	public void init(Plugin plugin) {
 		new HikariConfSQLite().init(plugin);
-		if (Core.getCfg().getBoolean("mysql.mysql-enabled",false,true)) {
+		if (ejConf.getBoolean("mysql.mysql-enabled",false,true)) {
 			new HikariConfMySQL().init(plugin);
 		}
 	}

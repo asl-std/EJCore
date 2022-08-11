@@ -3,9 +3,9 @@ package ru.aslcraft.database.core.configs;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
-import ru.aslcraft.core.Core;
 
 import org.bukkit.plugin.Plugin;
+import ru.aslcraft.api.bukkit.yaml.EJConf;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,14 +20,15 @@ import java.sql.Statement;
  */
 public class HikariConfMySQL {
 	@Getter private static Connection con;
+	private static EJConf ejConf;
 	/**
 	 * <p>init.</p>
 	 * @param plugin
 	 */
 	public void init(Plugin plugin) {
 		String databaseName = "EJdb";
-		String username = Core.getCfg().getString("mysql.mysql-username","root", true);
-		String password = Core.getCfg().getString("mysql.mysql-password","toor", true);
+		String username = ejConf.getString("mysql.mysql-username","root", true);
+		String password = ejConf.getString("mysql.mysql-password","toor", true);
 		try {
 	        String url = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull&useSSL=false";
 	        Connection connection = DriverManager.getConnection(url,username, password);

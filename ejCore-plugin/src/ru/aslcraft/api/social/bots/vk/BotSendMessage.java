@@ -1,9 +1,0 @@
-package ru.aslcraft.api.social.bots.vk;
-
-import ru.aslcraft.core.social.bots.vk.api.SendMessage;
-
-public class BotSendMessage {
-    public void send(String text, String keyboard, long user_id){
-        new SendMessage().send(text, user_id, keyboard);
-    }
-}

@@ -1,11 +1,12 @@
 package ru.aslcraft.api.expression;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import net.dv8tion.jda.api.exceptions.ParsingException;
 import ru.aslcraft.api.expression.exceptions.DivideByZeroException;
 import ru.aslcraft.api.expression.exceptions.OverflowException;
+import ru.aslcraft.api.expression.exceptions.ParsingException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Abstract AbstractBinaryOperation class.</p>
@@ -104,7 +105,7 @@ public abstract class AbstractBinaryOperation implements CommonExpression {
 
 	/** {@inheritDoc} */
 	@Override
-	public double evaluate(double ...args) throws OverflowException, DivideByZeroException, ParsingException {
+	public double evaluate(double ...args) throws OverflowException, DivideByZeroException {
 		return doubleCalculate(left.evaluate(args), right.evaluate(args));
 	}
 

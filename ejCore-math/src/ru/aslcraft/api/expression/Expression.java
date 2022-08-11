@@ -2,7 +2,6 @@ package ru.aslcraft.api.expression;
 
 import java.util.List;
 
-import net.dv8tion.jda.api.exceptions.ParsingException;
 import ru.aslcraft.api.expression.exceptions.DivideByZeroException;
 import ru.aslcraft.api.expression.exceptions.OverflowException;
 
@@ -22,7 +21,7 @@ public interface Expression extends ToMiniString {
 	 * @throws ru.aslcraft.api.expression.exceptions.DivideByZeroException if any.
 	 * @throws ru.aslcraft.api.expression.exceptions.ParsingException if any.
 	 */
-	double evaluate(double ...args) throws OverflowException, DivideByZeroException, ParsingException;
+	double evaluate(double ...args) throws OverflowException, DivideByZeroException;
 	/**
 	 * <p>getVariables.</p>
 	 *
