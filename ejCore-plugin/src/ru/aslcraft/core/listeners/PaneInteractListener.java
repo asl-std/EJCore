@@ -31,7 +31,10 @@ public class PaneInteractListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPaneClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null) return;
-		if (event.getClickedInventory() instanceof PlayerInventory) return;
+		if (event.getClickedInventory() instanceof PlayerInventory) {
+			if (event.isShiftClick()) event.setCancelled(true);
+			return;
+		}
 
 		if (event.getInventory().getHolder() instanceof Pane) {
 
