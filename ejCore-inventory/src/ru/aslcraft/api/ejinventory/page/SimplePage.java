@@ -83,4 +83,8 @@ public class SimplePage implements Page {
 		return 0;
 	}
 
+	@Override
+	public void update(Inventory inv, int locX, int locY) {
+	}
+
 }
