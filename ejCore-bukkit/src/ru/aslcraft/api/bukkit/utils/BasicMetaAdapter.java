@@ -117,11 +117,12 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		if (meta.hasLore())
 			lore = meta.getLore();
 
-		if (lore.size()-1 > index)
+		if (lore.size()-1 >= index)
 			lore.set(index, EText.c(loreString));
 		else
 			lore.add(EText.c(loreString));
 
+		meta.setLore(lore);
 		stack.setItemMeta(meta);
 		return stack;
 	}
