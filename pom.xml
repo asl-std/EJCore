@@ -20,9 +20,6 @@
 		<module>ejCore-math</module>
 		<module>ejCore-incubator</module>
 		<module>ejCore-main</module>
-		<module>ejCore-database</module>
-		<module>ejCore-webserver</module>
-		<module>ejCore-bots</module>
 	</modules>
 
 	<build>
