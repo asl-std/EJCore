@@ -106,6 +106,7 @@ public final class ItemStackUtil {
 	 * @return a {@link java.lang.String} object
 	 */
 	public static String getDisplayName(ItemStack stack) {
+		if (stack == null) return "null";
 		if (!validate(stack, IStatus.HAS_META)) return stack.getType().name();
 		if (validate(stack, IStatus.HAS_DISPLAYNAME))
 			return stack.getItemMeta().getDisplayName();

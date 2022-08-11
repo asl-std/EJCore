@@ -3,6 +3,7 @@ package ru.aslcraft.api.ejinventory.page;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -36,6 +37,7 @@ public class LockedPage implements Page {
 	private List<Integer> unlocked = new ArrayList<>();
 
 	@Setter @Getter protected String title;
+	@Setter @Getter protected Consumer<InventoryClickEvent> emptyClick;
 
 	/**
 	 * <p>Constructor for LockedPage.</p>

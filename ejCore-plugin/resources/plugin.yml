@@ -1,5 +1,5 @@
-name: ${project.name}
-version: ${project.version}-${releaseStatus}
+name: ${project.parent.name}
+version: ${project.parent.version}-${releaseStatus}
 description: ''
 author: Snoop1CattZ69
 authors: [Snoop1CattZ69, ASL std.]
@@ -7,7 +7,7 @@ website: http://vk.com/aslrb
 
 api-version: 1.13
 
-main: ru.asl.core.Core
+main: ru.aslcraft.core.Core
 depend: []
 softdepend: [ProtocolLib]
 

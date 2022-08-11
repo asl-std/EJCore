@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>ru.aslcraft</groupId>
 			<artifactId>ejCore-inventory</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -33,14 +33,34 @@
 		<dependency>
 			<groupId>ru.aslcraft</groupId>
 			<artifactId>ejCore-plugin</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
 
 	<build>
 
+		<resources>
+			<resource>
+				<directory>resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
+
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<archive></archive>
+					<outputDirectory>C:/development/Plugin Test 1.18.1/plugins</outputDirectory>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

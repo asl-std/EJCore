@@ -39,19 +39,21 @@ public class PaneInteractListener implements Listener {
 
 			event.setCancelled(true);
 
-			if (event.getCursor() != null) {
-				InventoryUtil.addItem(event.getCursor(), whoClicked);
-				event.getView().setCursor(null);
-			}
-
-			final ItemStack curr = event.getCurrentItem();
-
-			event.setCurrentItem(null);
-			event.getView().setItem(event.getRawSlot(), curr);
-
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Core.instance(), () -> whoClicked.updateInventory());
-
 			((Pane) event.getInventory().getHolder()).fire(event);
+
+			if (event.isCancelled()) {
+				if (event.getCursor() != null) {
+					InventoryUtil.addItem(event.getCursor(), whoClicked);
+					event.getView().setCursor(null);
+				}
+
+				final ItemStack curr = event.getCurrentItem();
+
+				event.setCurrentItem(null);
+				event.getView().setItem(event.getRawSlot(), curr);
+
+				Bukkit.getScheduler().scheduleSyncDelayedTask(Core.instance(), () -> whoClicked.updateInventory());
+			}
 		}
 	}
 

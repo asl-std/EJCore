@@ -70,9 +70,11 @@ public class SimplePane implements Pane {
 	public void fire(InventoryClickEvent event) {
 		if (page instanceof LockedPage) {
 			final LockedPage lPage = (LockedPage) page;
-			if (lPage.isUnlocked(event.getSlot()))
+			if (lPage.isUnlocked(event.getSlot())) {
+				if (lPage.getEmptyClick() != null)
+					lPage.getEmptyClick().accept(event);
 				return;
-			else {
+			} else {
 				lPage.fire(event);
 				return;
 			}

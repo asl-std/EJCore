@@ -23,7 +23,6 @@ import ru.aslcraft.api.ejcore.plugin.hook.HookManager;
 import ru.aslcraft.core.commands.CoreCommandHandler;
 import ru.aslcraft.core.configs.EConfig;
 import ru.aslcraft.core.configs.LangConfig;
-import ru.aslcraft.core.database.DBinit;
 import ru.aslcraft.core.listeners.CombatListener;
 import ru.aslcraft.core.listeners.EquipListener;
 import ru.aslcraft.core.listeners.EquipListener1_13;
@@ -127,9 +126,9 @@ public class Core extends EJPlugin {
 		RegisterEventListener.register("equip", new EquipListener());
 		RegisterEventListener.register("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
-		new DBinit().init(instance);
+		//new DBinit().init(instance);
 
-		if (Server.createServer()) {
+		/*if (Server.createServer()) {
 			webServer = new Server();
 			webServer.start();
 		}
@@ -139,7 +138,7 @@ public class Core extends EJPlugin {
 
 		if (Core.getCfg().getBoolean("vk.ej-vkbot-enabled", false, true)){
 			new Thread(new ru.aslcraft.core.social.bots.vk.BotMain()).start();
-		}
+		}*/
 
 		ModuleManager.loadModules(getClassLoader());
 

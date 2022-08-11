@@ -1,5 +1,6 @@
 package ru.aslcraft.core.configs;
 
+import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.yaml.EJConf;
 import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 
@@ -33,6 +34,7 @@ public class EConfig extends EJConf {
 		HEALTH_PER_BAR = this.getInt("health-bar.health-per-bar", 20, true);
 
 		DEBUG_RUNNING = this.getBoolean("debug.enable-debug", true, true);
+		EText.setDebug(DEBUG_RUNNING);
 		ENABLE_ATTACK_COOLDOWN = this.getBoolean("enable-attack-cooldown", true, true);
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);
 		UPDATE_PERIOD = this.getInt("check-period", 28800, true);
