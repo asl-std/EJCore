@@ -329,4 +329,9 @@ public class LockedPage implements Page {
 					}
 	}
 
+	@Override
+	public void update(Inventory inv, int locX, int locY) {
+		elements[locX][locY].placeOn(inv, locX, locY);
+	}
+
 }

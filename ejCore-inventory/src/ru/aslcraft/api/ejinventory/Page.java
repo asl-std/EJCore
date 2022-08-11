@@ -61,6 +61,8 @@ public interface Page {
 	 */
 	void display(Inventory inv);
 
+	void update(Inventory inv, int locX, int locY);
+
 	/**
 	 * <p>fill.</p>
 	 *
