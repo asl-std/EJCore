@@ -1,10 +1,10 @@
-package ru.aslcraft.core.database;
+package ru.aslcraft.database.core;
 
 import org.bukkit.plugin.Plugin;
 
 import ru.aslcraft.core.Core;
-import ru.aslcraft.core.database.configs.HikariConfMySQL;
-import ru.aslcraft.core.database.configs.HikariConfSQLite;
+import ru.aslcraft.database.core.configs.HikariConfMySQL;
+import ru.aslcraft.database.core.configs.HikariConfSQLite;
 
 /**
  * <p>DBinit class.</p>

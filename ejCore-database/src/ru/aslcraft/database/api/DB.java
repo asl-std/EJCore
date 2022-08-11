@@ -1,4 +1,4 @@
-package ru.aslcraft.api.database;
+package ru.aslcraft.database.api;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +13,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.core.database.configs.HikariConfMySQL;
-import ru.aslcraft.core.database.configs.HikariConfSQLite;
+import ru.aslcraft.database.core.configs.HikariConfMySQL;
+import ru.aslcraft.database.core.configs.HikariConfSQLite;
 
 /**
  * <p>DB class.</p>
