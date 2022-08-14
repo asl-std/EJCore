@@ -22,5 +22,5 @@ public interface CommandHandler extends CommandExecutor {
 	 *
 	 * @param command a {@link ru.aslcraft.api.bukkit.command.interfaze.ECommand} object
 	 */
-	void registerCommand(ECommand command);
+	CommandHandler registerCommand(ECommand command);
 }
