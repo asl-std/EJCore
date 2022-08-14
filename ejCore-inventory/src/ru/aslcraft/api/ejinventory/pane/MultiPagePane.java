@@ -1,5 +1,6 @@
 package ru.aslcraft.api.ejinventory.pane;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -97,9 +98,7 @@ public class MultiPagePane implements Pane {
 
 		if (page instanceof LockedPage) {
 			final LockedPage lPage = (LockedPage) page;
-			if (lPage.isUnlocked(event.getSlot()))
-				return;
-			else {
+			if (!lPage.isUnlocked(event.getSlot())) {
 				lPage.fire(event);
 				return;
 			}
@@ -120,10 +119,9 @@ public class MultiPagePane implements Pane {
 
 		pages.get(currentPage).display(inventory);
 
-		for (final Player p : players) {
-			p.closeInventory();
-			p.openInventory(inventory);
-		}
+		Arrays.asList(players).stream()
+		.filter(p -> p != null)
+		.forEach(p -> { p.closeInventory(); p.openInventory(inventory); });
 	}
 
 	/**
@@ -156,8 +154,9 @@ public class MultiPagePane implements Pane {
 		if (page instanceof LockedPage) {
 			final LockedPage lPage = (LockedPage) page;
 			if (lPage.getUnlocked().isEmpty()) return;
-			for (final int i : lPage.getUnlocked())
-				InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p);
+			lPage.getUnlocked().stream()
+			.filter(i -> event.getView().getTopInventory().getItem(i) != null)
+			.forEach(i -> InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p));
 		}
 	}
 
@@ -169,8 +168,9 @@ public class MultiPagePane implements Pane {
 		if (page instanceof LockedPage) {
 			final LockedPage lPage = (LockedPage) page;
 			if (lPage.getUnlocked().isEmpty()) return;
-			for (final Integer i : lPage.getUnlocked())
-				InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p);
+			lPage.getUnlocked().stream()
+			.filter(i -> event.getView().getTopInventory().getItem(i) != null)
+			.forEach(i -> InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p));
 		}
 	}
 
