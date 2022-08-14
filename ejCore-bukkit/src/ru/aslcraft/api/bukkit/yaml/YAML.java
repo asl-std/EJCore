@@ -433,7 +433,7 @@ public class YAML {
 		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");
 
 		if (plugin != null && plugin.isEnabled())
-			return of(path, plugin);
+			return of(plugin.getDataFolder() + "/" + path, plugin);
 		else
 			return new YAML(path);
 	}
