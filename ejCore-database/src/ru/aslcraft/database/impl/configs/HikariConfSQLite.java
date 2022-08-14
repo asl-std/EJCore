@@ -1,4 +1,4 @@
-package ru.aslcraft.database.core.configs;
+package ru.aslcraft.database.impl.configs;
 
 import java.sql.Connection;
 import java.sql.SQLException;

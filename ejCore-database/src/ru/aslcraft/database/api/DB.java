@@ -13,8 +13,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.database.core.configs.HikariConfMySQL;
-import ru.aslcraft.database.core.configs.HikariConfSQLite;
+import ru.aslcraft.database.impl.configs.HikariConfMySQL;
+import ru.aslcraft.database.impl.configs.HikariConfSQLite;
 
 /**
  * <p>DB class.</p>

@@ -1,5 +1,7 @@
 package ru.aslcraft.api.ejinventory.pane;
 
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -90,10 +92,7 @@ public class SimplePane implements Pane {
 
 		page.display(inventory);
 
-		for (final Player p : players) {
-			p.closeInventory();
-			p.openInventory(inventory);
-		}
+		Arrays.asList(players).forEach(p -> { p.closeInventory(); p.openInventory(inventory); });
 	}
 
 	/** {@inheritDoc} */
@@ -102,9 +101,22 @@ public class SimplePane implements Pane {
 		if (page instanceof LockedPage && returnItems) {
 			final LockedPage lPage = (LockedPage) page;
 			if (lPage.getUnlocked().isEmpty()) return;
-			for (final Integer i : lPage.getUnlocked())
-				InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p);
+			lPage.getUnlocked().stream().forEach(i -> {
+				if (event.getView().getTopInventory().getItem(i) != null)
+					InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p);
+			});
 		}
+	}
+
+	@Override
+	public void update(Inventory inv) {
+		page.display(inv);
+		inv.getViewers().stream().filter(h -> h instanceof Player).forEach(h -> ((Player)h).updateInventory());
+	}
+
+	@Override
+	public void update(Inventory inv, int locX, int locY) {
+		page.update(inv, locX, locY);
 	}
 
 }

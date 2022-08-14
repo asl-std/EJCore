@@ -11,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 
 import ru.aslcraft.api.bukkit.items.InventoryUtil;
 import ru.aslcraft.api.bukkit.items.ItemStackUtil;
+import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.api.ejinventory.Page;
 import ru.aslcraft.api.ejinventory.Pane;
 import ru.aslcraft.api.ejinventory.element.SimpleElement;
@@ -25,26 +26,26 @@ import ru.aslcraft.api.ejinventory.page.LockedPage;
 public class MultiPagePane implements Pane {
 	/* Обычнай заглушка */
 	/** {@inheritDoc} */
-	@Override @Deprecated
+	@Override
 	public Inventory getInventory() { return Bukkit.createInventory(null, 9); }
 
 	private static SimpleElement btnNext =
-			new SimpleElement(ItemStackUtil.toStack("ARROW:1:0:0♥&6Next Page"), e -> {
+			new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("multi-page-menu.next-page-button", "ARROW:1:0:0♥&6Next Page", true)), e -> {
 				final MultiPagePane pane = (MultiPagePane) e.getInventory().getHolder();
 				pane.next((Player) e.getWhoClicked(), e);
 			}),
 			btnPrev =
-			new SimpleElement(ItemStackUtil.toStack("ARROW:1:0:0♥&6Previous Page"), e -> {
+			new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("multi-page-menu.next-page-button", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
 				final MultiPagePane pane = (MultiPagePane) e.getInventory().getHolder();
 				pane.previous((Player) e.getWhoClicked(), e);
 			});
 
-	private final String	title;
-	private final int		size;
+	protected final String	title;
+	protected final int		size;
 	protected final LinkedList<Page>	pages;
 	private boolean addButtons = true;
 
-	private int currentPage = 0;
+	protected int currentPage = 0;
 
 	/**
 	 * <p>Constructor for MultiPagePane.</p>
@@ -171,6 +172,18 @@ public class MultiPagePane implements Pane {
 			for (final Integer i : lPage.getUnlocked())
 				InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p);
 		}
+	}
+
+	@Override
+	public void update(Inventory inv) {
+		final Page page = pages.get(currentPage);
+		page.display(inv);
+		inv.getViewers().stream().filter(h -> h instanceof Player).forEach(h -> ((Player)h).updateInventory());
+	}
+
+	@Override
+	public void update(Inventory inv, int locX, int locY) {
+		pages.forEach(p -> p.update(inv, locX, locY));
 	}
 
 }

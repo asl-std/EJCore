@@ -126,6 +126,7 @@ public class Core extends EJPlugin {
 		RegisterEventListener.register("equip", new EquipListener());
 		RegisterEventListener.register("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
+
 		/*new DBinit().init(instance);
 
 		if (Server.createServer()) {

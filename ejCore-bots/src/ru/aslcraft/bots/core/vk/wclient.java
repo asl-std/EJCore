@@ -14,6 +14,7 @@ import ru.aslcraft.api.bukkit.yaml.EJConf;
 
 
 public class wclient {
+
 	private static EJConf ejConf;
 	@SneakyThrows
 	public String body(String method, List<String> param, boolean longpoll) {

@@ -425,6 +425,19 @@ public class YAML {
 		return yaml;
 	}
 
+	public static YAML of(String path, JavaPlugin plugin) {
+		return new YAML(path, plugin);
+	}
+
+	public static YAML of(String path) {
+		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");
+
+		if (plugin != null && plugin.isEnabled())
+			return of(path, plugin);
+		else
+			return new YAML(path);
+	}
+
 	/**
 	 * <p>hasFileInJar.</p>
 	 *
