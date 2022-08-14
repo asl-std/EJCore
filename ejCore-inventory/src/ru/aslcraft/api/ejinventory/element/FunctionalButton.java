@@ -16,59 +16,6 @@ import lombok.Setter;
  */
 public class FunctionalButton extends SimpleElement {
 
-	/**
-	 * <p>getBackBtn.</p>
-	 *
-	 * @return a {@link ru.aslcraft.api.ejinventory.element.FunctionalButton} object
-	 */
-	public static final FunctionalButton getBackBtn() {
-
-		return null;
-	}
-
-	/** Функциональные кнопки главного меню редактора */
-	public static FunctionalButton btnDisplayName;
-
-	/** Constant <code>btnLore</code> */
-	public static FunctionalButton btnLore;
-
-	/** Constant <code>btnDescription</code> */
-	public static FunctionalButton btnDescription;
-
-	/** Constant <code>btnStats</code> */
-	public static FunctionalButton btnStats;
-
-	/** Constant <code>btnMaterial</code> */
-	public static FunctionalButton btnMaterial;
-
-	/** Constant <code>btnCustomModelData</code> */
-	public static FunctionalButton btnCustomModelData;
-
-	/** Constant <code>btnEnchantments</code> */
-	public static FunctionalButton btnEnchantments;
-
-	/** Constant <code>btnItemFlags</code> */
-	public static FunctionalButton btnItemFlags;
-
-	/** Constant <code>btnItemType</code> */
-	public static FunctionalButton btnItemType;
-
-	/** Constant <code>btnItemLevel</code> */
-	public static FunctionalButton btnItemLevel;
-
-	/** Constant <code>btnUnbreakable</code> */
-	public static FunctionalButton btnUnbreakable;
-
-	/** Constant <code>btnRepairable</code> */
-	public static FunctionalButton btnRepairable;
-
-	/** Constant <code>btnDurability</code> */
-	public static FunctionalButton btnDurability;
-
-	static {
-
-	}
-
 	@Setter protected Consumer<InventoryClickEvent> leftClickFunction;
 	@Setter protected Consumer<InventoryClickEvent> middleClickFunction;
 	@Setter protected Consumer<InventoryClickEvent> rightClickFunction;
