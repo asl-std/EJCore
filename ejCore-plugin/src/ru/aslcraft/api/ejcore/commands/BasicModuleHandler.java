@@ -56,8 +56,9 @@ public abstract class BasicModuleHandler extends BukkitCommand implements Comman
 
 	/** {@inheritDoc} */
 	@Override
-	public void registerCommand(ECommand command) {
+	public BasicModuleHandler registerCommand(ECommand command) {
 		commands.put(command.getName(), command);
+		return this;
 	}
 
 	/** {@inheritDoc} */
@@ -90,10 +91,10 @@ public abstract class BasicModuleHandler extends BukkitCommand implements Comman
 	 */
 	public static void registerModuleCommand(BasicModuleHandler moduleCommand, String mainAlias) {
 		try {
-			Method craftServer = Core.instance().getServer().getClass().getMethod("getCommandMap");
+			final Method craftServer = Core.instance().getServer().getClass().getMethod("getCommandMap");
 			craftServer.setAccessible(true);
 
-			CommandMap cMap = (CommandMap) craftServer.invoke(Core.instance().getServer());
+			final CommandMap cMap = (CommandMap) craftServer.invoke(Core.instance().getServer());
 
 			cMap.register(mainAlias, moduleCommand.getUsage(), moduleCommand);
 		} catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
