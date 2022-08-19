@@ -2,11 +2,24 @@ help:
   command-name: help
   description: Show all available commands
   permission: ejcore.command.help
-  arguments: <>
+  arguments: 
   sender-type: ALL
 dump:
   command-name: dump
-  description: Dumps all stored player settings into 'yml' file which is located in the plugin root folder
-  permission: ejc.command.dump.self
-  arguments: <>
+  description: Dumps all stored player settings into 'yml' file which is located in
+    the plugin root folder
+  permission: ejc.command.dump
+  arguments: 
+  sender-type: ALL
+reload:
+  command-name: reload
+  description: Reloads ejCore and all connected ejPlugins
+  permission: ejcore.command.reload
+  arguments: 
+  sender-type: ALL
+data:
+  command-name: data
+  description: Set the custom data to file/player for future using in placeholders
+  permission: ejcore.command.data
+  arguments: <custom/player> <file/name/uid> <key> <value>
   sender-type: ALL

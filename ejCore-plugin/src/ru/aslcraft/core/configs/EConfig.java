@@ -1,5 +1,8 @@
 package ru.aslcraft.core.configs;
 
+import java.util.Collections;
+import java.util.List;
+
 import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.yaml.EJConf;
 import ru.aslcraft.api.ejcore.plugin.EJPlugin;
@@ -15,6 +18,8 @@ public class EConfig extends EJConf {
 	public boolean	ONE_HP_BAR, ENABLE_CONSOLE_COLORS;
 	public int		HEALTH_PER_BAR, UPDATE_PERIOD;
 	public boolean	DEBUG_RUNNING, ENABLE_ATTACK_COOLDOWN, CHECK_UPDATE, PLAYER_ATTRIBUTES_ENABLED;
+
+	public List<String> PLAYER_DATA_DEFAULTS;
 
 	/**
 	 * <p>Constructor for EConfig.</p>
@@ -39,6 +44,10 @@ public class EConfig extends EJConf {
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);
 		UPDATE_PERIOD = this.getInt("check-period", 28800, true);
 		PLAYER_ATTRIBUTES_ENABLED = this.getBoolean("modules.player-attributes-enabled", false, true);
+
+		if (!contains("player-data-default"))
+			set("player-data-default", Collections.EMPTY_LIST);
+		PLAYER_DATA_DEFAULTS = getStringList("player-data-default");
 	}
 
 }

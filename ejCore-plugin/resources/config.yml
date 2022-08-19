@@ -15,28 +15,35 @@ debug:
 check-period: 28800
 check-updates: true
 
-#if true, decreases damage when player attacks before attack delay get fully restored
-#Otherwise damage will be static every-time
+# if true, decreases damage when player attacks before attack delay get fully restored
+# Otherwise damage will be static every-time
 enable-attack-cooldown: true
 
-#ejServer settings
+# #emove brackets before adjusting this option
+player-data-default: []
+#- 'some.key:value'
+
+# ejServer settings
 ej-server:
   server-enabled: false
   server-port: 8080
 
-#ejDiscordBot settings
+# ejDiscordBot settings
 discord:
   ej-discordbot-enabled: false
   bot-token: replace here with token
 
-#VK bot settings
+# VK bot settings
 vk:
   ej-vkbot-enabled: false
   group-id: replace here with group id
   bot-token: replace here with bot token
   
-#MySQL prop
+# MySQL prop
 mysql:
   mysql-enabled: false
   mysql-username: root
   mysql-password: toor
+  
+modules:
+  player-attributes-enabled: false

@@ -425,6 +425,10 @@ public class YAML {
 		return yaml;
 	}
 
+	public static YAML getCustomStorage(String path) {
+		return new YAML(new File("plugins/ejCore/data/" + path + ".yml"));
+	}
+
 	public static YAML of(String path, JavaPlugin plugin) {
 		return new YAML(path, plugin);
 	}

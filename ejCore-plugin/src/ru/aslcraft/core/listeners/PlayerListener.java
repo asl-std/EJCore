@@ -14,7 +14,6 @@ import ru.aslcraft.api.bukkit.equip.EquipSlot;
 import ru.aslcraft.api.bukkit.events.equipment.EquipChangeEvent;
 import ru.aslcraft.api.bukkit.events.player.PlayerBlockMoveEvent;
 import ru.aslcraft.api.bukkit.location.Vector3D;
-import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.core.Core;
 import ru.aslcraft.core.update.EJUpdateChecker;
 
@@ -33,6 +32,8 @@ public class PlayerListener implements Listener {
 	 */
 	@EventHandler
 	public void registerEPlayer(PlayerJoinEvent e) {
+
+
 		new BukkitRunnable() {
 
 			@Override
@@ -43,7 +44,15 @@ public class PlayerListener implements Listener {
 					Bukkit.getServer().getPluginManager().callEvent(new EquipChangeEvent(slot, EquipSlot.getStackFromSlot(slot, e.getPlayer()), e.getPlayer()));
 				}
 
-				p.getSettings().importFromYAML(YAML.getPlayerFile(e.getPlayer()), "");
+				for (final String param : Core.getCfg().PLAYER_DATA_DEFAULTS) {
+					final String[] data = param.split(":");
+					if (data.length < 2) return;
+
+					if (!p.getSettings().hasKey(data[0]))
+						p.getSettings().setValue(data[0], data[1]);
+				}
+
+				p.save();
 			}
 
 		}.runTask(Core.instance());
@@ -66,7 +75,7 @@ public class PlayerListener implements Listener {
 			public void run() {
 				final EPlayer p = EPlayer.getEPlayer(e.getPlayer());
 
-				p.getSettings().exportToYAML(YAML.getPlayerFile(e.getPlayer()), "");
+				p.save();
 
 				EPlayer.unregister(e.getPlayer());
 			}

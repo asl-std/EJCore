@@ -1,6 +1,6 @@
 package ru.aslcraft.api.ejcore.plugin.hook;
 
-import ru.aslcraft.api.bukkit.message.EText;
+import lombok.Getter;
 import ru.aslcraft.core.Core;
 
 /**
@@ -11,14 +11,18 @@ import ru.aslcraft.core.Core;
  */
 public class HookManager {
 
+	@Getter private static boolean papiEnabled = false;
+
+
 	/**
 	 * <p>tryHookPAPI.</p>
 	 */
-	public static void tryHookPAPI() {
-		if (!isPluginEnabled("PlaceholderAPI"))
-			EText.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
-		else
-			EText.fine("PAPI expansion loaded!");
+	public static boolean tryHookPAPI() {
+		if (!isPluginEnabled("PlaceholderAPI")) {
+			return (papiEnabled = false);
+		} else {
+			return (papiEnabled = true);
+		}
 	}
 
 	/**

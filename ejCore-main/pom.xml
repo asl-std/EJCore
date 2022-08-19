@@ -39,6 +39,8 @@
 	</dependencies>
 
 	<build>
+		
+		<defaultGoal>clean install</defaultGoal>
 
 		<resources>
 			<resource>

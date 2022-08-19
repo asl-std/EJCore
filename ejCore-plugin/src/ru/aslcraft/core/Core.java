@@ -11,15 +11,18 @@ import org.bukkit.plugin.Plugin;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.item.Material1_12;
 import ru.aslcraft.api.bukkit.item.Material1_13;
 import ru.aslcraft.api.bukkit.item.interfaze.MaterialAdapter;
 import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.utils.ServerVersion;
+import ru.aslcraft.api.ejcore.expension.DataExpansion;
 import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.api.ejcore.plugin.Incompatibility;
 import ru.aslcraft.api.ejcore.plugin.hook.HookManager;
+import ru.aslcraft.api.ejcore.plugin.hook.PAPI;
 //import ru.aslcraft.bots.core.discord.BotMain;
 import ru.aslcraft.core.commands.CoreCommandHandler;
 import ru.aslcraft.core.configs.EConfig;
@@ -28,6 +31,7 @@ import ru.aslcraft.core.listeners.CombatListener;
 import ru.aslcraft.core.listeners.EquipListener;
 import ru.aslcraft.core.listeners.EquipListener1_13;
 import ru.aslcraft.core.listeners.PaneInteractListener;
+import ru.aslcraft.core.listeners.PapiListener;
 import ru.aslcraft.core.listeners.PlayerListener;
 import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.core.listeners.temp.CancelJoinBeforeFullLoading;
@@ -117,7 +121,12 @@ public class Core extends EJPlugin {
 		else
 			Core.materialAdapter = new Material1_12();
 
-		HookManager.tryHookPAPI();
+		if (HookManager.tryHookPAPI()) {
+			EText.fine("PAPI expansion loaded!");
+			new DataExpansion();
+			RegisterEventListener.register("papiReload", new PapiListener());
+		} else
+			EText.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
 
 		Tests.start();
 		RegisterEventListener.register("playerJoin", new PlayerListener());
@@ -157,7 +166,6 @@ public class Core extends EJPlugin {
 			RegisterEventListener.getListenerManager().register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
-		registerAttrManager();
 
 		new CoreCommandHandler().registerHandler();
 
@@ -165,6 +173,9 @@ public class Core extends EJPlugin {
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
 		EText.sendLB();
 		Incompatibility.check();
+		if (HookManager.isPapiEnabled() && !PAPI.getPreRegister().isEmpty()) {
+			PAPI.getPreRegister().values().forEach(PlaceholderExpansion::register);
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -173,13 +184,6 @@ public class Core extends EJPlugin {
 		for (final Player p : Bukkit.getOnlinePlayers())
 			EPlayer.unregister(p);
 		RegisterEventListener.getListenerManager().unregisterAll();
-	}
-
-	/**
-	 * <p>registerAttrManager.</p>
-	 */
-	public void registerAttrManager() {
-
 	}
 
 	/**

@@ -1,8 +1,12 @@
 package ru.aslcraft.api.ejcore.plugin.hook;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.Getter;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 /**
@@ -12,6 +16,8 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
  * @version $Id: $Id
  */
 public abstract class PAPI extends PlaceholderExpansion {
+
+	@Getter private static final ConcurrentMap<String, PlaceholderExpansion> preRegister = new ConcurrentHashMap<>();
 
 	private String		identifier;
 
@@ -25,14 +31,14 @@ public abstract class PAPI extends PlaceholderExpansion {
 	 */
 	public PAPI(JavaPlugin plugin, String identifier) {
 		this.plugin = plugin;
-		this.identifier = "ejc_" + identifier;
-		register();
+		this.identifier = identifier;
+		preRegister.put(identifier, this);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public String getAuthor() {
-		return "ASL";
+		return "ASL std.";
 	}
 
 	/** {@inheritDoc} */
@@ -43,8 +49,8 @@ public abstract class PAPI extends PlaceholderExpansion {
 
 	/** {@inheritDoc} */
 	@Override
-	public String getPlugin() {
-		return "[EJC] > " + plugin.getName();
+	public String getRequiredPlugin() {
+		return plugin.getName();
 	}
 
 	/** {@inheritDoc} */
