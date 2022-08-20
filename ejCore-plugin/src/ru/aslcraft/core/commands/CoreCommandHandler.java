@@ -84,7 +84,6 @@ public class CoreCommandHandler extends BasicCommandHandler {
 						return;
 					}
 
-					final YAML pfile = YAML.getPlayerFile(player);
 
 					String value = args[3];
 					final StringBuilder b = new StringBuilder(value);
@@ -95,10 +94,16 @@ public class CoreCommandHandler extends BasicCommandHandler {
 							b.append(args[i]);
 						}
 					}
+
 					value = PlaceholderAPI.setPlaceholders(player, b.toString());
+
 					if (player.isOnline())
 						EPlayer.getEPlayer(player.getPlayer()).getSettings().setValue(args[2], value);
-					pfile.set(args[2], value);
+					else {
+						final YAML pfile = Core.getPlayerDatabase().getPlayerFile(player);
+						pfile.set(args[2], value);
+					}
+
 					EText.send(s, "&a[ejCore] Successfully added data " + args[2] + ": " + value + " to a player " + args[1]);
 					break;
 				case "custom":

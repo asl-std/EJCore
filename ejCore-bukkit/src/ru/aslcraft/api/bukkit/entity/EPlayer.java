@@ -23,6 +23,7 @@ import ru.aslcraft.api.bukkit.value.DoubleSettings;
 import ru.aslcraft.api.bukkit.value.StringSettings;
 import ru.aslcraft.api.bukkit.value.util.ValueUtil;
 import ru.aslcraft.api.bukkit.yaml.YAML;
+import ru.aslcraft.api.bukkit.yaml.database.PlayerDatabase;
 /**
  * Paths for Settings:<br>
  *     player:<br>
@@ -195,6 +196,7 @@ public final class EPlayer implements EJPlayer {
 	@Getter private StringSettings settings;
 	@Getter private Player player;
 	@Getter private EquipInventory equipInventory = new EquipInventory();
+	@Getter private YAML playerDataFile;
 
 	@Getter private Method update;
 	@Getter private Object instance;
@@ -213,8 +215,10 @@ public final class EPlayer implements EJPlayer {
 	public EPlayer(Player p) {
 		player = p;
 		tempSettings = new DoubleSettings();
+		playerDataFile = PlayerDatabase.getDatabases().get("ejCore").getPlayerFile(p);
 		settings = new StringSettings();
-		settings.importFromYAML(YAML.getPlayerFile(p), "");
+		settings.importFromYAML(playerDataFile, "");
+
 		tempSettings.setCustom("player.hunger-max", 20d);
 
 		final EPlayerRegisteredEvent event = new EPlayerRegisteredEvent(this);
@@ -412,7 +416,7 @@ public final class EPlayer implements EJPlayer {
 	}
 
 	public void save() {
-		settings.exportToYAML(YAML.getPlayerFile(player), "");
+		settings.exportToYAML(getPlayerDataFile(), "");
 	}
 
 }

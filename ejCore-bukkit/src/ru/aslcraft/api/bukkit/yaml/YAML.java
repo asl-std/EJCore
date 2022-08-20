@@ -5,12 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -400,29 +398,6 @@ public class YAML {
 
 		if (fileName.lastIndexOf(".") > 0) return fileName.substring(fileName.lastIndexOf(".") + 1);
 		else return "";
-	}
-
-	/**
-	 * <p>getPlayerFile.</p>
-	 *
-	 * @param p a {@link org.bukkit.entity.Player} object
-	 * @return a {@link ru.aslcraft.api.ejcore.yaml.YAML} object
-	 */
-	public static YAML getPlayerFile(OfflinePlayer p) {
-		final YAML yaml = new YAML(new File("plugins/ejCore/players/" + p.getUniqueId().toString() + ".yml"));
-
-		List<String> storedNames = new ArrayList<>();
-
-		if (yaml.contains("stored-names")) {
-			storedNames = yaml.getStringList("stored-names");
-			if (!storedNames.contains(p.getName()))
-				storedNames.add(p.getName());
-		} else
-			storedNames.add(p.getName());
-
-		yaml.set("stored-names", storedNames);
-
-		return yaml;
 	}
 
 	public static YAML getCustomStorage(String path) {

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.entity.util.EntityUtil;
 import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.api.ejcore.plugin.hook.PAPI;
@@ -46,9 +47,15 @@ public class DataExpansion extends PAPI {
 
 			if (player == null) return null;
 
-			final YAML pfile = YAML.getPlayerFile(player);
+			final YAML pfile = Core.getPlayerDatabase().getPlayerFile(player);
 
-			return pfile.getString(params[2], "value not exist in this player", false);
+			if (player.isOnline()) {
+				final EPlayer ep = EPlayer.getEPlayer(player.getPlayer());
+				final String value = ep.getSettings().getValue(params[2]);
+
+				return value == null ? "value not exist in this player" : value;
+			} else
+				return pfile.getString(params[2], "value not exist in this player", false);
 		case "custom":
 			return YAML.getCustomStorage(params[1]).getString(params[2], "value not exist in this data-file", false);
 		}

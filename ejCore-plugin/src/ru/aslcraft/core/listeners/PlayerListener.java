@@ -51,8 +51,6 @@ public class PlayerListener implements Listener {
 					if (!p.getSettings().hasKey(data[0]))
 						p.getSettings().setValue(data[0], data[1]);
 				}
-
-				p.save();
 			}
 
 		}.runTask(Core.instance());

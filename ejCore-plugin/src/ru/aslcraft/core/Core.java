@@ -18,6 +18,7 @@ import ru.aslcraft.api.bukkit.material.Material1_13;
 import ru.aslcraft.api.bukkit.material.interfaze.MaterialAdapter;
 import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.utils.ServerVersion;
+import ru.aslcraft.api.bukkit.yaml.database.PlayerDatabase;
 import ru.aslcraft.api.ejcore.expension.DataExpansion;
 import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.api.ejcore.plugin.Incompatibility;
@@ -68,6 +69,7 @@ public class Core extends EJPlugin {
 	@Getter private static EConfig cfg;
 	@Getter private static LangConfig lang;
 	@Getter private static MaterialAdapter materialAdapter = null;
+	@Getter private static PlayerDatabase playerDatabase;
 	private static LinkedList<EJPlugin> plugins;
 
 	//@Getter private static Server webServer;
@@ -107,6 +109,7 @@ public class Core extends EJPlugin {
 
 		resourceId = 38074;
 		//EJUpdateChecker.registerEJPlugin(this);
+		playerDatabase = PlayerDatabase.createDatabase(this);
 
 		new Metrics(instance, 2908);
 		RegisterEventListener.init(this);
