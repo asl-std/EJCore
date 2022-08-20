@@ -2,9 +2,7 @@ package ru.aslcraft.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,6 +13,7 @@ import ru.aslcraft.api.bukkit.command.BasicCommand;
 import ru.aslcraft.api.bukkit.command.BasicCommandHandler;
 import ru.aslcraft.api.bukkit.command.interfaze.ECommand;
 import ru.aslcraft.api.bukkit.entity.EPlayer;
+import ru.aslcraft.api.bukkit.entity.util.EntityUtil;
 import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.api.ejcore.plugin.hook.HookManager;
@@ -78,22 +77,7 @@ public class CoreCommandHandler extends BasicCommandHandler {
 
 				switch (args[0].toLowerCase()) {
 				case "player":
-					OfflinePlayer player = Bukkit.getPlayerExact(args[1]);
-					if (player == null)
-						for (final OfflinePlayer ofp : Bukkit.getOfflinePlayers()) {
-							final String name = ofp.getName();
-							final UUID uid = ofp.getUniqueId();
-
-							if (name != null && name.equalsIgnoreCase(args[1])) {
-								player = ofp;
-								break;
-							}
-
-							if (uid != null && uid.toString().equalsIgnoreCase(args[1])) {
-								player = ofp;
-								break;
-							}
-						}
+					final OfflinePlayer player = EntityUtil.getPlayer(args[1]);
 
 					if (player == null) {
 						EText.send(s, "&c[ejCore] Player with name/uuid " + args[1] + " was not found");

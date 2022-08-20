@@ -2,7 +2,10 @@ package ru.aslcraft.api.bukkit.entity.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -72,6 +75,52 @@ public final class EntityUtil {
 		final Vector3D origin = new Vector3D(x/2,y/2,z/2);
 
 		return new Area3D(Vector3D.fromLocation(p.getLocation()).substract(origin), Vector3D.fromLocation(p.getLocation()).add(origin));
+	}
+
+	public static Player getOnlinePlayer(String name) {
+		return Bukkit.getPlayerExact(name);
+	}
+
+	public static OfflinePlayer getPlayer(String search) {
+		OfflinePlayer player = Bukkit.getPlayerExact(search);
+		if (player == null)
+			for (final OfflinePlayer ofp : Bukkit.getOfflinePlayers()) {
+				final String name = ofp.getName();
+				final UUID uid = ofp.getUniqueId();
+
+				if (name != null && name.equalsIgnoreCase(search)) {
+					player = ofp; break;
+				}
+
+				if (uid != null && uid.toString().equalsIgnoreCase(search)) {
+					player = ofp; break;
+				}
+			}
+		return player;
+	}
+
+
+	public static OfflinePlayer getPlayerByUUID(String uid) {
+		return getPlayerByUUID(uid, false);
+	}
+
+	public static OfflinePlayer getPlayerByUUID(String uid, boolean repeat) {
+		OfflinePlayer player;
+		try {
+			final UUID forSearch = UUID.fromString(uid);
+			player = Bukkit.getOfflinePlayer(forSearch);
+			if (player == null && repeat)
+				for (final OfflinePlayer ofp : Bukkit.getOfflinePlayers()) {
+					final UUID puid = ofp.getUniqueId();
+
+					if (puid != null && puid.equals(forSearch)) {
+						player = ofp; break;
+					}
+				}
+
+		} catch (final Exception e) { return null; }
+
+		return player;
 	}
 
 }

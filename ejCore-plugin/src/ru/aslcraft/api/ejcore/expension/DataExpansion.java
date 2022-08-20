@@ -3,14 +3,13 @@ package ru.aslcraft.api.ejcore.expension;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import ru.aslcraft.api.bukkit.entity.util.EntityUtil;
 import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.api.ejcore.plugin.hook.PAPI;
 import ru.aslcraft.core.Core;
@@ -43,22 +42,7 @@ public class DataExpansion extends PAPI {
 
 		switch(params[0]) {
 		case "player":
-			OfflinePlayer player = Bukkit.getPlayerExact(params[1]);
-			if (player == null)
-				for (final OfflinePlayer ofp : Bukkit.getOfflinePlayers()) {
-					final String name = ofp.getPlayerProfile().getName();
-					final UUID uid = ofp.getPlayerProfile().getUniqueId();
-
-					if (name != null && name.equalsIgnoreCase(params[1])) {
-						player = ofp;
-						break;
-					}
-
-					if (uid != null && uid.toString().equalsIgnoreCase(params[1])) {
-						player = ofp;
-						break;
-					}
-				}
+			final OfflinePlayer player = EntityUtil.getPlayer(params[1]);
 
 			if (player == null) return null;
 
