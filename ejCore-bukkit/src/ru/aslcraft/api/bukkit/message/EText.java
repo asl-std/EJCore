@@ -37,6 +37,7 @@ public class EText {
 	public static final String prefix = "EJC";
 
 	@Setter private static boolean debug = false;
+	@Setter private static boolean consoleFeedback = true;
 
 	/**
 	 * <p>warn.</p>
@@ -141,7 +142,8 @@ public class EText {
 			((Player)receiver).sendMessage(c(msg));
 
 		if (receiver instanceof ConsoleCommandSender)
-			send(msg);
+			if (consoleFeedback)
+				send(msg);
 	}
 
 	/**

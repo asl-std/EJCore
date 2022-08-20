@@ -10,6 +10,7 @@ health-bar:
 debug:
   enable-debug: true
   less-console-messages: false
+  console-feedback: true
 
 # Time in seconds (default 8 hours)
 check-period: 28800
