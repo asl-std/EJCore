@@ -4,7 +4,7 @@
 	<groupId>ru.aslcraft</groupId>
 	<artifactId>ejcore</artifactId>
 	<packaging>pom</packaging>
-	<version>1.2.17.1</version>
+	<version>1.2.18</version>
 	<name>ejCore</name>
 
 	<properties>
