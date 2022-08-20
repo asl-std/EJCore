@@ -1,4 +1,4 @@
-package ru.aslcraft.api.bukkit.item.interfaze;
+package ru.aslcraft.api.bukkit.material.interfaze;
 
 import org.bukkit.Material;
 

@@ -1,8 +1,8 @@
-package ru.aslcraft.api.bukkit.item;
+package ru.aslcraft.api.bukkit.material;
 
 import org.bukkit.Material;
 
-import ru.aslcraft.api.bukkit.item.interfaze.MaterialAdapter;
+import ru.aslcraft.api.bukkit.material.interfaze.MaterialAdapter;
 import ru.aslcraft.api.bukkit.message.EText;
 
 /**
