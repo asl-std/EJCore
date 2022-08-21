@@ -89,7 +89,7 @@ public class CoreCommandHandler extends BasicCommandHandler {
 					final StringBuilder b = new StringBuilder(value);
 
 					if (args.length > 4) {
-						for (int i = 3 ; i < args.length ; i++) {
+						for (int i = 4 ; i < args.length ; i++) {
 							b.append(" ");
 							b.append(args[i]);
 						}

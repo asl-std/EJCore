@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import me.clip.placeholderapi.PlaceholderAPI;
 import ru.aslcraft.api.bukkit.entity.EPlayer;
 import ru.aslcraft.api.bukkit.entity.util.EntityUtil;
+import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.yaml.YAML;
 import ru.aslcraft.api.ejcore.plugin.hook.PAPI;
 import ru.aslcraft.core.Core;
@@ -31,11 +32,18 @@ public class DataExpansion extends PAPI {
 
 	@Override
 	public String onPlaceholderRequest(Player p, String identifier) {
+		if (identifier.contains("{player_name}"))
+			identifier = identifier.replace("{player_name}", p.getName());
+
+		EText.debug("Received placeholder: " + identifier);
 
 		if (PlaceholderAPI.containsBracketPlaceholders(identifier))
 			identifier = PlaceholderAPI.setBracketPlaceholders(p, identifier);
+		EText.debug("Placeholder parsed: " + identifier);
 
 		final String[] params = identifier.split("_");
+
+		EText.debug("Parameters collected: " + String.join(", ", params));
 
 		if (params.length < 3) return null;
 
@@ -47,15 +55,18 @@ public class DataExpansion extends PAPI {
 
 			if (player == null) return null;
 
-			final YAML pfile = Core.getPlayerDatabase().getPlayerFile(player);
-
 			if (player.isOnline()) {
 				final EPlayer ep = EPlayer.getEPlayer(player.getPlayer());
 				final String value = ep.getSettings().getValue(params[2]);
+				EText.debug("Received data from online player " + params[1] + " value: " + value);
 
 				return value == null ? "value not exist in this player" : value;
-			} else
-				return pfile.getString(params[2], "value not exist in this player", false);
+			} else {
+				final YAML pfile = Core.getPlayerDatabase().getPlayerFile(player);
+				final String val = pfile.getString(params[2], "value not exist in this player", false);
+				EText.debug("Received data from offline player " + params[1] + " value: " + val);
+				return val;
+			}
 		case "custom":
 			return YAML.getCustomStorage(params[1]).getString(params[2], "value not exist in this data-file", false);
 		}

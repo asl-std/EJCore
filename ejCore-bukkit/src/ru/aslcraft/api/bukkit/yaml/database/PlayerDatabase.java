@@ -22,8 +22,11 @@ public class PlayerDatabase {
 
 		if (databases.containsKey(plugin.getName()))
 			return databases.get(plugin.getName());
-		else
-			return new PlayerDatabase(plugin);
+		else {
+			final PlayerDatabase db = new PlayerDatabase(plugin);
+			databases.put(plugin.getName(), db);
+			return db;
+		}
 	}
 
 	public static void lock() {
@@ -41,6 +44,8 @@ public class PlayerDatabase {
 
 	private void initDatabase() {
 		final File folder = new File(plugin.getDataFolder() + "/players");
+		if (!folder.exists())
+			folder.mkdirs();
 
 		for (final File file : folder.listFiles()) {
 			if (file.isFile() && YAML.getFileExtension(file).equalsIgnoreCase("yml")) {

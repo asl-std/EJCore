@@ -405,7 +405,7 @@ public class YAML {
 	}
 
 	public static YAML of(String path, JavaPlugin plugin) {
-		return new YAML(path, plugin);
+		return new YAML(plugin.getDataFolder() + "/" + path, plugin);
 	}
 
 	public static YAML of(String path) {
