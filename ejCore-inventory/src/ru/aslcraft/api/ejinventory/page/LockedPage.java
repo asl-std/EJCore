@@ -1,9 +1,11 @@
 package ru.aslcraft.api.ejinventory.page;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -72,6 +74,11 @@ public class LockedPage implements Page {
 		return elements[locX][locY];
 	}
 
+	@Override
+	public List<Element> getElements() {
+		return Arrays.stream(elements).flatMap(Arrays::stream).collect(Collectors.toList());
+	}
+
 	/**
 	 * <p>unlockAll.</p>
 	 */
@@ -134,6 +141,7 @@ public class LockedPage implements Page {
 	 *
 	 * @return a {@link java.util.List} object
 	 */
+	@Override
 	public List<Integer> getUnlocked() {
 		final List<Integer> copy = new ArrayList<>(unlocked);
 		return copy;

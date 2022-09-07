@@ -6,6 +6,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
+import ru.aslcraft.api.bukkit.items.InventoryUtil;
+
 /**
  * <p>Pane interface.</p>
  *
@@ -28,9 +30,20 @@ public interface Pane extends InventoryHolder {
 	 */
 	void showTo(Player... players);
 
-	void update(Inventory inv);
+	default void update(Inventory inventory) {
+		getPage().display(inventory);
+		inventory.getViewers().stream().filter(h -> h instanceof Player).forEach(h -> ((Player)h).updateInventory());
+	}
 
-	void update(Inventory inv, int locX, int locY);
+	default void update(Inventory inv, int locX, int locY) {
+		getPage().update(inv, locX, locY);
+	}
+
+	Page getPage();
+
+	default boolean isReturnItems() {
+		return false;
+	}
 
 	/**
 	 * <p>returnItems.</p>
@@ -38,6 +51,13 @@ public interface Pane extends InventoryHolder {
 	 * @param player a {@link org.bukkit.entity.Player} object
 	 * @param event a {@link org.bukkit.event.inventory.InventoryCloseEvent} object
 	 */
-	void returnItems(Player player, InventoryCloseEvent event);
+	default void returnItems(Player player, InventoryCloseEvent event) {
+		if (isReturnItems()) {
+			if (getPage().getUnlocked().isEmpty()) return;
+			getPage().getUnlocked().stream()
+			.filter(i -> event.getView().getTopInventory().getItem(i) != null)
+			.forEach(i -> InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), player));
+		}
+	}
 
 }

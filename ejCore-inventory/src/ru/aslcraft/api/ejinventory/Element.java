@@ -32,7 +32,9 @@ public interface Element {
 	 * @param element a {@link ru.aslcraft.api.ejinventory.Element} object
 	 * @return a boolean
 	 */
-	boolean equals(Element element);
+	default boolean equals(Element element) {
+		return equals(element.getIcon());
+	}
 
 	/**
 	 * <p>equals.</p>
@@ -41,6 +43,10 @@ public interface Element {
 	 * @return a boolean
 	 */
 	boolean equals(ItemStack icon);
+
+	default void update(Inventory inventory, int locX, int locY) {
+		placeOn(inventory,locX,locY);
+	}
 
 	/**
 	 * <p>placeOn.</p>

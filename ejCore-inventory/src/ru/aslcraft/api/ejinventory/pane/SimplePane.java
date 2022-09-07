@@ -5,12 +5,11 @@ import java.util.Arrays;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import ru.aslcraft.api.bukkit.items.InventoryUtil;
 import ru.aslcraft.api.ejinventory.Page;
 import ru.aslcraft.api.ejinventory.Pane;
 import ru.aslcraft.api.ejinventory.page.LockedPage;
@@ -28,10 +27,10 @@ public class SimplePane implements Pane {
 	public Inventory getInventory() { return Bukkit.createInventory(null, 9); }
 
 	protected String		title;
-	private final int		size;
-	@Setter protected Page 	page;
+	protected final int		size;
+	@Getter @Setter protected Page 	page;
 
-	private boolean returnItems = true;
+	@Getter private boolean returnItems = true;
 
 	/**
 	 * <p>Constructor for SimplePane.</p>
@@ -89,29 +88,6 @@ public class SimplePane implements Pane {
 		Arrays.asList(players).stream()
 		.filter(p -> p != null)
 		.forEach(p -> { p.closeInventory(); p.openInventory(inventory); });
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void returnItems(Player p, InventoryCloseEvent event) {
-		if (page instanceof LockedPage && returnItems) {
-			final LockedPage lPage = (LockedPage) page;
-			if (lPage.getUnlocked().isEmpty()) return;
-			lPage.getUnlocked().stream()
-			.filter(i -> event.getView().getTopInventory().getItem(i) != null)
-			.forEach(i -> InventoryUtil.addItem(event.getView().getTopInventory().getItem(i), p));
-		}
-	}
-
-	@Override
-	public void update(Inventory inv) {
-		page.display(inv);
-		inv.getViewers().stream().filter(h -> h instanceof Player).forEach(h -> ((Player)h).updateInventory());
-	}
-
-	@Override
-	public void update(Inventory inv, int locX, int locY) {
-		page.update(inv, locX, locY);
 	}
 
 }

@@ -90,6 +90,11 @@ public class MultiPagePane implements Pane {
 			}
 	}
 
+	@Override
+	public Page getPage() {
+		return pages.get(currentPage);
+	}
+
 
 	/** {@inheritDoc} */
 	@Override

@@ -1,5 +1,7 @@
 package ru.aslcraft.api.ejinventory;
 
+import java.util.List;
+
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +20,8 @@ public interface Page {
 	 * @return a {@link java.lang.String} object
 	 */
 	String getTitle();
+
+	List<Element> getElements();
 
 	/**
 	 * <p>add.</p>
@@ -61,7 +65,9 @@ public interface Page {
 	 */
 	void display(Inventory inv);
 
-	void update(Inventory inv, int locX, int locY);
+	default void update(Inventory inv, int locX, int locY) {
+		getElements().forEach(e -> e.update(inv, locX, locY));
+	}
 
 	/**
 	 * <p>fill.</p>
@@ -71,40 +77,36 @@ public interface Page {
 	void fill(Element element);
 
 	/**
-	 * <p>fire.</p>
+	 * Executes internal functions
 	 *
-	 * @param event a {@link org.bukkit.event.inventory.InventoryClickEvent} object
-	 * @return a boolean
+	 * @param {@link org.bukkit.event.inventory.InventoryClickEvent} instance
+	 * @return true if execution is done correctly
 	 */
 	boolean fire(InventoryClickEvent event);
 
 	/**
-	 * <p>height.</p>
-	 *
-	 * @return a int
+	 * @return a page height
 	 */
 	int height();
 
 	/**
 	 * <p>remove.</p>
 	 *
-	 * @param locX a int
-	 * @param locY a int
+	 * @param locX x coordinate
+	 * @param locY y coordinate
 	 */
 	void remove(int locX, int locY);
 
 	/**
-	 * <p>remove.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
+	 * Removes an Element from this Page
 	 */
 	void remove(ItemStack stack);
 
 	/**
-	 * <p>width.</p>
-	 *
-	 * @return a int
+	 * @return a page width
 	 */
 	int width();
+
+	List<Integer> getUnlocked();
 
 }
