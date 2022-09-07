@@ -24,6 +24,7 @@ public class DataExpansion extends PAPI {
 	@Override
 	public @NotNull List<String> getPlaceholders() {
 		return Arrays.asList(
+				"ejcdata_<key>",
 				"ejcdata_player_<player-name/uid>_<key>",
 				"ejcdata_custom_<file-name>_<key>"
 				);
@@ -40,15 +41,20 @@ public class DataExpansion extends PAPI {
 
 		final String[] params = identifier.split("_");
 
-		if (params.length < 3) return null;
-
 		Arrays.asList(params).forEach(Objects::requireNonNull);
+
+		if (params.length == 1) {
+			if (p == null) return "[SINGLE] Player was null";
+
+			final String value = EPlayer.getEPlayer(p).getSettings().getValue(params[0]);
+			return value == null ? "value not exist in this player" : value;
+		}
 
 		switch(params[0]) {
 		case "player":
 			final OfflinePlayer player = EntityUtil.getPlayer(params[1]);
 
-			if (player == null) return null;
+			if (player == null) return "[PLAYER] Incorrect params provided";
 
 			if (player.isOnline()) {
 				final EPlayer ep = EPlayer.getEPlayer(player.getPlayer());
@@ -63,7 +69,7 @@ public class DataExpansion extends PAPI {
 		case "custom":
 			return YAML.getCustomStorage(params[1]).getString(params[2], "value not exist in this data-file", false);
 		}
-		return null;
+		return "[DEFAULT] Incorrect params provided";
 	}
 
 }
