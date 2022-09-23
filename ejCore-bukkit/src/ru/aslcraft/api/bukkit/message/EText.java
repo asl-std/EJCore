@@ -138,12 +138,15 @@ public class EText {
 	 * @param msg a {@link java.lang.String} object
 	 */
 	public static void send(Object receiver, String msg) {
-		if (receiver instanceof Player)
-			((Player)receiver).sendMessage(c(msg));
+		send(receiver,msg,true);
+	}
 
+	public static void send(Object receiver, String msg, boolean colored) {
+		if (receiver instanceof Player)
+			((Player)receiver).sendMessage(colored ? c(msg) : e(msg));
 		if (receiver instanceof ConsoleCommandSender)
 			if (consoleFeedback)
-				send(msg);
+				sendRaw(colored ? c(msg) : e(msg));
 	}
 
 	/**
