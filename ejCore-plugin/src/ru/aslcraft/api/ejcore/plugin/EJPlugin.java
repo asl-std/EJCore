@@ -91,7 +91,8 @@ public abstract class EJPlugin extends JavaPlugin {
 	 *
 	 * @param listener a {@link org.bukkit.event.Listener} object
 	 */
-	public void loadListener(Listener listener) {getServer().getPluginManager().registerEvents(listener, this);}
+	@Deprecated
+	public void loadListener(Listener listener) { getServer().getPluginManager().registerEvents(listener, this); }
 
 	/**
 	 * <p>loadConfiguration.</p>

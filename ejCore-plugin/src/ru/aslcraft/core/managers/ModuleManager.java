@@ -1,11 +1,13 @@
 package ru.aslcraft.core.managers;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -45,6 +47,9 @@ public class ModuleManager {
 		final File folder = new File(Core.instance().getDataFolder(), "modules");
 		folder.mkdirs();
 
+		final List<URL> urls = new ArrayList<>();
+		final List<File> toLoad = new ArrayList<>();
+
 		if (folder.exists() && folder.isDirectory()) {
 			final File[] addons = folder.listFiles();
 			if (addons != null)
@@ -56,30 +61,33 @@ public class ModuleManager {
 							if (!Core.getCfg().contains("modules.enable-" + name.toLowerCase()))
 								EText.warn("New module &a'" + addon.getName() + "'&4 founded, enable it in config if you need this");
 
-							if (Core.getCfg().getBoolean("modules.enable-" + name.toLowerCase(), false, true))
-								loadModule(addon, loader);
+							if (Core.getCfg().getBoolean("modules.enable-" + name.toLowerCase(), Core.getCfg().MODULES_BY_DEFAULT, true)) {
+								try {
+									urls.add(new URL("jar:file:" + addon.getPath() + "!/"));
+									toLoad.add(addon);
+								} catch (final MalformedURLException e) { EText.send("Module " + name + " cannot be loaded correctly"); }
+							}
 						}
 					}
+
 		}
+
+		toLoad.forEach(file -> loadModule(file, URLClassLoader.newInstance(urls.toArray(new URL[urls.size()]), loader)));
 	}
 
 	private static void loadModule(File addon, ClassLoader loader) {
 		try(final JarFile jAddon = new JarFile(addon);) {
 			final Enumeration<JarEntry> entry = jAddon.entries();
 
-			final URL[] urls = { new URL("jar:file:" + addon.getPath() + "!/") };
-			final ClassLoader cl = URLClassLoader.newInstance(urls, loader);
-
 			while (entry.hasMoreElements()) {
 				final JarEntry je = entry.nextElement();
 
-				if (!je.isDirectory() && je.getName().endsWith(".class")) {
+				if (!je.isDirectory() && !je.getName().endsWith("module-info.class") && je.getName().endsWith(".class")) {
 
-					String className = je.getName().substring(0, je.getName().length() - 6);
-					className = className.replace("/", ".");
+					final String className = getClassName(je);
 
 					try {
-						final Class<?> c = Class.forName(className, false, cl);
+						final Class<?> c = Class.forName(className, true, loader);
 						if (EJAddon.class.isAssignableFrom(c)) {
 							final Object instance = c.getConstructor().newInstance();
 							final String name = (String)c.getMethod("getModuleName").invoke(instance);
@@ -98,6 +106,14 @@ public class ModuleManager {
 			e.printStackTrace();
 			return;
 		}
+	}
+
+	private static String getClassName(JarEntry entry) {
+		return getClassName(entry.getName());
+	}
+
+	public static String getClassName(String name) {
+		return name.substring(0, name.length()-6).replace("/", ".");
 	}
 
 	/**

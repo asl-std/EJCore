@@ -400,19 +400,34 @@ public class YAML {
 		else return "";
 	}
 
+	/**
+	 * @param path - a file name without file extension.
+	 * @return YAML - a file from "plugins/ejCore/data/<b>path</b>.yml
+	 */
 	public static YAML getCustomStorage(String path) {
 		return new YAML(new File("plugins/ejCore/data/" + path + ".yml"));
 	}
 
+	/**
+	 * @param path - a file name with extension.
+	 * @param plugin - a plugin what used for data folder
+	 * @return YAML - a file from "plugins/plugin.getDataFolder()/path"
+	 */
 	public static YAML of(String path, JavaPlugin plugin) {
 		return new YAML(plugin.getDataFolder() + "/" + path, plugin);
 	}
 
+	/**
+	 *
+	 * @param path - a file name with extension.
+	 * @return a file from "plugins/ejCore/path" if ejCore is enabled<br>
+	 * otherwise returns new YAML(path)
+	 */
 	public static YAML of(String path) {
 		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");
 
 		if (plugin != null && plugin.isEnabled())
-			return of(plugin.getDataFolder() + "/" + path, plugin);
+			return of(path, plugin);
 		else
 			return new YAML(path);
 	}

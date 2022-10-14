@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import lombok.Getter;
@@ -149,26 +148,6 @@ public class SimpleElement implements Element {
 			if (func != null) {
 				func.accept(event);
 			}
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public boolean equals(Element element) {
-		if (element instanceof SimpleElement)
-			return this.equals(((SimpleElement) element).icon);
-		else return false;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public boolean equals(ItemStack icon) {
-		return ItemStackUtil.compareDisplayName(this.icon, icon);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void placeOn(Inventory inventory, int locX, int locY) {
-		inventory.setItem(locX + locY * 9, icon.clone());
 	}
 
 }

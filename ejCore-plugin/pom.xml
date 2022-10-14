@@ -38,7 +38,7 @@
 			<version>2.11.2</version>
 			<scope>provided</scope>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>com.elmakers.mine.bukkit</groupId>
 			<artifactId>EffectLib</artifactId>
@@ -81,7 +81,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
 				<configuration>
 					<minimizeJar>false</minimizeJar>
 					<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
@@ -94,10 +93,10 @@
 							<pattern>de.tr7zw</pattern>
 							<shadedPattern>ru.aslcraft.api.tr7zw</shadedPattern>
 						</relocation>
-						<reloacation>
+						<relocation>
 							<pattern>org.bstats</pattern>
 							<shadedPattern>ru.aslcraft.core.metrics</shadedPattern>
-						</reloacation>
+						</relocation>
 					</relocations>
 					<filters>
 						<filter>

@@ -24,6 +24,8 @@ import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.api.ejcore.plugin.Incompatibility;
 import ru.aslcraft.api.ejcore.plugin.hook.HookManager;
 import ru.aslcraft.api.ejcore.plugin.hook.PAPI;
+import ru.aslcraft.api.ejinventory.PluginHolder;
+import ru.aslcraft.api.language.LangAPI;
 //import ru.aslcraft.bots.core.discord.BotMain;
 import ru.aslcraft.core.commands.CoreCommandHandler;
 import ru.aslcraft.core.configs.EConfig;
@@ -70,6 +72,7 @@ public class Core extends EJPlugin {
 	@Getter private static LangConfig lang;
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static PlayerDatabase playerDatabase;
+	@Getter private static LangAPI language;
 	private static LinkedList<EJPlugin> plugins;
 
 	//@Getter private static Server webServer;
@@ -106,6 +109,8 @@ public class Core extends EJPlugin {
 		final long bef = System.nanoTime();
 		instance = this;
 		CancelJoinBeforeFullLoading.register();
+		language = LangAPI.INSTANCE;
+		PluginHolder.attach(this);
 
 		resourceId = 38074;
 		//EJUpdateChecker.registerEJPlugin(this);
@@ -163,7 +168,6 @@ public class Core extends EJPlugin {
 		if (plugins.size() > 0) {
 			EText.fine("&aejCore found EJPlugins, wait while all plugins enables.. ");
 			new InitialiseEJPluginsTask(plugins).runTaskTimer(this, 10, 10L);
-			ModuleManager.enableModules();
 		} else {
 			ModuleManager.enableModules();
 			RegisterEventListener.getListenerManager().register();

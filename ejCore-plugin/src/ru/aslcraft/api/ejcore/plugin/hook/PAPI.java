@@ -3,10 +3,12 @@ package ru.aslcraft.api.ejcore.plugin.hook;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import lombok.Getter;
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 /**
@@ -18,6 +20,28 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 public abstract class PAPI extends PlaceholderExpansion {
 
 	@Getter private static final ConcurrentMap<String, PlaceholderExpansion> preRegister = new ConcurrentHashMap<>();
+
+	public static final String parseBracketPlaceholders(OfflinePlayer target, String text) {
+		if (!HookManager.isPapiEnabled())
+			throw new IllegalStateException(
+					"This error appear because something tries to use method, "
+							+ "but PlaceholderAPI not installed, "
+							+ "check below which plugin tried to use this, "
+							+ "and send error to author");
+
+		return PlaceholderAPI.setBracketPlaceholders(target, text);
+	}
+
+	public static final String parsePlaceholders(OfflinePlayer target, String text) {
+		if (!HookManager.isPapiEnabled())
+			throw new IllegalStateException(
+					"This error appear because something tries to use method, "
+							+ "but PlaceholderAPI not installed, "
+							+ "check below which plugin tried to use this, "
+							+ "and send error to author");
+
+		return PlaceholderAPI.setPlaceholders(target, text);
+	}
 
 	private String		identifier;
 

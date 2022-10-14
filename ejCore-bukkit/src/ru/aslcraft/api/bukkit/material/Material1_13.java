@@ -23,11 +23,11 @@ public class Material1_13 implements MaterialAdapter {
 	/** {@inheritDoc} */
 	@Override
 	public Material attemptMaterial(String material) {
-		if (Material.matchMaterial(material.toUpperCase()) == null) {
-			if (Material.matchMaterial(material.toUpperCase(), true) == null)
-				return null;
-			else return Material.getMaterial(material.toUpperCase(), true);
-		} else return Material.getMaterial(material.toUpperCase());
+		Material mat = Material.matchMaterial(material.toUpperCase());
+		if (mat == null)
+			mat = Material.matchMaterial(material.toUpperCase(), true);
+
+		return mat;
 	}
 
 }

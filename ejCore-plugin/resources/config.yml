@@ -45,6 +45,7 @@ mysql:
   mysql-enabled: false
   mysql-username: root
   mysql-password: toor
-  
+
+enable-modules-by-default: true
 modules:
   player-attributes-enabled: false

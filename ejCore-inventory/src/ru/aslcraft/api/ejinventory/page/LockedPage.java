@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +16,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import ru.aslcraft.api.ejinventory.Element;
 import ru.aslcraft.api.ejinventory.Page;
-import ru.aslcraft.api.ejinventory.element.SimpleElement;
 
 /**
  * <p>LockedPage class.</p>
@@ -26,12 +24,6 @@ import ru.aslcraft.api.ejinventory.element.SimpleElement;
  * @version $Id: $Id
  */
 public class LockedPage implements Page {
-	/**
-	 * <p>emptyElement.</p>
-	 *
-	 * @return a {@link ru.aslcraft.api.ejinventory.Element} object
-	 */
-	public static final Element emptyElement() { return new SimpleElement(new ItemStack(Material.AIR), true); }
 
 	private final Element[][] elements;
 	private final boolean[][] unlockedSlots;
@@ -49,7 +41,7 @@ public class LockedPage implements Page {
 	public LockedPage(int height) {
 		elements = new Element[9][height];
 		unlockedSlots = new boolean[9][height];
-		fill(LockedPage.emptyElement());
+		fill(Element.empty());
 	}
 
 	/**
@@ -165,7 +157,7 @@ public class LockedPage implements Page {
 
 		for (int y = 0; isInBounds(0, y); y++)
 			for (int x = 0; isInBounds(x, y); x++)
-				if (elements[x][y].equals(LockedPage.emptyElement())) {
+				if (elements[x][y].equals(Element.empty())) {
 					elements[x][y] = element;
 					return true;
 				}
@@ -176,7 +168,7 @@ public class LockedPage implements Page {
 	@Override
 	public boolean add(Element element, int locX, int locY, boolean force) {
 		if (isInBounds(locX, locY))
-			if (elements[locX][locY].equals(LockedPage.emptyElement()) && !force) {
+			if (elements[locX][locY].equals(Element.empty()) && !force) {
 				elements[locX][locY] = element;
 				return true;
 			} else {
@@ -285,7 +277,7 @@ public class LockedPage implements Page {
 			if (isUnlocked(x+y*9)) return false;
 			final Element elem = elements[x][y];
 
-			if (elem.equals(event.getCursor()) || elem.equals(LockedPage.emptyElement())) return false;
+			if (elem.equals(event.getCursor()) || elem.equals(Element.empty())) return false;
 
 			if (elem.equals(event.getCurrentItem())) {
 				elem.accept(event);
@@ -320,7 +312,7 @@ public class LockedPage implements Page {
 	/** {@inheritDoc} */
 	@Override
 	public void remove(int locX, int locY) {
-		elements[locX][locY] = LockedPage.emptyElement();
+		elements[locX][locY] = Element.empty();
 	}
 
 	/** {@inheritDoc} */
@@ -330,9 +322,9 @@ public class LockedPage implements Page {
 
 		for (int y = 0; isInBounds(0, y); y++)
 			for (int x = 0; isInBounds(x, y); x++)
-				if (!elements[x][y].equals(LockedPage.emptyElement()))
+				if (!elements[x][y].equals(Element.empty()))
 					if (elements[x][y].equals(stack)) {
-						elements[x][y] = LockedPage.emptyElement();
+						elements[x][y] = Element.empty();
 						return;
 					}
 	}

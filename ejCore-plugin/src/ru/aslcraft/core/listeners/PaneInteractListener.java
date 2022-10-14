@@ -8,10 +8,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import ru.aslcraft.api.bukkit.items.InventoryUtil;
+import ru.aslcraft.api.ejinventory.Chest;
 import ru.aslcraft.api.ejinventory.Pane;
 import ru.aslcraft.core.Core;
 
@@ -23,14 +25,14 @@ import ru.aslcraft.core.Core;
  */
 public class PaneInteractListener implements Listener {
 
-	/**
-	 * <p>onPaneClick.</p>
-	 *
-	 * @param event a {@link org.bukkit.event.inventory.InventoryClickEvent} object
-	 */
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPaneClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null) return;
+
+		if (event.getInventory().getHolder() instanceof Chest) {
+			((Chest)event.getInventory().getHolder()).onClick(event);
+			return;
+		}
 
 		if (event.getInventory().getHolder() instanceof Pane) {
 			if (event.getClickedInventory() instanceof PlayerInventory) {
@@ -60,26 +62,34 @@ public class PaneInteractListener implements Listener {
 		}
 	}
 
-	/**
-	 * <p>onPageClose.</p>
-	 *
-	 * @param event a {@link org.bukkit.event.inventory.InventoryCloseEvent} object
-	 */
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onPageClose(InventoryCloseEvent event) {
-		if (event.getInventory().getHolder() instanceof Pane)
-			((Pane) event.getInventory().getHolder()).returnItems((Player) event.getPlayer(), event);
+	public void onPageOpen(InventoryOpenEvent event) {
+		if (event.getInventory().getHolder() instanceof Chest)
+			((Chest)event.getInventory().getHolder()).onOpen(event);
 	}
 
-	/**
-	 * <p>onPaneDrag.</p>
-	 *
-	 * @param event a {@link org.bukkit.event.inventory.InventoryDragEvent} object
-	 */
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPageClose(InventoryCloseEvent event) {
+		if (event.getInventory().getHolder() instanceof Pane) {
+			((Pane) event.getInventory().getHolder()).returnItems((Player) event.getPlayer(), event);
+			return;
+		}
+
+		if (event.getInventory().getHolder() instanceof Chest) {
+			((Chest)event.getInventory().getHolder()).onClose(event);
+		}
+	}
+
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPaneDrag(InventoryDragEvent event) {
-		if (event.getInventory().getHolder() instanceof Pane)
+		if (event.getInventory().getHolder() instanceof Pane) {
 			event.setCancelled(true);
+			return;
+		}
+
+		if (event.getInventory().getHolder() instanceof Chest) {
+			((Chest)event.getInventory().getHolder()).onDrag(event);
+		}
 	}
 
 }

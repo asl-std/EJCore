@@ -1,8 +1,12 @@
 package ru.aslcraft.api.ejinventory;
 
+import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import ru.aslcraft.api.bukkit.items.ItemStackUtil;
+import ru.aslcraft.api.ejinventory.element.SimpleElement;
 
 /**
  * <p>Element interface.</p>
@@ -11,6 +15,10 @@ import org.bukkit.inventory.ItemStack;
  * @version $Id: $Id
  */
 public interface Element {
+	/**
+	 * @return an Empty instance of SimpleElement
+	 */
+	static Element empty() { return new SimpleElement(new ItemStack(Material.AIR), true); }
 
 	/**
 	 * <p>accept.</p>
@@ -26,35 +34,22 @@ public interface Element {
 	 */
 	ItemStack getIcon();
 
-	/**
-	 * <p>equals.</p>
-	 *
-	 * @param element a {@link ru.aslcraft.api.ejinventory.Element} object
-	 * @return a boolean
-	 */
 	default boolean equals(Element element) {
-		return equals(element.getIcon());
+		if (element instanceof SimpleElement)
+			return this.equals(element.getIcon());
+		else return false;
 	}
 
-	/**
-	 * <p>equals.</p>
-	 *
-	 * @param icon a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a boolean
-	 */
-	boolean equals(ItemStack icon);
+	default boolean equals(ItemStack icon) {
+		return ItemStackUtil.compareDisplayName(getIcon(), icon);
+	}
+
+	default void placeOn(Inventory inventory, int locX, int locY) {
+		inventory.setItem(locX + locY * 9, getIcon().clone());
+	}
 
 	default void update(Inventory inventory, int locX, int locY) {
 		placeOn(inventory,locX,locY);
 	}
-
-	/**
-	 * <p>placeOn.</p>
-	 *
-	 * @param inventory a {@link org.bukkit.inventory.Inventory} object
-	 * @param locX a int
-	 * @param locY a int
-	 */
-	void placeOn(Inventory inventory, int locX, int locY);
 
 }

@@ -1,12 +1,6 @@
 package ru.aslcraft.api.bukkit.utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import lombok.Getter;
 import ru.aslcraft.api.bukkit.message.EText;
@@ -75,34 +69,7 @@ public final class ServerVersion {
 
 
 	@Getter private static int		VERSION		= -1;
-	private static String	TYPE		= "UNKNOWN";
-
-	/**
-	 * <p>getOnlinePlayers.</p>
-	 *
-	 * @return an array of {@link org.bukkit.entity.Player} objects
-	 */
-	@SuppressWarnings("unchecked")
-	public static Player[] getOnlinePlayers() {
-		if (ServerVersion.isVersionAtLeast(ServerVersion.VER_1_8_8)) {
-			final ArrayList<Player> list = new ArrayList<>();
-			final Collection<? extends Player> online = Bukkit.getOnlinePlayers();
-			for (final Object player : online)
-				if ((player instanceof Player)) list.add((Player) player);
-			return list.toArray(new Player[list.size()]);
-		}
-		try {
-			final Object players = Bukkit.class.getMethod("getOnlinePlayers").invoke(null);
-			if ((players instanceof Player[])) return (Player[]) players;
-			if ((players instanceof List)) {
-				final List<Player> list = (List<Player>) players;
-				return list.toArray(new Player[list.size()]);
-			}
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-		}
-		return new Player[0];
-	}
+	@Getter private static String	TYPE		= "UNKNOWN";
 
 	/**
 	 * <p>init.</p>

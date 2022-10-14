@@ -36,7 +36,7 @@ public abstract class EJAddon implements EJModule {
 	@Override
 	public YAML getModuleConfig() {
 		if (moduleConfiguration == null) {
-			moduleConfiguration = new YAML(getModuleName().toLowerCase() + ".yml", Core.instance());
+			moduleConfiguration = YAML.of(getModuleName().toLowerCase() + ".yml", Core.instance());
 			if (!moduleConfiguration.getFile().exists()) try {
 				moduleConfiguration.getFile().createNewFile();
 			} catch (final IOException e) {

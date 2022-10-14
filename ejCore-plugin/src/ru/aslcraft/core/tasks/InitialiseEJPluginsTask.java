@@ -10,6 +10,7 @@ import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.core.listeners.RegisterEventListener;
 import ru.aslcraft.core.listeners.temp.CancelJoinBeforeFullLoading;
+import ru.aslcraft.core.managers.ModuleManager;
 import ru.aslcraft.core.update.CheckUpdateTask;
 import ru.aslcraft.core.update.EJUpdateChecker;
 
@@ -55,6 +56,8 @@ public class InitialiseEJPluginsTask extends BukkitRunnable {
 		}
 
 		CheckUpdateTask.runTask();
+
+		ModuleManager.enableModules();
 
 		RegisterEventListener.getListenerManager().register();
 

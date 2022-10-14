@@ -17,7 +17,12 @@ public class EConfig extends EJConf {
 
 	public boolean	ONE_HP_BAR, ENABLE_CONSOLE_COLORS;
 	public int		HEALTH_PER_BAR, UPDATE_PERIOD;
-	public boolean	DEBUG_RUNNING, CONSOLE_FEEDBACK, ENABLE_ATTACK_COOLDOWN, CHECK_UPDATE, PLAYER_ATTRIBUTES_ENABLED;
+	public boolean	DEBUG_RUNNING,
+	CONSOLE_FEEDBACK,
+	ENABLE_ATTACK_COOLDOWN,
+	CHECK_UPDATE,
+	PLAYER_ATTRIBUTES_ENABLED,
+	MODULES_BY_DEFAULT;
 
 	public List<String> PLAYER_DATA_DEFAULTS;
 
@@ -46,6 +51,7 @@ public class EConfig extends EJConf {
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);
 		UPDATE_PERIOD = this.getInt("check-period", 28800, true);
 		PLAYER_ATTRIBUTES_ENABLED = this.getBoolean("modules.player-attributes-enabled", false, true);
+		MODULES_BY_DEFAULT = this.getBoolean("enable-modules-by-default", true, true);
 
 		if (!contains("player-data-default"))
 			set("player-data-default", Collections.EMPTY_LIST);

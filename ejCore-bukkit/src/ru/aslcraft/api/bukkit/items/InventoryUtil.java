@@ -5,6 +5,8 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import ru.aslcraft.api.bukkit.message.EText;
+
 /**
  * <p>InventoryUtil class.</p>
  *
@@ -24,14 +26,21 @@ public final class InventoryUtil {
 		if (stack == null) return false;
 
 		for (final ItemStack item : p.getInventory().getStorageContents())
-			if (item == null || item.getType() == Material.AIR) {
-				p.getInventory().addItem(stack);
-				return true;
-			}
+			if (item == null) { p.getInventory().addItem(stack); return true; }
 
 		final Item item = p.getWorld().dropItem(p.getLocation(), stack);
 		item.setPickupDelay(0);
 		return true;
+	}
+
+	public static int count(Player p, Material type) {
+		int amount = 0;
+		for (final ItemStack item : p.getInventory().getStorageContents()) {
+			if (item == null) continue;
+			if (item.getType() == type)
+				amount+=item.getAmount();
+		}
+		return amount;
 	}
 
 	/**
@@ -68,21 +77,29 @@ public final class InventoryUtil {
 	 */
 	public static void decreaseItemChecksNameAmount(ItemStack stack, String name, Player p, int amount) {
 		if (stack == null) return;
-		final ItemStack[] storage = p.getInventory().getContents();
-		final String toCheck = stack == null ? name : ItemStackUtil.getDisplayName(stack);
+		int value = amount;
+		final ItemStack[] storage = p.getInventory().getStorageContents();
+		final String toCheck = EText.e(name == null ? stack.getType().name() : ItemStackUtil.getDisplayName(stack));
+
 		final Material type = stack.getType();
-		for (int i = 0; i < storage.length; i++)
+		for (int i = 0; i < storage.length; i++) {
+			final ItemStack sItem = storage[i];
+			if (sItem == null) continue;
 			if (ItemStackUtil.getDisplayName(storage[i]).equals(toCheck) && storage[i].getType() == type) {
 				final ItemStack inv = storage[i];
 
-				if (inv.getAmount() > 1) {
-					inv.setAmount(inv.getAmount() - 1);
+				if (inv.getAmount() > value) {
+					inv.setAmount(inv.getAmount()-value);
 					storage[i] = inv;
-				} else
+					break;
+				} else {
+					value = value-inv.getAmount();
 					storage[i] = null;
-				p.getInventory().setContents(storage);
-				return;
+					continue;
+				}
 			}
+		}
+		p.getInventory().setStorageContents(storage);
 	}
 
 	/**

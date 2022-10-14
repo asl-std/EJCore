@@ -95,8 +95,14 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	public static ItemStack setLore(ItemStack stack, List<String> lore) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL) || lore.isEmpty()) return stack;
 		final ItemMeta meta = stack.getItemMeta();
-		meta.setLore(lore);
 
+		final List<String> colored = new ArrayList<>();
+
+		for (final String key : lore)
+			if (key != null)
+				colored.add(EText.c(key));
+
+		meta.setLore(colored);
 		stack.setItemMeta(meta);
 		return stack;
 	}
