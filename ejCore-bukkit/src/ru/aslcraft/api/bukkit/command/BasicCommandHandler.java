@@ -1,5 +1,7 @@
 package ru.aslcraft.api.bukkit.command;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 import ru.aslcraft.api.bukkit.command.interfaze.CommandHandler;
 import ru.aslcraft.api.bukkit.command.interfaze.ECommand;
+import ru.aslcraft.api.bukkit.command.interfaze.SenderType;
 import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.yaml.YAML;
 
@@ -69,6 +72,11 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 		return this;
 	}
 
+	public BasicCommandHandler registerDefaultReload() {
+		registerCommand(new ReloadCommand(this));
+		return this;
+	}
+
 	/**
 	 * <p>registerHandler.</p>
 	 */
@@ -76,7 +84,7 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 		if (plugin.getCommand(label) != null)
 			plugin.getCommand(label).setExecutor(this);
 		else
-			throw new NullPointerException("Command is null due because added in plugin.yml");
+			throw new IllegalStateException("Command is null because it not added in plugin.yml");
 		return this;
 	}
 
@@ -128,6 +136,39 @@ public abstract class BasicCommandHandler implements CommandHandler, TabComplete
 								(s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
 				EText.send(s, "&c»------>&5[&6" + handler.plugin.getName() +"&5&l]");
 			});
+		}
+
+	}
+
+	private static final class ReloadCommand extends BasicCommand {
+
+		private static Class<?> EJPLUGIN;
+		private static Method reloadPlugin;
+
+		static {
+			try {
+				EJPLUGIN = Class.forName("ru.aslcraft.ejcore.plugin.EJPlugin");
+				reloadPlugin = EJPLUGIN.getMethod("reloadPlugin");
+			} catch (final ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+				EJPLUGIN = null;
+				EText.warn("EJPlugin class not finded, maybe you has installed an built-in version of this API. Default reload command cannot be initialised.");
+			}
+		}
+
+		public ReloadCommand(BasicCommandHandler handler) {
+			super(handler, "reload", (s,args) -> {
+				if (!EJPLUGIN.isAssignableFrom(handler.plugin.getClass())) {
+					try {
+						reloadPlugin.invoke(handler.plugin);
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						EText.warn("Something went wrong while executing reloadPlugin method for plugin " + handler.plugin.getName() + ", maybe you has issues with ejCore below");
+						e.printStackTrace();
+					}
+				} else {
+					EText.warn("Plugin " + handler.plugin.getName() + " tried to use built-in ejCore reload command, but not extends from EJPlugin class");
+				}
+			});
+			senderType = SenderType.ALL;
 		}
 
 	}
