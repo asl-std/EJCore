@@ -37,7 +37,7 @@
     "max_health": "-5%",
     "dodge": "+5"
   },
-  "random-attributes" {
+  "random-attributes": {
     "physical_damage": "from +5% to +10% per level 2.5",
     "critical_chance": "chance 65% from -15% to +15% per level 1.5"
   }
