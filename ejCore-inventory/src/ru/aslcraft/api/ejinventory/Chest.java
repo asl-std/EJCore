@@ -2,6 +2,7 @@ package ru.aslcraft.api.ejinventory;
 
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -22,7 +23,11 @@ public interface Chest extends InventoryHolder {
 
 	void remove(ItemStack stack);
 
-	void remove(int slot);
+	void remove(Player player, int slot);
+
+	int count(Material material);
+
+	void remove(Material material, int amount);
 
 	default void onClick(InventoryClickEvent e) {}
 

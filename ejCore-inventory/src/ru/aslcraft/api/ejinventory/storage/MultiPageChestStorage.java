@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import de.tr7zw.changeme.nbtapi.NBTContainer;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
+import ru.aslcraft.api.bukkit.items.IStatus;
 import ru.aslcraft.api.bukkit.items.ItemStackUtil;
 import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.bukkit.value.util.ArrayUtil;
@@ -122,6 +123,7 @@ public class MultiPageChestStorage implements Chest {
 		return pages[0];
 	}
 
+	@Override
 	public int count(Material mat) {
 		int amount = 0;
 
@@ -137,6 +139,7 @@ public class MultiPageChestStorage implements Chest {
 		return amount;
 	}
 
+	@Override
 	public void remove(Material mat, int amount) {
 		closeForAll();
 		final AtomicReference<Integer> am = new AtomicReference<>(amount);
@@ -173,7 +176,8 @@ public class MultiPageChestStorage implements Chest {
 
 	@Override
 	public void remove(ItemStack stack) {
-		// TODO
+		if (ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL))
+			remove(stack.getType(), stack.getAmount());
 	}
 
 	public void closeForAll() {
@@ -182,8 +186,10 @@ public class MultiPageChestStorage implements Chest {
 	}
 
 	@Override
-	public void remove(int slot) {
-		// TODO
+	public void remove(Player p, int slot) {
+		if (currentPage.containsKey(p.getUniqueId())) {
+			pages[currentPage.get(p.getUniqueId())].setItem(slot, EMPTY.clone());
+		}
 	}
 
 	@Override
