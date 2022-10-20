@@ -105,7 +105,6 @@ public class Core extends EJPlugin {
 
 	/** {@inheritDoc} */
 	@Override public void init() {
-		for (final String str : ANCIITAG) EText.send(str);
 		final long bef = System.nanoTime();
 		instance = this;
 		CancelJoinBeforeFullLoading.register();
@@ -121,6 +120,9 @@ public class Core extends EJPlugin {
 
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
 		Core.lang = new LangConfig(getDataFolder() + "/lang.yml", this);
+
+		if (cfg.LESS_CONSOLE)
+			for (final String str : ANCIITAG) EText.send(str);
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
 

@@ -19,6 +19,7 @@ public class EConfig extends EJConf {
 	public int		HEALTH_PER_BAR, UPDATE_PERIOD;
 	public boolean	DEBUG_RUNNING,
 	CONSOLE_FEEDBACK,
+	LESS_CONSOLE,
 	ENABLE_ATTACK_COOLDOWN,
 	CHECK_UPDATE,
 	PLAYER_ATTRIBUTES_ENABLED,
@@ -47,6 +48,7 @@ public class EConfig extends EJConf {
 		EText.setDebug(DEBUG_RUNNING);
 		CONSOLE_FEEDBACK = this.getBoolean("debug.console-feedback", true, true);
 		EText.setConsoleFeedback(CONSOLE_FEEDBACK);
+		LESS_CONSOLE = this.getBoolean("debug.less-console-messages", false, true);
 		ENABLE_ATTACK_COOLDOWN = this.getBoolean("enable-attack-cooldown", true, true);
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);
 		UPDATE_PERIOD = this.getInt("check-period", 28800, true);
