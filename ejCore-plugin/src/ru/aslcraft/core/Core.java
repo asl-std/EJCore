@@ -75,7 +75,6 @@ public class Core extends EJPlugin {
 	@Getter private static LangAPI language;
 	private static LinkedList<EJPlugin> plugins;
 
-	//@Getter private static Server webServer;
 
 	private static Core instance = null;
 	/**
@@ -121,7 +120,7 @@ public class Core extends EJPlugin {
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
 		Core.lang = new LangConfig(getDataFolder() + "/lang.yml", this);
 
-		if (cfg.LESS_CONSOLE)
+		if (!cfg.LESS_CONSOLE)
 			for (final String str : ANCIITAG) EText.send(str);
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
@@ -144,21 +143,6 @@ public class Core extends EJPlugin {
 		RegisterEventListener.register("combatEventCustom", new CombatListener());
 		RegisterEventListener.register("equip", new EquipListener());
 		RegisterEventListener.register("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
-
-
-		/*new DBinit().init(instance);
-
-		if (Server.createServer()) {
-			webServer = new Server();
-			webServer.start();
-		}
-		if(Core.getCfg().getBoolean("discord.ej-discordbot-enabled",false,true)) {
-			new Thread(new BotMain()).start();
-		}
-
-		if (Core.getCfg().getBoolean("vk.ej-vkbot-enabled", false, true)){
-			new Thread(new ru.aslcraft.bots.core.vk.BotMain()).start();
-		}*/
 
 		ModuleManager.loadModules(getClassLoader());
 

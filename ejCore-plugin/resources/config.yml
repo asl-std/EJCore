@@ -24,27 +24,12 @@ enable-attack-cooldown: true
 player-data-default: []
 #- 'some.key:value'
 
-# ejServer settings
-ej-server:
-  server-enabled: false
-  server-port: 8080
-
-# ejDiscordBot settings
-discord:
-  ej-discordbot-enabled: false
-  bot-token: replace here with token
-
-# VK bot settings
-vk:
-  ej-vkbot-enabled: false
-  group-id: replace here with group id
-  bot-token: replace here with bot token
-  
-# MySQL prop
-mysql:
-  mysql-enabled: false
-  mysql-username: root
-  mysql-password: toor
+# Database properties
+database:
+  db-type: sqlite
+  mysql:
+    username: root
+    password: toor
 
 enable-modules-by-default: true
 modules:
