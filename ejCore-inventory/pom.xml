@@ -3,7 +3,7 @@
 	<artifactId>ejCore-inventory</artifactId>
 
 	<parent>
-		<groupId>ru.aslcraft</groupId>
+		<groupId>org.aslstd</groupId>
 		<artifactId>ejcore</artifactId>
 		<version>1.2.18</version>
 	</parent>
@@ -11,7 +11,7 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-bukkit</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>provided</scope>

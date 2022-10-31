@@ -5,7 +5,7 @@
 	<name>ejCore</name>
 
 	<parent>
-		<groupId>ru.aslcraft</groupId>
+		<groupId>org.aslstd</groupId>
 		<artifactId>ejcore</artifactId>
 		<version>1.2.18</version>
 	</parent>
@@ -13,39 +13,44 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-provider</artifactId>
 			<version>${project.parent.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-bukkit</artifactId>
 			<version>${project.parent.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-inventory</artifactId>
 			<version>${project.parent.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-math</artifactId>
 			<version>${project.parent.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-plugin</artifactId>
 			<version>${project.parent.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
 
 	<build>
-		
+
 		<defaultGoal>clean install</defaultGoal>
 
 		<resources>
@@ -76,6 +81,16 @@
 				<configuration>
 					<minimizeJar>false</minimizeJar>
 					<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+					<artifactSet>
+						<includes>
+							<include>org.aslstd:ejCore-bukkit</include>
+							<include>org.aslstd:ejCore-provider</include>
+							<include>org.aslstd:ejCore-inventory</include>
+							<include>org.aslstd:ejCore-math</include>
+							<include>org.aslstd:ejCore-plugin</include>
+						</includes>
+					</artifactSet>
+
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>
@@ -83,7 +98,6 @@
 								<exclude>META-INF/maven/**</exclude>
 								<exclude>LICENSE</exclude>
 								<exclude>migrate.php</exclude>
-								<exclude>org/**</exclude>
 								<exclude>de/**</exclude>
 							</excludes>
 						</filter>

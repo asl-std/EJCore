@@ -19,14 +19,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-bukkit</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
+			<groupId>org.aslstd</groupId>
 			<artifactId>ejCore-plugin</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>provided</scope>
@@ -35,7 +35,7 @@
 	</dependencies>
 
 	<parent>
-		<groupId>ru.aslcraft</groupId>
+		<groupId>org.aslstd</groupId>
 		<artifactId>ejcore</artifactId>
 		<version>1.2.18</version>
 	</parent>
@@ -64,17 +64,17 @@
 					<relocations>
 						<relocation>
 							<pattern>de.slikey</pattern>
-							<shadedPattern>ru.aslcraft.api.slikey</shadedPattern>
+							<shadedPattern>org.aslstd.api.slikey</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>de.tr7zw</pattern>
-							<shadedPattern>ru.aslcraft.api.tr7zw</shadedPattern>
+							<shadedPattern>org.aslstd.api.tr7zw</shadedPattern>
 						</relocation>
 					</relocations>
 					<artifactSet>
 						<excludes>
-							<exclude>ru.aslcraft:ejCore-bukkit</exclude>
-							<exclude>ru.aslcraft:ejCore-plugin</exclude>
+							<exclude>org.aslstd:ejCore-bukkit</exclude>
+							<exclude>org.aslstd:ejCore-plugin</exclude>
 						</excludes>
 						<includes>
 							<include>net.d8tion:JDA</include>
