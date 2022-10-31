@@ -13,12 +13,16 @@
 	</properties>
 
 	<modules>
+		<module>ejCore-provider</module>
 		<module>ejCore-bukkit</module>
 		<module>ejCore-inventory</module>
 		<module>ejCore-plugin</module>
 		<module>ejRPG-attributes</module>
 		<module>ejCore-math</module>
 		<module>ejCore-incubator</module>
+		<module>ejCore-webserver</module>
+		<module>ejCore-database</module>
+		<module>ejCore-bots</module>
 		<module>ejCore-main</module>
 	</modules>
 
@@ -108,13 +112,12 @@
 
 	</build>
 
-
 	<dependencies>
 
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.18.2-R0.1-SNAPSHOT</version>
+			<version>1.19.2-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -199,6 +202,11 @@
 		<repository>
 			<id>asl-repo</id>
 			<url>https://as-second-life-studio.tk/maven</url>
+		</repository>
+
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 
 	</repositories>

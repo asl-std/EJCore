@@ -9,7 +9,7 @@ api-version: 1.13
 
 main: ru.aslcraft.core.Core
 depend: []
-softdepend: [ProtocolLib, PlaceholderAPI]
+softdepend: [ProtocolLib, PlaceholderAPI, LuckPerms, Vault]
 
 commands:
   ejc:        

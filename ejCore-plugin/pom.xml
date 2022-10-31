@@ -25,6 +25,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>ru.aslcraft</groupId>
+			<artifactId>ejCore-provider</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.bstats</groupId>
 			<artifactId>bstats-bukkit</artifactId>
 			<version>3.0.0</version>
@@ -54,12 +61,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>ru.aslcraft</groupId>
-			<artifactId>runtimeclassloader</artifactId>
-			<version>1.0.1</version>
-			<scope>compile</scope>
+			<groupId>com.sk89q.worldguard</groupId>
+			<artifactId>worldguard-bukkit</artifactId>
+			<version>7.0.1</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bukkit</groupId>
+					<artifactId>bukkit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
 	</dependencies>
 
 	<build>
