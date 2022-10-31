@@ -1,0 +1,12 @@
+name: ${project.name}
+version: ${project.parent.version}
+description: ''
+author: Snoop1CattZ69
+authors: [Snoop1CattZ69, ASL std.]
+website: http://vk.com/aslrb
+
+api-version: 1.13
+
+main: ru.aslcraft.webserver.core.EWS
+depend: [ejCore]
+softdepend: []

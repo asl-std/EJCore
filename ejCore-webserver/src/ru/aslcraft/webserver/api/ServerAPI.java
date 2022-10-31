@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.sun.net.httpserver.HttpHandler;
+
 import ru.aslcraft.webserver.core.Server;
 
 /**
@@ -14,6 +15,7 @@ import ru.aslcraft.webserver.core.Server;
  * @author ZooMMaX
  * @version $Id: $Id
  */
+@SuppressWarnings("restriction")
 public class ServerAPI {
 	/**
 	 * <p>decode.</p>
@@ -28,7 +30,7 @@ public class ServerAPI {
 			throw new RuntimeException("UTF-8 is a required encoding", e);
 		}
 	}
-	
+
 	/**
 	 * <p>splitQuery.</p>
 	 *
@@ -37,14 +39,14 @@ public class ServerAPI {
 	 * @throws java.io.UnsupportedEncodingException if any.
 	 */
 	public static Map<String, String> splitQuery(String query) throws UnsupportedEncodingException {
-        Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-        String[] pairs = query.split("&");
-        for (String pair : pairs) {
-            int idx = pair.indexOf("=");
-            query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-        }
-        return query_pairs;
-    }
+		final Map<String, String> query_pairs = new LinkedHashMap<>();
+		final String[] pairs = query.split("&");
+		for (final String pair : pairs) {
+			final int idx = pair.indexOf("=");
+			query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+		}
+		return query_pairs;
+	}
 
 	/**
 	 * <p>registerEndPoint.</p>

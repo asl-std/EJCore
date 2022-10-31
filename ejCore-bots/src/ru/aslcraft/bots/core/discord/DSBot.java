@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import ru.aslcraft.api.bukkit.yaml.EJConf;
+import ru.aslcraft.bots.core.EBT;
 
 /**
  * <p>BotMain class.</p>
@@ -17,23 +17,20 @@ import ru.aslcraft.api.bukkit.yaml.EJConf;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class BotMain implements Runnable{
+public class DSBot implements Runnable {
 
 	@Getter private static JDA jda;
-	private static EJConf ejConf;
 
 	/**
 	 * <p>Constructor for BotMain.</p>
 	 */
-	public BotMain() {
-
-	}
+	public DSBot() { }
 
 	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		try {
-			jda = JDABuilder.create(ejConf.getString("discord.bot-token", "replace here with token", true),
+			jda = JDABuilder.create(EBT.getCfg().getString("discord.bot-token", "replace here with token", true),
 					GatewayIntent.GUILD_MEMBERS, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES)
 					.setChunkingFilter(ChunkingFilter.ALL) // enable member chunking for all guilds
 					.setMemberCachePolicy(MemberCachePolicy.ALL)

@@ -7,6 +7,15 @@ package ru.aslcraft.database.api;
  * @version $Id: $Id
  */
 public enum DBType {
-	SQLite,
-	MySQL
+	SQLITE,
+	MYSQL;
+
+	public static DBType byString(String type) {
+		switch(type.toLowerCase()) {
+		case "mysql":
+		case "msql":
+			return MYSQL;
+		default: return SQLITE;
+		}
+	}
 }

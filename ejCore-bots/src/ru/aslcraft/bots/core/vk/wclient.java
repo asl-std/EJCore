@@ -10,12 +10,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import lombok.SneakyThrows;
-import ru.aslcraft.api.bukkit.yaml.EJConf;
+import ru.aslcraft.bots.core.EBT;
 
 
 public class wclient {
 
-	private static EJConf ejConf;
 	@SneakyThrows
 	public String body(String method, List<String> param, boolean longpoll) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -35,7 +34,7 @@ public class wclient {
 					String[] pp = p.replace(" ,", ",").replace(", ", ",").split(",");
 					urlparam += pp[0] + "=" + pp[1] + "&";
 				}
-				urlparam += "access_token=" + ejConf.getString("vk.bot-token", "replace here with token", true) + "&v=5.131";
+				urlparam += "access_token=" + EBT.getCfg().getString("vk.bot-token", "replace here with token", true) + "&v=5.131";
 			}
 			HttpGet request = new HttpGet(urlparam);
 

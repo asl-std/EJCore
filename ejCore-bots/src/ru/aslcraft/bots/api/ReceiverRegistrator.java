@@ -2,7 +2,7 @@ package ru.aslcraft.bots.api;
 
 import net.dv8tion.jda.api.JDA;
 import ru.aslcraft.bots.core.Classes;
-import ru.aslcraft.bots.core.discord.BotMain;
+import ru.aslcraft.bots.core.discord.DSBot;
 
 /**
  * <p>ReceiverRegistrator class.</p>
@@ -27,6 +27,6 @@ public class ReceiverRegistrator {
 	 * @return {@link JDA}
 	 */
 	public static JDA getJDA(){
-		return BotMain.getJda();
+		return DSBot.getJda();
 	}
 }

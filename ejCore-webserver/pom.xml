@@ -3,12 +3,21 @@
     <artifactId>ejCore-webserver</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>ru.aslcraft</groupId>
             <artifactId>ejCore-bukkit</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>ru.aslcraft</groupId>
+            <artifactId>ejCore-plugin</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <parent>
@@ -18,7 +27,55 @@
     </parent>
 
     <build>
-        <finalName>${project.name}-${project.version}</finalName>
+        <finalName>${project.name}-${project.parent.version}</finalName>
+
+		<resources>
+			<resource>
+				<directory>resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<configuration>
+					<minimizeJar>false</minimizeJar>
+					<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+					<relocations>
+						<relocation>
+							<pattern>de.slikey</pattern>
+							<shadedPattern>ru.aslcraft.api.slikey</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>de.tr7zw</pattern>
+							<shadedPattern>ru.aslcraft.api.tr7zw</shadedPattern>
+						</relocation>
+					</relocations>
+					<artifactSet>
+						<excludes>
+							<exclude>ru.aslcraft:ejCore-bukkit</exclude>
+							<exclude>ru.aslcraft:ejCore-plugin</exclude>
+						</excludes>
+					</artifactSet>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
     </build>
 
 </project>

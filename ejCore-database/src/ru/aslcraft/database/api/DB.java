@@ -13,8 +13,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import ru.aslcraft.api.bukkit.message.EText;
-import ru.aslcraft.database.impl.configs.HikariConfMySQL;
-import ru.aslcraft.database.impl.configs.HikariConfSQLite;
+import ru.aslcraft.database.impl.configs.MySQLConfiguration;
+import ru.aslcraft.database.impl.configs.SQLiteConfiguration;
 
 /**
  * <p>DB class.</p>
@@ -40,15 +40,15 @@ public class DB {
 	
 	private Connection connection() {
 		switch (dataBaseType) {
-		case SQLite:
-			return HikariConfSQLite.getCon();
+		case SQLITE:
+			return SQLiteConfiguration.getCon();
 			
 			
-		case MySQL:
-			return HikariConfMySQL.getCon();
+		case MYSQL:
+			return MySQLConfiguration.getCon();
 			
 		default:
-			return HikariConfSQLite.getCon();
+			return SQLiteConfiguration.getCon();
 		}
 	}
 	

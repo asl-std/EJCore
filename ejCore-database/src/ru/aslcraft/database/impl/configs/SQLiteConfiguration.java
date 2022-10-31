@@ -16,15 +16,15 @@ import lombok.Getter;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class HikariConfSQLite {
+public class SQLiteConfiguration {
 	@Getter private static Connection con;
 	/**
 	 * <p>init.</p>
 	 *
 	 * @param plugin a {@link org.bukkit.plugin.Plugin} object
 	 */
-	public void init(Plugin plugin) {
-		HikariConfig config = new HikariConfig();
+	public static void init(Plugin plugin) {
+		final HikariConfig config = new HikariConfig();
 		config.setPoolName("EJDataBaseSQLite");
 		config.setDriverClassName("org.sqlite.JDBC");
 		config.setJdbcUrl("jdbc:sqlite:"+plugin.getDataFolder()+"/EJDataBaseSQlite.db");
@@ -32,10 +32,10 @@ public class HikariConfSQLite {
 		config.setMaxLifetime(60000); // 60 Second
 		config.setIdleTimeout(45000); // 45 Second
 		config.setMaximumPoolSize(50); // 50 Connections (including idle connections)
-		HikariDataSource ds = new HikariDataSource(config);
+		final HikariDataSource ds = new HikariDataSource(config);
 		try {
 			con = ds.getConnection();
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

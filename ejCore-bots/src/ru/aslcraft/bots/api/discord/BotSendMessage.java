@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.ItemComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import ru.aslcraft.bots.core.discord.BotMain;
+import ru.aslcraft.bots.core.discord.DSBot;
 
 /**
  * <p>BotSendMessage class.</p>
@@ -20,7 +20,7 @@ import ru.aslcraft.bots.core.discord.BotMain;
  */
 public class BotSendMessage {
 
-	static JDA jda = BotMain.getJda();
+	static JDA jda = DSBot.getJda();
 
 	/**
 	 * <p>send2chat.</p>
