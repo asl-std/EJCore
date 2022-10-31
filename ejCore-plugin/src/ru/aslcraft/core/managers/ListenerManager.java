@@ -10,75 +10,39 @@ import ru.aslcraft.api.bukkit.message.EText;
 import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.core.Core;
 
-/**
- * <p>ListenerManager class.</p>
- *
- * @author ZooMMaX
- * @version $Id: $Id
- */
 public class ListenerManager {
 
 	private static HashMap<String, Listener> listeners  = new HashMap<>();
 
 	@Getter EJPlugin mainPlugin = null;
 
-	/**
-	 * <p>register.</p>
-	 */
 	public final void register() {
-		for (final Listener listener : ListenerManager.listeners.values()) {
+		for (final Listener listener : listeners.values()) {
 			mainPlugin.getServer().getPluginManager().registerEvents(listener, mainPlugin);
 			if (Core.getCfg().DEBUG_RUNNING)
 				EText.debug("Loaded listener: " + listener.getClass().getName());
 		}
 	}
 
-	/**
-	 * <p>Constructor for ListenerManager.</p>
-	 *
-	 * @param mainPlugin a {@link ru.aslcraft.api.ejcore.plugin.EJPlugin} object
-	 */
 	public ListenerManager(EJPlugin mainPlugin) {
 		this.mainPlugin = mainPlugin;
 	}
-	
 
-	/**
-	 * <p>addListener.</p>
-	 *
-	 * @param pluginName a {@link java.lang.String} object
-	 * @param listener a {@link org.bukkit.event.Listener} object
-	 */
-	public void addListener(String pluginName, Listener listener) {
-		if (!ListenerManager.listeners.containsKey(pluginName))
-			ListenerManager.listeners.put(pluginName, listener);
+	public void addListener(String keyName, Listener listener) {
+		if (!listeners.containsKey(keyName))
+			listeners.put(keyName, listener);
 	}
 
-	/**
-	 * <p>addListener.</p>
-	 *
-	 * @param pluginName a {@link java.lang.String} object
-	 * @param listener a {@link org.bukkit.event.Listener} object
-	 * @param condition a boolean
-	 */
-	public void addListener(String pluginName, Listener listener, boolean condition) {
+	public void addListener(String keyName, Listener listener, boolean condition) {
 		if (condition)
-			addListener(pluginName, listener);
+			addListener(keyName, listener);
 	}
 
-	/**
-	 * <p>removeListener.</p>
-	 *
-	 * @param pluginName a {@link java.lang.String} object
-	 */
-	public void removeListener(String pluginName) {
-		if (ListenerManager.listeners.containsKey(pluginName))
-			ListenerManager.listeners.remove(pluginName);
+	public void removeListener(String keyName) {
+		if (listeners.containsKey(keyName))
+			listeners.remove(keyName);
 	}
 
-	/**
-	 * <p>unregisterAll.</p>
-	 */
 	public final void unregisterAll() {
 		listeners.clear();
 		HandlerList.unregisterAll(getMainPlugin());

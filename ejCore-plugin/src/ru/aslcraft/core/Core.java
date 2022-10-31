@@ -24,9 +24,8 @@ import ru.aslcraft.api.ejcore.plugin.EJPlugin;
 import ru.aslcraft.api.ejcore.plugin.Incompatibility;
 import ru.aslcraft.api.ejcore.plugin.hook.HookManager;
 import ru.aslcraft.api.ejcore.plugin.hook.PAPI;
-import ru.aslcraft.api.ejinventory.PluginHolder;
+import ru.aslcraft.api.ejinventory.EJInventory;
 import ru.aslcraft.api.language.LangAPI;
-//import ru.aslcraft.bots.core.discord.BotMain;
 import ru.aslcraft.core.commands.CoreCommandHandler;
 import ru.aslcraft.core.configs.EConfig;
 import ru.aslcraft.core.configs.LangConfig;
@@ -41,8 +40,6 @@ import ru.aslcraft.core.listeners.temp.CancelJoinBeforeFullLoading;
 import ru.aslcraft.core.managers.ModuleManager;
 import ru.aslcraft.core.managers.Tests;
 import ru.aslcraft.core.tasks.InitialiseEJPluginsTask;
-//import ru.aslcraft.database.core.DBinit;
-//import ru.aslcraft.webserver.core.Server;
 
 /**
  * <p>Core class.</p>
@@ -52,7 +49,6 @@ import ru.aslcraft.core.tasks.InitialiseEJPluginsTask;
  */
 public class Core extends EJPlugin {
 
-	/** Constant <code>ANCIITAG</code> */
 	public static final String[] ANCIITAG = {
 			"&4#####################################################################",
 			"&5",
@@ -77,19 +73,8 @@ public class Core extends EJPlugin {
 
 
 	private static Core instance = null;
-	/**
-	 * <p>instance.</p>
-	 *
-	 * @return a {@link ru.aslcraft.core.Core} object
-	 */
 	public  static Core instance() { return Core.instance; }
 
-
-	/*@Override public void onLoad() {
-		NBTInjector.inject();
-	}*/
-
-	/** {@inheritDoc} */
 	@Override public void preInit() {
 		init();
 		// Just NBT-API init :)
@@ -97,18 +82,16 @@ public class Core extends EJPlugin {
 		it.setBoolean("init", true);
 	}
 
-	/** {@inheritDoc} */
 	@Override public int getPriority() {
 		return 0;
 	}
 
-	/** {@inheritDoc} */
 	@Override public void init() {
 		final long bef = System.nanoTime();
 		instance = this;
 		CancelJoinBeforeFullLoading.register();
 		language = LangAPI.INSTANCE;
-		PluginHolder.attach(this);
+		EJInventory.attach(this);
 
 		resourceId = 38074;
 		//EJUpdateChecker.registerEJPlugin(this);
@@ -171,7 +154,6 @@ public class Core extends EJPlugin {
 		}
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public void disabling() {
 		for (final Player p : Bukkit.getOnlinePlayers())
@@ -179,9 +161,6 @@ public class Core extends EJPlugin {
 		RegisterEventListener.getListenerManager().unregisterAll();
 	}
 
-	/**
-	 * <p>reloadPlugins.</p>
-	 */
 	public void reloadPlugins() {
 		for (final EJPlugin plugin : plugins)
 			plugin.reloadPlugin();

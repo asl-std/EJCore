@@ -4,7 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import lombok.Getter;
 
-public class PluginHolder {
+public class EJInventory {
 
 	@Getter private static JavaPlugin attachment;
 
