@@ -7,6 +7,6 @@ website: http://vk.com/aslrb
 
 api-version: 1.13
 
-main: ru.aslcraft.webserver.core.EWS
+main: org.aslstd.webserver.core.EWS
 depend: [ejCore]
 softdepend: []

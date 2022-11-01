@@ -201,7 +201,7 @@
 
 		<repository>
 			<id>asl-repo</id>
-			<url>https://as-second-life-studio.tk/maven</url>
+			<url>https://maven.zoommax.ru/maven</url>
 		</repository>
 
 		<repository>

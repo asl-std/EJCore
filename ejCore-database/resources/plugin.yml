@@ -7,6 +7,6 @@ website: http://vk.com/aslrb
 
 api-version: 1.13
 
-main: ru.aslcraft.database.core.EDB
+main: org.aslstd.database.core.EDB
 depend: [ejCore]
 softdepend: []

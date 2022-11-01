@@ -7,7 +7,7 @@ website: http://vk.com/aslrb
 
 api-version: 1.13
 
-main: ru.aslcraft.core.Core
+main: org.aslstd.core.Core
 depend: []
 softdepend: [ProtocolLib, PlaceholderAPI, LuckPerms, Vault]
 

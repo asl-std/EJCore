@@ -10,6 +10,7 @@ import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.bukkit.yaml.database.PlayerDatabase;
 import org.aslstd.api.ejcore.expension.DataExpansion;
+import org.aslstd.api.ejcore.internal.InternalLoader;
 import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.aslstd.api.ejcore.plugin.Incompatibility;
 import org.aslstd.api.ejcore.plugin.hook.HookManager;
@@ -85,9 +86,14 @@ public class Core extends EJPlugin {
 		return 0;
 	}
 
+	@Override
+	public void onLoad() {
+		instance = this;
+		new InternalLoader().initialize();
+	}
+
 	@Override public void init() {
 		final long bef = System.nanoTime();
-		instance = this;
 		CancelJoinBeforeFullLoading.register();
 		language = LangAPI.INSTANCE;
 		EJInventory.attach(this);
