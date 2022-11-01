@@ -53,7 +53,7 @@ public class EConfig extends EJConf {
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);
 		UPDATE_PERIOD = this.getInt("check-period", 28800, true);
 		PLAYER_ATTRIBUTES_ENABLED = this.getBoolean("modules.player-attributes-enabled", false, true);
-		MODULES_BY_DEFAULT = this.getBoolean("enable-modules-by-default", true, true);
+		MODULES_BY_DEFAULT = this.getBoolean("modules.enable-by-default", true, true);
 
 		if (!contains("player-data-default"))
 			set("player-data-default", Collections.EMPTY_LIST);

@@ -24,6 +24,11 @@ enable-attack-cooldown: true
 player-data-default: []
 #- 'some.key:value'
 
+external-libs:
+  ejcore-bots: true
+  ejcore-webserver: true
+  ejcore-database: true
+
 # Database properties
 database:
   db-type: sqlite
@@ -31,6 +36,6 @@ database:
     username: root
     password: toor
 
-enable-modules-by-default: true
 modules:
+  enable-by-default: true
   player-attributes-enabled: false

@@ -10,7 +10,7 @@ import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.bukkit.yaml.database.PlayerDatabase;
 import org.aslstd.api.ejcore.expension.DataExpansion;
-import org.aslstd.api.ejcore.internal.InternalLoader;
+import org.aslstd.api.ejcore.external.ExternalLoader;
 import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.aslstd.api.ejcore.plugin.Incompatibility;
 import org.aslstd.api.ejcore.plugin.hook.HookManager;
@@ -89,7 +89,8 @@ public class Core extends EJPlugin {
 	@Override
 	public void onLoad() {
 		instance = this;
-		new InternalLoader().initialize();
+		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
+		ExternalLoader.initialize();
 	}
 
 	@Override public void init() {
@@ -97,6 +98,7 @@ public class Core extends EJPlugin {
 		CancelJoinBeforeFullLoading.register();
 		language = LangAPI.INSTANCE;
 		EJInventory.attach(this);
+		ExternalLoader.Library.loadLibraries();
 
 		resourceId = 38074;
 		//EJUpdateChecker.registerEJPlugin(this);
@@ -105,7 +107,6 @@ public class Core extends EJPlugin {
 		new Metrics(instance, 2908);
 		RegisterEventListener.init(this);
 
-		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
 		Core.lang = new LangConfig(getDataFolder() + "/lang.yml", this);
 
 		if (!cfg.LESS_CONSOLE)
