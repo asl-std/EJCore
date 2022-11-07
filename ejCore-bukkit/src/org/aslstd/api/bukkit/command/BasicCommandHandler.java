@@ -147,7 +147,7 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 		static {
 			try {
-				EJPLUGIN = Class.forName("ru.aslcraft.ejcore.plugin.EJPlugin");
+				EJPLUGIN = Class.forName("org.aslstd.ejcore.plugin.EJPlugin");
 				reloadPlugin = EJPLUGIN.getMethod("reloadPlugin");
 			} catch (final ClassNotFoundException | NoSuchMethodException | SecurityException e) {
 				EJPLUGIN = null;
