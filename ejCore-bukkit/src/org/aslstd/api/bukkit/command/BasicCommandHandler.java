@@ -28,7 +28,7 @@ import lombok.Getter;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public abstract class BasicCommandHandler implements CommandHandler, TabCompleter {
+public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 	protected Map<String, ECommand> commands = new HashMap<>();
 
