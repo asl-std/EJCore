@@ -1,4 +1,4 @@
-package org.aslstd.api.ejcore.expension;
+package org.aslstd.api.ejcore.expansion;
 
 import java.util.Arrays;
 import java.util.List;
