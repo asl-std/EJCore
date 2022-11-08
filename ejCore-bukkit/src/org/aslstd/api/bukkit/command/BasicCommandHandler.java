@@ -147,8 +147,8 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 		static {
 			try {
-				EJPLUGIN = Class.forName("org.aslstd.ejcore.plugin.EJPlugin");
-				reloadPlugin = EJPLUGIN.getMethod("reloadPlugin");
+				EJPLUGIN = Class.forName("org.aslstd.api.ejcore.plugin.EJPlugin");
+				reloadPlugin = EJPLUGIN.getDeclaredMethod("reloadPlugin");
 			} catch (final ClassNotFoundException | NoSuchMethodException | SecurityException e) {
 				EJPLUGIN = null;
 				EText.warn("EJPlugin class not finded, maybe you has installed an built-in version of this API. Default reload command cannot be initialised.");
@@ -157,7 +157,7 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 		public ReloadCommand(BasicCommandHandler handler) {
 			super(handler, "reload", (s,args) -> {
-				if (!EJPLUGIN.isAssignableFrom(handler.plugin.getClass())) {
+				if (EJPLUGIN.isAssignableFrom(handler.plugin.getClass())) {
 					try {
 						reloadPlugin.invoke(handler.plugin);
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
