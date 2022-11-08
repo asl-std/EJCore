@@ -7,6 +7,13 @@ health-bar:
   fix-to-one-line: false
   health-per-bar: 20
 
+# Multithreading is new feature which enabled by default
+# you must specify the amount of threads for ejCore
+# all threads is used by other ejPlugins.
+# best amount of threads = (cpu_threads / 2)
+multithreading:
+  threads: 2
+
 debug:
   enable-debug: true
   less-console-messages: false

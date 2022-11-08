@@ -18,6 +18,7 @@ import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.aslstd.api.ejcore.plugin.Incompatibility;
 import org.aslstd.api.ejcore.plugin.hook.HookManager;
 import org.aslstd.api.ejcore.plugin.hook.PAPI;
+import org.aslstd.api.ejcore.worker.WorkerService;
 import org.aslstd.api.ejinventory.EJInventory;
 import org.aslstd.api.language.LangAPI;
 import org.aslstd.core.commands.CoreCommandHandler;
@@ -75,6 +76,8 @@ public class Core extends EJPlugin {
 	@Getter private static LangAPI language;
 	private static Set<EJPlugin> plugins;
 
+	@Getter private static WorkerService workers;
+
 
 	private static Core instance = null;
 	public  static Core instance() { return Core.instance; }
@@ -93,6 +96,9 @@ public class Core extends EJPlugin {
 	public void onLoad() {
 		instance = this;
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
+		int poolSize = cfg.getInt("multithreading.threads", 2, true);
+		poolSize = poolSize < 1 ? 1 : poolSize > 8 ? 8 : poolSize;
+		workers = new WorkerService(poolSize);
 		ExternalLoader.initialize();
 	}
 
