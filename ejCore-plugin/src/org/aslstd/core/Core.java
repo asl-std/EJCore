@@ -1,6 +1,8 @@
 package org.aslstd.core;
 
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.material.Material1_12;
@@ -9,8 +11,9 @@ import org.aslstd.api.bukkit.material.interfaze.MaterialAdapter;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.bukkit.yaml.database.PlayerDatabase;
-import org.aslstd.api.ejcore.expension.DataExpansion;
+import org.aslstd.api.ejcore.expansion.DataExpansion;
 import org.aslstd.api.ejcore.external.ExternalLoader;
+import org.aslstd.api.ejcore.external.ExternalLoader.Library;
 import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.aslstd.api.ejcore.plugin.Incompatibility;
 import org.aslstd.api.ejcore.plugin.hook.HookManager;
@@ -70,7 +73,7 @@ public class Core extends EJPlugin {
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static PlayerDatabase playerDatabase;
 	@Getter private static LangAPI language;
-	private static LinkedList<EJPlugin> plugins;
+	private static Set<EJPlugin> plugins;
 
 
 	private static Core instance = null;
@@ -135,10 +138,18 @@ public class Core extends EJPlugin {
 
 		ModuleManager.loadModules(getClassLoader());
 
-		plugins = new LinkedList<>();
+		plugins = new LinkedHashSet<>();
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin instanceof EJPlugin && !plugin.getName().equalsIgnoreCase("ejCore"))
 				plugins.add((EJPlugin) plugin);
+
+		Stream.of(ExternalLoader.Library.values()).filter(Library::isDownloaded).forEach(l -> {
+			final EJPlugin plugin = (EJPlugin) Bukkit.getPluginManager().getPlugin(l.pluginName());
+			if (plugin == null) return;
+			if (!plugin.isEnabled())
+				Bukkit.getPluginManager().enablePlugin(plugin);
+			plugins.add(plugin);
+		});
 
 		if (plugins.size() > 0) {
 			EText.fine("&aejCore found EJPlugins, wait while all plugins enables.. ");

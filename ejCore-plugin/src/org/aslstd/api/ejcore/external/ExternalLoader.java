@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,7 +16,9 @@ import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.UnknownDependencyException;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
@@ -33,18 +33,17 @@ public class ExternalLoader {
 		}
 	}
 
-	private static final List<File> libs = new ArrayList<>(3);
 	private static final String VERSION = "1.2.18";
 
 	public enum Library {
 		BOTS, DATABASE, WEBSERVER;
 
-		@Setter boolean downloaded;
+		@Setter @Getter boolean downloaded;
 
 		public static void loadLibraries() {
 			Stream.of(values()).filter(l -> l.downloaded).forEach(l -> {
 				ExternalLoader.loadPlugin(l.file());
-				EText.debug("Loading library " + l.name() );
+
 			});
 		}
 
@@ -58,6 +57,10 @@ public class ExternalLoader {
 			return new File(Core.instance().getDataFolder().getParent() + "/" + fileName());
 		}
 
+		public String pluginName() {
+			return "ejCore-" + name().toLowerCase() + "-" + VERSION;
+		}
+
 		@Override
 		public String toString() {
 			return name().toLowerCase();
@@ -69,11 +72,11 @@ public class ExternalLoader {
 
 		final String url = "https://maven.zoommax.ru/maven/";
 		final ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-		Runnable[] load = new Runnable[3];
+		ThreadLoader[] load = new ThreadLoader[3];
 
 		int i = 0;
 		for (Library lib : Library.values()) {
-			if (Core.getCfg().getBoolean("external-libs.ejcore-" + lib.toString(), true, true)) {
+			if (Core.getCfg().getBoolean("external-libs.ejcore-" + lib.toString(), false, true)) {
 				load[i] = new ThreadLoader(url+lib.fileName(), lib);
 				EText.fine("Downloading library: " + lib.toString());
 				i++;
@@ -81,13 +84,17 @@ public class ExternalLoader {
 		}
 
 		Stream.of(load).filter(Objects::nonNull).forEach(r -> service.submit(r));
+
+		//Thread.currentThread().join();
 	}
 }
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 class ThreadLoader implements Runnable {
-	private String urlStr;
-	private ExternalLoader.Library lib;
+	@NonNull private String urlStr;
+	@NonNull private ExternalLoader.Library lib;
+
+	@Getter boolean completed;
 
 	@Override
 	@SneakyThrows
@@ -99,6 +106,8 @@ class ThreadLoader implements Runnable {
 		} catch (Exception e) {
 			EText.warn("File cannot be downloaded: " + lib.fileName());
 			e.printStackTrace();
+		} finally {
+			completed = true;
 		}
 	}
 }

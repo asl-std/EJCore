@@ -25,9 +25,9 @@ player-data-default: []
 #- 'some.key:value'
 
 external-libs:
-  ejcore-bots: true
-  ejcore-webserver: true
-  ejcore-database: true
+  ejcore-bots: false
+  ejcore-webserver: false
+  ejcore-database: false
 
 # Database properties
 database:

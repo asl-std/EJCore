@@ -16,20 +16,10 @@ public final class EPlayerRegisteredEvent extends Event {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
-	/** {@inheritDoc} */
 	@Override
-	public HandlerList getHandlers() {
-		return HANDLERS;
-	}
+	public HandlerList getHandlers() { return HANDLERS; }
 
-	/**
-	 * <p>getHandlerList.</p>
-	 *
-	 * @return a {@link org.bukkit.event.HandlerList} object
-	 */
-	public static HandlerList getHandlerList() {
-		return HANDLERS;
-	}
+	public static HandlerList getHandlerList() { return HANDLERS; }
 
 	@Getter private EPlayer player;
 
