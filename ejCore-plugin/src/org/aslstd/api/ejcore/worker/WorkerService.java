@@ -11,40 +11,58 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
+import javax.annotation.Nullable;
+
 public class WorkerService {
 	private static boolean lock;
 
-	protected ScheduledExecutorService alpha;
-	protected ExecutorService beta;
+	protected ScheduledExecutorService milkyWay;
+	protected ExecutorService andromeda;
+	public boolean andomedaAvailable() {
+		return andromeda != null;
+	}
 
 	public WorkerService(int poolSize) {
 		if (!lock)
 			throw new SecurityException("You can't create more than one worker service.");
-		alpha = Executors.newSingleThreadScheduledExecutor(new WorkerFactory("ALPHA"));
+		milkyWay = Executors.newSingleThreadScheduledExecutor(new WorkerFactory("milkyWay"));
 		if (poolSize > 1)
-			beta = Executors.newFixedThreadPool(poolSize-1);
+			andromeda = Executors.newFixedThreadPool(poolSize-1, new WorkerFactory("andromeda"));
 		lock = true;
 	}
 
-	public boolean betaAvailable() {
-		return beta != null;
+	public @Nullable <V> ScheduledFuture<V> scheduleTask(Callable<V> task) {
+		return scheduleDelayedTask(task, 0);
 	}
 
-	public <V> ScheduledFuture<V> scheduleTask(Callable<V> task) {
-		return alpha.schedule(task, 0, TimeUnit.NANOSECONDS);
+	public @Nullable <V> ScheduledFuture<V> scheduleDelayedTask(Callable<V> task, long millis) {
+		if (task == null) return null;
+		return milkyWay.schedule(task, millis < 0 ? 0 : millis, TimeUnit.MILLISECONDS);
+
 	}
 
-	public <T> CompletableFuture<T> submitTask(Supplier<T> task) {
-		return CompletableFuture.supplyAsync(task, beta);
+	public @Nullable ScheduledFuture<?> schedule(Runnable task) {
+		return scheduleDelayed(task, 0);
 	}
 
-	public CompletableFuture<Void> execute(Runnable task) {
-		return CompletableFuture.runAsync(task, beta);
+	public @Nullable ScheduledFuture<?> scheduleDelayed(Runnable task, long millis) {
+		if (task == null) return null;
+		return milkyWay.schedule(task, millis < 0 ? 0 : millis, TimeUnit.MILLISECONDS);
+	}
+
+	public @Nullable <T> CompletableFuture<T> submitTask(Supplier<T> task) {
+		if (task == null) return null;
+		return CompletableFuture.supplyAsync(task, andromeda);
+	}
+
+	public @Nullable CompletableFuture<Void> execute(Runnable task) {
+		if (task == null) return null;
+		return CompletableFuture.runAsync(task, andromeda);
 	}
 
 	public void shutdown() {
-		if (!alpha.isShutdown()) alpha.shutdown();
-		if (!beta.isShutdown()) beta.shutdown();
+		if (milkyWay != null && !milkyWay.isShutdown()) milkyWay.shutdown();
+		if (andromeda != null && !andromeda.isShutdown()) andromeda.shutdown();
 	}
 
 	static class WorkerFactory implements ThreadFactory {
@@ -55,7 +73,7 @@ public class WorkerService {
 		WorkerFactory(String namePrefix) {
 			final SecurityManager s = System.getSecurityManager();
 			group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
-			this.namePrefix = "pool-ejCore-" + namePrefix + "-thread-";
+			this.namePrefix = "pool-ejcore-" + namePrefix + "-thread-";
 		}
 
 		@Override

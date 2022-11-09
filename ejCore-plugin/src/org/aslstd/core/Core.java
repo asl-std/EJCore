@@ -182,6 +182,7 @@ public class Core extends EJPlugin {
 		for (final Player p : Bukkit.getOnlinePlayers())
 			EPlayer.unregister(p);
 		RegisterEventListener.getListenerManager().unregisterAll();
+		workers.shutdown();
 	}
 
 	public void reloadPlugins() {
