@@ -9,19 +9,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.aslstd.core.Core;
 
-import com.google.common.collect.ImmutableSet;
-
-import lombok.Getter;
-
-public class ThreadWorker extends Thread {
+public class ThreadWorker {
 
 	protected BlockingQueue<WorkerTask<?>> works = new LinkedBlockingQueue<>();
 
 	private boolean locked = false;
 
-	@Getter private String workerName;
-
-	public ThreadWorker(String workerName) { this.workerName = workerName; }
+	public ThreadWorker() {}
 
 	public void queueTask(WorkerTask<?> task) {
 		if (task == null) return;
@@ -34,13 +28,13 @@ public class ThreadWorker extends Thread {
 			invokeAll();
 	}
 
-	public Set<CompletableFuture<?>> invokeAll() {
+	public CompletableSet invokeAll() {
 		final Set<CompletableFuture<?>> set = new LinkedHashSet<>();
 
 		while (!works.isEmpty())
 			set.add(invoke(works.poll()));
 
-		return ImmutableSet.copyOf(set);
+		return new CompletableSet(set);
 	}
 
 	public CompletableFuture<?> invoke(WorkerTask<?> work) {
@@ -52,19 +46,21 @@ public class ThreadWorker extends Thread {
 	}
 
 	public void ping(long millis) {
-		if (!works.isEmpty() && !isInterrupted()) {
+		if (!works.isEmpty() ) {
 			locked = true;
 			Core.getWorkers().execute(() -> { try { TimeUnit.MILLISECONDS.sleep(millis); } catch (final InterruptedException e) {} pong(); } );
 		}
 	}
 
 	public void pong() {
-		if (!works.isEmpty() && !isInterrupted())
+		if (!works.isEmpty())
 			locked = false;
 	}
 
-	public synchronized int getTaskSize() {
-		return works.size();
+	public boolean isIdle() {
+		return works.isEmpty();
 	}
+
+
 
 }
