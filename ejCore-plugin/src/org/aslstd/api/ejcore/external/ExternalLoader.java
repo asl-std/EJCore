@@ -6,12 +6,14 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.ejcore.worker.WorkerTask;
 import org.aslstd.core.Core;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.UnknownDependencyException;
@@ -19,18 +21,24 @@ import org.bukkit.plugin.UnknownDependencyException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.SneakyThrows;
 
 public class ExternalLoader {
 
-	static void loadPlugin(File jarFile) {
+	static Plugin loadPlugin(File jarFile) {
 		try {
-			final Plugin plugin = Core.instance().getPluginLoader().loadPlugin(jarFile);
+			final Plugin plugin = Bukkit.getServer().getPluginManager().loadPlugin(jarFile);
 			if (plugin == null) throw new InvalidPluginException("Something went wrong while loading plugin");
-		} catch (UnknownDependencyException | InvalidPluginException e) {
+			return plugin;
+		} catch (UnknownDependencyException | InvalidPluginException | InvalidDescriptionException e) {
 			EText.warn("Plugin " + jarFile.getName() + " could't be loaded");
 		}
+		return null;
+	}
+
+	static void enablePlugin(Plugin plugin) {
+		if (!plugin.isEnabled())
+			Bukkit.getServer().getPluginManager().enablePlugin(plugin);
 	}
 
 	private static final String VERSION = "1.2.18";
@@ -38,16 +46,8 @@ public class ExternalLoader {
 	public enum Library {
 		BOTS, DATABASE, WEBSERVER;
 
-		@Setter @Getter boolean downloaded;
-
-		public static void loadLibraries() {
-			Stream.of(values()).filter(l -> l.downloaded).forEach(l -> {
-				ExternalLoader.loadPlugin(l.file());
-
-			});
-		}
-
 		private String file;
+		@Getter private Plugin plugin;
 
 		public String fileName() {
 			return file == null ? file = "ejCore-" + name().toLowerCase() + "-" + VERSION + ".jar" : file;
@@ -61,17 +61,29 @@ public class ExternalLoader {
 			return "ejCore-" + name().toLowerCase() + "-" + VERSION;
 		}
 
+		public void loadPlugin() {
+			final File file = file();
+			if (file.exists())
+				plugin = ExternalLoader.loadPlugin(file);
+		}
+
+		public void enablePlugin() {
+			if (plugin != null)
+				ExternalLoader.enablePlugin(plugin);
+		}
+
 		@Override
 		public String toString() {
 			return name().toLowerCase();
 		}
 	}
 
+	private static volatile boolean paused = true;
+
 	@SneakyThrows
 	public static void initialize() {
 
 		final String url = "https://maven.zoommax.ru/maven/";
-		final ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		ThreadLoader[] load = new ThreadLoader[3];
 
 		int i = 0;
@@ -83,31 +95,44 @@ public class ExternalLoader {
 			}
 		}
 
-		Stream.of(load).filter(Objects::nonNull).forEach(r -> service.submit(r));
+		Core.getWorkers().getWorker().thenApplyAsync(w -> {
+			Stream.of(load).filter(Objects::nonNull).forEachOrdered(r -> {
+				w.queueTask(new WorkerTask<>(r));
+			});
 
-		//Thread.currentThread().join();
+			return w.invokeAll();
+		}).whenComplete((s,t) -> {
+			if (s == null) return;
+			while(!s.allWorksCompleted()) { /* waiting */ }
+
+			ExternalLoader.unpause();
+		});
+
+		while(paused) { /* waiting */ }
+
+	}
+
+	private static void unpause() {
+		paused = false;
 	}
 }
 
 @RequiredArgsConstructor
-class ThreadLoader implements Runnable {
+class ThreadLoader implements Supplier<Void> {
 	@NonNull private String urlStr;
 	@NonNull private ExternalLoader.Library lib;
 
-	@Getter boolean completed;
-
 	@Override
 	@SneakyThrows
-	public void run() {
+	public Void get() {
 		try (ReadableByteChannel rbc = Channels.newChannel(new URL(urlStr).openStream());
 				FileOutputStream fos = new FileOutputStream(lib.file())) {
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-			lib.downloaded = true;
 		} catch (Exception e) {
 			EText.warn("File cannot be downloaded: " + lib.fileName());
 			e.printStackTrace();
-		} finally {
-			completed = true;
 		}
+
+		return null;
 	}
 }

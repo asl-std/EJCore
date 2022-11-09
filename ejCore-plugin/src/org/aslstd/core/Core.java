@@ -100,6 +100,9 @@ public class Core extends EJPlugin {
 		poolSize = poolSize < 1 ? 1 : poolSize > 8 ? 8 : poolSize;
 		workers = new WorkerService(poolSize);
 		ExternalLoader.initialize();
+		for (final Library lib : ExternalLoader.Library.values()) {
+			lib.loadPlugin();
+		}
 	}
 
 	@Override public void init() {
@@ -107,7 +110,8 @@ public class Core extends EJPlugin {
 		CancelJoinBeforeFullLoading.register();
 		language = LangAPI.INSTANCE;
 		EJInventory.attach(this);
-		ExternalLoader.Library.loadLibraries();
+
+		plugins = new LinkedHashSet<>();
 
 		resourceId = 38074;
 		//EJUpdateChecker.registerEJPlugin(this);
@@ -117,6 +121,12 @@ public class Core extends EJPlugin {
 		RegisterEventListener.init(this);
 
 		Core.lang = new LangConfig(getDataFolder() + "/lang.yml", this);
+
+		Stream.of(ExternalLoader.Library.values()).forEach(l -> {
+			l.enablePlugin();
+			if (l.getPlugin() != null)
+				plugins.add((EJPlugin) l.getPlugin());
+		});
 
 		if (!cfg.LESS_CONSOLE)
 			for (final String str : ANCIITAG) EText.send(str);
@@ -144,18 +154,9 @@ public class Core extends EJPlugin {
 
 		ModuleManager.loadModules(getClassLoader());
 
-		plugins = new LinkedHashSet<>();
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin instanceof EJPlugin && !plugin.getName().equalsIgnoreCase("ejCore"))
 				plugins.add((EJPlugin) plugin);
-
-		Stream.of(ExternalLoader.Library.values()).filter(Library::isDownloaded).forEach(l -> {
-			final EJPlugin plugin = (EJPlugin) Bukkit.getPluginManager().getPlugin(l.pluginName());
-			if (plugin == null) return;
-			if (!plugin.isEnabled())
-				Bukkit.getPluginManager().enablePlugin(plugin);
-			plugins.add(plugin);
-		});
 
 		if (plugins.size() > 0) {
 			EText.fine("&aejCore found EJPlugins, wait while all plugins enables.. ");
