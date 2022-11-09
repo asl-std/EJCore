@@ -58,7 +58,7 @@ public class ThreadWorker {
 	}
 
 	public boolean isIdle() {
-		return works.isEmpty();
+		return works.isEmpty() && !locked;
 	}
 
 
