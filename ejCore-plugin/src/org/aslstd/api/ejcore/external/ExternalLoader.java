@@ -2,13 +2,19 @@ package org.aslstd.api.ejcore.external;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarBuilder;
+import me.tongfei.progressbar.ProgressBarConsumer;
+import me.tongfei.progressbar.ProgressBarStyle;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.ejcore.worker.WorkerTask;
 import org.aslstd.core.Core;
@@ -125,14 +131,23 @@ class ThreadLoader implements Supplier<Void> {
 	@Override
 	@SneakyThrows
 	public Void get() {
-		try (ReadableByteChannel rbc = Channels.newChannel(new URL(urlStr).openStream());
+		long size;
+		URL url = new URL(urlStr);
+		URLConnection conn = url.openConnection();
+		size = conn.getContentLength();
+		ProgressBarBuilder pbb = new ProgressBarBuilder()
+				.setTaskName(lib.toString())
+				.setStyle(ProgressBarStyle.ASCII)
+				.setUpdateIntervalMillis(10)
+				.setInitialMax(size);
+		try (ReadableByteChannel rbc = Channels.newChannel(ProgressBar.wrap(new URL(urlStr).openStream(), pbb));
 				FileOutputStream fos = new FileOutputStream(lib.file())) {
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+
 		} catch (Exception e) {
 			EText.warn("File cannot be downloaded: " + lib.fileName());
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 }
