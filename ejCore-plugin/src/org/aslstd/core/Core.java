@@ -96,7 +96,7 @@ public class Core extends EJPlugin {
 	public void onLoad() {
 		instance = this;
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
-		int poolSize = cfg.getInt("multithreading.threads", 2, true);
+		int poolSize = Runtime.getRuntime().availableProcessors();
 		poolSize = poolSize < 1 ? 1 : poolSize > 8 ? 8 : poolSize;
 		workers = new WorkerService(poolSize);
 		ExternalLoader.initialize();
