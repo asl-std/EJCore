@@ -1,19 +1,21 @@
 package org.aslstd.api.ejcore.external;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.util.Objects;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
+import java.security.MessageDigest;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
-import me.tongfei.progressbar.ProgressBarConsumer;
 import me.tongfei.progressbar.ProgressBarStyle;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.ejcore.worker.WorkerTask;
@@ -28,6 +30,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.json.JSONObject;
+import ru.zoommax.HexUtils;
 
 public class ExternalLoader {
 
@@ -67,6 +71,10 @@ public class ExternalLoader {
 			return "ejCore-" + name().toLowerCase() + "-" + VERSION;
 		}
 
+		public String pluginNameOnly(){
+			return "ejCore-" + name().toLowerCase();
+		}
+
 		public void loadPlugin() {
 			final File file = file();
 			if (file.exists())
@@ -84,19 +92,31 @@ public class ExternalLoader {
 		}
 	}
 
+	public enum Endpoints {
+		HASH, PLUGIN;
+
+		@Override
+		public String toString(){
+			return "get"+name().toLowerCase()+"?";
+		}
+	}
+
 	private static volatile boolean paused = true;
 
 	@SneakyThrows
 	public static void initialize() {
 
-		final String url = "https://maven.zoommax.ru/maven/";
-		ThreadLoader[] load = new ThreadLoader[3];
+		File hashDir = new File(Core.instance().getDataFolder()+"/hashdir");
+		if (!hashDir.exists()){
+			hashDir.mkdirs();
+		}
+		final String url = "https://maven.zoommax.ru/";
+		ThreadLoader[] load = new ThreadLoader[Library.values().length];
 
 		int i = 0;
 		for (Library lib : Library.values()) {
 			if (Core.getCfg().getBoolean("external-libs.ejcore-" + lib.toString(), false, true)) {
-				load[i] = new ThreadLoader(url+lib.fileName(), lib);
-				EText.fine("Downloading library: " + lib.toString());
+				load[i] = new ThreadLoader(url, lib.pluginNameOnly());
 				i++;
 			}
 		}
@@ -125,29 +145,109 @@ public class ExternalLoader {
 
 @RequiredArgsConstructor
 class ThreadLoader implements Supplier<Void> {
-	@NonNull private String urlStr;
-	@NonNull private ExternalLoader.Library lib;
+	@NonNull
+	private String urlStr;
+	@NonNull
+	private String libName;
+
+	private ProgressBarBuilder pbb = new ProgressBarBuilder()
+			.setStyle(ProgressBarStyle.ASCII)
+			.setUpdateIntervalMillis(1)
+			.setUnit(" B", 1);
 
 	@Override
 	@SneakyThrows
 	public Void get() {
-		long size;
-		URL url = new URL(urlStr);
-		URLConnection conn = url.openConnection();
-		size = conn.getContentLength();
-		ProgressBarBuilder pbb = new ProgressBarBuilder()
-				.setTaskName(lib.toString())
-				.setStyle(ProgressBarStyle.ASCII)
-				.setUpdateIntervalMillis(10)
-				.setInitialMax(size);
-		try (ReadableByteChannel rbc = Channels.newChannel(ProgressBar.wrap(new URL(urlStr).openStream(), pbb));
-				FileOutputStream fos = new FileOutputStream(lib.file())) {
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-
-		} catch (Exception e) {
-			EText.warn("File cannot be downloaded: " + lib.fileName());
-			e.printStackTrace();
+		File localHashFile = new File(Core.instance().getDataFolder() + "/hashdir/" + libName + FileType.HASH);
+		if (!localHashFile.exists()) {
+			Files.write(localHashFile.toPath(), "0".getBytes(StandardCharsets.UTF_8));
+		}
+		String localHash = new String(Files.readAllBytes(localHashFile.toPath()), StandardCharsets.UTF_8);
+		JSONObject hashObj = new JSONObject(GET(ExternalLoader.Endpoints.HASH));
+		if (!hashObj.getBoolean("error")) {
+			String externalHash = hashObj.getString("hash");
+			if (externalHash.equalsIgnoreCase(localHash)) {
+				EText.fine(libName + " is relevant");
+			} else {
+				EText.fine("Download " + libName);
+				JSONObject jObj = new JSONObject(GET(ExternalLoader.Endpoints.PLUGIN));
+				if (jObj.getBoolean("error")) {
+					EText.warn(libName + " cannot be downloaded, file not found");
+				} else {
+					EText.fine("Start saving files");
+					List<LoadedFiles> loadedFiles = new ArrayList<>();
+					byte[] jar = Base64.getDecoder().decode(jObj.getString("jar"));
+					byte[] info = Base64.getDecoder().decode(jObj.getString("info"));
+					loadedFiles.add(new LoadedFiles(jar, libName, FileType.JAR.toString()));
+					loadedFiles.add(new LoadedFiles(info, libName, FileType.INFO.toString()));
+					saveFile(loadedFiles);
+				}
+			}
+		} else {
+			EText.warn(libName + " cannot be downloaded, file not found");
 		}
 		return null;
+	}
+	@SneakyThrows
+	private String GET(ExternalLoader.Endpoints endpoint) {
+		URL url = new URL(urlStr + endpoint.toString() + libName);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		BufferedReader in = new BufferedReader(ProgressBar.wrap(new InputStreamReader(con.getInputStream()), pbb.setInitialMax(con.getContentLength()).setTaskName(libName)));
+		StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+		String line;
+		while ((line = in.readLine()) != null) {
+			response.append(line);
+			response.append('\r');
+		}
+		in.close();
+		return response.toString();
+	}
+
+	@SneakyThrows
+	private void saveFile(List<LoadedFiles> lf){
+		List<CallableFileData> lst = new ArrayList<>();
+		for (LoadedFiles loadedFile : ProgressBar.wrap(lf, pbb.setTaskName("preparing files").setUnit(" files", 1))) {
+			String pluginName = loadedFile.getPluginName();
+			String type = loadedFile.getType();
+			byte[] data = loadedFile.getData();
+			File file = null;
+			if (type.equalsIgnoreCase(FileType.JAR.toString())) {
+				file = new File(Core.instance().getDataFolder().getParent(), pluginName + type);
+			}
+			if (type.equalsIgnoreCase(FileType.INFO.toString())) {
+				file = new File(Core.instance().getDataFolder(), "hashdir/" + pluginName + type);
+			}
+			try {
+				Files.write(file.toPath(), data);
+				lst.add(new CallableFileData(pluginName, true, type));
+			} catch (IOException e) {
+				lst.add(new CallableFileData(pluginName, false, type));
+			}
+		}
+
+		ProgressBar pb = new ProgressBarBuilder()
+				.setStyle(ProgressBarStyle.ASCII)
+				.setUnit(" files", 1)
+				.setInitialMax(lst.size()+1)
+				.setTaskName("saved files")
+				.setUpdateIntervalMillis(1)
+				.build();
+		for (CallableFileData fileData : lst){
+			if (fileData.isSaved()){
+				if (fileData.getType().equalsIgnoreCase(FileType.JAR.toString())){
+					MessageDigest digest = MessageDigest.getInstance("SHA-256");
+					byte[] encodedhash = digest.digest(Files.readAllBytes(new File(Core.instance().getDataFolder().getParent(), fileData.getPluginName()+fileData.getType()).toPath()));
+					File hashf = new File(Core.instance().getDataFolder(), "hashdir/"+fileData.getPluginName()+FileType.HASH);
+					FileWriter fileWriter = new FileWriter(hashf);
+					fileWriter.write(HexUtils.toString(encodedhash));
+					fileWriter.flush();
+					fileWriter.close();
+					pb.step();
+				}
+				pb.step();
+			}
+		}
+		pb.close();
 	}
 }
