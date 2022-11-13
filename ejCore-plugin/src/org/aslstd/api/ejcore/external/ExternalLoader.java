@@ -1,22 +1,22 @@
 package org.aslstd.api.ejcore.external;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import me.tongfei.progressbar.ProgressBar;
-import me.tongfei.progressbar.ProgressBarBuilder;
-import me.tongfei.progressbar.ProgressBarStyle;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.ejcore.worker.WorkerTask;
 import org.aslstd.core.Core;
@@ -25,12 +25,15 @@ import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.UnknownDependencyException;
+import org.json.JSONObject;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.json.JSONObject;
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarBuilder;
+import me.tongfei.progressbar.ProgressBarStyle;
 import ru.zoommax.HexUtils;
 
 public class ExternalLoader {
@@ -188,6 +191,7 @@ class ThreadLoader implements Supplier<Void> {
 		}
 		return null;
 	}
+
 	@SneakyThrows
 	private String GET(ExternalLoader.Endpoints endpoint) {
 		URL url = new URL(urlStr + endpoint.toString() + libName);
@@ -218,6 +222,7 @@ class ThreadLoader implements Supplier<Void> {
 			if (type.equalsIgnoreCase(FileType.INFO.toString())) {
 				file = new File(Core.instance().getDataFolder(), "hashdir/" + pluginName + type);
 			}
+			// TODO `file` FIX POTENTIAL NPE?
 			try {
 				Files.write(file.toPath(), data);
 				lst.add(new CallableFileData(pluginName, true, type));
@@ -231,7 +236,7 @@ class ThreadLoader implements Supplier<Void> {
 				.setUnit(" files", 1)
 				.setInitialMax(lst.size()+1)
 				.setTaskName("saved files")
-				.setUpdateIntervalMillis(1)
+				.setUpdateIntervalMillis(50)
 				.build();
 		for (CallableFileData fileData : lst){
 			if (fileData.isSaved()){
