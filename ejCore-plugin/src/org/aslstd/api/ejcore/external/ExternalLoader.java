@@ -63,7 +63,7 @@ public class ExternalLoader {
 		@Getter private Plugin plugin;
 
 		public String fileName() {
-			return file == null ? file = "ejCore-" + name().toLowerCase() + "-" + VERSION + ".jar" : file;
+			return file == null ? file = "ejCore-" + name().toLowerCase() + ".jar" : file;
 		}
 
 		public File file() {
