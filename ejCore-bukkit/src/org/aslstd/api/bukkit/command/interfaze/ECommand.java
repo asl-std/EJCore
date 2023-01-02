@@ -45,7 +45,8 @@ public interface ECommand extends Perms {
 	 *
 	 * @param sender a {@link org.bukkit.command.CommandSender} object
 	 * @param args an array of {@link java.lang.String} objects
+	 * @return
 	 */
-	void use(CommandSender sender, String[] args);
+	String use(CommandSender sender, String[] args);
 
 }

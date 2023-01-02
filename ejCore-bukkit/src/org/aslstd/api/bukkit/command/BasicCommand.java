@@ -88,8 +88,8 @@ public class BasicCommand implements ECommand {
 
 	/** {@inheritDoc} */
 	@Override
-	public void use(CommandSender sender, String[] args) {
-		if (func == null) return; if (isValid(sender, senderType)) func.execute(sender, args);
+	public String use(CommandSender sender, String[] args) {
+		if (func == null) return null; return func.execute(sender, args);
 	}
 
 	@Override

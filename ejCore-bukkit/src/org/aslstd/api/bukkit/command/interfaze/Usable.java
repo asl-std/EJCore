@@ -14,6 +14,6 @@ public interface Usable<C, A> {
 	 * @param sender a C object
 	 * @param args a A object
 	 */
-	void execute(C sender, A args);
+	String execute(C sender, A args);
 
 }

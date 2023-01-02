@@ -55,35 +55,33 @@ public class CoreCommandHandler extends BasicCommandHandler {
 					EText.send(s, "&6" + command.getUsage() + " - &2" + command.getDescription()
 					+ (s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
 			EText.send(s, "&c»------>&5[&6Elephant&Jaguar Plugin Core&5&l]");
+			return null;
 		}))
 
 		.registerCommand(new BasicCommand(this, "dump", (s, args) -> {
 			final EPlayer p = EPlayer.getEPlayer((Player) s);
 			p.getTempSettings().dumpToFile(Core.instance());
 			p.getSettings().dumpToFile(Core.instance());
+			return null;
 		}))
 
 		.registerCommand(new BasicCommand(this, "reload", (s, args) -> {
 			Core.instance().reloadPlugin();
 			Core.instance().reloadPlugins();
+			return null;
 		}));
 
 		if (HookManager.isPapiEnabled())
 			registerCommand(new BasicCommand(this, "data", (s, args) -> {
-				if (args.length < 4) {
-					EText.send(s, "&c[ejCore] Not enough arguments: /ejc data <player/custom> <name/uid/file> <key> <value>");
-					return;
-				}
+				if (args.length < 4)
+					return "&c[ejCore] Not enough arguments: /ejc data <player/custom> <name/uid/file> <key> <value>";
 
 				switch (args[0].toLowerCase()) {
 				case "player":
 					final OfflinePlayer player = EntityUtil.getPlayer(args[1]);
 
-					if (player == null) {
-						EText.send(s, "&c[ejCore] Player with name/uuid " + args[1] + " was not found");
-						return;
-					}
-
+					if (player == null)
+						return "&c[ejCore] Player with name/uuid " + args[1] + " was not found";
 
 					String value = args[3];
 					final StringBuilder b = new StringBuilder(value);
@@ -104,8 +102,7 @@ public class CoreCommandHandler extends BasicCommandHandler {
 						pfile.set(args[2], value);
 					}
 
-					EText.send(s, "&a[ejCore] Successfully added data " + args[2] + ": " + value + " to a player " + args[1]);
-					break;
+					return "&a[ejCore] Successfully added data " + args[2] + ": " + value + " to a player " + args[1];
 				case "custom":
 					final YAML data = YAML.getCustomStorage(args[1]);
 
@@ -122,16 +119,14 @@ public class CoreCommandHandler extends BasicCommandHandler {
 					val = PlaceholderAPI.setPlaceholders(null, bu.toString());
 
 					data.set(args[2], val);
-					EText.send(s, "&a[ejCore] Successfully added data " + args[2] + ": " + val + " to file " + data.getFile().getName());
-					break;
+					return "&a[ejCore] Successfully added data " + args[2] + ": " + val + " to file " + data.getFile().getName();
 				default:
-					EText.send(s, "&a[ejCore] Incorrect usage: /ejc data &c<player/custom>&a <name/uid/file> <key> <value>");
-					break;
+					return "&a[ejCore] Incorrect usage: /ejc data &c<player/custom>&a <name/uid/file> <key> <value>";
 				}
 
 			}));
 		else
-			registerCommand(new BasicCommand(this, "data", (s, args) -> EText.send(s, "&c[ejCore] PlaceholderAPI not installed, this command was disabled")));
+			registerCommand(new BasicCommand(this, "data", (s, args) -> "&c[ejCore] PlaceholderAPI not installed, this command was disabled"));
 	}
 
 }

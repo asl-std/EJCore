@@ -99,9 +99,11 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 			args = EText.trimArgs(args);
 		}
 
-		if (cmd.getPermission() == null || cmd.testConditions(sender) || sender.isOp())
-			cmd.use(sender, args);
-		else
+		if (cmd.getPermission() == null || cmd.testConditions(sender) || sender.isOp()) {
+			final String feedback = cmd.use(sender, args);
+			if (feedback != null)
+				EText.send(sender, feedback);
+		} else
 			sender.sendMessage("Unknown command!");
 
 		return true;
@@ -135,6 +137,7 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 								" - &2" + command.getDescription() +
 								(s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
 				EText.send(s, "&c»------>&5[&6" + handler.plugin.getName() +"&5&l]");
+				return null;
 			});
 		}
 
@@ -167,6 +170,7 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 				} else {
 					EText.warn("Plugin " + handler.plugin.getName() + " tried to use built-in ejCore reload command, but not extends from EJPlugin class");
 				}
+				return null;
 			});
 			senderType = SenderType.ALL;
 		}

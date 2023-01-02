@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.aslstd.api.bukkit.command.BasicCommandHandler;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.material.Material1_12;
 import org.aslstd.api.bukkit.material.Material1_13;
@@ -78,6 +79,7 @@ public class Core extends EJPlugin {
 
 	@Getter private static WorkerService workers;
 
+	@Getter private static BasicCommandHandler handler;
 
 	private static Core instance = null;
 	public  static Core instance() { return Core.instance; }
@@ -96,7 +98,7 @@ public class Core extends EJPlugin {
 	public void onLoad() {
 		instance = this;
 		Core.cfg = new EConfig(getDataFolder() + "/config.yml", this);
-		int poolSize = Runtime.getRuntime().availableProcessors();
+		final int poolSize = Runtime.getRuntime().availableProcessors();
 		workers = new WorkerService(poolSize);
 		ExternalLoader.initialize();
 		for (final Library lib : ExternalLoader.Library.values()) {
@@ -151,6 +153,8 @@ public class Core extends EJPlugin {
 		RegisterEventListener.register("equip", new EquipListener());
 		RegisterEventListener.register("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
+		handler = new CoreCommandHandler().registerHandler();
+
 		ModuleManager.loadModules(getClassLoader());
 
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
@@ -165,8 +169,6 @@ public class Core extends EJPlugin {
 			RegisterEventListener.getListenerManager().register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
-
-		new CoreCommandHandler().registerHandler();
 
 		final long aft = System.nanoTime();
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
