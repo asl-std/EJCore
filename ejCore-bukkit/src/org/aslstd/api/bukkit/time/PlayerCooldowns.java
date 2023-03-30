@@ -1,7 +1,6 @@
 package org.aslstd.api.bukkit.time;
 
 import org.aslstd.api.bukkit.entity.EPlayer;
-import org.aslstd.api.bukkit.entity.interfaze.EJPlayer;
 import org.aslstd.api.bukkit.value.util.ValueUtil;
 import org.bukkit.entity.Player;
 
@@ -35,7 +34,7 @@ public final class PlayerCooldowns {
 	 * @param millis a long
 	 */
 	public static void setCooldown(Player p, String key, long millis) {
-		final EJPlayer ejp = EPlayer.getEPlayer(p);
+		final EPlayer ejp = EPlayer.getEPlayer(p);
 
 		ejp.getSettings().setValue(key, System.currentTimeMillis() + millis + "");
 	}
@@ -48,7 +47,7 @@ public final class PlayerCooldowns {
 	 * @return a long
 	 */
 	public static long getCooldown(Player p, String key) {
-		final EJPlayer ejp = EPlayer.getEPlayer(p);
+		final EPlayer ejp = EPlayer.getEPlayer(p);
 
 		if (ejp.getSettings().hasKey(key)) {
 			final String val = ejp.getSettings().getValue(key);
@@ -71,7 +70,7 @@ public final class PlayerCooldowns {
 	 * @return a boolean
 	 */
 	public static boolean isCooldownEnded(Player p, String key) {
-		final EJPlayer ejp = EPlayer.getEPlayer(p);
+		final EPlayer ejp = EPlayer.getEPlayer(p);
 
 		if (!ejp.getSettings().hasKey(key)) return true;
 		if (getCooldown(p, key) <= 0) {

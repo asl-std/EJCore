@@ -2,6 +2,7 @@ package org.aslstd.api.ejinventory.pane;
 
 import java.util.Arrays;
 
+import org.aslstd.api.ejinventory.EJInventory;
 import org.aslstd.api.ejinventory.Page;
 import org.aslstd.api.ejinventory.Pane;
 import org.aslstd.api.ejinventory.page.LockedPage;
@@ -87,7 +88,11 @@ public class SimplePane implements Pane {
 
 		Arrays.asList(players).stream()
 		.filter(p -> p != null)
-		.forEach(p -> { p.closeInventory(); p.openInventory(inventory); });
+		.forEach(p -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(EJInventory.getAttachment(), () -> {
+				p.closeInventory(); p.openInventory(inventory);
+			});
+		});
 	}
 
 }

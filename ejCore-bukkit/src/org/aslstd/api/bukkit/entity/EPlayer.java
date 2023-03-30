@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.aslstd.api.bukkit.entity.interfaze.EJPlayer;
+import org.aslstd.api.bukkit.entity.pick.UPlayer;
 import org.aslstd.api.bukkit.equip.EquipInventory;
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.events.EPlayerRegisteredEvent;
@@ -69,7 +69,7 @@ import lombok.Getter;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public final class EPlayer implements EJPlayer {
+public final class EPlayer extends UPlayer {
 
 	/** Constant <code>LEVEL="player.level"</code> */
 	/** Constant <code>HEALTH_MAX="player.health-max"</code> */
@@ -181,20 +181,9 @@ public final class EPlayer implements EJPlayer {
 			return EPlayer.registeredEPlayers.get(p.getUniqueId());
 		}
 	}
-	/**
-	 * <p>getEJPlayer.</p>
-	 *
-	 * @param p a {@link org.bukkit.entity.Player} object
-	 * @return a {@link ru.aslcraft.api.ejcore.entity.interfaze.EJPlayer} object
-	 */
-	@Deprecated
-	public static EJPlayer getEJPlayer(Player p) {
-		return getEPlayer(p);
-	}
 
 	@Getter private DoubleSettings tempSettings;
 	@Getter private StringSettings settings;
-	@Getter private Player player;
 	@Getter private EquipInventory equipInventory = new EquipInventory();
 	@Getter private YAML playerDataFile;
 
@@ -213,7 +202,7 @@ public final class EPlayer implements EJPlayer {
 	 * @param p a {@link org.bukkit.entity.Player} object
 	 */
 	public EPlayer(Player p) {
-		player = p;
+		super(p);
 		tempSettings = new DoubleSettings();
 		playerDataFile = PlayerDatabase.getDatabases().get("ejCore").getPlayerFile(p);
 		settings = new StringSettings();
@@ -291,7 +280,6 @@ public final class EPlayer implements EJPlayer {
 	 *
 	 * Применяет изменения переменных HEALTH, CLASS HEALTH для изменения максимального количества жизней.
 	 */
-	@Override
 	public void updateStats() {
 		if (update != null) { try { update.invoke(instance, this); } catch (final Exception e) { e.printStackTrace(); } return; }
 

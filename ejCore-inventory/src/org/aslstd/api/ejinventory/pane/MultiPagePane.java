@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.aslstd.api.bukkit.items.InventoryUtil;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
 import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.ejinventory.EJInventory;
 import org.aslstd.api.ejinventory.Page;
 import org.aslstd.api.ejinventory.Pane;
 import org.aslstd.api.ejinventory.element.SimpleElement;
@@ -125,7 +126,11 @@ public class MultiPagePane implements Pane {
 
 		Arrays.asList(players).stream()
 		.filter(p -> p != null)
-		.forEach(p -> { p.closeInventory(); p.openInventory(inventory); });
+		.forEach(p -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(EJInventory.getAttachment(), () -> {
+				p.closeInventory(); p.openInventory(inventory);
+			});
+		});
 	}
 
 	/**

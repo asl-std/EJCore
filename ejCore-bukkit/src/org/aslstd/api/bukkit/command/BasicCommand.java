@@ -40,12 +40,12 @@ public class BasicCommand implements ECommand {
 		commandLabel = handler.cmdFile.getString(label + ".command-name", label, true);
 		description = handler.cmdFile.getString(label + ".description", getDescription() == null ? label + " command description" : getDescription(), true);
 		permission = handler.cmdFile.getString(label + ".permission", getPermission() == null ? handler.plugin.getName().toLowerCase() + ".command." + label : getPermission(), true);
-		arguments = handler.cmdFile.getString(label + ".arguments", "<>", true);
+		arguments = handler.cmdFile.getString(label + ".arguments", "", true);
 		senderType = SenderType.fromString(handler.cmdFile.getString(label + ".sender-type", "ALL", true));
 		this.func = func;
 		this.handler = handler;
 		conditions.add(p -> p.hasPermission(permission) );
-		conditions.add(p -> isValid(p, senderType));
+		conditions.add(p -> BasicCommand.isValid(p, senderType));
 	}
 
 	public BasicCommand(BasicCommandHandler handler, String label, Usable<CommandSender, String[]> func, List<Predicate<CommandSender>> filters) {

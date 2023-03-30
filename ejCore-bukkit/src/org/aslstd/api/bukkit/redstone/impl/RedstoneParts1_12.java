@@ -24,10 +24,7 @@ public class RedstoneParts1_12 extends RedstoneParts {
 		if (typeName.contains("LEVER") || typeName.contains("BUTTON")) {
 			final Directional data = (Directional) from.getState().getData();
 			switch(data.getFacing()) {
-			case EAST:
-			case NORTH:
-			case SOUTH:
-			case WEST:
+			case EAST: case NORTH: case SOUTH: case WEST:
 				return WallLeverButton.getBlocks(from, Face.fromString(data.getFacing().name()));
 			case UP:
 				return CeilingLeverButton.getBlocks(from);
@@ -44,10 +41,7 @@ public class RedstoneParts1_12 extends RedstoneParts {
 		if (typeName.contains("REDSTONE_TORCH")) {
 			final Directional data = (Directional) from.getState().getData();
 			switch(data.getFacing()) {
-			case EAST:
-			case NORTH:
-			case SOUTH:
-			case WEST:
+			case EAST: case NORTH: case SOUTH: case WEST:
 				return WallRedstoneTorch.getBlocks(from, Face.fromString(data.getFacing().name()));
 			default:
 				break;
@@ -63,12 +57,9 @@ public class RedstoneParts1_12 extends RedstoneParts {
 	/** {@inheritDoc} */
 	@Override
 	public boolean isEnabledRedstone(Material mat) {
-		if (mat.name().contains("REDSTONE_TORCH") ||
+		return  mat.name().contains("REDSTONE_TORCH") ||
 				mat.name().contains("REDSTONE_BLOCK") ||
-				mat.name().contains("DAYLIGHT_DETECTOR"))
-			return true;
-
-		return false;
+				mat.name().contains("DAYLIGHT_DETECTOR");
 	}
 
 }

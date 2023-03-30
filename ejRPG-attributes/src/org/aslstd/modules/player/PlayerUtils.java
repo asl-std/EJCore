@@ -3,8 +3,9 @@ package org.aslstd.modules.player;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.value.util.MathUtil;
-import org.aslstd.modules.MAttributes;
 import org.aslstd.modules.attribute.BasicAttr;
+import org.aslstd.modules.attribute.managers.WAttributes;
+import org.bukkit.entity.Player;
 
 public class PlayerUtils {
 
@@ -49,6 +50,9 @@ public class PlayerUtils {
 	 * @param stat a {@link org.aslstd.modules.attribute.BasicAttr} object
 	 * @return an array of {@link double} objects
 	 */
+	public static double[] getStatValue(Player player, BasicAttr attr) {
+		return getStatValue(EPlayer.getEPlayer(player), attr);
+	}
 	public static double[] getStatValue(EPlayer player, BasicAttr stat) {
 		final double[] values = getBaseStatValue(player, stat);
 		final double[] multiplier = new double[] { 0D, 0D };
@@ -73,13 +77,13 @@ public class PlayerUtils {
 	}
 
 	public static void updateStats(EPlayer player) {
-		final double defHealth = getStatValue(player, MAttributes.getWeaponAttributes().getByKey("MAX_HEALTH"))[0];
+		final double defHealth = getStatValue(player, WAttributes.MAX_HEALTH)[0];
 		final double classHealth = player.getTempSettings().getValue(EPlayer.CLASS_HEALTH, player.getLevel());
 
 		final double maxHealth = defHealth + classHealth;
 		player.changeMaxHealth(maxHealth >= 0 ? maxHealth : 1);
 
-		final double speed = getStatValue(player, MAttributes.getWeaponAttributes().getByKey("SPEED"))[0];
+		final double speed = getStatValue(player, WAttributes.SPEED)[0];
 
 		if ((speed >= 0)) player.getPlayer().setWalkSpeed((float) ((MathUtil.getPercentsOfValue(20, speed) / 100) >= 1.0f ? 1.0f : MathUtil.getPercentsOfValue(20, speed) / 100));
 	}

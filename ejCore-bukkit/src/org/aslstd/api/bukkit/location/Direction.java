@@ -10,6 +10,8 @@ package org.aslstd.api.bukkit.location;
 public enum Direction {
 	XZ(new Vector3D(1,0,1)),
 	XZR(new Vector3D(1,0,-1)),
+	ZX(new Vector3D(-1,0,1)),
+	ZXR(new Vector3D(-1,0,-1)),
 	X(new Vector3D(1,0,0)),
 	Y(new Vector3D(0,1,0)),
 	Z(new Vector3D(0,0,1)),
@@ -26,31 +28,5 @@ public enum Direction {
 	 * @return a {@link org.aslstd.api.bukkit.location.Vector3D} object
 	 */
 	public Vector3D getVector3D() { return vec.clone(); }
-
-	/**
-	 * <p>getBy.</p>
-	 *
-	 * @param key a {@link java.lang.String} object
-	 * @return a {@link org.aslstd.api.bukkit.location.Direction} object
-	 */
-	public static Direction getBy(String key) {
-		switch(key.toUpperCase()) {
-			case "UP":
-			case "DOWN":
-			case "Y":
-				return Y;
-			case "X":
-				return X;
-			case "Z":
-				return Z;
-			case "DIAGONAL":
-				return XZ;
-			case "REVERSE_DIAGONAL":
-			case "DIAGONAL_REVERSE":
-				return XZR;
-			default: return NULL;
-		}
-	}
-
 
 }

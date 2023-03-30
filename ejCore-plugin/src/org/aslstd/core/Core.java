@@ -10,6 +10,7 @@ import org.aslstd.api.bukkit.material.Material1_12;
 import org.aslstd.api.bukkit.material.Material1_13;
 import org.aslstd.api.bukkit.material.interfaze.MaterialAdapter;
 import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.redstone.RedstoneParts;
 import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.bukkit.yaml.database.PlayerDatabase;
 import org.aslstd.api.ejcore.expansion.DataExpansion;
@@ -39,7 +40,6 @@ import org.aslstd.core.tasks.InitialiseEJPluginsTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -120,6 +120,7 @@ public class Core extends EJPlugin {
 
 		new Metrics(instance, 2908);
 		RegisterEventListener.init(this);
+		RedstoneParts.init();
 
 		Core.lang = new LangConfig(getDataFolder() + "/lang.yml", this);
 
@@ -174,22 +175,19 @@ public class Core extends EJPlugin {
 		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
 		EText.sendLB();
 		Incompatibility.check();
-		if (HookManager.isPapiEnabled() && !PAPI.getPreRegister().isEmpty()) {
+		if (HookManager.isPapiEnabled() && !PAPI.getPreRegister().isEmpty())
 			PAPI.getPreRegister().values().forEach(PlaceholderExpansion::register);
-		}
 	}
 
 	@Override
 	public void disabling() {
-		for (final Player p : Bukkit.getOnlinePlayers())
-			EPlayer.unregister(p);
+		Bukkit.getOnlinePlayers().forEach(EPlayer::unregister);
 		RegisterEventListener.getListenerManager().unregisterAll();
 		workers.shutdown();
 	}
 
 	public void reloadPlugins() {
-		for (final EJPlugin plugin : plugins)
-			plugin.reloadPlugin();
+		plugins.forEach(EJPlugin::reloadPlugin);
 	}
 
 }

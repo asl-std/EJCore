@@ -1,8 +1,8 @@
 package org.aslstd.core.listeners;
 
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
-import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
+import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
@@ -31,8 +31,10 @@ public class CombatListener implements Listener {
 
 		if (attacker instanceof Projectile) {
 			final Projectile p = (Projectile) attacker;
-			attacker = (Entity) p.getShooter();
-			ranged = true;
+			if (p.getShooter() instanceof Entity) {
+				attacker = (Entity) p.getShooter();
+				ranged = true;
+			}
 		}
 
 		final Entity receiver = e.getEntity();

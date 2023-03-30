@@ -48,7 +48,7 @@ public final class ItemStackUtil {
 	 * @return a boolean
 	 */
 	public static boolean compareDisplayName(ItemStack i1, ItemStack i2) {
-		return getDisplayName(i1).equals(getDisplayName(i2));
+		return ItemStackUtil.getDisplayName(i1).equals(ItemStackUtil.getDisplayName(i2));
 	}
 
 	/**
@@ -106,23 +106,20 @@ public final class ItemStackUtil {
 	 */
 	public static String getDisplayName(ItemStack stack) {
 		if (stack == null) return "null";
-		if (!validate(stack, IStatus.HAS_META)) return stack.getType().name();
-		if (validate(stack, IStatus.HAS_DISPLAYNAME))
+		if (!ItemStackUtil.validate(stack, IStatus.HAS_META)) return stack.getType().name();
+		if (ItemStackUtil.validate(stack, IStatus.HAS_DISPLAYNAME))
 			return stack.getItemMeta().getDisplayName();
-		else
-			return stack.getItemMeta().getLocalizedName();
+		return stack.getItemMeta().getLocalizedName();
 	}
 
 	/**
 	 * <p>getLore.</p>
-	 *
 	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
 	 * @return a {@link java.util.List} object
 	 */
 	public static List<String> getLore(ItemStack stack) {
-		if (!validate(stack, IStatus.HAS_LORE)) return Arrays.asList("");
-		else
-			return stack.getItemMeta().getLore();
+		if (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return Arrays.asList("");
+		return stack.getItemMeta().getLore();
 	}
 
 	/**
@@ -159,7 +156,7 @@ public final class ItemStackUtil {
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */
 	public static ItemStack setFlags(ItemStack stack, ItemFlag... flags) {
-		if (validate(stack, IStatus.HAS_MATERIAL)) {
+		if (ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) {
 			final ItemMeta meta = stack.getItemMeta();
 			meta.addItemFlags(flags);
 			stack.setItemMeta(meta);
@@ -175,7 +172,7 @@ public final class ItemStackUtil {
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */
 	public static ItemStack removeFlags(ItemStack stack, ItemFlag... flags) {
-		if (validate(stack,IStatus.HAS_MATERIAL)) {
+		if (ItemStackUtil.validate(stack,IStatus.HAS_MATERIAL)) {
 			final ItemMeta meta = stack.getItemMeta();
 			for (final ItemFlag flag : flags)
 				if (meta.hasItemFlag(flag))
@@ -248,13 +245,13 @@ public final class ItemStackUtil {
 	 * @return a boolean
 	 */
 	public static boolean validate(ItemStack stack, IStatus status) {
-		if (stack != null && stack.getType() != Material.AIR) {
-			if (status == IStatus.HAS_MATERIAL) return true;
-		} else return false;
+		if ((stack == null) || (stack.getType() == Material.AIR))
+			return false;
+		if (status == IStatus.HAS_MATERIAL) return true;
 
-		if (stack.hasItemMeta()) {
-			if (status == IStatus.HAS_META) return true;
-		} else return false;
+		if (!stack.hasItemMeta())
+			return false;
+		if (status == IStatus.HAS_META) return true;
 
 		switch (status) {
 		case HAS_DISPLAYNAME:
@@ -467,151 +464,153 @@ public final class ItemStackUtil {
 	}
 
 	private static ItemStack deserialize(String hash) {
-		if (hash.equalsIgnoreCase("AIR:-1:0") || Material.getMaterial(hash.split("&")[0].split(":")[0]) == null) return new ItemStack(Material.AIR, 0);
-		else {
-			if (itemsCache.containsKey(hash))
-				return itemsCache.get(hash);
-			final String[] params = new String[5];
+		if (hash.equalsIgnoreCase("AIR:-1:0") || (Material.getMaterial(hash.split("&")[0].split(":")[0]) == null)) return new ItemStack(Material.AIR, 0);
+		if (ItemStackUtil.itemsCache.containsKey(hash))
+			return ItemStackUtil.itemsCache.get(hash);
+		final String[] params = new String[5];
 
-			StringBuffer buff = new StringBuffer();
-			int id = 0;
-			int idn = 0;
+		StringBuffer buff = new StringBuffer();
+		int id = 0;
+		int idn = 0;
 
-			final char[] charSet = hash.toCharArray();
+		final char[] charSet = hash.toCharArray();
 
-			for (final char ch : charSet) {
-				if (ch == '♥') { idn = 1; }
-				if (ch == '♦') { idn = 2; }
-				if (ch == '♣') { idn = 3; }
-				if (ch == '♠') { idn = 4; }
+		for (final char ch : charSet) {
+			if (ch == '♥')
+				idn = 1;
+			if (ch == '♦')
+				idn = 2;
+			if (ch == '♣')
+				idn = 3;
+			if (ch == '♠')
+				idn = 4;
 
-				if (id != idn) {
-					if (params[id] == null)
-						params[id] = buff.toString();
-					if (params[idn] == null)
-						id = idn;
-					buff = new StringBuffer();
+			if (id != idn) {
+				if (params[id] == null)
+					params[id] = buff.toString();
+				if (params[idn] == null)
+					id = idn;
+				buff = new StringBuffer();
+				continue;
+			}
+
+			buff.append(ch);
+		}
+		params[id] = buff.toString();
+
+		ItemStack item = new ItemStack(Material.AIR, 0);
+		final int length = params.length;
+		if (length == 0) {
+			final String[] opt0 = hash.split(":");
+			final Material mat = Material.getMaterial(opt0[0]);
+			int amount = 1;
+			int durability = 0;
+			try {
+				durability = ValueUtil.parseInteger(opt0[2]);
+				amount = ValueUtil.parseInteger(opt0[1]);
+				item = new ItemStack(mat, amount);
+				ItemStackUtil.setDamage(item,durability);
+			} catch (final NumberFormatException e) {
+				item = new ItemStack(mat, amount);
+				ItemStackUtil.setDamage(item,durability);
+			}
+			return item;
+		}
+		if (params[0] != null) {// Material:Amount:Durability:CustomModelData
+			final String[] opt0 = params[0].split(":");
+			final Material mat = Material.getMaterial(opt0[0]);
+			int amount = 1;
+			int durability = 0;
+			int custommodeldata = 0;
+			if (opt0.length > 1)
+				try { amount = ValueUtil.parseInteger(opt0[1]); } catch (final NumberFormatException e) { }
+			if (opt0.length > 2)
+				try { durability = ValueUtil.parseInteger(opt0[2]); } catch (final NumberFormatException e) { }
+			if (opt0.length > 3)
+				try { custommodeldata = ValueUtil.parseInteger(opt0[3]); } catch (final NumberFormatException e) { }
+
+			item = new ItemStack(mat, amount);
+			item = ItemStackUtil.setDamage(item, durability);
+			if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_14) && (custommodeldata != 0)) {
+				final ItemMeta meta = item.getItemMeta();
+				meta.setCustomModelData(custommodeldata);
+				item.setItemMeta(meta);
+			}
+		}
+		if (item == null)
+			return new ItemStack(Material.AIR, 0);
+		ItemMeta meta = item.getItemMeta();
+		if (params[1] != null) meta.setDisplayName(EText.c(params[1]));
+		if (params[2] != null) {// ♦Lore◘Lore◘Lore
+			final String[] opt2 = params[2].split("◘");
+			final List<String> lore = new ArrayList<>();
+			for (final String str : opt2)
+				lore.add(EText.c(str));
+			meta.setLore(lore);
+		}
+		if (params[3] != null) {// ♣Enchant:Level;Enchant:Level
+			final String[] opt3 = params[3].split(";");
+			for (final String ench : opt3) {
+				final String[] splited = ench.split(":");
+				if (EnchantAdapter.getByKey(splited[0]) == null) continue;
+				if (splited.length == 2) try {
+					meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), ValueUtil.parseInteger(splited[1]), true);
+				} catch (final NumberFormatException e) {
+					meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), 1, true);
+				}
+				else meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), 1, true);
+			}
+		}
+		if (params[4] != null) {// ♠ItemFlag;ItemFlag
+			final String[] opt4 = params[4].split(";");
+			for (final String flag : opt4) {
+				if (flag.equalsIgnoreCase("unbreakable")) {
+					item.setItemMeta(meta);
+					item = ItemStackUtil.setUnbreakable(item, true);
+					meta = item.getItemMeta();
 					continue;
 				}
 
-				buff.append(ch);
-			}
-			params[id] = buff.toString();
-
-			ItemStack item = new ItemStack(Material.AIR, 0);
-			final int length = params.length;
-			if (length == 0) {
-				final String[] opt0 = hash.split(":");
-				final Material mat = Material.getMaterial(opt0[0]);
-				int amount = 1;
-				int durability = 0;
 				try {
-					durability = ValueUtil.parseInteger(opt0[2]);
-					amount = ValueUtil.parseInteger(opt0[1]);
-					item = new ItemStack(mat, amount);
-					ItemStackUtil.setDamage(item,durability);
-				} catch (final NumberFormatException e) {
-					item = new ItemStack(mat, amount);
-					ItemStackUtil.setDamage(item,durability);
-				}
-				return item;
-			}
-			if (params[0] != null) {// Material:Amount:Durability:CustomModelData
-				final String[] opt0 = params[0].split(":");
-				final Material mat = Material.getMaterial(opt0[0]);
-				int amount = 1;
-				int durability = 0;
-				int custommodeldata = 0;
-				if (opt0.length > 1)
-					try { amount = ValueUtil.parseInteger(opt0[1]); } catch (final NumberFormatException e) { }
-				if (opt0.length > 2)
-					try { durability = ValueUtil.parseInteger(opt0[2]); } catch (final NumberFormatException e) { }
-				if (opt0.length > 3)
-					try { custommodeldata = ValueUtil.parseInteger(opt0[3]); } catch (final NumberFormatException e) { }
-
-				item = new ItemStack(mat, amount);
-				item = ItemStackUtil.setDamage(item, durability);
-				if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_14) && custommodeldata != 0) {
-					final ItemMeta meta = item.getItemMeta();
-					meta.setCustomModelData(custommodeldata);
-					item.setItemMeta(meta);
+					meta.addItemFlags(ItemFlag.valueOf(flag));
+				} catch (final IllegalArgumentException e) {
+					continue;
 				}
 			}
-			if (item != null) {
-				ItemMeta meta = item.getItemMeta();
-				if (params[1] != null) meta.setDisplayName(EText.c(params[1]));
-				if (params[2] != null) {// ♦Lore◘Lore◘Lore
-					final String[] opt2 = params[2].split("◘");
-					final List<String> lore = new ArrayList<>();
-					for (final String str : opt2)
-						lore.add(EText.c(str));
-					meta.setLore(lore);
-				}
-				if (params[3] != null) {// ♣Enchant:Level;Enchant:Level
-					final String[] opt3 = params[3].split(";");
-					for (final String ench : opt3) {
-						final String[] splited = ench.split(":");
-						if (EnchantAdapter.getByKey(splited[0]) == null) continue;
-						if (splited.length == 2) try {
-							meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), ValueUtil.parseInteger(splited[1]), true);
-						} catch (final NumberFormatException e) {
-							meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), 1, true);
-						}
-						else meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), 1, true);
-					}
-				}
-				if (params[4] != null) {// ♠ItemFlag;ItemFlag
-					final String[] opt4 = params[4].split(";");
-					for (final String flag : opt4) {
-						if (flag.equalsIgnoreCase("unbreakable")) {
-							item.setItemMeta(meta);
-							item = ItemStackUtil.setUnbreakable(item, true);
-							meta = item.getItemMeta();
-							continue;
-						}
-
-						try {
-							meta.addItemFlags(ItemFlag.valueOf(flag));
-						} catch (final IllegalArgumentException e) {
-							continue;
-						}
-					}
-				}
-				item.setItemMeta(meta);
-				itemsCache.put(hash,item);
-				return item;
-			} else return new ItemStack(Material.AIR, 0);
 		}
+		item.setItemMeta(meta);
+		ItemStackUtil.itemsCache.put(hash,item);
+		return item;
 	}
 
 	private static String serialize(ItemStack stack) {
-		String hash = stack == null ? "AIR:0:0" : stack.getType().toString() + ":";
+		final StringBuilder hash = new StringBuilder().append(stack == null ? "AIR:0:0" : stack.getType().toString() + ":");
 		if (stack != null) {
 			final int typeHash = ItemStackUtil.getDamage(stack);
-			hash = hash + stack.getAmount() + ":" + (typeHash > 0 ? typeHash : 0);
+			hash.append(stack.getAmount()).append(":").append(typeHash > 0 ? typeHash : 0);
 			if (stack.hasItemMeta()) {
 				final ItemMeta meta = stack.getItemMeta();
-				if (meta.hasDisplayName()) hash = hash + "♥" + meta.getDisplayName().replace('§', '&');
+				if (meta.hasDisplayName()) hash.append("♥").append(meta.getDisplayName().replace('§', '&'));
 				boolean first = false;
 				if (meta.hasLore()) {
 					final List<String> lore = meta.getLore();
 					if (lore.size() > 0) {
-						hash = hash + "♦";
+						hash.append("♦");
 						for (final String str : lore)
-							if (!first) { hash = hash + str.replace('§', '&'); first = true; }
-							else hash = hash + "◘"+ str.replace('§', '&');
+							if (!first) { hash.append(str.replace('§', '&')); first = true; }
+							else hash.append("◘").append(str.replace('§', '&'));
 					}
 				}
 				first = false;
 				if (meta.hasEnchants()) {
 					final Map<Enchantment, Integer> enchants = meta.getEnchants();
 					if (enchants.size() > 0) {
-						hash = hash + "♣";
+						hash.append("♣");
 						for (final Enchantment ench : enchants.keySet()) {
 							final EnchantAdapter e = EnchantAdapter.getByKey(ench);
 							if (e == null) continue;
-							if (!first) { hash = hash + e.getName() + ":" + enchants.get(ench); first = true; }
-							else hash = hash + ";" + e.getName() + ":" + enchants.get(ench);
+							if (!first) { hash.append(e.getName()).append(":").append(enchants.get(ench)); first = true; }
+							else hash.append(";").append(e.getName()).append(":").append(enchants.get(ench));
 						}
 					}
 				}
@@ -619,18 +618,18 @@ public final class ItemStackUtil {
 				if (meta.getItemFlags() != null) {
 					final Set<ItemFlag> flags = meta.getItemFlags();
 					if (flags.size() > 0) {
-						hash = hash + "♠";
+						hash.append("♠");
 						for (final ItemFlag flag : flags)
-							if (!first) { hash = hash + flag.toString(); first = true; }
-							else hash = hash + ";" + flag.toString();
+							if (!first) { hash.append(flag.toString()); first = true; }
+							else hash.append(";").append(flag.toString());
 					}
 					if (meta.isUnbreakable())
-						hash = hash + ";unbreakable";
+						hash.append(";unbreakable");
 				}
 				first = false;
 			}
 		}
-		return hash;
+		return hash.toString();
 	}
 
 	/**

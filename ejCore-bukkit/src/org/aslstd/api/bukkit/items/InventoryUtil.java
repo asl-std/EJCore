@@ -82,8 +82,8 @@ public final class InventoryUtil {
 
 		final Material type = stack.getType();
 		for (int i = 0; i < storage.length; i++) {
-			final ItemStack sItem = storage[i];
-			if (sItem == null) continue;
+			if (!ItemStackUtil.validate(storage[i], IStatus.HAS_MATERIAL)) continue;
+			if (ItemStackUtil.getDamage(storage[i]) > 0) continue;
 			if (ItemStackUtil.getDisplayName(storage[i]).equals(toCheck) && storage[i].getType() == type) {
 				final ItemStack inv = storage[i];
 
