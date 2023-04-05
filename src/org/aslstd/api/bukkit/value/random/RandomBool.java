@@ -1,5 +1,6 @@
 package org.aslstd.api.bukkit.value.random;
 
+import org.aslstd.api.bukkit.value.Value;
 import org.aslstd.api.bukkit.value.util.MathUtil;
 
 /**
@@ -8,7 +9,7 @@ import org.aslstd.api.bukkit.value.util.MathUtil;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class RandomBooleanValue implements RandomValue {
+public class RandomBool implements RandomVal {
 
 	/** {@inheritDoc} */
 	@Override

@@ -99,12 +99,12 @@ public class MathUtil {
 	public static String incrementRangeValue(String value, String increment) {
 		final String[] incSplit = increment.split("-");
 
-		if (ValueUtil.isNumber(incSplit[0])) {
+		if (NumUtil.isNumber(incSplit[0])) {
 			if (incSplit.length == 1)
-				return incrementRangeValue(value, ValueUtil.parseDouble(incSplit[0]));
+				return incrementRangeValue(value, NumUtil.parseDouble(incSplit[0]));
 
-			final double[] values = ValueUtil.parseDouble(value.split("-"));
-			final double[] increments = ValueUtil.parseDouble(incSplit);
+			final double[] values = NumUtil.parseDouble(value.split("-"));
+			final double[] increments = NumUtil.parseDouble(incSplit);
 
 			for (int i = 0 ; i < values.length && i < increments.length ; i++) {
 				values[i] += increments[i];
@@ -124,7 +124,7 @@ public class MathUtil {
 	 * @return a {@link java.lang.String} object
 	 */
 	public static String incrementRangeByPercents(String value, double percents) {
-		final double[] values = ValueUtil.parseDouble(value.split("-"));
+		final double[] values = NumUtil.parseDouble(value.split("-"));
 		if (values.length == 1) return value;
 
 		for (int i = 0 ; i < values.length ; i++)
@@ -141,7 +141,7 @@ public class MathUtil {
 	 * @return a {@link java.lang.String} object
 	 */
 	public static String incrementRangeValue(String value, double increment) {
-		final double[] values = ValueUtil.parseDouble(value.split("-"));
+		final double[] values = NumUtil.parseDouble(value.split("-"));
 		if (values.length == 1) return value;
 
 		for (int i = 0 ; i < values.length ; i++)

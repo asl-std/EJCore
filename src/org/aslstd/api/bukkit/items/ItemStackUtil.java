@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.aslstd.api.bukkit.enchant.EnchantAdapter;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.utils.ServerVersion;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -506,8 +506,8 @@ public final class ItemStackUtil {
 			int amount = 1;
 			int durability = 0;
 			try {
-				durability = ValueUtil.parseInteger(opt0[2]);
-				amount = ValueUtil.parseInteger(opt0[1]);
+				durability = NumUtil.parseInteger(opt0[2]);
+				amount = NumUtil.parseInteger(opt0[1]);
 				item = new ItemStack(mat, amount);
 				ItemStackUtil.setDamage(item,durability);
 			} catch (final NumberFormatException e) {
@@ -523,11 +523,11 @@ public final class ItemStackUtil {
 			int durability = 0;
 			int custommodeldata = 0;
 			if (opt0.length > 1)
-				try { amount = ValueUtil.parseInteger(opt0[1]); } catch (final NumberFormatException e) { }
+				try { amount = NumUtil.parseInteger(opt0[1]); } catch (final NumberFormatException e) { }
 			if (opt0.length > 2)
-				try { durability = ValueUtil.parseInteger(opt0[2]); } catch (final NumberFormatException e) { }
+				try { durability = NumUtil.parseInteger(opt0[2]); } catch (final NumberFormatException e) { }
 			if (opt0.length > 3)
-				try { custommodeldata = ValueUtil.parseInteger(opt0[3]); } catch (final NumberFormatException e) { }
+				try { custommodeldata = NumUtil.parseInteger(opt0[3]); } catch (final NumberFormatException e) { }
 
 			item = new ItemStack(mat, amount);
 			item = ItemStackUtil.setDamage(item, durability);
@@ -552,13 +552,13 @@ public final class ItemStackUtil {
 			final String[] opt3 = params[3].split(";");
 			for (final String ench : opt3) {
 				final String[] splited = ench.split(":");
-				if (EnchantAdapter.getByKey(splited[0]) == null) continue;
+				if (Enchantment.getByKey(NamespacedKey.minecraft(splited[0])) == null) continue;
 				if (splited.length == 2) try {
-					meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), ValueUtil.parseInteger(splited[1]), true);
+					meta.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(splited[0])), NumUtil.parseInteger(splited[1]), true);
 				} catch (final NumberFormatException e) {
-					meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), 1, true);
+					meta.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(splited[0])), 1, true);
 				}
-				else meta.addEnchant(EnchantAdapter.getByKey(splited[0]).toEnchant(), 1, true);
+				else meta.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(splited[0])), 1, true);
 			}
 		}
 		if (params[4] != null) {// ♠ItemFlag;ItemFlag
@@ -606,11 +606,10 @@ public final class ItemStackUtil {
 					final Map<Enchantment, Integer> enchants = meta.getEnchants();
 					if (enchants.size() > 0) {
 						hash.append("♣");
-						for (final Enchantment ench : enchants.keySet()) {
-							final EnchantAdapter e = EnchantAdapter.getByKey(ench);
+						for (final Enchantment e : enchants.keySet()) {
 							if (e == null) continue;
-							if (!first) { hash.append(e.getName()).append(":").append(enchants.get(ench)); first = true; }
-							else hash.append(";").append(e.getName()).append(":").append(enchants.get(ench));
+							if (!first) { hash.append(e.getKey().toString()).append(":").append(enchants.get(e)); first = true; }
+							else hash.append(";").append(e.getKey().toString()).append(":").append(enchants.get(e));
 						}
 					}
 				}

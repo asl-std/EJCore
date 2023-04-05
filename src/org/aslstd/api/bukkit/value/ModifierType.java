@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.value.abstrakt;
+package org.aslstd.api.bukkit.value;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,10 +16,8 @@ public enum ModifierType {
 	NEGATIVE,
 	NEGATIVE_PERCENTS;
 
-	/** Constant <code>check</code> */
 	public static final Pattern check = Pattern.compile("^([-+]?)(\\d*\\.?\\d*)\\-?\\d*\\.?\\d*([%]?)$");
 
-	/** Constant <code>matcher</code> */
 	public static Matcher matcher;
 
 	/**
@@ -74,15 +72,6 @@ public enum ModifierType {
 	}
 
 	/**
-	 * <p>isNegative.</p>
-	 *
-	 * @return a boolean
-	 */
-	public boolean isNegative() {
-		return this == NEGATIVE || this == NEGATIVE_PERCENTS;
-	}
-
-	/**
 	 * <p>isPositive.</p>
 	 *
 	 * @return a boolean
@@ -92,12 +81,25 @@ public enum ModifierType {
 	}
 
 	/**
+	 * <p>isNegative.</p>
+	 *
+	 * @return a boolean
+	 */
+	public boolean isNegative() {
+		return !isPositive();
+	}
+
+	/**
 	 * <p>isPercents.</p>
 	 *
 	 * @return a boolean
 	 */
 	public boolean isPercents() {
 		return this == POSITIVE_PERCENTS || this == ModifierType.NEGATIVE_PERCENTS;
+	}
+
+	public boolean isFlat() {
+		return !isPercents();
 	}
 
 	/**
@@ -111,12 +113,10 @@ public enum ModifierType {
 			return POSITIVE;
 		case NEGATIVE_PERCENTS:
 			return POSITIVE_PERCENTS;
-		case POSITIVE:
-			return NEGATIVE;
 		case POSITIVE_PERCENTS:
 			return NEGATIVE_PERCENTS;
+		default:
+			return NEGATIVE;
 		}
-
-		return POSITIVE; // UNREACHABLE
 	}
 }

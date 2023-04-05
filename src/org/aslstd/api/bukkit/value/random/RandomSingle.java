@@ -1,8 +1,10 @@
 package org.aslstd.api.bukkit.value.random;
 
-import org.aslstd.api.bukkit.value.abstrakt.ModifierType;
+import org.aslstd.api.bukkit.value.ModifierType;
+import org.aslstd.api.bukkit.value.Value;
 import org.aslstd.api.bukkit.value.util.MathUtil;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.ValueParser;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +15,7 @@ import lombok.NonNull;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class RandomSingleValue implements RandomValue {
+public class RandomSingle implements RandomVal {
 
 	@Getter private boolean 		hasChance = false;
 
@@ -35,7 +37,7 @@ public class RandomSingleValue implements RandomValue {
 	 * @param perLevelValue a double
 	 * @param type a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
 	 */
-	public RandomSingleValue(double chance,	double firstValue, double secondValue, double perLevelValue,  @NonNull ModifierType type) {
+	public RandomSingle(double chance,	double firstValue, double secondValue, double perLevelValue,  @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }
 		this.perLevelValue = perLevelValue;
 
@@ -53,14 +55,14 @@ public class RandomSingleValue implements RandomValue {
 	/** {@inheritDoc} */
 	@Override
 	public Value roll(double lvl) {
-		if (!ValueGenerator.isTrue(chance*10, 1000) && hasChance) return null;
+		if (!ValueParser.isTrue(chance*10, 1000) && hasChance) return null;
 		else {
 			final Value result = new Value();
 			if (lvl < 1) lvl = 1;
 
 			final double resultValue = MathUtil.getRandomRange(
-					ValueUtil.parseDouble(firstValue.getAndScale(perLevelValue, lvl-1)),
-					ValueUtil.parseDouble(secondValue.getAndScale(perLevelValue, lvl-1))
+					NumUtil.parseDouble(firstValue.getAndScale(perLevelValue, lvl-1)),
+					NumUtil.parseDouble(secondValue.getAndScale(perLevelValue, lvl-1))
 					);
 
 			result.setType(ModifierType.getFromValue(resultValue, type.isPercents()));

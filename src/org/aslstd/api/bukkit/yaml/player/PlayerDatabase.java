@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.yaml.database;
+package org.aslstd.api.bukkit.yaml.player;
 
 import java.io.File;
 import java.util.UUID;

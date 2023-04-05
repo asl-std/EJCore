@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.aslstd.api.bukkit.items.ItemStackUtil;
 import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.value.DoubleSettings;
+import org.aslstd.api.bukkit.settings.DoubleSettings;
 import org.bukkit.inventory.ItemStack;
 
 /**

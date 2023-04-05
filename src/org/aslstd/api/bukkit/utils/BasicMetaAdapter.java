@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import org.aslstd.api.bukkit.items.IStatus;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
 import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -252,7 +252,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 				value = matcher.group(1);
 		}
 
-		return ValueUtil.parseDouble(value.replaceAll("%", ""));
+		return NumUtil.parseDouble(value.replaceAll("%", ""));
 	}
 
 	/**

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -102,7 +102,7 @@ public class EJUpdateChecker {
 	private static int parseBuild(String version, boolean fromSite) {
 		final String prepaired = cleanVersion(version, fromSite);
 
-		return ValueUtil.parseInteger(prepaired.substring(prepaired.lastIndexOf(".")+1));
+		return NumUtil.parseInteger(prepaired.substring(prepaired.lastIndexOf(".")+1));
 	}
 
 }

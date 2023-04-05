@@ -3,7 +3,7 @@ package org.aslstd.modules.attribute.weapon;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.aslstd.modules.attribute.BasicAttr;
 import org.aslstd.modules.attribute.ListeningCombat;
 import org.aslstd.modules.player.PlayerUtils;
@@ -67,19 +67,19 @@ public final class Absorption extends BasicAttr implements ListeningCombat {
 		double damage = e.getDamage();
 
 		if (value <= getMC(T1))
-			if (ValueUtil.isTrue(value, 100))
+			if (NumUtil.isTrue(value, 100))
 				damage = damage * (1-getV(T1)/100);
 
 		final double tier2val = (value-getMC(T1))/getD(T2);
 
 		if (tier2val <= getMC(T2)-getMC(T1))
-			if (ValueUtil.isTrue(getMC(T1)+tier2val, 100))
+			if (NumUtil.isTrue(getMC(T1)+tier2val, 100))
 				damage = damage * (1-getV(T2)/100);
 
 		final double tier3val = (tier2val-getMC(T2))/getD(T3);
 
 		if (tier3val <= getMC(T3)-getMC(T2))
-			if (ValueUtil.isTrue(getMC(T2)+tier3val, 100))
+			if (NumUtil.isTrue(getMC(T2)+tier3val, 100))
 				damage = damage * (1-getV(T3)/100);
 
 		e.setDamage(damage > 0 ? damage : 0);

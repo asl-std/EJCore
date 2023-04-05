@@ -3,7 +3,7 @@ package org.aslstd.modules.attribute.weapon;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.aslstd.modules.attribute.BasicAttr;
 import org.aslstd.modules.attribute.ListeningCombat;
 import org.aslstd.modules.player.PlayerUtils;
@@ -37,7 +37,7 @@ public final class Dodge extends BasicAttr implements ListeningCombat {
 
 		final double absValue = PlayerUtils.getStatValue(rpg, this)[0];
 
-		if (ValueUtil.isTrue(absValue, 100)) {
+		if (NumUtil.isTrue(absValue, 100)) {
 			e.setCancelled(true);
 		}
 	}

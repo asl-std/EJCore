@@ -45,7 +45,7 @@ public class BlockUtil {
 	 * @param radius a int
 	 * @return a {@link java.util.List} object
 	 */
-	public static List<Block> getBlocksFlat(Block target, int radius) {
+	public static List<Block> getBlocksSquare(Block target, int radius) {
 		final List<Block> blocks = new ArrayList<>();
 
 		if ((radius%2) == 0)

@@ -1,12 +1,14 @@
 package org.aslstd.api.bukkit.value.random;
 
+import org.aslstd.api.bukkit.value.Value;
+
 /**
  * <p>RandomValue interface.</p>
  *
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public interface RandomValue {
+public interface RandomVal {
 
 	/**
 	 * <p>roll.</p>

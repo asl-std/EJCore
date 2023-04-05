@@ -1,7 +1,7 @@
 package org.aslstd.api.bukkit.time;
 
 import org.aslstd.api.bukkit.entity.EPlayer;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.entity.Player;
 
 /**
@@ -52,9 +52,9 @@ public final class PlayerCooldowns {
 		if (ejp.getSettings().hasKey(key)) {
 			final String val = ejp.getSettings().getValue(key);
 
-			if (!ValueUtil.isNumber(val)) return 0L;
+			if (!NumUtil.isNumber(val)) return 0L;
 
-			final long cd = ValueUtil.parseLong(val);
+			final long cd = NumUtil.parseLong(val);
 
 			return cd - System.currentTimeMillis();
 		}

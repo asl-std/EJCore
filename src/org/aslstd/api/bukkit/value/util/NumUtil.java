@@ -8,7 +8,7 @@ import java.util.Random;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class ValueUtil {
+public class NumUtil {
 
 	/**
 	 * <p>isNegative.</p>

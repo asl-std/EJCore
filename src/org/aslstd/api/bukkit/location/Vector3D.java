@@ -2,7 +2,7 @@ package org.aslstd.api.bukkit.location;
 
 import javax.annotation.Nullable;
 
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -38,7 +38,7 @@ public class Vector3D implements Cloneable {
 		if (prep.length >= 4)
 			vec.world = Bukkit.getWorld(prep[3]);
 		try {
-			return vec.add(new Vector3D(ValueUtil.parseInteger(prep[0]),ValueUtil.parseInteger(prep[1]),ValueUtil.parseInteger(prep[2]))).clone();
+			return vec.add(new Vector3D(NumUtil.parseInteger(prep[0]),NumUtil.parseInteger(prep[1]),NumUtil.parseInteger(prep[2]))).clone();
 		} catch (final NumberFormatException e) {
 			return null;
 		}

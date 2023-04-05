@@ -5,7 +5,7 @@ author: Snoop1CattZ69
 authors: [Snoop1CattZ69, ASL std.]
 website: http://vk.com/aslrb
 
-api-version: 1.13
+api-version: 1.16
 
 main: org.aslstd.core.Core
 depend: []

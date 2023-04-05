@@ -1,11 +1,13 @@
-package org.aslstd.api.bukkit.value.random;
+package org.aslstd.api.bukkit.value.util;
 
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.aslstd.api.bukkit.value.abstrakt.ModifierType;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.ModifierType;
+import org.aslstd.api.bukkit.value.random.RandomRange;
+import org.aslstd.api.bukkit.value.random.RandomSingle;
+import org.aslstd.api.bukkit.value.random.RandomVal;
 
 /**
  * <p>ValueGenerator class.</p>
@@ -13,7 +15,7 @@ import org.aslstd.api.bukkit.value.util.ValueUtil;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class ValueGenerator {
+public class ValueParser {
 
 	private static final Pattern singlePattern = Pattern.compile("\\s*(chance\\s*([0-9]*[.,]?[0-9]+)%\\s*)?from\\s*([-+]?([0-9]*[.,]?[0-9]+%?))\\s*to\\s*((([-+]?([0-9]*[.,]?[0-9]+%?))))\\s*((per\\s*level\\s*([-+]?([0-9]*[.,]?[0-9]+%?))))?\\s*");
 	private static final Pattern rangePattern  = Pattern.compile("\\s*(chance\\s*([0-9]*[.,]?[0-9]+)%\\s*)?from\\s*([-+]?([0-9]*[.,]?[0-9]+)(-([0-9]*[.,]?[0-9]+)))\\s*to\\s*([-+]?([0-9]*[.,]?[0-9]+)(-([0-9]*[.,]?[0-9]+)))\\s*(per\\s*level\\s*([-+]?([0-9]*[.,]?[0-9]+)(-([0-9]*[.,]?[0-9]+))))?\\s*");
@@ -22,10 +24,10 @@ public class ValueGenerator {
 	 * <p>getRandomHolder.</p>
 	 *
 	 * @param from a {@link java.lang.String} object
-	 * @return a {@link ru.aslcraft.api.ejcore.value.random.RandomValue} object
+	 * @return a {@link RandomVal.aslcraft.api.ejcore.value.random.RandomValue} object
 	 */
-	public static RandomValue getRandomHolder(String from) {
-		RandomValue val = getSingleValue(from);
+	public static RandomVal getRandomValue(String from) {
+		RandomVal val = getSingleValue(from);
 
 		if (val == null)
 			val = getRangeValue(from);
@@ -37,20 +39,20 @@ public class ValueGenerator {
 	 * <p>getSingleValue.</p>
 	 *
 	 * @param from a {@link java.lang.String} object
-	 * @return a {@link ru.aslcraft.api.ejcore.value.random.RandomSingleValue} object
+	 * @return a {@link RandomSingle.aslcraft.api.ejcore.value.random.RandomSingleValue} object
 	 */
-	public static RandomSingleValue getSingleValue(String from) {
+	public static RandomSingle getSingleValue(String from) {
 		final Matcher match = singlePattern.matcher(from.toLowerCase());
 
 		if (!match.find()) return null;
 		final String[] params = new String[] { match.group(2), match.group(3), match.group(7), match.group(11) };
 
-		final double chance = params[0] != null ? ValueUtil.parseDouble(params[0]) : 100d;
+		final double chance = params[0] != null ? NumUtil.parseDouble(params[0]) : 100d;
 		final String firstValue = params[1];
 		final String secondValue = params[2];
-		final double perLevelValue = params[3] != null ? ValueUtil.parseDouble(params[3]) : 0d;
+		final double perLevelValue = params[3] != null ? NumUtil.parseDouble(params[3]) : 0d;
 
-		final RandomSingleValue result = new RandomSingleValue(chance, ValueUtil.parseDouble(firstValue.replaceAll("%", "")), ValueUtil.parseDouble(secondValue.replaceAll("%", "")), perLevelValue, ModifierType.getFromValue(firstValue));
+		final RandomSingle result = new RandomSingle(chance, NumUtil.parseDouble(firstValue.replaceAll("%", "")), NumUtil.parseDouble(secondValue.replaceAll("%", "")), perLevelValue, ModifierType.getFromValue(firstValue));
 
 		return result;
 	}
@@ -59,15 +61,15 @@ public class ValueGenerator {
 	 * <p>getRangeValue.</p>
 	 *
 	 * @param from a {@link java.lang.String} object
-	 * @return a {@link ru.aslcraft.api.ejcore.value.random.RandomRangeValue} object
+	 * @return a {@link RandomRange.aslcraft.api.ejcore.value.random.RandomRangeValue} object
 	 */
-	public static RandomRangeValue getRangeValue(String from) {
+	public static RandomRange getRangeValue(String from) {
 		final Matcher match = rangePattern.matcher(from.toLowerCase());
 
 		if (!match.find()) return null;
 		final String[] params = new String[] { match.group(2), match.group(3), match.group(7), match.group(12) };
 
-		final double chance = params[0] != null ? ValueUtil.parseDouble(params[0]) : 100;
+		final double chance = params[0] != null ? NumUtil.parseDouble(params[0]) : 100;
 		final String firstValue = params[1];
 		final String secondValue = params[2];
 		final String perLevelValue = params[3];
@@ -78,7 +80,7 @@ public class ValueGenerator {
 
 		if (perLevelValue != null && perLevelValue.split("-").length < 1) throw new IllegalArgumentException("Incorrect PER LEVEL RANGE argument" + from);
 
-		final RandomRangeValue result = new RandomRangeValue(chance, firstValue, secondValue, perLevelValue, ModifierType.getFromValue(firstValue));
+		final RandomRange result = new RandomRange(chance, firstValue, secondValue, perLevelValue, ModifierType.getFromValue(firstValue));
 
 		return result;
 	}

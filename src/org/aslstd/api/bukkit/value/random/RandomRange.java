@@ -2,8 +2,10 @@ package org.aslstd.api.bukkit.value.random;
 
 import java.util.Random;
 
-import org.aslstd.api.bukkit.value.abstrakt.ModifierType;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.ModifierType;
+import org.aslstd.api.bukkit.value.Value;
+import org.aslstd.api.bukkit.value.util.ValueParser;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +16,7 @@ import lombok.NonNull;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class RandomRangeValue implements RandomValue {
+public class RandomRange implements RandomVal {
 
 	@Getter private boolean 		hasChance;
 
@@ -37,7 +39,7 @@ public class RandomRangeValue implements RandomValue {
 	 * @param perLevelValue a {@link java.lang.String} object
 	 * @param type a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
 	 */
-	public RandomRangeValue(double chance, @NonNull String firstValue, @NonNull String secondValue, String perLevelValue, @NonNull ModifierType type) {
+	public RandomRange(double chance, @NonNull String firstValue, @NonNull String secondValue, String perLevelValue, @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }
 
 		if (type != null)
@@ -45,14 +47,14 @@ public class RandomRangeValue implements RandomValue {
 		this.perLevelValue = perLevelValue;
 
 		String[] val = firstValue.split("-");
-		final double intCheck_a = ValueUtil.parseDouble(val[0]), intCheck_b = ValueUtil.parseDouble(val[1]);
+		final double intCheck_a = NumUtil.parseDouble(val[0]), intCheck_b = NumUtil.parseDouble(val[1]);
 
 		isInteger = Math.abs(intCheck_a) - Math.floor(intCheck_a) <= 1e-8d && Math.abs(intCheck_b) - Math.floor(intCheck_b) <= 1e-8d;
 
 		if (isInteger) {
 			firstValue = Math.floor(intCheck_a) + "-" + Math.floor(intCheck_b);
 			val = secondValue.split("-");
-			secondValue = Math.floor(ValueUtil.parseDouble(val[0])) + "-" + Math.floor(ValueUtil.parseDouble(val[1]));
+			secondValue = Math.floor(NumUtil.parseDouble(val[0])) + "-" + Math.floor(NumUtil.parseDouble(val[1]));
 		}
 
 		this.firstValue = new Value(firstValue);
@@ -62,7 +64,7 @@ public class RandomRangeValue implements RandomValue {
 	/** {@inheritDoc} */
 	@Override
 	public Value roll(double lvl) {
-		if (!ValueGenerator.isTrue(chance, 100)) return null;
+		if (!ValueParser.isTrue(chance, 100)) return null;
 		else {
 
 			String[] split;
@@ -73,8 +75,8 @@ public class RandomRangeValue implements RandomValue {
 
 			final double factor = new Random().nextDouble();
 
-			final double fRangeFValue = ValueUtil.parseDouble(split[0]);
-			final double fRangeSValue = ValueUtil.parseDouble(split[1]);
+			final double fRangeFValue = NumUtil.parseDouble(split[0]);
+			final double fRangeSValue = NumUtil.parseDouble(split[1]);
 
 			if (fRangeFValue == 0) return null;
 
@@ -83,8 +85,8 @@ public class RandomRangeValue implements RandomValue {
 			else
 				split = secondValue.getValue().split("-");
 
-			final double sRangeFValue = ValueUtil.parseDouble(split[0]);
-			final double sRangeSValue = ValueUtil.parseDouble(split[1]);
+			final double sRangeFValue = NumUtil.parseDouble(split[0]);
+			final double sRangeSValue = NumUtil.parseDouble(split[1]);
 
 			final String value = roll(fRangeFValue, sRangeFValue, factor) + "-" + roll(fRangeSValue, sRangeSValue, factor);
 

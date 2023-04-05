@@ -12,11 +12,11 @@ import org.aslstd.api.bukkit.equip.EquipInventory;
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.events.EPlayerRegisteredEvent;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.value.DoubleSettings;
-import org.aslstd.api.bukkit.value.StringSettings;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.settings.DoubleSettings;
+import org.aslstd.api.bukkit.settings.StringSettings;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.aslstd.api.bukkit.yaml.YAML;
-import org.aslstd.api.bukkit.yaml.database.PlayerDatabase;
+import org.aslstd.api.bukkit.yaml.player.PlayerDatabase;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -318,7 +318,7 @@ public final class EPlayer extends UPlayer {
 	 */
 	public void feed(int hunger, float saturation) {
 		final double maxHunger = tempSettings.getAndScale("player.hunger-max", getLevel());
-		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
+		final double currHunger = NumUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 		float currSaturation = player.getSaturation();
 
 		if (currHunger + hunger >= maxHunger)
@@ -359,7 +359,7 @@ public final class EPlayer extends UPlayer {
 	 */
 	public void changeMaxHunger(double newValue) {
 		final double maxHunger = tempSettings.getAndScale("player.hunger-max", getLevel());
-		final double currHunger = ValueUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
+		final double currHunger = NumUtil.parseDouble(getSettings().getValue(HUNGER_CURRENT));
 
 		final double hungerModifier = currHunger / maxHunger;
 		getSettings().setValue(HUNGER_CURRENT, (newValue * hungerModifier) + "");

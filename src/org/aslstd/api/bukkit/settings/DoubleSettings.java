@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.value;
+package org.aslstd.api.bukkit.settings;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;

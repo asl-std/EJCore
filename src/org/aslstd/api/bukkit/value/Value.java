@@ -1,7 +1,6 @@
-package org.aslstd.api.bukkit.value.random;
+package org.aslstd.api.bukkit.value;
 
-import org.aslstd.api.bukkit.value.abstrakt.ModifierType;
-import org.aslstd.api.bukkit.value.util.ValueUtil;
+import org.aslstd.api.bukkit.value.util.NumUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -48,7 +47,7 @@ public class Value {
 	public String getAndScale(double scale, double lvl) {
 		if (value == null) return null;
 
-		return String.valueOf((ValueUtil.parseDouble(value) + (scale * lvl)));
+		return String.valueOf((NumUtil.parseDouble(value) + (scale * lvl)));
 	}
 
 	/**
@@ -65,9 +64,9 @@ public class Value {
 		final String[] val = value.split("-");
 
 		if (sc.length < 2)
-			return (ValueUtil.parseDouble(val[0]) + ValueUtil.parseDouble(sc[0]) * lvl) + "-" + (ValueUtil.parseDouble(val[1]) + ValueUtil.parseDouble(sc[0]) * lvl);
+			return (NumUtil.parseDouble(val[0]) + NumUtil.parseDouble(sc[0]) * lvl) + "-" + (NumUtil.parseDouble(val[1]) + NumUtil.parseDouble(sc[0]) * lvl);
 		else
-			return (ValueUtil.parseDouble(val[0]) + ValueUtil.parseDouble(sc[0]) * lvl) + "-" + (ValueUtil.parseDouble(val[1]) + ValueUtil.parseDouble(sc[1]) * lvl);
+			return (NumUtil.parseDouble(val[0]) + NumUtil.parseDouble(sc[0]) * lvl) + "-" + (NumUtil.parseDouble(val[1]) + NumUtil.parseDouble(sc[1]) * lvl);
 	}
 
 	/**

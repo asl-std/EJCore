@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.WordUtils;
 import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.value.DoubleSettings;
+import org.aslstd.api.bukkit.settings.DoubleSettings;
 import org.aslstd.api.bukkit.yaml.YAML;
 import org.aslstd.core.Core;
 
