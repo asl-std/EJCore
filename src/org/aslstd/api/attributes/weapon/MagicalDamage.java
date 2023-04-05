@@ -1,9 +1,9 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.AttrType;
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.ListeningCombat;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
-import org.aslstd.modules.attribute.AttrType;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.attribute.ListeningCombat;
 
 /**
  * <p>MagicalDamage class.</p>

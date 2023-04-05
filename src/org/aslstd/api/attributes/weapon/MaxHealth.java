@@ -1,9 +1,9 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.AffectingEntity;
+import org.aslstd.api.attributes.BasicAttr;
 import org.aslstd.core.Core;
 import org.aslstd.core.configs.EConfig;
-import org.aslstd.modules.attribute.AffectingEntity;
-import org.aslstd.modules.attribute.BasicAttr;
 import org.bukkit.entity.LivingEntity;
 
 /**

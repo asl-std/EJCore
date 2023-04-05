@@ -1,4 +1,4 @@
-package org.aslstd.modules.attribute;
+package org.aslstd.api.attributes;
 
 import java.util.regex.Pattern;
 
@@ -28,7 +28,7 @@ public class BasicAttr {
 	/**
 	 * <p>getRegexPattern.</p>
 	 *
-	 * @param stat a {@link org.aslstd.modules.attribute.BasicAttr} object
+	 * @param stat a {@link org.aslstd.api.attributes.BasicAttr} object
 	 * @return a {@link java.util.regex.Pattern} object
 	 */
 	public static final Pattern getRegexPattern(BasicAttr stat) { //\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)
@@ -48,7 +48,7 @@ public class BasicAttr {
 	/**
 	 * <p>Setter for the field <code>priority</code>.</p>
 	 *
-	 * @param priority a {@link org.aslstd.modules.attribute.Priority} object
+	 * @param priority a {@link org.aslstd.api.attributes.Priority} object
 	 */
 	public void setPriority(Priority priority) { setPriority(priority.getPriority()); }
 
@@ -112,7 +112,7 @@ public class BasicAttr {
 	 * @param path a {@link java.lang.String} object
 	 * @param defBase a double
 	 * @param defPerLevel a double
-	 * @param type a {@link org.aslstd.modules.attribute.AttrType} object
+	 * @param type a {@link org.aslstd.api.attributes.AttrType} object
 	 */
 	public BasicAttr(String keyName, String path, double defBase, double defPerLevel, AttrType type) {
 		key = keyName;

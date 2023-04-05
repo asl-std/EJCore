@@ -1,4 +1,4 @@
-package org.aslstd.modules.attribute;
+package org.aslstd.api.attributes;
 
 /**
  * Enum collection of attributes calculating types.

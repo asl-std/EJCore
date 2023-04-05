@@ -1,4 +1,4 @@
-package org.aslstd.modules.attribute;
+package org.aslstd.api.attributes;
 
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 

@@ -1,12 +1,11 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.ListeningCombat;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
 import org.aslstd.api.bukkit.value.util.NumUtil;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.attribute.ListeningCombat;
-import org.aslstd.modules.player.PlayerUtils;
 import org.bukkit.entity.Player;
 
 /**
@@ -63,7 +62,7 @@ public final class Absorption extends BasicAttr implements ListeningCombat {
 		if (e.getType() != CombatType.ENTITY_TO_PLAYER && e.getType() != CombatType.PLAYER_TO_PLAYER) return;
 		final EPlayer rpg = EPlayer.getEPlayer((Player)e.getReceiver());
 
-		final double value = PlayerUtils.getStatValue(rpg, this)[0];
+		final double value = rpg.getStatValue(this)[0];
 		double damage = e.getDamage();
 
 		if (value <= getMC(T1))

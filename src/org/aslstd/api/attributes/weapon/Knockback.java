@@ -1,11 +1,10 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.ListeningCombat;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.attribute.ListeningCombat;
-import org.aslstd.modules.player.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -37,6 +36,6 @@ public final class Knockback extends BasicAttr implements ListeningCombat {
 
 		final Vector damagerToEntityVec = e.getReceiver().getLocation().toVector().subtract(e.getAttacker().getLocation().toVector()).normalize();
 
-		e.getReceiver().setVelocity(damagerToEntityVec.multiply(0.025 * PlayerUtils.getStatValue(rpg, this)[0]));
+		e.getReceiver().setVelocity(damagerToEntityVec.multiply(0.025 * rpg.getStatValue(this)[0]));
 	}
 }

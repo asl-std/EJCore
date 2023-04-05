@@ -1,26 +1,26 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.ListeningCombat;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.attribute.ListeningCombat;
 
 /**
- * <p>Root class.</p>
+ * <p>Stun class.</p>
  *
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public final class Root extends BasicAttr implements ListeningCombat {
+public final class Stun extends BasicAttr implements ListeningCombat {
 
 	/**
-	 * <p>Constructor for Root.</p>
+	 * <p>Constructor for Stun.</p>
 	 *
 	 * @param keyName a {@link java.lang.String} object
 	 * @param path a {@link java.lang.String} object
 	 * @param defBase a double
 	 * @param defPerLevel a double
 	 */
-	public Root(String keyName, String path, double defBase, double defPerLevel) {
+	public Stun(String keyName, String path, double defBase, double defPerLevel) {
 		super(keyName, path, defBase, defPerLevel);
 	}
 

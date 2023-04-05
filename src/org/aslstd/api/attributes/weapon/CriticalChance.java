@@ -1,13 +1,12 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.ListeningCombat;
+import org.aslstd.api.attributes.managers.WAttributes;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
 import org.aslstd.api.bukkit.value.util.NumUtil;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.attribute.ListeningCombat;
-import org.aslstd.modules.attribute.managers.WAttributes;
-import org.aslstd.modules.player.PlayerUtils;
 import org.bukkit.entity.Player;
 
 /**
@@ -63,7 +62,7 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 		if (e.getType() != CombatType.PLAYER_TO_ENTITY || e.getType() != CombatType.PLAYER_TO_PLAYER) return;
 		final EPlayer rpg = EPlayer.getEPlayer((Player)e.getAttacker());
 
-		final double value = PlayerUtils.getStatValue(rpg, this)[0];
+		final double value = rpg.getStatValue(this)[0];
 		double damage = e.getDamage();
 		boolean crit = false;
 
@@ -92,7 +91,7 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 			}*/
 
 		if (NumUtil.isTrue(value, 100)) {
-			damage = damage * (PlayerUtils.getStatValue(rpg, WAttributes.getByKey("CRITICAL_DAMAGE"))[0]/100);
+			damage = damage * (rpg.getStatValue(WAttributes.getByKey("CRITICAL_DAMAGE"))[0]/100);
 			crit = true;
 		}
 

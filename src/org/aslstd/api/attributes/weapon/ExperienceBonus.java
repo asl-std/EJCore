@@ -1,10 +1,9 @@
-package org.aslstd.modules.attribute.weapon;
+package org.aslstd.api.attributes.weapon;
 
+import org.aslstd.api.attributes.AttrType;
+import org.aslstd.api.attributes.BasicAttr;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.core.listeners.RegisterEventListener;
-import org.aslstd.modules.attribute.AttrType;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.player.PlayerUtils;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -47,7 +46,7 @@ public final class ExperienceBonus extends BasicAttr implements Listener {
 
 			if (p == null) return;
 
-			final double[] expBonus = PlayerUtils.getStatValue(rp, this);
+			final double[] expBonus = rp.getStatValue(this);
 
 			final double expRec = e.getDroppedExp()*(expBonus[0]/100);
 			final double currExp = p.getExp()*p.getExpToLevel();

@@ -1,4 +1,4 @@
-package org.aslstd.modules.attribute.managers;
+package org.aslstd.api.attributes.managers;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.aslstd.modules.attribute.AttrType;
-import org.aslstd.modules.attribute.BasicAttr;
-import org.aslstd.modules.attribute.weapon.Absorption;
-import org.aslstd.modules.attribute.weapon.Blocking;
-import org.aslstd.modules.attribute.weapon.CriticalChance;
-import org.aslstd.modules.attribute.weapon.Dodge;
-import org.aslstd.modules.attribute.weapon.ExperienceBonus;
-import org.aslstd.modules.attribute.weapon.Knockback;
-import org.aslstd.modules.attribute.weapon.Lifesteal;
-import org.aslstd.modules.attribute.weapon.MaxHealth;
-import org.aslstd.modules.attribute.weapon.PhysicalDamage;
-import org.aslstd.modules.attribute.weapon.RangedDamage;
-import org.aslstd.modules.attribute.weapon.Reflect;
+import org.aslstd.api.attributes.AttrType;
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.weapon.Absorption;
+import org.aslstd.api.attributes.weapon.Blocking;
+import org.aslstd.api.attributes.weapon.CriticalChance;
+import org.aslstd.api.attributes.weapon.Dodge;
+import org.aslstd.api.attributes.weapon.ExperienceBonus;
+import org.aslstd.api.attributes.weapon.Knockback;
+import org.aslstd.api.attributes.weapon.Lifesteal;
+import org.aslstd.api.attributes.weapon.MaxHealth;
+import org.aslstd.api.attributes.weapon.PhysicalDamage;
+import org.aslstd.api.attributes.weapon.RangedDamage;
+import org.aslstd.api.attributes.weapon.Reflect;
 
 /**
  * <p>WeaponAttributesManager class.</p>
@@ -103,7 +103,7 @@ public class WAttributes {
 	/**
 	 * <p>register.</p>
 	 *
-	 * @param attr a {@link org.aslstd.modules.attribute.BasicAttr} object
+	 * @param attr a {@link org.aslstd.api.attributes.BasicAttr} object
 	 */
 	public static final void register(BasicAttr attr) {
 		if (attr != null && !attributes.containsKey(attr.getKey())) {
@@ -133,7 +133,7 @@ public class WAttributes {
 	 * <p>getByKey.</p>
 	 *
 	 * @param key a {@link java.lang.String} object
-	 * @return a {@link org.aslstd.modules.attribute.BasicAttr} object
+	 * @return a {@link org.aslstd.api.attributes.BasicAttr} object
 	 */
 	public static final BasicAttr getByKey(String key) {
 		if (attributes.containsKey(key.toUpperCase()))

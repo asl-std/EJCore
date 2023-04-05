@@ -1,4 +1,4 @@
-package org.aslstd.modules.attribute;
+package org.aslstd.api.attributes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public enum Priority {
 	/**
 	 * <p>before.</p>
 	 *
-	 * @param stat a {@link org.aslstd.modules.attribute.BasicAttr} object
+	 * @param stat a {@link org.aslstd.api.attributes.BasicAttr} object
 	 * @return a int
 	 */
 	@Getter private int priority;
@@ -29,7 +29,7 @@ public enum Priority {
 	/**
 	 * <p>after.</p>
 	 *
-	 * @param stat a {@link org.aslstd.modules.attribute.BasicAttr} object
+	 * @param stat a {@link org.aslstd.api.attributes.BasicAttr} object
 	 * @return a int
 	 */
 	public static int after(BasicAttr stat) {

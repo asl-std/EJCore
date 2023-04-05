@@ -1,4 +1,4 @@
-package org.aslstd.modules.attribute;
+package org.aslstd.api.attributes;
 
 import org.bukkit.entity.LivingEntity;
 

@@ -7,6 +7,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.managers.WAttributes;
 import org.aslstd.api.bukkit.entity.pick.UPlayer;
 import org.aslstd.api.bukkit.equip.EquipInventory;
 import org.aslstd.api.bukkit.equip.EquipSlot;
@@ -14,6 +16,7 @@ import org.aslstd.api.bukkit.events.EPlayerRegisteredEvent;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
 import org.aslstd.api.bukkit.settings.DoubleSettings;
 import org.aslstd.api.bukkit.settings.StringSettings;
+import org.aslstd.api.bukkit.value.util.MathUtil;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.aslstd.api.bukkit.yaml.YAML;
 import org.aslstd.api.bukkit.yaml.player.PlayerDatabase;
@@ -211,8 +214,85 @@ public final class EPlayer extends UPlayer {
 		tempSettings.setCustom("player.hunger-max", 20d);
 
 		final EPlayerRegisteredEvent event = new EPlayerRegisteredEvent(this);
+
+		for (final BasicAttr stat : WAttributes.getRegistered()) {
+			if (!stat.isEnabled()) continue;
+			switch (stat.getType()) {
+			case PER_LEVEL:
+				getTempSettings().setValue(stat.getPath(), stat.getFirstValue(), stat.getSecondValue());
+			case RANGE:
+				getTempSettings().setRange(stat.getPath(), stat.getFirstValue(), stat.getSecondValue());
+			case SINGLE:
+				getTempSettings().setCustom(stat.getPath(), stat.getFirstValue());
+			}
+		}
+
 		Bukkit.getServer().getPluginManager().callEvent(event);
 
+	}
+
+	/**
+	 * <p>getBaseStatValue.</p>
+	 *
+	 * @param attr a {@link org.aslstd.api.attributes.BasicAttr} object
+	 * @return an array of {@link double} objects
+	 */
+	public double[] getBaseStatValue(BasicAttr attr) {
+		double[] values = { 0.0d, 0.0d };
+		switch(attr.getType()) {
+		case PER_LEVEL:
+			values[0] = getTempSettings().getAndScale(attr.getPath(), player.getLevel());
+			break;
+		case RANGE:
+			values = getTempSettings().getRange(attr.getPath());
+			break;
+		case SINGLE:
+			values[0] = getTempSettings().getValue(attr.getPath(), attr.getFirstValue());
+			break;
+		}
+		return values;
+	}
+
+	/**
+	 * <p>getDamage.</p>
+	 *
+	 * @param stat a {@link org.aslstd.api.attributes.BasicAttr} object
+	 * @return a double
+	 */
+	public double getDamage(BasicAttr stat) { // TODO
+		if (!stat.getKey().contains("DAMAGE")) return 0d;
+
+		final double[] damage = getStatValue(stat);
+		return MathUtil.getRandomRange(damage[0], damage[1]);
+	}
+
+	/**
+	 * <p>getStatValue.</p>
+	 *
+	 * @param stat a {@link org.aslstd.api.attributes.BasicAttr} object
+	 * @return an array of {@link double} objects
+	 */
+	public double[] getStatValue(BasicAttr stat) {
+		final double[] values = getBaseStatValue(stat);
+		final double[] multiplier = new double[] { 0D, 0D };
+
+		for (final EquipSlot slot : EquipSlot.values()) {
+			if (getTempSettings().hasRange("player.equip." + slot.name().toLowerCase() + "." + stat.getKey())) {
+				final double[] val = getTempSettings().getRange("player.equip." + slot.name().toLowerCase() + "." + stat.getKey());
+				values[0] = values[0] + val[0];
+				values[1] = values[1] + val[1];
+			}
+
+			if (getTempSettings().hasRange("player.equip." + slot.name().toLowerCase() + "." +  stat.getKey() + "-multiplier")) {
+				final double[] val = getTempSettings().getRange("player.equip." + slot.name().toLowerCase() + "." + stat.getKey() + "-multiplier");
+				multiplier[0] = multiplier[0] + val[0];
+				multiplier[1] = multiplier[1] + val[1];
+			}
+		}
+
+		if (multiplier[1] < multiplier[0]) multiplier[1] = multiplier[0];
+
+		return new double[] { values[0] + (values[0] * (multiplier[0] / 100)), values[1] + (values[1] * (multiplier[1] / 100)) };
 	}
 
 	/**
@@ -281,13 +361,15 @@ public final class EPlayer extends UPlayer {
 	 * Применяет изменения переменных HEALTH, CLASS HEALTH для изменения максимального количества жизней.
 	 */
 	public void updateStats() {
-		if (update != null) { try { update.invoke(instance, this); } catch (final Exception e) { e.printStackTrace(); } return; }
-
-		final double defHealth = 20;
-		final double classHealth = getTempSettings().getValue(CLASS_HEALTH, getLevel());
+		final double defHealth = getStatValue(WAttributes.MAX_HEALTH)[0];
+		final double classHealth = getTempSettings().getValue(EPlayer.CLASS_HEALTH, player.getLevel());
 
 		final double maxHealth = defHealth + classHealth;
 		changeMaxHealth(maxHealth >= 0 ? maxHealth : 1);
+
+		final double speed = getStatValue(WAttributes.SPEED)[0];
+
+		if ((speed >= 0)) player.setWalkSpeed((float) ((MathUtil.getPercentsOfValue(20, speed) / 100) >= 1.0f ? 1.0f : MathUtil.getPercentsOfValue(20, speed) / 100));
 	}
 
 	/**

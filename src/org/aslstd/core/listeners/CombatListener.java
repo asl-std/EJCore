@@ -1,5 +1,10 @@
 package org.aslstd.core.listeners;
 
+import java.util.List;
+
+import org.aslstd.api.attributes.BasicAttr;
+import org.aslstd.api.attributes.ListeningCombat;
+import org.aslstd.api.attributes.managers.WAttributes;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
 import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
@@ -29,13 +34,11 @@ public class CombatListener implements Listener {
 		Entity attacker = e.getDamager();
 		boolean ranged = false;
 
-		if (attacker instanceof Projectile) {
-			final Projectile p = (Projectile) attacker;
-			if (p.getShooter() instanceof Entity) {
-				attacker = (Entity) p.getShooter();
+		if (attacker instanceof final Projectile p)
+			if (p.getShooter() instanceof final Entity s) {
+				attacker = s;
 				ranged = true;
 			}
-		}
 
 		final Entity receiver = e.getEntity();
 		final DamageCause cause = DamageCause.CUSTOM;
@@ -46,6 +49,17 @@ public class CombatListener implements Listener {
 
 		if (attacker != null && receiver != null) {
 			final CombatEvent event = new CombatEvent(attacker, receiver, cause, edpe.getDamage(), CombatType.from(receiver, attacker), ranged, e.isCancelled());
+
+			final List<BasicAttr> stats = WAttributes.getSortedList();
+
+			for (final BasicAttr stat : stats) {
+				if (stat instanceof ListeningCombat)
+					((ListeningCombat) stat).listen(event);
+
+				if (event.isCancelled())
+					return;
+			}
+
 
 			Bukkit.getPluginManager().callEvent(event);
 
