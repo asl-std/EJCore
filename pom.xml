@@ -238,7 +238,7 @@
 		<!-- EffectLib Repo -->
 		<repository>
 			<id>elMakers</id>
-			<url>http://maven.elmakers.com/repository/</url>
+			<url>https://maven.elmakers.com/repository/</url>
 		</repository>
 
 		<repository>
