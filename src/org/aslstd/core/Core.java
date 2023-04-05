@@ -18,7 +18,6 @@ import org.aslstd.api.ejcore.plugin.Incompatibility;
 import org.aslstd.api.ejcore.plugin.hook.HookManager;
 import org.aslstd.api.ejcore.plugin.hook.PAPI;
 import org.aslstd.api.ejcore.worker.WorkerService;
-import org.aslstd.api.language.LangAPI;
 import org.aslstd.core.commands.CoreCommandHandler;
 import org.aslstd.core.configs.EConfig;
 import org.aslstd.core.configs.LangConfig;
@@ -70,7 +69,6 @@ public class Core extends EJPlugin {
 	@Getter private static LangConfig lang;
 	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static PlayerDatabase playerDatabase;
-	@Getter private static LangAPI language;
 	private static Set<EJPlugin> plugins;
 
 	@Getter private static WorkerService workers;
@@ -101,7 +99,6 @@ public class Core extends EJPlugin {
 	@Override public void init() {
 		final long bef = System.nanoTime();
 		CancelJoinBeforeFullLoading.register();
-		language = LangAPI.INSTANCE;
 
 		plugins = new LinkedHashSet<>();
 
