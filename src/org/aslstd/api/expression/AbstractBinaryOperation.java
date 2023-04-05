@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.aslstd.api.expression.exceptions.DivideByZeroException;
 import org.aslstd.api.expression.exceptions.OverflowException;
-import org.aslstd.api.expression.exceptions.ParsingException;
 
 /**
  * <p>Abstract AbstractBinaryOperation class.</p>

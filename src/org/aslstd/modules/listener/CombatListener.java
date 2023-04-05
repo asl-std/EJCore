@@ -3,11 +3,11 @@ package org.aslstd.modules.listener;
 import java.util.List;
 
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
-import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
-import org.aslstd.modules.MAttributes;
+import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
 import org.aslstd.modules.attribute.BasicAttr;
 import org.aslstd.modules.attribute.ListeningCombat;
+import org.aslstd.modules.attribute.managers.WAttributes;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
@@ -39,7 +39,7 @@ public class CombatListener implements Listener {
 		if (attacker != null && receiver != null) {
 			final CombatEvent event = new CombatEvent(attacker, receiver, cause, edpe.getDamage(), CombatType.from(receiver, attacker), ranged, e.isCancelled());
 
-			final List<BasicAttr> stats = MAttributes.getWeaponAttributes().getSortedList();
+			final List<BasicAttr> stats = WAttributes.getSortedList();
 
 			for (final BasicAttr stat : stats) {
 				if (stat instanceof ListeningCombat)

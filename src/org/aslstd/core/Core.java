@@ -5,9 +5,6 @@ import java.util.Set;
 
 import org.aslstd.api.bukkit.command.BasicCommandHandler;
 import org.aslstd.api.bukkit.entity.EPlayer;
-import org.aslstd.api.bukkit.material.Material1_12;
-import org.aslstd.api.bukkit.material.Material1_13;
-import org.aslstd.api.bukkit.material.interfaze.MaterialAdapter;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.redstone.RedstoneParts;
 import org.aslstd.api.bukkit.utils.ServerVersion;
@@ -25,7 +22,6 @@ import org.aslstd.core.listeners.CombatListener;
 import org.aslstd.core.listeners.EquipListener;
 import org.aslstd.core.listeners.EquipListener1_13;
 import org.aslstd.core.listeners.PaneInteractListener;
-import org.aslstd.core.listeners.PapiListener;
 import org.aslstd.core.listeners.PlayerListener;
 import org.aslstd.core.listeners.RegisterEventListener;
 import org.aslstd.core.listeners.temp.CancelJoinBeforeFullLoading;
@@ -67,9 +63,8 @@ public class Core extends EJPlugin {
 
 	@Getter private static EConfig cfg;
 	@Getter private static LangConfig lang;
-	@Getter private static MaterialAdapter materialAdapter = null;
 	@Getter private static PlayerDatabase playerDatabase;
-	private static Set<EJPlugin> plugins;
+	private static Set<EJPlugin> plugins = new LinkedHashSet<>();
 
 	@Getter private static WorkerService workers;
 
@@ -100,10 +95,7 @@ public class Core extends EJPlugin {
 		final long bef = System.nanoTime();
 		CancelJoinBeforeFullLoading.register();
 
-		plugins = new LinkedHashSet<>();
-
 		resourceId = 38074;
-		//EJUpdateChecker.registerEJPlugin(this);
 		playerDatabase = PlayerDatabase.createDatabase(this);
 
 		new Metrics(instance, 2908);
@@ -117,15 +109,9 @@ public class Core extends EJPlugin {
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
 
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
-			Core.materialAdapter = new Material1_13();
-		else
-			Core.materialAdapter = new Material1_12();
-
 		if (HookManager.tryHookPAPI()) {
 			EText.fine("PAPI expansion loaded!");
 			new DataExpansion();
-			RegisterEventListener.register("papiReload", new PapiListener());
 		} else
 			EText.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
 
@@ -146,15 +132,14 @@ public class Core extends EJPlugin {
 
 		if (plugins.size() > 0) {
 			EText.fine("&aejCore found EJPlugins, wait while all plugins enables.. ");
-			new InitialiseEJPluginsTask(plugins).runTaskTimer(this, 10, 10L);
+			new InitialiseEJPluginsTask(plugins).runTaskTimer(this, 0, 40L);
 		} else {
 			ModuleManager.enableModules();
 			RegisterEventListener.getListenerManager().register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
 
-		final long aft = System.nanoTime();
-		EText.fine("&aejCore succesfuly loaded in " + EText.format((aft - bef) / 1e9) + " sec.");
+		EText.fine("&aejCore succesfuly loaded in " + EText.format((System.nanoTime() - bef) / 1e9) + " sec.");
 		EText.sendLB();
 		Incompatibility.check();
 		if (HookManager.isPapiEnabled() && !PAPI.getPreRegister().isEmpty())

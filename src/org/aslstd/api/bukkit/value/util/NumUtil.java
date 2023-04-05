@@ -78,10 +78,10 @@ public class NumUtil {
 	 */
 	public static Long parseLong(String value) {
 		try {
-			return new Long(Long.parseLong(value));
+			return Long.parseLong(value);
 		} catch (final NumberFormatException e) {
 			e.printStackTrace();
-			return new Long(0L);
+			return 0L;
 		}
 	}
 
@@ -93,10 +93,10 @@ public class NumUtil {
 	 */
 	public static Double parseDouble(String value) {
 		try {
-			return new Double(Double.parseDouble(value));
+			return Double.parseDouble(value);
 		} catch (final NumberFormatException e) {
 			e.printStackTrace();
-			return new Double(0.D);
+			return 0.D;
 		}
 	}
 
@@ -126,9 +126,9 @@ public class NumUtil {
 	public static Integer parseInteger(String value) {
 		final Long req = parseLong(value);
 
-		return new Integer((req < Integer.MIN_VALUE ? Integer.MIN_VALUE :
+		return (req < Integer.MIN_VALUE ? Integer.MIN_VALUE :
 			req > Integer.MAX_VALUE ? Integer.MAX_VALUE :
-				req.intValue()));
+				req.intValue());
 	}
 
 	/**
@@ -140,9 +140,9 @@ public class NumUtil {
 	public static Short parseShort(String value) {
 		final Integer req = parseInteger(value);
 
-		return new Short((req < Short.MIN_VALUE ? Short.MIN_VALUE :
+		return (req < Short.MIN_VALUE ? Short.MIN_VALUE :
 			req > Short.MAX_VALUE ? Short.MAX_VALUE :
-				req.shortValue()));
+				req.shortValue());
 	}
 
 	/**
@@ -154,9 +154,9 @@ public class NumUtil {
 	public static Float parseFloat(String value) {
 		final Double req = parseDouble(value);
 
-		return new Float((req < Float.MIN_VALUE ? Float.MIN_VALUE :
+		return (req < Float.MIN_VALUE ? Float.MIN_VALUE :
 			req > Float.MAX_VALUE ? Float.MAX_VALUE :
-				req.floatValue()));
+				req.floatValue());
 	}
 
 }

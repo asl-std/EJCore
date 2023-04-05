@@ -112,6 +112,7 @@ public class WAttributes {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static final void register() {
 		if (!attributes.isEmpty()) { return; }
 		int pos = 0;

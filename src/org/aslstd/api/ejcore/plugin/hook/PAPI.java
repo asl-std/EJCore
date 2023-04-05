@@ -83,6 +83,11 @@ public abstract class PAPI extends PlaceholderExpansion {
 		return "1.0";
 	}
 
+	@Override
+	public boolean persist() {
+		return true;
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	abstract public String onPlaceholderRequest(Player p, String identifier);

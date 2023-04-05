@@ -5,10 +5,10 @@ import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
 import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.core.Core;
-import org.aslstd.modules.MAttributes;
 import org.aslstd.modules.attribute.AttrType;
 import org.aslstd.modules.attribute.BasicAttr;
 import org.aslstd.modules.attribute.ListeningCombat;
+import org.aslstd.modules.attribute.managers.WAttributes;
 import org.aslstd.modules.player.PlayerUtils;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -47,8 +47,9 @@ public final class PhysicalDamage extends BasicAttr implements ListeningCombat {
 		final EPlayer receiver = e.getReceiver().getType() == EntityType.PLAYER ? EPlayer.getEPlayer( (Player) e.getReceiver() ) : null;
 		final EPlayer attacker = e.getAttacker().getType() == EntityType.PLAYER ? EPlayer.getEPlayer( (Player) e.getAttacker() ) : null;
 
-		if (e.getReceiver().getType() == EntityType.PLAYER)
-			statDef = PlayerUtils.getStatValue(receiver, MAttributes.getWeaponAttributes().getByKey("PHYSICAL_DEFENCE"))[0];
+		if (e.getReceiver().getType() == EntityType.PLAYER) {
+			statDef = PlayerUtils.getStatValue(receiver, WAttributes.getByKey("PHYSICAL_DEFENCE"))[0];
+		}
 
 		if (e.getAttacker().getType() == EntityType.PLAYER) {
 			statDmg = PlayerUtils.getDamage(attacker, this);
@@ -56,20 +57,20 @@ public final class PhysicalDamage extends BasicAttr implements ListeningCombat {
 			if (!Core.getCfg().getBoolean("use-vanilla-damage", false, true))
 				vanillaDmg = 0;
 
-			if (MAttributes.getWeaponAttributes().getByKey("FIST_DAMAGE").isEnabled())
-				fistDmg = PlayerUtils.getDamage(attacker, MAttributes.getWeaponAttributes().getByKey("FIST_DAMAGE"));
+			if (WAttributes.getByKey("FIST_DAMAGE").isEnabled())
+				fistDmg = PlayerUtils.getDamage(attacker, WAttributes.getByKey("FIST_DAMAGE"));
 		}
 
 		if (e.getType() == CombatType.PLAYER_TO_PLAYER) {
-			statDmg = statDmg*(PlayerUtils.getStatValue(attacker, MAttributes.getWeaponAttributes().getByKey("PVP_DAMAGE_MODIFIER"))[0]/100);
-			statDef = statDef*(PlayerUtils.getStatValue(receiver, MAttributes.getWeaponAttributes().getByKey("PVP_DEFENCE_MODIFIER"))[0]/100);
+			statDmg = statDmg*(PlayerUtils.getStatValue(attacker, WAttributes.getByKey("PVP_DAMAGE_MODIFIER"))[0]/100);
+			statDef = statDef*(PlayerUtils.getStatValue(receiver, WAttributes.getByKey("PVP_DEFENCE_MODIFIER"))[0]/100);
 		}
 
 		if (e.getType() == CombatType.PLAYER_TO_ENTITY)
-			statDmg = statDmg*(PlayerUtils.getStatValue(attacker, MAttributes.getWeaponAttributes().getByKey("PVE_DAMAGE_MODIFIER"))[0]/100);
+			statDmg = statDmg*(PlayerUtils.getStatValue(attacker, WAttributes.getByKey("PVE_DAMAGE_MODIFIER"))[0]/100);
 
 		if (e.getType() == CombatType.ENTITY_TO_PLAYER)
-			statDef = statDef*(PlayerUtils.getStatValue(receiver, MAttributes.getWeaponAttributes().getByKey("PVE_DEFENCE_MODIFIER"))[0]/100);
+			statDef = statDef*(PlayerUtils.getStatValue(receiver, WAttributes.getByKey("PVE_DEFENCE_MODIFIER"))[0]/100);
 
 		double summdmg = (fistDmg+statDmg+vanillaDmg);
 

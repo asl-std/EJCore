@@ -1,8 +1,8 @@
 package org.aslstd.modules.player;
 
 import org.aslstd.api.bukkit.events.EPlayerRegisteredEvent;
-import org.aslstd.modules.MAttributes;
 import org.aslstd.modules.attribute.BasicAttr;
+import org.aslstd.modules.attribute.managers.WAttributes;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -17,8 +17,7 @@ public class PlayerLoader implements Listener {
 			e1.printStackTrace();
 		}
 
-
-		for (final BasicAttr stat : MAttributes.getWeaponAttributes().getRegistered()) {
+		for (final BasicAttr stat : WAttributes.getRegistered()) {
 			if (!stat.isEnabled())
 				continue;
 			switch (stat.getType()) {

@@ -4,9 +4,9 @@ import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
 import org.aslstd.api.bukkit.value.util.NumUtil;
-import org.aslstd.modules.MAttributes;
 import org.aslstd.modules.attribute.BasicAttr;
 import org.aslstd.modules.attribute.ListeningCombat;
+import org.aslstd.modules.attribute.managers.WAttributes;
 import org.aslstd.modules.player.PlayerUtils;
 import org.bukkit.entity.Player;
 
@@ -92,7 +92,7 @@ public final class CriticalChance extends BasicAttr implements ListeningCombat {
 			}*/
 
 		if (NumUtil.isTrue(value, 100)) {
-			damage = damage * (PlayerUtils.getStatValue(rpg, MAttributes.getWeaponAttributes().getByKey("CRITICAL_DAMAGE"))[0]/100);
+			damage = damage * (PlayerUtils.getStatValue(rpg, WAttributes.getByKey("CRITICAL_DAMAGE"))[0]/100);
 			crit = true;
 		}
 
