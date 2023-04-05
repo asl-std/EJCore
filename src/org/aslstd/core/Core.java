@@ -18,7 +18,6 @@ import org.aslstd.api.ejcore.plugin.Incompatibility;
 import org.aslstd.api.ejcore.plugin.hook.HookManager;
 import org.aslstd.api.ejcore.plugin.hook.PAPI;
 import org.aslstd.api.ejcore.worker.WorkerService;
-import org.aslstd.api.inventory.EJInventory;
 import org.aslstd.api.language.LangAPI;
 import org.aslstd.core.commands.CoreCommandHandler;
 import org.aslstd.core.configs.EConfig;
@@ -103,7 +102,6 @@ public class Core extends EJPlugin {
 		final long bef = System.nanoTime();
 		CancelJoinBeforeFullLoading.register();
 		language = LangAPI.INSTANCE;
-		EJInventory.attach(this);
 
 		plugins = new LinkedHashSet<>();
 
