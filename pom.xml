@@ -1,30 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.aslstd</groupId>
 	<artifactId>ejcore</artifactId>
-	<packaging>pom</packaging>
-	<version>1.2.18</version>
+	<version>1.2.19</version>
 	<name>ejCore</name>
 
 	<properties>
 		<releaseStatus>BETA</releaseStatus>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<modules>
-		<module>ejCore-provider</module>
-		<module>ejCore-bukkit</module>
-		<module>ejCore-inventory</module>
-		<module>ejCore-plugin</module>
-		<module>ejRPG-attributes</module>
-		<module>ejCore-math</module>
-		<module>ejCore-incubator</module>
-		<module>ejCore-webserver</module>
-		<module>ejCore-database</module>
-		<module>ejCore-bots</module>
-		<module>ejCore-main</module>
-	</modules>
 
 	<build>
 
@@ -33,7 +20,7 @@
 
 		<resources>
 			<resource>
-				<directory>ejCore-plugin/resources</directory>
+				<directory>resources</directory>
 				<filtering>true</filtering>
 				<includes>
 					<include>*.yml</include>
@@ -50,10 +37,10 @@
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.10.0</version>
+				<version>3.11.0</version>
 				<configuration>
-					<source>11</source>
-					<target>11</target>
+					<source>16</source>
+					<target>16</target>
 				</configuration>
 			</plugin>
 
@@ -66,10 +53,11 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.2.4</version>
+					<version>3.4.1</version>
 					<configuration>
 						<minimizeJar>false</minimizeJar>
-						<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+						<dependencyReducedPomLocation>
+							${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
 						<relocations>
 							<relocation>
 								<pattern>de.slikey</pattern>
@@ -79,7 +67,21 @@
 								<pattern>de.tr7zw</pattern>
 								<shadedPattern>org.aslstd.api.tr7zw</shadedPattern>
 							</relocation>
+							<relocation>
+								<pattern>org.bstats</pattern>
+								<shadedPattern>org.aslstd.core.metrics</shadedPattern>
+							</relocation>
 						</relocations>
+						<filters>
+							<filter>
+								<artifact>*:*</artifact>
+								<excludes>
+									<exclude>META-INF/maven/**</exclude>
+									<exclude>LICENSE</exclude>
+									<exclude>migrate.php</exclude>
+								</excludes>
+							</filter>
+						</filters>
 					</configuration>
 					<executions>
 						<execution>
@@ -100,53 +102,101 @@
 
 	<dependencies>
 
+		<!-- Compile Project: EffectLib -->
+		<dependency>
+			<groupId>com.elmakers.mine.bukkit</groupId>
+			<artifactId>EffectLib</artifactId>
+			<version>10.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Compile Project: BStats -->
+		<dependency>
+			<groupId>org.bstats</groupId>
+			<artifactId>bstats-bukkit</artifactId>
+			<version>3.0.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Compile Project: ItemNBT-API -->
+		<dependency>
+			<groupId>de.tr7zw</groupId>
+			<artifactId>item-nbt-api</artifactId>
+			<version>2.11.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- SpigotAPI -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.19.2-R0.1-SNAPSHOT</version>
+			<artifactId>spigot</artifactId>
+			<version>1.19.4-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- PlaceholderAPI -->
+		<dependency>
+			<groupId>me.clip</groupId>
+			<artifactId>placeholderapi</artifactId>
+			<version>2.11.3</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- LuckPerms -->
+		<dependency>
+			<groupId>net.luckperms</groupId>
+			<artifactId>api</artifactId>
+			<version>5.4</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- VaultAPI -->
+		<dependency>
+			<groupId>com.github.MilkBowl</groupId>
+			<artifactId>VaultAPI</artifactId>
+			<version>1.7</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bukkit</groupId>
+					<artifactId>bukkit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- WorldGuard -->
 		<dependency>
 			<groupId>com.sk89q.worldguard</groupId>
 			<artifactId>worldguard-bukkit</artifactId>
-			<version>7.0.1</version>
+			<version>7.0.7</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bukkit</groupId>
+					<artifactId>bukkit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
+		<dependency>
+			<groupId>com.sk89q.worldedit</groupId>
+			<artifactId>worldedit-bukkit</artifactId>
+			<version>7.2.9</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bukkit</groupId>
+					<artifactId>bukkit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.22</version>
+			<version>1.18.26</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20220320</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>de.tr7zw</groupId>
-			<artifactId>item-nbt-api</artifactId>
-			<version>2.10.0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.9.0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>me.tongfei</groupId>
-			<artifactId>progressbar</artifactId>
-			<version>0.9.4</version>
 		</dependency>
 
 	</dependencies>
@@ -159,6 +209,7 @@
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 
+		<!-- Paper -->
 		<repository>
 			<id>papermc</id>
 			<url>https://papermc.io/repo/repository/maven-public/</url>
@@ -170,27 +221,30 @@
 			<url>https://maven.enginehub.org/repo/</url>
 		</repository>
 
-		<!--PlaceholdersAPI Repo -->
+		<!-- PlaceholdersAPI Repo -->
 		<repository>
 			<id>placeholderapi</id>
-			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+			<url>
+				https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 		</repository>
 
+		<!-- Central Repo -->
 		<repository>
 			<id>Maven Central</id>
 			<url>https://repo1.maven.org/maven2/</url>
 			<layout>default</layout>
+		</repository>
+		
+		<!-- EffectLib Repo -->
+		<repository>
+			<id>elMakers</id>
+			<url>http://maven.elmakers.com/repository/</url>
 		</repository>
 
 		<repository>
 			<id>codemc-repo</id>
 			<url>https://repo.codemc.org/repository/maven-public/</url>
 			<layout>default</layout>
-		</repository>
-
-		<repository>
-			<id>asl-repo</id>
-			<url>https://maven.zoommax.ru/maven</url>
 		</repository>
 
 		<repository>
