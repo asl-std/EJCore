@@ -10,7 +10,13 @@
 
 	<properties>
 		<releaseStatus>SNAPSHOT</releaseStatus>
+		<java.version>16</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<outputDirectory>C:\development\Plugin Test 1.18.1\plugins</outputDirectory>
+
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
 	<build>
@@ -36,67 +42,58 @@
 		<plugins>
 
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.4.1</version>
 				<configuration>
-					<source>16</source>
-					<target>16</target>
+					<minimizeJar>false</minimizeJar>
+					<dependencyReducedPomLocation>
+						${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+					<relocations>
+						<relocation>
+							<pattern>de.slikey</pattern>
+							<shadedPattern>org.aslstd.api.slikey</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>de.tr7zw</pattern>
+							<shadedPattern>org.aslstd.api.tr7zw</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>org.bstats</pattern>
+							<shadedPattern>org.aslstd.core.metrics</shadedPattern>
+						</relocation>
+					</relocations>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/maven/**</exclude>
+								<exclude>LICENSE</exclude>
+								<exclude>migrate.php</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<outputDirectory>${outputDirectory}</outputDirectory>
 				</configuration>
 			</plugin>
 
 		</plugins>
-
-		<pluginManagement>
-
-			<plugins>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.4.1</version>
-					<configuration>
-						<minimizeJar>false</minimizeJar>
-						<dependencyReducedPomLocation>
-							${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-						<relocations>
-							<relocation>
-								<pattern>de.slikey</pattern>
-								<shadedPattern>org.aslstd.api.slikey</shadedPattern>
-							</relocation>
-							<relocation>
-								<pattern>de.tr7zw</pattern>
-								<shadedPattern>org.aslstd.api.tr7zw</shadedPattern>
-							</relocation>
-							<relocation>
-								<pattern>org.bstats</pattern>
-								<shadedPattern>org.aslstd.core.metrics</shadedPattern>
-							</relocation>
-						</relocations>
-						<filters>
-							<filter>
-								<artifact>*:*</artifact>
-								<excludes>
-									<exclude>META-INF/maven/**</exclude>
-									<exclude>LICENSE</exclude>
-									<exclude>migrate.php</exclude>
-								</excludes>
-							</filter>
-						</filters>
-					</configuration>
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>shade</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-			</plugins>
-
-		</pluginManagement>
-
 
 	</build>
 
@@ -234,7 +231,7 @@
 			<url>https://repo1.maven.org/maven2/</url>
 			<layout>default</layout>
 		</repository>
-		
+
 		<!-- EffectLib Repo -->
 		<repository>
 			<id>elMakers</id>

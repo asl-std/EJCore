@@ -11,6 +11,16 @@ public class Area3D {
 		to = Vector3D.getMaximum(fPos, sPos);
 	}
 
+	public Area3D toOddRadius() {
+		final double xd = to.getX()-from.getX()%2;
+		final double zd = to.getZ()-from.getZ()%2;
+
+		if (xd < 1 || zd < 1)
+			to.add(xd < 1 ? 1 : 0, 0, zd < 1 ? 1 : 0);
+
+		return this;
+	}
+
 	public Vector3D getFirstPosition() { return from.clone(); }
 
 	public Vector3D getSecondPosition() { return to.clone(); }
