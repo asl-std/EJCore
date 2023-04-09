@@ -7,7 +7,6 @@ import org.aslstd.api.attributes.managers.WAttributes;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
-import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.core.Core;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -73,9 +72,8 @@ public final class PhysicalDamage extends BasicAttr implements ListeningCombat {
 
 		double summdmg = (fistDmg+statDmg+vanillaDmg);
 
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_15_2))
-			if (e.getAttacker().getType() == EntityType.PLAYER)
-				summdmg *= attacker.getPlayer().getAttackCooldown();
+		if (e.getAttacker().getType() == EntityType.PLAYER)
+			summdmg *= attacker.getPlayer().getAttackCooldown();
 
 		e.setDamage(summdmg*(1-0.00675*statDef/(1+0.00675*statDef)));
 	}
