@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.utils.BasicMetaAdapter;
 import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.Material;
@@ -76,6 +77,30 @@ public final class ItemStackUtil {
 		}
 
 		return ItemStackUtil.serialize(one).equals(ItemStackUtil.serialize(sec));
+	}
+
+	public static ItemStack compileStack(String stack) {
+		if (stack.toUpperCase().startsWith("SKULL")) {
+			return toSkull(stack);
+		} else
+			return toStack(stack);
+	}
+
+	public static ItemStack toSkull(String stack) {
+		final String[] params = stack.split("@");
+
+		if (params.length < 2)
+			EText.warn("&4Need to set skull owner: &5" + stack + "&4 template: SKULL@<skullUid/base64>@DisplayName@Lore;Lore;Lore");
+
+		ItemStack skull = SkullCreator.itemFromBase64(params[1]);
+
+		if (params.length >= 3)
+			skull = BasicMetaAdapter.setDisplayName(skull, params[2]);
+
+		if (params.length >= 4)
+			skull = BasicMetaAdapter.addLore(skull, params[3].split(";"));
+
+		return skull;
 	}
 
 	/**
@@ -254,21 +279,21 @@ public final class ItemStackUtil {
 		if (status == IStatus.HAS_META) return true;
 
 		switch (status) {
-		case HAS_DISPLAYNAME:
-			return stack.getItemMeta().hasDisplayName();
-		case HAS_DURABILITY:
-			return ItemStackUtil.hasDurability(stack.getType());
-		case HAS_ENCHANTS:
-			return stack.getItemMeta().hasEnchants();
-		case HAS_LORE:
-			return stack.getItemMeta().hasLore();
-		case IS_UNBREAKABLE:
-			if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_11_2))
-				return stack.getItemMeta().isUnbreakable();
-			//else
-			//return stack.getItemMeta().spigot().isUnbreakable();
-		default:
-			return false;
+			case HAS_DISPLAYNAME:
+				return stack.getItemMeta().hasDisplayName();
+			case HAS_DURABILITY:
+				return ItemStackUtil.hasDurability(stack.getType());
+			case HAS_ENCHANTS:
+				return stack.getItemMeta().hasEnchants();
+			case HAS_LORE:
+				return stack.getItemMeta().hasLore();
+			case IS_UNBREAKABLE:
+				if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_11_2))
+					return stack.getItemMeta().isUnbreakable();
+				//else
+				//return stack.getItemMeta().spigot().isUnbreakable();
+			default:
+				return false;
 		}
 	}
 
