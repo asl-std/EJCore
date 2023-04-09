@@ -40,31 +40,12 @@ public final class ServerVersion {
 	/** Constant <code>VER_1_18=11800</code> */
 	public static final int
 	/////////////////////// VERSION CONSTANS
-	VER_1_5_2	 = 1502 ,//
-	VER_1_6_2	 = 1602 ,//
-	VER_1_6_4	 = 1604 ,//
-	VER_1_7_2	 = 1702 ,//
-	VER_1_7_5	 = 1705 ,//
-	VER_1_7_8	 = 1708 ,//
-	VER_1_7_9	 = 1709 ,//
-	VER_1_8_0	 = 1800 ,//
-	VER_1_8_3	 = 1803 ,//
-	VER_1_8_8	 = 1808 ,//
-	VER_1_9_0	 = 1900 ,//
-	VER_1_10_2	 = 11002,//
-	VER_1_11_0	 = 11100,//
-	VER_1_11_1	 = 11101,//
-	VER_1_11_2	 = 11102,//
-	VER_1_12_2	 = 11202,//
-	VER_1_13	 = 11300,//
-	VER_1_14 	 = 11400,//
-	VER_1_14_4	 = 11404,//
-	VER_1_15	 = 11500,//
-	VER_1_15_2	 = 11502,//
+	LEGACY		 = 0,	 //
 	VER_1_16	 = 11600,//
 	VER_1_16_4	 = 11604,//
 	VER_1_17	 = 11700,//
-	VER_1_18	 = 11800;//
+	VER_1_18	 = 11800,//
+	VER_1_19	 = 11900;//
 	///////////////////////
 
 
@@ -91,18 +72,12 @@ public final class ServerVersion {
 			if (ServerVersion.VERSION == -1) try {
 				OfflinePlayer.class.getDeclaredMethod("getUniqueId");
 				ServerVersion.VERSION = 99999;
-			} catch (final Exception ex) { ServerVersion.VERSION = ServerVersion.VER_1_7_2; }
+			} catch (final Exception ex) { ServerVersion.VERSION = ServerVersion.LEGACY; }
 		}
 
 		EText.fine("&aServer version: &5'" + ServerVersion.TYPE + "-" + ServerVersion.VERSION + "'");
 	}
 
-	/**
-	 * <p>isUUID.</p>
-	 *
-	 * @return a boolean
-	 */
-	public static boolean isUUID() { return ServerVersion.isVersionAtLeast(ServerVersion.VER_1_7_5); }
 	/**
 	 * <p>isVersionAtLeast.</p>
 	 *

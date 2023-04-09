@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.utils.BasicMetaAdapter;
-import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -154,13 +153,7 @@ public final class ItemStackUtil {
 	 * @param damage a int
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */
-	@SuppressWarnings("deprecation")
 	public static ItemStack setDamage(ItemStack stack, int damage) {
-		if (ServerVersion.isVersionAtLeast(ServerVersion.VER_1_13)) {
-			stack.setDurability((short)damage);
-			return stack;
-		}
-
 		if (ItemStackUtil.hasDurability(stack.getType())) {
 
 			final ItemMeta itemMeta = stack.getItemMeta();
@@ -214,9 +207,6 @@ public final class ItemStackUtil {
 	 */
 	@SuppressWarnings("deprecation")
 	public static int getDamage(ItemStack stack) {
-		if (ServerVersion.isVersionAtLeast(ServerVersion.VER_1_13))
-			return stack.getDurability();
-
 		if (ItemStackUtil.hasDurability(stack.getType()))
 			return ((Damageable)stack.getItemMeta()).getDamage();
 		return 0;
@@ -288,10 +278,7 @@ public final class ItemStackUtil {
 			case HAS_LORE:
 				return stack.getItemMeta().hasLore();
 			case IS_UNBREAKABLE:
-				if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_11_2))
-					return stack.getItemMeta().isUnbreakable();
-				//else
-				//return stack.getItemMeta().spigot().isUnbreakable();
+				return stack.getItemMeta().isUnbreakable();
 			default:
 				return false;
 		}
@@ -308,8 +295,7 @@ public final class ItemStackUtil {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
 
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_14))
-			meta.setCustomModelData(data);
+		meta.setCustomModelData(data);
 
 		stack.setItemMeta(meta);
 		return stack;
@@ -326,10 +312,7 @@ public final class ItemStackUtil {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
 
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_11_2))
-			meta.setUnbreakable(arg);
-		//else
-		//meta.spigot().setUnbreakable(true);
+		meta.setUnbreakable(arg);
 
 		stack.setItemMeta(meta);
 
@@ -554,13 +537,8 @@ public final class ItemStackUtil {
 			if (opt0.length > 3)
 				try { custommodeldata = NumUtil.parseInteger(opt0[3]); } catch (final NumberFormatException e) { }
 
-			item = new ItemStack(mat, amount);
-			item = ItemStackUtil.setDamage(item, durability);
-			if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_14) && (custommodeldata != 0)) {
-				final ItemMeta meta = item.getItemMeta();
-				meta.setCustomModelData(custommodeldata);
-				item.setItemMeta(meta);
-			}
+			item = setDamage(new ItemStack(mat, amount), durability);
+			item = custommodeldata <= 0 ? item : setCustomModelData(item, custommodeldata);
 		}
 		if (item == null)
 			return new ItemStack(Material.AIR, 0);

@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.aslstd.api.bukkit.location.Vector3D;
-import org.aslstd.api.bukkit.redstone.impl.RedstoneParts1_12;
 import org.aslstd.api.bukkit.redstone.impl.RedstoneParts1_13;
-import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -25,10 +23,7 @@ public abstract class RedstoneParts {
 	@Getter private static RedstoneParts redstoneParts;
 
 	public static final void init() {
-		if (ServerVersion.isVersionAtMost(ServerVersion.VER_1_13))
-			redstoneParts = new RedstoneParts1_13();
-		else
-			redstoneParts = new RedstoneParts1_12();
+		redstoneParts = new RedstoneParts1_13();
 	}
 
 	/**
@@ -155,11 +150,11 @@ public abstract class RedstoneParts {
 		private PressurePlate() {}
 
 		private static final Vector3D[] vectors = {
-				new Vector3D(-1, -1, 0),
-				new Vector3D(1, -1, 0),
-				new Vector3D(0, -1, 1),
-				new Vector3D(0, -1, -1),
-				new Vector3D(0, -2, 0)
+		                                           new Vector3D(-1, -1, 0),
+		                                           new Vector3D(1, -1, 0),
+		                                           new Vector3D(0, -1, 1),
+		                                           new Vector3D(0, -1, -1),
+		                                           new Vector3D(0, -2, 0)
 		};
 
 		public static List<Block> getBlocks(Block from) {
@@ -181,11 +176,11 @@ public abstract class RedstoneParts {
 		private RedstoneWire() {}
 
 		private static final Vector3D[] vectors = {
-				new Vector3D(-1, -1, 0),
-				new Vector3D(1, -1, 0),
-				new Vector3D(0, -1, 1),
-				new Vector3D(0, -1, -1),
-				new Vector3D(0, -2, 0)
+		                                           new Vector3D(-1, -1, 0),
+		                                           new Vector3D(1, -1, 0),
+		                                           new Vector3D(0, -1, 1),
+		                                           new Vector3D(0, -1, -1),
+		                                           new Vector3D(0, -2, 0)
 		};
 
 		public static List<Block> getBlocks(Block from) {
@@ -207,12 +202,12 @@ public abstract class RedstoneParts {
 		private FloorRedstoneTorch() {}
 
 		private static final Vector3D[] vectors = {
-				new Vector3D(1, 0, 0),
-				new Vector3D(-1, 0, 0),
-				new Vector3D(0, 1, 0),
-				new Vector3D(0, -1, 0),
-				new Vector3D(0, 0, 1),
-				new Vector3D(0, 0, -1),
+		                                           new Vector3D(1, 0, 0),
+		                                           new Vector3D(-1, 0, 0),
+		                                           new Vector3D(0, 1, 0),
+		                                           new Vector3D(0, -1, 0),
+		                                           new Vector3D(0, 0, 1),
+		                                           new Vector3D(0, 0, -1),
 		};
 
 		public static List<Block> getBlocks(Block from, boolean isTorch) {

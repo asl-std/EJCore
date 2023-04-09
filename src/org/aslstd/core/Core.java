@@ -20,7 +20,6 @@ import org.aslstd.core.configs.LangConfig;
 import org.aslstd.core.expansion.DataExpansion;
 import org.aslstd.core.listeners.CombatListener;
 import org.aslstd.core.listeners.EquipListener;
-import org.aslstd.core.listeners.EquipListener1_13;
 import org.aslstd.core.listeners.PaneInteractListener;
 import org.aslstd.core.listeners.PlayerListener;
 import org.aslstd.core.listeners.RegisterEventListener;
@@ -47,19 +46,19 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 public class Core extends EJPlugin {
 
 	public static final String[] ANCIITAG = {
-			"&4#####################################################################",
-			"&5",
-			"&5   ▄██████▄ &5       ▄█&4  ▄██████▄   ▄██████▄     ▄███████▄    ▄██████▄  ",
-			"&5  ███▀  ▀███&5      ███&4 ███▀  ▀███ ███▀  ▀███   ███▀  ▀███   ███▀  ▀███ ",
-			"&5  ███    █▀ &5      ███&4 ███    █▀  ███    ███   ███    ███   ███    █▀  ",
-			"&5 ▄███▄▄▄    &5      ███&4 ███        ███    ███  ▄███▄▄▄▄███  ▄███▄▄▄     ",
-			"&5▀▀███▀▀     &5      ███&4 ███        ███    ███ ▀▀███▀▀▀▀▀▀  ▀▀███▀▀      ",
-			"&5  ███    █▄ &5      ███&4 ███    █▄  ███    ███ ▀█████████▄    ███    █▄  ",
-			"&5  ███▄  ▄███&5 ██▄ ▄███&4 ███    ███ ███▄  ▄███   ███▀  ▀███   ███▄  ▄███ ",
-			"&5 █████████▀ &5  ▀████▀ &4  ▀██████▀   ▀██████▀    ███    ███    ▀██████▀  ",
-			"&5",
-			"&b         OUR DISCORD CHANNEL:  HTTPS://DISCORD.GG/4NVRjHrcxM         ",
-			"&4#####################################################################", };
+	                                         "&4#####################################################################",
+	                                         "&5",
+	                                         "&5   ▄██████▄ &5       ▄█&4  ▄██████▄   ▄██████▄     ▄███████▄    ▄██████▄  ",
+	                                         "&5  ███▀  ▀███&5      ███&4 ███▀  ▀███ ███▀  ▀███   ███▀  ▀███   ███▀  ▀███ ",
+	                                         "&5  ███    █▀ &5      ███&4 ███    █▀  ███    ███   ███    ███   ███    █▀  ",
+	                                         "&5 ▄███▄▄▄    &5      ███&4 ███        ███    ███  ▄███▄▄▄▄███  ▄███▄▄▄     ",
+	                                         "&5▀▀███▀▀     &5      ███&4 ███        ███    ███ ▀▀███▀▀▀▀▀▀  ▀▀███▀▀      ",
+	                                         "&5  ███    █▄ &5      ███&4 ███    █▄  ███    ███ ▀█████████▄    ███    █▄  ",
+	                                         "&5  ███▄  ▄███&5 ██▄ ▄███&4 ███    ███ ███▄  ▄███   ███▀  ▀███   ███▄  ▄███ ",
+	                                         "&5 █████████▀ &5  ▀████▀ &4  ▀██████▀   ▀██████▀    ███    ███    ▀██████▀  ",
+	                                         "&5",
+	                                         "&b         OUR DISCORD CHANNEL:  HTTPS://DISCORD.GG/4NVRjHrcxM         ",
+	                                         "&4#####################################################################", };
 
 	@Getter private static EConfig cfg;
 	@Getter private static LangConfig lang;
@@ -120,7 +119,6 @@ public class Core extends EJPlugin {
 		RegisterEventListener.register("paneInteract", new PaneInteractListener());
 		RegisterEventListener.register("combatEventCustom", new CombatListener());
 		RegisterEventListener.register("equip", new EquipListener());
-		RegisterEventListener.register("equip_1_13", new EquipListener1_13(), ServerVersion.isVersionAtMost(ServerVersion.VER_1_13));
 
 		handler = new CoreCommandHandler().registerHandler();
 
