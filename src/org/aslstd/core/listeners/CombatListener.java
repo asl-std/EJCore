@@ -8,11 +8,12 @@ import org.aslstd.api.attributes.managers.WAttributes;
 import org.aslstd.api.bukkit.events.combat.CombatEvent;
 import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
 import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
+import org.aslstd.api.ejcore.plugin.BukkitListener;
+import org.aslstd.api.ejcore.plugin.Named;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -22,7 +23,8 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class CombatListener implements Listener {
+@Named(key = "combatEventCustom")
+public class CombatListener implements BukkitListener {
 
 	/**
 	 * <p>throwCombatEvent.</p>

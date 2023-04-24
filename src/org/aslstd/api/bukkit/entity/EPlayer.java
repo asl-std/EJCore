@@ -12,7 +12,7 @@ import org.aslstd.api.attributes.managers.WAttributes;
 import org.aslstd.api.bukkit.entity.pick.UPlayer;
 import org.aslstd.api.bukkit.equip.EquipInventory;
 import org.aslstd.api.bukkit.equip.EquipSlot;
-import org.aslstd.api.bukkit.events.EPlayerRegisteredEvent;
+import org.aslstd.api.bukkit.events.register.EPlayerRegisteredEvent;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
 import org.aslstd.api.bukkit.settings.DoubleSettings;
 import org.aslstd.api.bukkit.settings.StringSettings;

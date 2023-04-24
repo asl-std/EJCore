@@ -26,6 +26,8 @@ import org.aslstd.core.listeners.RegisterEventListener;
 import org.aslstd.core.listeners.temp.CancelJoinBeforeFullLoading;
 import org.aslstd.core.managers.ModuleManager;
 import org.aslstd.core.managers.Tests;
+import org.aslstd.core.service.ListenerRegistrator;
+import org.aslstd.core.service.ListenerRegistrator.Collector;
 import org.aslstd.core.tasks.InitialiseEJPluginsTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -45,20 +47,21 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
  */
 public class Core extends EJPlugin {
 
-	public static final String[] ANCIITAG = {
-	                                         "&4#####################################################################",
-	                                         "&5",
-	                                         "&5   ▄██████▄ &5       ▄█&4  ▄██████▄   ▄██████▄     ▄███████▄    ▄██████▄  ",
-	                                         "&5  ███▀  ▀███&5      ███&4 ███▀  ▀███ ███▀  ▀███   ███▀  ▀███   ███▀  ▀███ ",
-	                                         "&5  ███    █▀ &5      ███&4 ███    █▀  ███    ███   ███    ███   ███    █▀  ",
-	                                         "&5 ▄███▄▄▄    &5      ███&4 ███        ███    ███  ▄███▄▄▄▄███  ▄███▄▄▄     ",
-	                                         "&5▀▀███▀▀     &5      ███&4 ███        ███    ███ ▀▀███▀▀▀▀▀▀  ▀▀███▀▀      ",
-	                                         "&5  ███    █▄ &5      ███&4 ███    █▄  ███    ███ ▀█████████▄    ███    █▄  ",
-	                                         "&5  ███▄  ▄███&5 ██▄ ▄███&4 ███    ███ ███▄  ▄███   ███▀  ▀███   ███▄  ▄███ ",
-	                                         "&5 █████████▀ &5  ▀████▀ &4  ▀██████▀   ▀██████▀    ███    ███    ▀██████▀  ",
-	                                         "&5",
-	                                         "&b         OUR DISCORD CHANNEL:  HTTPS://DISCORD.GG/4NVRjHrcxM         ",
-	                                         "&4#####################################################################", };
+	public static final String[]
+			ANCIITAG = {
+			            "&4#####################################################################",
+			            "&5",
+			            "&5   ▄██████▄ &5       ▄█&4  ▄██████▄   ▄██████▄     ▄███████▄    ▄██████▄  ",
+			            "&5  ███▀  ▀███&5      ███&4 ███▀  ▀███ ███▀  ▀███   ███▀  ▀███   ███▀  ▀███ ",
+			            "&5  ███    █▀ &5      ███&4 ███    █▀  ███    ███   ███    ███   ███    █▀  ",
+			            "&5 ▄███▄▄▄    &5      ███&4 ███        ███    ███  ▄███▄▄▄▄███  ▄███▄▄▄     ",
+			            "&5▀▀███▀▀     &5      ███&4 ███        ███    ███ ▀▀███▀▀▀▀▀▀  ▀▀███▀▀      ",
+			            "&5  ███    █▄ &5      ███&4 ███    █▄  ███    ███ ▀█████████▄    ███    █▄  ",
+			            "&5  ███▄  ▄███&5 ██▄ ▄███&4 ███    ███ ███▄  ▄███   ███▀  ▀███   ███▄  ▄███ ",
+			            "&5 █████████▀ &5  ▀████▀ &4  ▀██████▀   ▀██████▀    ███    ███    ▀██████▀  ",
+			            "&5",
+			            "&b         OUR DISCORD CHANNEL:  HTTPS://DISCORD.GG/4NVRjHrcxM         ",
+			            "&4#####################################################################", };
 
 	@Getter private static EConfig cfg;
 	@Getter private static LangConfig lang;
@@ -115,10 +118,7 @@ public class Core extends EJPlugin {
 			EText.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
 
 		Tests.start();
-		RegisterEventListener.register("playerJoin", new PlayerListener());
-		RegisterEventListener.register("paneInteract", new PaneInteractListener());
-		RegisterEventListener.register("combatEventCustom", new CombatListener());
-		RegisterEventListener.register("equip", new EquipListener());
+		Collector.forPlugin(this).collect(new PlayerListener(), new PaneInteractListener(), new CombatListener(), new EquipListener());
 
 		handler = new CoreCommandHandler().registerHandler();
 
@@ -134,6 +134,7 @@ public class Core extends EJPlugin {
 		} else {
 			ModuleManager.enableModules();
 			RegisterEventListener.getListenerManager().register();
+			ListenerRegistrator.register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
 
@@ -148,6 +149,7 @@ public class Core extends EJPlugin {
 	public void disabling() {
 		Bukkit.getOnlinePlayers().forEach(EPlayer::unregister);
 		RegisterEventListener.getListenerManager().unregisterAll();
+		ListenerRegistrator.unregister();
 		workers.shutdown();
 	}
 

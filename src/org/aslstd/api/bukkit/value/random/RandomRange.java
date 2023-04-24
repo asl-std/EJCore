@@ -4,7 +4,6 @@ import java.util.Random;
 
 import org.aslstd.api.bukkit.value.ModifierType;
 import org.aslstd.api.bukkit.value.Value;
-import org.aslstd.api.bukkit.value.util.ValueParser;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 
 import lombok.Getter;
@@ -64,7 +63,7 @@ public class RandomRange implements RandomVal {
 	/** {@inheritDoc} */
 	@Override
 	public Value roll(double lvl) {
-		if (!ValueParser.isTrue(chance, 100)) return null;
+		if (!NumUtil.isTrue(chance, 100)) return null;
 		else {
 
 			String[] split;
@@ -91,16 +90,16 @@ public class RandomRange implements RandomVal {
 			final String value = roll(fRangeFValue, sRangeFValue, factor) + "-" + roll(fRangeSValue, sRangeSValue, factor);
 
 			switch(type) {
-			case NEGATIVE:
-				return new Value("-" + value, type);
-			case NEGATIVE_PERCENTS:
-				return new Value("-" + value + "%", type);
-			case POSITIVE:
-				return new Value("+" + value, type);
-			case POSITIVE_PERCENTS:
-				return new Value("+" + value + "%", type);
-			default:
-				return new Value(value, type);
+				case NEGATIVE:
+					return new Value("-" + value, type);
+				case NEGATIVE_PERCENTS:
+					return new Value("-" + value + "%", type);
+				case POSITIVE:
+					return new Value("+" + value, type);
+				case POSITIVE_PERCENTS:
+					return new Value("+" + value + "%", type);
+				default:
+					return new Value(value, type);
 			}
 		}
 	}

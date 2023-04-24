@@ -5,12 +5,13 @@ import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.events.equipment.EquipChangeEvent;
 import org.aslstd.api.bukkit.events.player.PlayerBlockMoveEvent;
 import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.ejcore.plugin.BukkitListener;
+import org.aslstd.api.ejcore.plugin.Named;
 import org.aslstd.core.Core;
 import org.aslstd.core.update.EJUpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,7 +23,8 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class PlayerListener implements Listener {
+@Named(key = "playerJoin")
+public class PlayerListener implements BukkitListener {
 
 	/**
 	 * <p>registerEPlayer.</p>

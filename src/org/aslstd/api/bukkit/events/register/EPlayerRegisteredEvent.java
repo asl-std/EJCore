@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.events;
+package org.aslstd.api.bukkit.events.register;
 
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.bukkit.event.Event;

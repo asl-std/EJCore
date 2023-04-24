@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 
 import lombok.Getter;
 
+@Deprecated(since = "1.2.19", forRemoval = true)
 public class ListenerManager {
 
 	private static HashMap<String, Listener> listeners  = new HashMap<>();

@@ -38,6 +38,16 @@ public class NumUtil {
 		}
 	}
 
+	public static boolean isNumberDistance(String value) {
+		if (value.contains("-")) {
+			final String[] s = value.split("-");
+			if (s.length <= 1 || s.length > 2) return false;
+
+			return isNumber(s[0]) && isNumber(s[1]);
+		} else
+			return isNumber(value);
+	}
+
 	/**
 	 * <p>isTrue.</p>
 	 *

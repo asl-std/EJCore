@@ -3,6 +3,8 @@ package org.aslstd.core.listeners;
 import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.events.equipment.EquipChangeEvent;
+import org.aslstd.api.ejcore.plugin.BukkitListener;
+import org.aslstd.api.ejcore.plugin.Named;
 import org.aslstd.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDispenseArmorEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
@@ -32,7 +33,8 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class EquipListener implements Listener {
+@Named(key = "equip")
+public class EquipListener implements BukkitListener {
 
 	/**
 	 * <p>inventoryClick.</p>

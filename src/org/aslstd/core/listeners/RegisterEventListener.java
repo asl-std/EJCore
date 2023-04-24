@@ -13,6 +13,7 @@ import lombok.Setter;
  * @author ZooMMaX
  * @version 1.2.17
  */
+@Deprecated(since = "1.2.19", forRemoval = true)
 public class RegisterEventListener {
 	@Getter @Setter private static ListenerManager listenerManager = null;
 

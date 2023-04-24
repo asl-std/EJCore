@@ -1,6 +1,8 @@
 package org.aslstd.core.listeners;
 
 import org.aslstd.api.bukkit.items.InventoryUtil;
+import org.aslstd.api.ejcore.plugin.BukkitListener;
+import org.aslstd.api.ejcore.plugin.Named;
 import org.aslstd.api.inventory.Chest;
 import org.aslstd.api.inventory.Pane;
 import org.aslstd.core.Core;
@@ -8,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -22,7 +23,8 @@ import org.bukkit.inventory.PlayerInventory;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class PaneInteractListener implements Listener {
+@Named(key = "paneInteract")
+public class PaneInteractListener implements BukkitListener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPaneClick(InventoryClickEvent event) {

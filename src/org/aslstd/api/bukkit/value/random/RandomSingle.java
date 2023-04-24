@@ -3,7 +3,6 @@ package org.aslstd.api.bukkit.value.random;
 import org.aslstd.api.bukkit.value.ModifierType;
 import org.aslstd.api.bukkit.value.Value;
 import org.aslstd.api.bukkit.value.util.MathUtil;
-import org.aslstd.api.bukkit.value.util.ValueParser;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 
 import lombok.Getter;
@@ -55,7 +54,7 @@ public class RandomSingle implements RandomVal {
 	/** {@inheritDoc} */
 	@Override
 	public Value roll(double lvl) {
-		if (!ValueParser.isTrue(chance*10, 1000) && hasChance) return null;
+		if (!NumUtil.isTrue(chance*10, 1000) && hasChance) return null;
 		else {
 			final Value result = new Value();
 			if (lvl < 1) lvl = 1;

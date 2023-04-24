@@ -16,12 +16,7 @@ public class MathUtil {
 	 * @return a boolean
 	 */
 	public static boolean randomBoolean() {
-		final int rnd = new Random().nextInt(100);
-
-		if (rnd > 50)
-			return true;
-		else
-			return false;
+		return new Random().nextDouble() > .5D;
 	}
 
 	/**

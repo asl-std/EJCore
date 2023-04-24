@@ -1,6 +1,5 @@
 package org.aslstd.api.bukkit.value.util;
 
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,18 +82,6 @@ public class ValueParser {
 		final RandomRange result = new RandomRange(chance, firstValue, secondValue, perLevelValue, ModifierType.getFromValue(firstValue));
 
 		return result;
-	}
-
-	/**
-	 * <p>isTrue.</p>
-	 *
-	 * @param value a double
-	 * @param to a int
-	 * @return a boolean
-	 */
-	public static boolean isTrue(double value, int to) {
-		final int b = new Random().nextInt(to);
-		return value >= b;
 	}
 
 }
