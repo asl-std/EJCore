@@ -13,7 +13,7 @@
 		<java.version>16</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<outputDirectory>C:\development\Plugin Test 1.18.1\plugins</outputDirectory>
+		<outputDirectory>C:\development\Plugin Test 1.18.1\plugins</outputDirectory> <!-- gitignore -->
 
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
