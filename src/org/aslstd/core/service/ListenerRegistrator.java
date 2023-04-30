@@ -9,16 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
+import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.value.Pair;
 import org.aslstd.api.ejcore.plugin.BukkitListener;
 import org.aslstd.api.ejcore.plugin.Named;
+import org.aslstd.api.ejcore.util.Obj;
+import org.aslstd.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @AvailableSince(value = "1.2.19")
 public class ListenerRegistrator {
@@ -31,11 +33,13 @@ public class ListenerRegistrator {
 	}
 
 	public static void register(@NotNull String key) {
+		Obj.checkNull(key);
 		if (listeners.containsKey(key))
 			register(listeners.get(key));
 	}
 
 	public static void register(@NotNull Plugin plugin) {
+		Obj.checkNull(plugin);
 		for (final Entry<String, Pair<BukkitListener,Plugin>> entry : listeners.entrySet())
 			if (entry.getValue().getSecond().equals(plugin))
 				register(entry.getValue());
@@ -47,17 +51,20 @@ public class ListenerRegistrator {
 	}
 
 	public static void unregister(@NotNull String key) {
+		Obj.checkNull(key);
 		if (listeners.containsKey(key))
 			unregister(listeners.get(key));
 	}
 
 	public static void unregister(@NotNull Plugin plugin) {
+		Obj.checkNull(plugin);
 		for (final Entry<String, Pair<BukkitListener,Plugin>> entry : listeners.entrySet())
 			if (entry.getValue().getSecond().equals(plugin))
 				unregister(entry.getValue());
 	}
 
-	public static @NotNull String add(@NotNull BukkitListener listener, @NotNull Plugin plugin) {
+	public static @Nullable String add(@NotNull BukkitListener listener, @NotNull Plugin plugin) {
+		Obj.checkNull("listener and plugin cannot be a null", listener, plugin);
 		final Named name = listener.getClass().getAnnotation(Named.class);
 		String keyName = null;
 		if (name.key().equalsIgnoreCase(""))
@@ -71,19 +78,23 @@ public class ListenerRegistrator {
 	}
 
 	public static @Nullable Pair<BukkitListener,Plugin> remove(@NotNull String key) {
+		Obj.checkNull(key);
 		if (listeners.containsKey(key))
 			return listeners.remove(key);
 		return null;
 	}
 
 	public static void remove(@NotNull Plugin plugin) {
+		Obj.checkNull(plugin);
 		for (final Entry<String, Pair<BukkitListener,Plugin>> entry : listeners.entrySet())
 			if (entry.getValue().getSecond().equals(plugin))
 				listeners.remove(entry.getKey());
 	}
 
-	private static void register(Pair<BukkitListener,Plugin> pair) {
+	private static void register(@NotNull Pair<BukkitListener,Plugin> pair) {
 		Bukkit.getPluginManager().registerEvents(pair.getFirst(), pair.getSecond());
+		if (Core.getCfg().DEBUG_RUNNING)
+			EText.debug("Loaded listener: " + pair.getFirst().getClass().getName());
 	}
 
 	private static void unregister(Pair<BukkitListener,Plugin> pair) {

@@ -101,6 +101,7 @@ public class Core extends EJPlugin {
 		playerDatabase = PlayerDatabase.createDatabase(this);
 
 		new Metrics(instance, 2908);
+
 		RegisterEventListener.init(this);
 		RedstoneParts.init();
 
@@ -118,7 +119,7 @@ public class Core extends EJPlugin {
 			EText.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
 
 		Tests.start();
-		Collector.forPlugin(this).collect(new PlayerListener(), new PaneInteractListener(), new CombatListener(), new EquipListener());
+		Collector.forPlugin(this).collect(new PlayerListener(), new PaneInteractListener(), new CombatListener(), new EquipListener()).push();
 
 		handler = new CoreCommandHandler().registerHandler();
 

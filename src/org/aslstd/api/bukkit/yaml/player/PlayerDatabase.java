@@ -6,8 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.ejcore.util.Obj;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import lombok.Getter;
 
@@ -15,10 +17,9 @@ public class PlayerDatabase {
 
 	@Getter private static final ConcurrentMap<String, PlayerDatabase> databases = new ConcurrentHashMap<>();
 
-	private static boolean lock;
 
-	public static PlayerDatabase createDatabase(JavaPlugin plugin) {
-		if (lock) return null;
+	public static @NotNull PlayerDatabase createDatabase(@NotNull JavaPlugin plugin) {
+		Obj.checkNull(plugin);
 
 		if (databases.containsKey(plugin.getName()))
 			return databases.get(plugin.getName());
@@ -27,10 +28,6 @@ public class PlayerDatabase {
 			databases.put(plugin.getName(), db);
 			return db;
 		}
-	}
-
-	public static void lock() {
-		lock = true;
 	}
 
 	private JavaPlugin plugin;
@@ -62,7 +59,8 @@ public class PlayerDatabase {
 		}
 	}
 
-	public YAML getPlayerFile(OfflinePlayer player) {
+	public @NotNull YAML getPlayerFile(@NotNull OfflinePlayer player) {
+		Obj.checkNull(player);
 		YAML pfile = database.get(player.getUniqueId());
 
 		if (pfile == null)

@@ -8,6 +8,7 @@ import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.aslstd.core.listeners.RegisterEventListener;
 import org.aslstd.core.listeners.temp.CancelJoinBeforeFullLoading;
 import org.aslstd.core.managers.ModuleManager;
+import org.aslstd.core.service.ListenerRegistrator;
 import org.aslstd.core.update.CheckUpdateTask;
 import org.aslstd.core.update.EJUpdateChecker;
 import org.bukkit.Bukkit;
@@ -42,6 +43,7 @@ public class InitialiseEJPluginsTask extends BukkitRunnable {
 		ModuleManager.enableModules();
 
 		RegisterEventListener.getListenerManager().register();
+		ListenerRegistrator.register();
 
 		final long aft = System.nanoTime();
 		EText.fine("&aAll EJPlugins succesfuly loaded in " + EText.format((aft-bef)/1e9) +" sec.");
