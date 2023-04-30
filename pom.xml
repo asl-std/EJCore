@@ -99,11 +99,17 @@
 
 	<dependencies>
 
-		<!-- Compile Project: EffectLib -->
+		<!-- Compile Project: EffectLib 
 		<dependency>
 			<groupId>com.elmakers.mine.bukkit</groupId>
 			<artifactId>EffectLib</artifactId>
-			<version>10.2-SNAPSHOT</version>
+		<version>10.2-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency> -->
+		<dependency>
+			<groupId>com.elmakers.mine.bukkit.effects</groupId>
+			<artifactId>EffectLib</artifactId>
+			<version>10.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -160,7 +166,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
