@@ -8,20 +8,20 @@ import static org.aslstd.api.expression.EnumBinaryOperation.levels;
 import org.aslstd.api.expression.CommonExpression;
 import org.aslstd.api.expression.EnumBinaryOperation;
 import org.aslstd.api.expression.Expression;
-import org.aslstd.api.expression.exceptions.IllegalOperatorException;
-import org.aslstd.api.expression.exceptions.MismatchArgumentException;
-import org.aslstd.api.expression.exceptions.ParsingException;
-import org.aslstd.api.expression.exceptions.UnexpectedSymbolException;
-import org.aslstd.api.expression.operations.Add;
-import org.aslstd.api.expression.operations.Const;
-import org.aslstd.api.expression.operations.Divide;
-import org.aslstd.api.expression.operations.Log;
-import org.aslstd.api.expression.operations.Mod;
-import org.aslstd.api.expression.operations.Multiply;
-import org.aslstd.api.expression.operations.Negate;
-import org.aslstd.api.expression.operations.Pow;
-import org.aslstd.api.expression.operations.Subtract;
-import org.aslstd.api.expression.operations.Variable;
+import org.aslstd.api.expression.exception.IllegalOperatorException;
+import org.aslstd.api.expression.exception.MismatchArgumentException;
+import org.aslstd.api.expression.exception.ParsingException;
+import org.aslstd.api.expression.exception.UnexpectedSymbolException;
+import org.aslstd.api.expression.operation.Add;
+import org.aslstd.api.expression.operation.Const;
+import org.aslstd.api.expression.operation.Divide;
+import org.aslstd.api.expression.operation.Log;
+import org.aslstd.api.expression.operation.Mod;
+import org.aslstd.api.expression.operation.Multiply;
+import org.aslstd.api.expression.operation.Negate;
+import org.aslstd.api.expression.operation.Pow;
+import org.aslstd.api.expression.operation.Subtract;
+import org.aslstd.api.expression.operation.Variable;
 
 /**
  * <p>ExpressionParser class.</p>

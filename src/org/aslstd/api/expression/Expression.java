@@ -2,8 +2,8 @@ package org.aslstd.api.expression;
 
 import java.util.List;
 
-import org.aslstd.api.expression.exceptions.DivideByZeroException;
-import org.aslstd.api.expression.exceptions.OverflowException;
+import org.aslstd.api.expression.exception.DivideByZeroException;
+import org.aslstd.api.expression.exception.OverflowException;
 
 /**
  * <p>Expression interface.</p>
@@ -17,9 +17,9 @@ public interface Expression extends ToMiniString {
 	 *
 	 * @param args a double
 	 * @return a double
-	 * @throws org.aslstd.api.expression.exceptions.OverflowException if any.
-	 * @throws org.aslstd.api.expression.exceptions.DivideByZeroException if any.
-	 * @throws org.aslstd.api.expression.exceptions.ParsingException if any.
+	 * @throws org.aslstd.api.expression.exception.OverflowException if any.
+	 * @throws org.aslstd.api.expression.exception.DivideByZeroException if any.
+	 * @throws org.aslstd.api.expression.exception.ParsingException if any.
 	 */
 	double evaluate(double ...args) throws OverflowException, DivideByZeroException;
 	/**

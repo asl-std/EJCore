@@ -1,7 +1,9 @@
 package org.aslstd.api.bukkit.value;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -10,11 +12,29 @@ import lombok.Setter;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class ValuePair<T> {
 
-	@Getter @Setter public String key;
+	@Getter @Setter @NonNull public String key;
 
-	@Getter @Setter public T first, second;
+	@Getter @Setter public ModifierType type = ModifierType.POSITIVE;
+
+	@Getter @Setter @NonNull public T first, second;
+
+	public ValuePair<T> swap() {
+		final T cache = first;
+		first = second;
+		second = cache;
+		return this;
+	}
+
+	public static <V> ValuePair<V> of(V first, V second) {
+		return new ValuePair<>(null, first, second);
+	}
+
+	public static <V> ValuePair<V> of(String key, V first, V second) {
+		return new ValuePair<>(key, first, second);
+	}
 
 }

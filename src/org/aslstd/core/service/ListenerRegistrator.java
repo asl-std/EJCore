@@ -93,7 +93,7 @@ public class ListenerRegistrator {
 
 	private static void register(@NotNull Pair<BukkitListener,Plugin> pair) {
 		Bukkit.getPluginManager().registerEvents(pair.getFirst(), pair.getSecond());
-		if (Core.getCfg().DEBUG_RUNNING)
+		if (Core.config().DEBUG_RUNNING)
 			EText.debug("Loaded listener: " + pair.getFirst().getClass().getName());
 	}
 

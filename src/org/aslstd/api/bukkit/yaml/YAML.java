@@ -23,16 +23,16 @@ import lombok.Getter;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public class YAML {
+public class Yaml {
 
-	@Getter private static final YAML mainConfig;
+	@Getter private static final Yaml mainConfig;
 
 	static {
 
 		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");
 
 		if (plugin != null)
-			mainConfig = new YAML("plugins/ejCore/config.yml");
+			mainConfig = new Yaml("plugins/ejCore/config.yml");
 		else
 			mainConfig = null;
 	}
@@ -47,7 +47,7 @@ public class YAML {
 	 * @param plugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
 	 * @param extendedPath a {@link java.lang.String} object
 	 */
-	public YAML(File file, JavaPlugin plugin, String extendedPath) {
+	public Yaml(File file, JavaPlugin plugin, String extendedPath) {
 		this.file = file;
 		try {
 			if (fileExists())
@@ -83,21 +83,21 @@ public class YAML {
 	 * @param path a {@link java.lang.String} object
 	 * @param plugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
 	 */
-	public YAML(String path, JavaPlugin plugin) { this(new File(path), plugin, null); }
+	public Yaml(String path, JavaPlugin plugin) { this(new File(path), plugin, null); }
 
 	/**
 	 * <p>Constructor for YAML.</p>
 	 *
 	 * @param path a {@link java.lang.String} object
 	 */
-	public YAML(String path) { this(new File(path), null, null); }
+	public Yaml(String path) { this(new File(path), null, null); }
 
 	/**
 	 * <p>Constructor for YAML.</p>
 	 *
 	 * @param file a {@link java.io.File} object
 	 */
-	public YAML(File file) { this(file, null, null); }
+	public Yaml(File file) { this(file, null, null); }
 
 	/**
 	 * <p>contains.</p>
@@ -404,8 +404,8 @@ public class YAML {
 	 * @param path - a file name without file extension.
 	 * @return YAML - a file from "plugins/ejCore/data/<b>path</b>.yml
 	 */
-	public static YAML getCustomStorage(String path) {
-		return new YAML(new File("plugins/ejCore/data/" + path + ".yml"));
+	public static Yaml getCustomStorage(String path) {
+		return new Yaml(new File("plugins/ejCore/data/" + path + ".yml"));
 	}
 
 	/**
@@ -413,8 +413,8 @@ public class YAML {
 	 * @param plugin - a plugin what used for data folder
 	 * @return YAML - a file from "plugins/plugin.getDataFolder()/path"
 	 */
-	public static YAML of(String path, JavaPlugin plugin) {
-		return new YAML(plugin.getDataFolder() + "/" + path, plugin);
+	public static Yaml of(String path, JavaPlugin plugin) {
+		return new Yaml(plugin.getDataFolder() + "/" + path, plugin);
 	}
 
 	/**
@@ -423,13 +423,13 @@ public class YAML {
 	 * @return a file from "plugins/ejCore/path" if ejCore is enabled<br>
 	 * otherwise returns new YAML(path)
 	 */
-	public static YAML of(String path) {
+	public static Yaml of(String path) {
 		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");
 
 		if (plugin != null && plugin.isEnabled())
 			return of(path, plugin);
 		else
-			return new YAML(path);
+			return new Yaml(path);
 	}
 
 	/**

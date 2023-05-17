@@ -12,7 +12,7 @@ import org.aslstd.api.bukkit.command.interfaze.CommandHandler;
 import org.aslstd.api.bukkit.command.interfaze.ECommand;
 import org.aslstd.api.bukkit.command.interfaze.SenderType;
 import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -41,7 +41,7 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 	@Getter private ECommand defaultCommand;
 
-	@Getter protected YAML cmdFile;
+	@Getter protected Yaml cmdFile;
 	@Getter private String label;
 	protected JavaPlugin plugin;
 
@@ -53,7 +53,7 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 	 */
 	public BasicCommandHandler(JavaPlugin plugin, String label) {
 		this.plugin = plugin;
-		cmdFile = new YAML(plugin.getDataFolder() + "/commands.yml", plugin);
+		cmdFile = new Yaml(plugin.getDataFolder() + "/commands.yml", plugin);
 		this.label = label; //cmdFile.getString("main-label", label, true);
 	}
 

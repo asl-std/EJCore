@@ -2,7 +2,7 @@ package org.aslstd.api.ejcore.module;
 
 import java.util.List;
 
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 import org.aslstd.api.ejcore.plugin.EJPlugin;
 import org.aslstd.core.Core;
 
@@ -20,39 +20,39 @@ public interface EJModule {
 	/**
 	 * <p>getModuleConfig.</p>
 	 *
-	 * @return a {@link ru.aslcraft.api.ejcore.yaml.YAML} object
+	 * @return a {@link Yaml.aslcraft.api.ejcore.yaml.YAML} object
 	 */
-	YAML getModuleConfig();
+	Yaml config();
 
 	/**
 	 * <p>getModuleName.</p>
 	 *
 	 * @return a {@link java.lang.String} object
 	 */
-	String getModuleName();
+	String name();
 
 	/**
 	 * <p>getModuleVersion.</p>
 	 *
 	 * @return a {@link java.lang.String} object
 	 */
-	String getModuleVersion();
+	String version();
 
 	/**
 	 * <p>getUncompatibleModules.</p>
 	 *
 	 * @return a {@link java.util.List} object
 	 */
-	List<String> getUncompatibleModules();
+	List<String> uncompatible();
 
 	/**
 	 * <p>loadModule.</p>
 	 */
-	void loadModule();
+	void load();
 
 	/**
 	 * <p>reloadModule.</p>
 	 */
-	void reloadModule();
+	void reload();
 
 }

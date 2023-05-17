@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.WordUtils;
 import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 
 import lombok.Getter;
 
@@ -36,9 +36,9 @@ public abstract class CustomParam {
 	 * <p>Constructor for CustomParam.</p>
 	 *
 	 * @param key a {@link java.lang.String} object
-	 * @param file a {@link ru.aslcraft.api.ejcore.yaml.YAML} object
+	 * @param file a {@link Yaml.aslcraft.api.ejcore.yaml.YAML} object
 	 */
-	public CustomParam(String key, YAML file) {
+	public CustomParam(String key, Yaml file) {
 		this.key = key;
 		visualName = file.getString("eimodule.util." + key, "&7" + WordUtils.capitalizeFully(toString()), true);
 

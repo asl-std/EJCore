@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public abstract class EJConf extends YAML {
+public abstract class EJConf extends Yaml {
 
 	/**
 	 * <p>Constructor for EJConf.</p>

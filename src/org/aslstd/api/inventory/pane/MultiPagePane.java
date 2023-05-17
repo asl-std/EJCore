@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import org.aslstd.api.bukkit.items.InventoryUtil;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 import org.aslstd.api.inventory.Page;
 import org.aslstd.api.inventory.Pane;
 import org.aslstd.api.inventory.element.SimpleElement;
@@ -31,12 +31,12 @@ public class MultiPagePane implements Pane {
 	public Inventory getInventory() { return Bukkit.createInventory(null, 9); }
 
 	private static SimpleElement btnNext =
-			new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("multi-page-menu.next-page-button", "ARROW:1:0:0♥&6Next Page", true)), e -> {
+			new SimpleElement(ItemStackUtil.toStack(Yaml.of("gui.yml").getString("multi-page-menu.next-page-button", "ARROW:1:0:0♥&6Next Page", true)), e -> {
 				final MultiPagePane pane = (MultiPagePane) e.getInventory().getHolder();
 				pane.next((Player) e.getWhoClicked(), e);
 			}),
 			btnPrev =
-			new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("multi-page-menu.next-page-button", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
+			new SimpleElement(ItemStackUtil.toStack(Yaml.of("gui.yml").getString("multi-page-menu.next-page-button", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
 				final MultiPagePane pane = (MultiPagePane) e.getInventory().getHolder();
 				pane.previous((Player) e.getWhoClicked(), e);
 			});

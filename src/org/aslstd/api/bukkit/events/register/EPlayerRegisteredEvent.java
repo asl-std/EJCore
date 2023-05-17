@@ -1,6 +1,6 @@
 package org.aslstd.api.bukkit.events.register;
 
-import org.aslstd.api.bukkit.entity.EPlayer;
+import org.aslstd.api.ejcore.player.EPlayer;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

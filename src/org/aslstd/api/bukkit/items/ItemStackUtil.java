@@ -29,35 +29,14 @@ public final class ItemStackUtil {
 
 	private static HashMap<String,ItemStack> itemsCache = new HashMap<>();
 
-	/**
-	 * <p>compareData.</p>
-	 *
-	 * @param i1 a {@link org.bukkit.inventory.ItemStack} object
-	 * @param i2 a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a boolean
-	 */
 	public static boolean compareData(ItemStack i1, ItemStack i2) {
 		return ItemStackUtil.toString(i1).split(":")[1].equalsIgnoreCase(ItemStackUtil.toString(i2).split(":")[1]);
 	}
 
-	/**
-	 * <p>compareDisplayName.</p>
-	 *
-	 * @param i1 a {@link org.bukkit.inventory.ItemStack} object
-	 * @param i2 a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a boolean
-	 */
 	public static boolean compareDisplayName(ItemStack i1, ItemStack i2) {
 		return ItemStackUtil.getDisplayName(i1).equals(ItemStackUtil.getDisplayName(i2));
 	}
 
-	/**
-	 * <p>isEquals.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param eq a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a boolean
-	 */
 	public static boolean isEquals(ItemStack stack, ItemStack eq) {
 		ItemStack one, sec;
 
@@ -102,32 +81,14 @@ public final class ItemStackUtil {
 		return skull;
 	}
 
-	/**
-	 * <p>toStack.</p>
-	 *
-	 * @param str a {@link java.lang.String} object
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static ItemStack toStack(String str) {
 		return ItemStackUtil.deserialize(str);
 	}
 
-	/**
-	 * <p>toString.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link java.lang.String} object
-	 */
 	public static String toString(ItemStack stack) {
 		return ItemStackUtil.serialize(stack);
 	}
 
-	/**
-	 * <p>getDisplayName.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link java.lang.String} object
-	 */
 	public static String getDisplayName(ItemStack stack) {
 		if (stack == null) return "null";
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_META)) return stack.getType().name();
@@ -136,23 +97,11 @@ public final class ItemStackUtil {
 		return stack.getItemMeta().getLocalizedName();
 	}
 
-	/**
-	 * <p>getLore.</p>
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link java.util.List} object
-	 */
 	public static List<String> getLore(ItemStack stack) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return Arrays.asList("");
 		return stack.getItemMeta().getLore();
 	}
 
-	/**
-	 * <p>setDamage.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param damage a int
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static ItemStack setDamage(ItemStack stack, int damage) {
 		if (ItemStackUtil.hasDurability(stack.getType())) {
 
@@ -166,13 +115,6 @@ public final class ItemStackUtil {
 		return stack;
 	}
 
-	/**
-	 * <p>setFlags.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param flags a {@link org.bukkit.inventory.ItemFlag} object
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static ItemStack setFlags(ItemStack stack, ItemFlag... flags) {
 		if (ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) {
 			final ItemMeta meta = stack.getItemMeta();
@@ -182,13 +124,6 @@ public final class ItemStackUtil {
 		return stack;
 	}
 
-	/**
-	 * <p>removeFlags.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param flags a {@link org.bukkit.inventory.ItemFlag} object
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static ItemStack removeFlags(ItemStack stack, ItemFlag... flags) {
 		if (ItemStackUtil.validate(stack,IStatus.HAS_MATERIAL)) {
 			final ItemMeta meta = stack.getItemMeta();
@@ -199,66 +134,24 @@ public final class ItemStackUtil {
 		return stack;
 	}
 
-	/**
-	 * <p>getDamage.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a int
-	 */
-	@SuppressWarnings("deprecation")
 	public static int getDamage(ItemStack stack) {
 		if (ItemStackUtil.hasDurability(stack.getType()))
 			return ((Damageable)stack.getItemMeta()).getDamage();
 		return 0;
 	}
 
-	/**
-	 * <p>getFlagByName.</p>
-	 *
-	 * @param key a {@link java.lang.String} object
-	 * @return a {@link org.bukkit.inventory.ItemFlag} object
-	 */
 	public static ItemFlag getFlagByName(String key) {
 		for (final ItemFlag flag : ItemFlag.values())
 			if (flag.name().equalsIgnoreCase(key)) return flag;
 		return null;
 	}
 
-	/**
-	 * <p>incrementDamage.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static void incrementDamage(ItemStack stack) { ItemStackUtil.setDamage(stack,ItemStackUtil.getDamage(stack)+1); }
-	/**
-	 * <p>incrementDamage.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param value a int
-	 */
 	public static void incrementDamage(ItemStack stack, int value) { ItemStackUtil.setDamage(stack,ItemStackUtil.getDamage(stack)+value); }
 
-	/**
-	 * <p>decrementDamage.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static void decrementDamage(ItemStack stack) { ItemStackUtil.setDamage(stack,ItemStackUtil.getDamage(stack)-1); }
-	/**
-	 * <p>decrementDamage.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param value a int
-	 */
 	public static void decrementDamage(ItemStack stack, int value) { ItemStackUtil.setDamage(stack,ItemStackUtil.getDamage(stack)-value); }
 
-	/**
-	 * <p>validate.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param status a {@link ru.aslcraft.api.ejcore.items.IStatus} object
-	 * @return a boolean
-	 */
 	public static boolean validate(ItemStack stack, IStatus status) {
 		if ((stack == null) || (stack.getType() == Material.AIR))
 			return false;
@@ -284,13 +177,6 @@ public final class ItemStackUtil {
 		}
 	}
 
-	/**
-	 * <p>setCustomModelData.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param data a int
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static ItemStack setCustomModelData(ItemStack stack, int data) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
@@ -301,13 +187,6 @@ public final class ItemStackUtil {
 		return stack;
 	}
 
-	/**
-	 * <p>setUnbreakable.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param arg a boolean
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
 	public static ItemStack setUnbreakable(ItemStack stack, boolean arg) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
@@ -319,155 +198,39 @@ public final class ItemStackUtil {
 		return stack;
 	}
 
-	/**
-	 * <p>isHelmet.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isHelmet		(Material mat) { return mat.name().toUpperCase().contains("HELMET"); 	}
-	/**
-	 * <p>isChestplate.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isChestplate	(Material mat) { return mat.name().toUpperCase().contains("CHESTPLATE"); }
-	/**
-	 * <p>isLeggings.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isLeggings	(Material mat) { return mat.name().toUpperCase().contains("LEGGINGS"); 	}
-	/**
-	 * <p>isBoots.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isBoots		(Material mat) { return mat.name().toUpperCase().contains("BOOTS"); 	}
-	/**
-	 * <p>isPickaxe.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isPickaxe		(Material mat) { return mat.name().toUpperCase().contains("PICKAXE"); 	}
-	/**
-	 * <p>isAxe.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isAxe			(Material mat) { return mat.name().toUpperCase().contains("_AXE"); 		}
-	/**
-	 * <p>isHoe.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isHoe			(Material mat) { return mat.name().toUpperCase().contains("HOE"); 		}
-	/**
-	 * <p>isSpade.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isSpade		(Material mat) { return (mat.name().toUpperCase().contains("SPADE") || mat.toString().toUpperCase().contains("SHOVEL")); }
-	/**
-	 * <p>isFishingRod.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isFishingRod	(Material mat) { return mat.name().toUpperCase().contains("FISHING"); 	}
-	/**
-	 * <p>isFlintSteel.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isFlintSteel	(Material mat) { return mat.name().toUpperCase().contains("_STEEL"); 	}
-	/**
-	 * <p>isCarrotRod.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isCarrotRod	(Material mat) { return mat.name().toUpperCase().contains("CARROT_ON"); }
-	/**
-	 * <p>isRanged.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isRanged		(Material mat) { return mat.name().toUpperCase().contains("BOW"); 		}
-	/**
-	 * <p>isElytra.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isElytra		(Material mat) { return mat.name().toUpperCase().contains("ELYTRA"); 	}
-	/**
-	 * <p>isShield.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isShield		(Material mat) { return mat.name().toUpperCase().contains("SHIELD"); 	}
-	/**
-	 * <p>isSword.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isSword		(Material mat) { return mat.name().toUpperCase().contains("SWORD"); 	}
+	public static boolean isHelmet		(Material mat) { return mat.name().contains("HELMET"); 		}
+	public static boolean isChestplate	(Material mat) { return mat.name().contains("CHESTPLATE"); 	}
+	public static boolean isLeggings	(Material mat) { return mat.name().contains("LEGGINGS");	}
+	public static boolean isBoots		(Material mat) { return mat.name().contains("BOOTS"); 		}
+	public static boolean isPickaxe		(Material mat) { return mat.name().contains("PICKAXE"); 	}
+	public static boolean isAxe			(Material mat) { return mat.name().contains("_AXE"); 		}
+	public static boolean isHoe			(Material mat) { return mat.name().contains("HOE"); 		}
+	public static boolean isSpade		(Material mat) { return (mat.name().contains("SPADE") || mat.name().contains("SHOVEL")); }
+	public static boolean isFishingRod	(Material mat) { return mat.name().contains("FISHING"); 	}
+	public static boolean isFlintSteel	(Material mat) { return mat.name().contains("_STEEL"); 		}
+	public static boolean isCarrotRod	(Material mat) { return mat.name().contains("CARROT_ON"); 	}
+	public static boolean isRanged		(Material mat) { return mat.name().contains("BOW"); 		}
+	public static boolean isElytra		(Material mat) { return mat.name().contains("ELYTRA"); 		}
+	public static boolean isShield		(Material mat) { return mat.name().contains("SHIELD"); 		}
+	public static boolean isSword		(Material mat) { return mat.name().contains("SWORD"); 		}
 
-	/**
-	 * <p>isArmor.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isArmor		(Material mat) {
+	public static boolean isArmor(Material mat) {
 		return ItemStackUtil.isBoots(mat) || ItemStackUtil.isHelmet(mat) || ItemStackUtil.isChestplate(mat) || ItemStackUtil.isLeggings(mat);
 	}
-	/**
-	 * <p>isTool.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isTool		(Material mat) {
+
+	public static boolean isTool(Material mat) {
 		return ItemStackUtil.isHoe(mat) || ItemStackUtil.isSpade(mat) || ItemStackUtil.isAxe(mat) || ItemStackUtil.isPickaxe(mat);
 	}
-	/**
-	 * <p>isAnotherTool.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isAnotherTool	(Material mat) {
+
+	public static boolean isAnotherTool(Material mat) {
 		return ItemStackUtil.isCarrotRod(mat) || ItemStackUtil.isFlintSteel(mat) || ItemStackUtil.isFishingRod(mat);
 	}
-	/**
-	 * <p>isWeapon.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean isWeapon		(Material mat) {
+
+	public static boolean isWeapon(Material mat) {
 		return ItemStackUtil.isSword(mat) || ItemStackUtil.isRanged(mat);
 	}
-	/**
-	 * <p>hasDurability.</p>
-	 *
-	 * @param mat a {@link org.bukkit.Material} object
-	 * @return a boolean
-	 */
-	public static boolean hasDurability (Material mat) {
+
+	public static boolean hasDurability(Material mat) {
 		return ItemStackUtil.isWeapon(mat) || ItemStackUtil.isArmor(mat) || ItemStackUtil.isAnotherTool(mat) || ItemStackUtil.isTool(mat);
 	}
 

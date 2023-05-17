@@ -1,18 +1,11 @@
 package org.aslstd.api.bukkit.settings;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.Consumer;
-
-import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.yaml.YAML;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * <p>Settings class.</p>
@@ -23,8 +16,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Settings<T> {
 	public ConcurrentMap<String, T> settings = new ConcurrentHashMap<>();
 
-	protected ConcurrentMap<String, List<Consumer<T>>> binds = new ConcurrentHashMap<>();
-
 	/**
 	 * <p>getSettingsSize.</p>
 	 *
@@ -32,63 +23,6 @@ public class Settings<T> {
 	 */
 	public int getSettingsSize() {
 		return this.settings.size();
-	}
-
-	/**
-	 * <p>addBind.</p>
-	 *
-	 * @param key a {@link java.lang.String} object
-	 * @param func a {@link java.util.function.Consumer} object
-	 */
-	public void addBind(String key, Consumer<T> func) {
-		if (key == null || func == null) {
-			EText.warn("Tried to add bind using null key/function");
-			return;
-		}
-
-		List<Consumer<T>> list = new ArrayList<>();
-		if (hasBind(key))
-			list = getBinds(key);
-
-		list.add(func);
-		this.binds.put(key, list);
-	}
-
-	/**
-	 * <p>hasBind.</p>
-	 *
-	 * @param key a {@link java.lang.String} object
-	 * @return a boolean
-	 */
-	public boolean hasBind(String key) {
-		return (this.binds.containsKey(key) && this.binds.get(key) != null);
-	}
-
-	/**
-	 * <p>Getter for the field <code>binds</code>.</p>
-	 *
-	 * @param key a {@link java.lang.String} object
-	 * @return a {@link java.util.List} object
-	 */
-	public List<Consumer<T>> getBinds(String key) {
-		if (hasBind(key))
-			return this.binds.get(key);
-		return null;
-	}
-
-	/**
-	 * <p>acceptBind.</p>
-	 *
-	 * @param key a {@link java.lang.String} object
-	 * @param value a T object
-	 */
-	public void acceptBind(String key, T value) {
-		if (hasBind(key)) {
-			final List<Consumer<T>> binds = getBinds(key);
-			if (binds != null)
-				for (final Consumer<T> bind : binds)
-					bind.accept(value);
-		}
 	}
 
 	/**
@@ -113,7 +47,6 @@ public class Settings<T> {
 	 */
 	public void setValue(String key, T value) {
 		this.settings.put(key, value);
-		acceptBind(key, value);
 	}
 
 	/**
@@ -141,9 +74,10 @@ public class Settings<T> {
 	 *
 	 * @param key a {@link java.lang.String} object
 	 */
-	public void remove(String key) {
+	public T remove(String key) {
 		if (hasKey(key))
-			this.settings.remove(key);
+			return this.settings.remove(key);
+		return null;
 	}
 
 	/**
@@ -180,27 +114,5 @@ public class Settings<T> {
 				list.add(entry);
 		}
 		return list;
-	}
-
-	/**
-	 * <p>dumpToFile.</p>
-	 */
-	public void dumpToFile(JavaPlugin plugin) {
-		final YAML dump = new YAML(new File(plugin.getDataFolder() + "/dump." + System.currentTimeMillis() + "." + toString() + ".yml"));
-
-		for (final Map.Entry<String, T> entry : this.settings.entrySet()) {
-			if (entry.getKey() == null || entry.getKey().equalsIgnoreCase(""))
-				continue;
-			dump.set(entry.getKey(), entry.getValue());
-		}
-
-	}
-
-	/**
-	 * <p>dumpToConsole.</p>
-	 */
-	public void dumpToConsole() {
-		for (final Map.Entry<String, T> entry : this.settings.entrySet())
-			EText.warn(String.valueOf(entry.getKey()) + ": &a" + entry.getValue());
 	}
 }

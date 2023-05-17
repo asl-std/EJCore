@@ -1,7 +1,7 @@
 package org.aslstd.api.expression.parser;
 
-import org.aslstd.api.expression.exceptions.ParsingException;
-import org.aslstd.api.expression.exceptions.UnexpectedSymbolException;
+import org.aslstd.api.expression.exception.ParsingException;
+import org.aslstd.api.expression.exception.UnexpectedSymbolException;
 
 /**
  * <p>BaseParser class.</p>
@@ -131,7 +131,7 @@ public class BaseParser {
 	 * <p>expect.</p>
 	 *
 	 * @param c a char
-	 * @throws org.aslstd.api.expression.exceptions.ParsingException if any.
+	 * @throws org.aslstd.api.expression.exception.ParsingException if any.
 	 */
 	protected void expect(final char c) throws ParsingException {
 		if (ch != c) {
@@ -144,7 +144,7 @@ public class BaseParser {
 	 * <p>expect.</p>
 	 *
 	 * @param value a {@link java.lang.String} object
-	 * @throws org.aslstd.api.expression.exceptions.ParsingException if any.
+	 * @throws org.aslstd.api.expression.exception.ParsingException if any.
 	 */
 	protected void expect(final String value) throws ParsingException {
 		for (final char c : value.toCharArray()) {

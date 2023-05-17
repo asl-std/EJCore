@@ -2,20 +2,14 @@ package org.aslstd.api.ejcore.module;
 
 import java.io.IOException;
 
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 import org.aslstd.core.Core;
-import org.aslstd.core.managers.ModuleManager;
+import org.aslstd.core.manager.ModuleManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 
-/**
- * <p>Abstract EJAddon class.</p>
- *
- * @author ZooMMaX
- * @version $Id: $Id
- */
 public abstract class EJAddon implements EJModule {
 
-	protected YAML moduleConfiguration;
+	protected Yaml config;
 
 	/**
 	 * <p>isModuleRegistered.</p>
@@ -23,7 +17,7 @@ public abstract class EJAddon implements EJModule {
 	 * @return a boolean
 	 */
 	public boolean isModuleRegistered() {
-		return ModuleManager.isRegistered(getModuleName());
+		return ModuleManager.isRegistered(name());
 	}
 
 	/**
@@ -33,24 +27,24 @@ public abstract class EJAddon implements EJModule {
 
 	/** {@inheritDoc} */
 	@Override
-	public YAML getModuleConfig() {
-		if (moduleConfiguration == null) {
-			moduleConfiguration = YAML.of(getModuleName().toLowerCase() + ".yml", Core.instance());
-			if (!moduleConfiguration.getFile().exists()) try {
-				moduleConfiguration.getFile().createNewFile();
+	public Yaml config() {
+		if (config == null) {
+			config = Yaml.of(name().toLowerCase() + ".yml", Core.instance());
+			if (!config.getFile().exists()) try {
+				config.getFile().createNewFile();
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		return moduleConfiguration;
+		return config;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public void reloadModule() {
+	public void reload() {
 		try {
-			moduleConfiguration.load();
+			config.load();
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
 		}

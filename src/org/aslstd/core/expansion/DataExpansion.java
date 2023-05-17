@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import org.aslstd.api.bukkit.entity.EPlayer;
+import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.entity.util.EntityUtil;
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 import org.aslstd.api.ejcore.plugin.hook.PAPI;
 import org.aslstd.core.Core;
 import org.bukkit.OfflinePlayer;
@@ -46,28 +46,27 @@ public class DataExpansion extends PAPI {
 		if (params.length == 1) {
 			if (p == null) return "[SINGLE] Player was null";
 
-			final String value = EPlayer.getEPlayer(p).getSettings().getValue(params[0]);
+			final String value = Pick.of(p).options().readData(params[0]);
 			return value == null ? "value not exist in this player" : value;
 		}
 
 		switch(params[0]) {
-		case "player":
-			final OfflinePlayer player = EntityUtil.getPlayer(params[1]);
+			case "player":
+				final OfflinePlayer player = EntityUtil.getPlayer(params[1]);
 
-			if (player == null) return "[PLAYER] Incorrect params provided";
+				if (player == null) return "[PLAYER] Incorrect params provided";
 
-			if (player.isOnline()) {
-				final EPlayer ep = EPlayer.getEPlayer(player.getPlayer());
-				final String value = ep.getSettings().getValue(params[2]);
+				if (player.isOnline()) {
+					final String value = Pick.of(player.getPlayer()).options().readData(params[2]);
 
-				return value == null ? "value not exist in this player" : value;
-			} else {
-				final YAML pfile = Core.getPlayerDatabase().getPlayerFile(player);
-				final String val = pfile.getString(params[2], "value not exist in this player", false);
-				return val;
-			}
-		case "custom":
-			return YAML.getCustomStorage(params[1]).getString(params[2], "value not exist in this data-file", false);
+					return value == null ? "value not exist in this player" : value;
+				} else {
+					final Yaml pfile = Core.playerDatabase().getPlayerFile(player);
+					final String val = pfile.getString(params[2], "value not exist in this player", false);
+					return val;
+				}
+			case "custom":
+				return Yaml.getCustomStorage(params[1]).getString(params[2], "value not exist in this data-file", false);
 		}
 		return "[DEFAULT] Incorrect params provided";
 	}

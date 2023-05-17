@@ -1,7 +1,7 @@
 package org.aslstd.api.bukkit.entity.pick;
 
-import org.aslstd.api.bukkit.entity.EPlayer;
 import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,12 +11,17 @@ import lombok.Getter;
 
 public class UPlayer extends UEntity {
 
-
 	@Getter protected Player player;
 
 	public UPlayer(Player player) {
 		super(player);
 		this.player = player;
+
+		defaults();
+	}
+
+	private void defaults() {
+		player.setHealthScaled(true);
 	}
 
 	@Override public String displayName() { return player.getDisplayName(); }
@@ -41,11 +46,12 @@ public class UPlayer extends UEntity {
 
 	@Override public ItemStack foots() { return player.getInventory().getBoots(); }
 
-	public EPlayer eplayer() {
-		if (this instanceof EPlayer)
-			return (EPlayer) this;
+	@Override
+	protected void healthChanged(double newValue) {
+		if (Core.config().ONE_HP_BAR)
+			player.setHealthScale(newValue / Core.config().HEALTH_PER_BAR * 20.0D);
 		else
-			return EPlayer.getEPlayer(player);
+			player.setHealthScale(20.0D);
 	}
 
 }

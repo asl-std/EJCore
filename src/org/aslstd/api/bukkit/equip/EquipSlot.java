@@ -5,7 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 /**
  *  To get Id for HAND you must use {link ru.asl.api.ejcore.entity.EPlayer#????}
@@ -13,15 +15,12 @@ import lombok.Getter;
  * @author ZooMMaX
  * @version $Id: $Id
  */
+@AllArgsConstructor
+@Accessors(fluent = true)
 public enum EquipSlot {
 	HAND(0), OFF(40), HEAD(39), BODY(38), LEGGS(37), FOOTS(36), ALL(-1);
 
-	@Getter private int slotId;
-
-	EquipSlot() {}
-	EquipSlot(int slotId) {
-		this.slotId = slotId;
-	}
+	@Getter private int id;
 
 	/**
 	 * <p>byID.</p>
@@ -29,9 +28,9 @@ public enum EquipSlot {
 	 * @param id a int
 	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
 	 */
-	public static EquipSlot byID(int id) {
+	public static EquipSlot id(int id) {
 		for (final EquipSlot slot : values())
-			if (id == slot.slotId) return slot;
+			if (id == slot.id) return slot;
 		return null;
 	}
 
@@ -42,7 +41,7 @@ public enum EquipSlot {
 	 * @param checkoff a boolean
 	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
 	 */
-	public static EquipSlot getFromItemType(Material mat, boolean checkoff) {
+	public static EquipSlot get(Material mat, boolean checkoff) {
 		if (ItemStackUtil.isHelmet(mat)) return HEAD;
 		if (ItemStackUtil.isChestplate(mat)) return BODY;
 		if (ItemStackUtil.isLeggings(mat)) return LEGGS;
@@ -58,23 +57,16 @@ public enum EquipSlot {
 	 * @param p a {@link org.bukkit.entity.Player} object
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */
-	public static ItemStack getStackFromSlot(EquipSlot slot, Player p) {
-		switch(slot) {
-		case HEAD:
-			return p.getInventory().getHelmet();
-		case BODY:
-			return p.getInventory().getChestplate();
-		case LEGGS:
-			return p.getInventory().getLeggings();
-		case FOOTS:
-			return p.getInventory().getBoots();
-		case HAND:
-			return p.getInventory().getItemInMainHand();
-		case OFF:
-			return p.getInventory().getItemInOffHand();
-		default:
-			return new ItemStack(Material.AIR);
-		}
+	public static ItemStack get(EquipSlot slot, Player p) {
+		return switch(slot) {
+			case HEAD -> p.getInventory().getHelmet();
+			case BODY -> p.getInventory().getChestplate();
+			case LEGGS -> p.getInventory().getLeggings();
+			case FOOTS -> p.getInventory().getBoots();
+			case HAND -> p.getInventory().getItemInMainHand();
+			case OFF -> p.getInventory().getItemInOffHand();
+			default -> new ItemStack(Material.AIR);
+		};
 	}
 
 }

@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
  * @author ZooMMaX
  * @version $Id: $Id
  */
-public final class EquipInventory {
+public class EquipInventory {
 
 	/*
 	 * |=========================|
@@ -19,122 +19,36 @@ public final class EquipInventory {
 	 * | 4 = leggs | 5 = foots   |
 	 * |=========================|
 	 */
-	/**
-	 * <p>Constructor for EquipInventory.</p>
-	 */
 	public EquipInventory() {}
 
-	private HashMap<Integer, ItemStack> equipments = new HashMap<>();
+	private HashMap<Integer,ItemStack> equip = new HashMap<>();
 
-	/**
-	 * <p>getHand.</p>
-	 *
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack getHand()    	 { 	return this.getEquip(EquipSlot.HAND);	}
-	/**
-	 * <p>getOffHand.</p>
-	 *
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack getOffHand() 	 { 	return this.getEquip(EquipSlot.OFF); 	}
-	/**
-	 * <p>getHead.</p>
-	 *
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack getHead()    	 { 	return this.getEquip(EquipSlot.HEAD);	}
-	/**
-	 * <p>getBody.</p>
-	 *
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack getBody()    	 { 	return this.getEquip(EquipSlot.BODY);	}
-	/**
-	 * <p>getLeggs.</p>
-	 *
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack getLeggs()   	 { 	return this.getEquip(EquipSlot.LEGGS);	}
-	/**
-	 * <p>getFoots.</p>
-	 *
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack getFoots()   	 { 	return this.getEquip(EquipSlot.FOOTS);	}
+	public ItemStack hand() { return this.get(EquipSlot.HAND); }
+	public ItemStack off() { return this.get(EquipSlot.OFF); }
+	public ItemStack head() { return this.get(EquipSlot.HEAD); }
+	public ItemStack body() { return this.get(EquipSlot.BODY); }
+	public ItemStack leggs() { return this.get(EquipSlot.LEGGS); }
+	public ItemStack foots() { return this.get(EquipSlot.FOOTS); }
 
-	/**
-	 * <p>setHand.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipInventory} object
-	 */
-	public EquipInventory setHand    (ItemStack stack) { this.setItem(EquipSlot.HAND, 	stack); return this; }
-	/**
-	 * <p>setOffHand.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipInventory} object
-	 */
-	public EquipInventory setOffHand (ItemStack stack) { this.setItem(EquipSlot.OFF, 	stack); return this; }
-	/**
-	 * <p>setHead.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipInventory} object
-	 */
-	public EquipInventory setHead    (ItemStack stack) { this.setItem(EquipSlot.HEAD, 	stack); return this; }
-	/**
-	 * <p>setBody.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipInventory} object
-	 */
-	public EquipInventory setBody    (ItemStack stack) { this.setItem(EquipSlot.BODY, 	stack); return this; }
-	/**
-	 * <p>setLeggs.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipInventory} object
-	 */
-	public EquipInventory setLeggs   (ItemStack stack) { this.setItem(EquipSlot.LEGGS, 	stack); return this; }
-	/**
-	 * <p>setFoots.</p>
-	 *
-	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipInventory} object
-	 */
-	public EquipInventory setFoots   (ItemStack stack) { this.setItem(EquipSlot.FOOTS, 	stack); return this; }
+	public EquipInventory hand(ItemStack stack) { this.set(EquipSlot.HAND, stack); return this; }
+	public EquipInventory off(ItemStack stack) { this.set(EquipSlot.OFF, stack); return this; }
+	public EquipInventory head(ItemStack stack) { this.set(EquipSlot.HEAD, stack); return this; }
+	public EquipInventory body(ItemStack stack) { this.set(EquipSlot.BODY, stack); return this; }
+	public EquipInventory leggs(ItemStack stack) { this.set(EquipSlot.LEGGS, stack); return this; }
+	public EquipInventory foots(ItemStack stack) { this.set(EquipSlot.FOOTS, stack); return this; }
 
-	/**
-	 * <p>getEquip.</p>
-	 *
-	 * @param slot a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack 	getEquip(EquipSlot slot) 				  { return this.getEquip(slot.getSlotId()); }
-	/**
-	 * <p>getEquip.</p>
-	 *
-	 * @param id a int
-	 * @return a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public ItemStack 	getEquip(int id) 				 		  { return equipments.get(id); 	}
-	/**
-	 * <p>setItem.</p>
-	 *
-	 * @param slot a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
-	 * @param equip a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public void 		setItem (EquipSlot slot, ItemStack equip) { this.setItem(slot.getSlotId(), equip); 	}
+	public ItemStack get(EquipSlot slot) { return this.get(slot.id()); }
+	private ItemStack get(int id) { return equip.get(id); }
 
-	/**
-	 * <p>setItem.</p>
-	 *
-	 * @param id a int
-	 * @param equip a {@link org.bukkit.inventory.ItemStack} object
-	 */
-	public void setItem (int id, ItemStack equip) { equipments.put(id, equip); }
+	public void set(EquipSlot slot, ItemStack equip) { this.set(slot.id(), equip); }
+	private void set(int id, ItemStack equip) { this.equip.put(id, equip); }
+
+	public void remove(EquipSlot slot) { remove(slot.id()); }
+	private void remove(int id) { this.equip.remove(id); }
+
+	public void unequipAll() {
+		for (final EquipSlot slot : EquipSlot.values())
+			equip.remove(slot.id());
+	}
 
 }
-

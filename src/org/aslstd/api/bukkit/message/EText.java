@@ -1,17 +1,26 @@
 package org.aslstd.api.bukkit.message;
 
+import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.aslstd.api.bukkit.entity.pick.Pick;
+import org.aslstd.api.bukkit.settings.Settings;
 import org.aslstd.api.bukkit.utils.ServerVersion;
+import org.aslstd.api.bukkit.yaml.Yaml;
+import org.aslstd.api.ejcore.player.EPlayer;
+import org.aslstd.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import lombok.Setter;
 
@@ -86,6 +95,21 @@ public class EText {
 
 	/** Constant <code>df</code> */
 	public static DecimalFormat df;
+
+	public static void dumpFile(Settings<?> settings, JavaPlugin plugin) {
+		Dumper.dump(settings, plugin);
+	}
+
+	public static void dumpConsole(Settings<?> settings) {
+		Dumper.dump(settings, null);
+	}
+
+	public static void dump(Player p) {
+		final EPlayer pl = Pick.of(p);
+		dumpFile(pl.options().data(), Core.instance());
+		dumpFile(pl.options().tempData(), Core.instance());
+		dumpFile(pl.options().tempStore(), Core.instance());
+	}
 
 	static {
 		df = new DecimalFormat();
@@ -269,4 +293,20 @@ public class EText {
 
 		return buff.toString();
 	}
+
+	static class Dumper {
+		static void dump(Settings<?> settings, JavaPlugin plugin) {
+			if (plugin == null)
+				for (final Map.Entry<String, ?> entry : settings.settings.entrySet())
+					EText.warn(String.valueOf(entry.getKey()) + ": &a" + entry.getValue());
+			else {
+				final Yaml dump = new Yaml(new File(plugin.getDataFolder() + "/dump." + System.currentTimeMillis() + "." + settings.toString() + ".yml"));
+
+				for (final Entry<String,?> entry : settings.settings.entrySet())
+					if (entry.getKey() != null || !entry.getKey().equalsIgnoreCase(""))
+						dump.set(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+
 }

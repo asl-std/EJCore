@@ -39,16 +39,16 @@ public class ThreadWorker {
 
 	public CompletableFuture<?> invoke(WorkerTask<?> work) {
 		if (locked)
-			return Core.getWorkers().submitTask(() -> { while(locked) {} return true; })
-					.thenApply(b -> Core.getWorkers().submitTask(work.getTask()) );
+			return Core.workers().submitTask(() -> { while(locked) {} return true; })
+					.thenApply(b -> Core.workers().submitTask(work.getTask()) );
 
-		return Core.getWorkers().submitTask(work.getTask());
+		return Core.workers().submitTask(work.getTask());
 	}
 
 	public void ping(long millis) {
 		if (!works.isEmpty() ) {
 			locked = true;
-			Core.getWorkers().execute(() -> { try { TimeUnit.MILLISECONDS.sleep(millis); } catch (final InterruptedException e) {} pong(); } );
+			Core.workers().execute(() -> { try { TimeUnit.MILLISECONDS.sleep(millis); } catch (final InterruptedException e) {} pong(); } );
 		}
 	}
 

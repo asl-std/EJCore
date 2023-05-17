@@ -11,7 +11,7 @@ import org.aslstd.api.bukkit.items.IStatus;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
 import org.aslstd.api.bukkit.message.EText;
 import org.aslstd.api.bukkit.value.util.ArrayUtil;
-import org.aslstd.api.bukkit.yaml.YAML;
+import org.aslstd.api.bukkit.yaml.Yaml;
 import org.aslstd.api.inventory.Chest;
 import org.aslstd.api.inventory.element.SimpleElement;
 import org.bukkit.Bukkit;
@@ -32,28 +32,28 @@ public class MultiPageChestStorage implements Chest {
 	public static final ItemStack EMPTY = new ItemStack(Material.AIR, 1);
 
 	private static SimpleElement btnNext =
-			new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("general.next-page", "ARROW:1:0:0♥&6Next Page", true)), e -> {
+			new SimpleElement(ItemStackUtil.toStack(Yaml.of("gui.yml").getString("general.next-page", "ARROW:1:0:0♥&6Next Page", true)), e -> {
 				final MultiPageChestStorage pane = (MultiPageChestStorage) e.getInventory().getHolder();
 				pane.open((Player) e.getWhoClicked(), pane.currentPage.get(e.getWhoClicked().getUniqueId())+1);
 			});
 	private static SimpleElement btnPrev =
-			new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("general.prev-page", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
+			new SimpleElement(ItemStackUtil.toStack(Yaml.of("gui.yml").getString("general.prev-page", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
 				final MultiPageChestStorage pane = (MultiPageChestStorage) e.getInventory().getHolder();
 				pane.open((Player) e.getWhoClicked(), pane.currentPage.get(e.getWhoClicked().getUniqueId())-1);
 			});
 
 	public static void reload() {
-		btnPrev = new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("general.prev-page", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
+		btnPrev = new SimpleElement(ItemStackUtil.toStack(Yaml.of("gui.yml").getString("general.prev-page", "ARROW:1:0:0♥&6Previous Page", true)), e -> {
 			final MultiPageChestStorage pane = (MultiPageChestStorage) e.getInventory().getHolder();
 			pane.open((Player) e.getWhoClicked(), pane.currentPage.get(e.getWhoClicked().getUniqueId())-1);
 		});
-		btnNext = new SimpleElement(ItemStackUtil.toStack(YAML.of("gui.yml").getString("general.next-page", "ARROW:1:0:0♥&6Next Page", true)), e -> {
+		btnNext = new SimpleElement(ItemStackUtil.toStack(Yaml.of("gui.yml").getString("general.next-page", "ARROW:1:0:0♥&6Next Page", true)), e -> {
 			final MultiPageChestStorage pane = (MultiPageChestStorage) e.getInventory().getHolder();
 			pane.open((Player) e.getWhoClicked(), pane.currentPage.get(e.getWhoClicked().getUniqueId())+1);
 		});
 	}
 
-	private static ItemStack decorator = ItemStackUtil.toStack(YAML.of("gui.yml").getString("general.storage-decorator", "GRAY_STAINED_GLASS_PANE:1:0:0♥&f", true));
+	private static ItemStack decorator = ItemStackUtil.toStack(Yaml.of("gui.yml").getString("general.storage-decorator", "GRAY_STAINED_GLASS_PANE:1:0:0♥&f", true));
 
 	@Getter private Inventory[] pages;
 

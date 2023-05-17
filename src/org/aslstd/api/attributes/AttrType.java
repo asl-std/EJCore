@@ -15,13 +15,6 @@ public enum AttrType {
 	 */
 	RANGE,
 	/**
-	 * <h1>Means:</h1>Attribute uses first value as base, and second for per-level scaling<br><br>
-	 *
-	 * This type allows to connect global attributes like Fist-Damage between N amount of modules/plugins<br>
-	 * The main type for <b>player-scoped</b> attributes.
-	 */
-	PER_LEVEL,
-	/**
 	 * <h1>Means:</h1>Attribute will be used flatly without random or scaling.
 	 */
 	SINGLE;
