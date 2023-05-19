@@ -13,31 +13,34 @@ import org.bukkit.NamespacedKey;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
+@Accessors(fluent = true)
 public class AttrBase implements Keyed {
 
 	public static final Pattern getRegexPattern(AttrBase stat) { //\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)
 		return Pattern.compile(EText.e(stat.getVisualName().toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
 
-	protected Yaml statCfg = null;
+	protected Yaml attrConf = null;
 	@Getter private int priority = 1;
 	@Getter @Setter private int uniquePosition = 0;
 
-	public void setPriority(int priority) { this.priority = priority; }
-	public void setPriority(Priority priority) { setPriority(priority.getPriority()); }
+	public void priority(int priority) { this.priority = priority; }
+	public void priority(Priority priority) { priority(priority.priority()); }
 
-	@Getter private final NamespacedKey key;
-	@Getter protected String path;
+	@Getter @Accessors(fluent = false) private final NamespacedKey key;
 	@Getter protected AttrType type;
-	@Getter protected double defaultValue, defaultPerLevel;
+
+	@Getter protected String confPath;
+	@Getter protected double defValue, defPerLevel;
 
 	protected ValuePair<Double> base;
 
-	public boolean isEnabled() { return statCfg.getBoolean(toString() + ".is-enabled", true, true); }
+	public boolean isEnabled() { return attrConf.getBoolean(toString() + ".is-enabled", true, true); }
 
 	public double getAndScale(int modifier) {
-		if (getType() != AttrType.SINGLE)
+		if (type != AttrType.SINGLE)
 			return base.first();
 
 		return base.first() + base.second() * modifier;
@@ -47,15 +50,15 @@ public class AttrBase implements Keyed {
 		this(keyName, path, defBase, defPerLevel, AttrType.SINGLE);
 	}
 
-	public AttrBase(String keyName, String path, double defBase, double defPerLevel, AttrType type) {
-		key = new NamespacedKey(Core.instance(), keyName);
-		this.path = path;
-		defaultValue = defBase;
-		defaultPerLevel = defPerLevel;
+	public AttrBase(String keyName, String path, double defValue, double defPerLevel, AttrType type) {
+		this.key = new NamespacedKey(Core.instance(), keyName);
+		this.confPath = path;
+		this.defValue = defValue;
+		this.defPerLevel = defPerLevel;
 		this.type = type;
 
-		if (statCfg == null)
-			statCfg = new Yaml(Core.instance().getDataFolder() + "/attr/" + toString() + ".yml");
+		if (attrConf == null)
+			attrConf = Yaml.of("attr/" + toString() + ".yml", Core.instance());
 
 		initCustomSettings();
 		initializeBasicValues();
@@ -65,11 +68,11 @@ public class AttrBase implements Keyed {
 		getColorDecorator();
 	}
 
-	public String getVisualName() { return statCfg.getString(toString() + ".visual-name", "&7" + WordUtils.capitalizeFully(toString().replaceAll("-", " ")), true); }
+	public String getVisualName() { return attrConf.getString(toString() + ".visual-name", "&7" + WordUtils.capitalizeFully(toString().replaceAll("-", " ")), true); }
 
-	public double getCostValue() { return statCfg.getDouble(toString() + ".cost-value", 0.0D, true); }
+	public double getCostValue() { return attrConf.getDouble(toString() + ".cost-value", 0.0D, true); }
 
-	public String getColorDecorator() { return statCfg.getString(toString() + ".suffix-color-decorator", "&7", true); }
+	public String getColorDecorator() { return attrConf.getString(toString() + ".suffix-color-decorator", "&7", true); }
 
 	// 0 = minus or plus, 1 = first value, 2 = "-" if needed, or %, 3 = second
 	// value, 4 = "%" if needed.
@@ -79,7 +82,7 @@ public class AttrBase implements Keyed {
 	 * @return a {@link java.lang.String} object
 	 */
 	public String getVisualTemplate() {
-		if (getType() == AttrType.RANGE)
+		if (type == AttrType.RANGE)
 			return getVisualName() + ": " + getColorDecorator() + "$0$1$2$3$4";
 		else
 			return getVisualName() + ": " + getColorDecorator() + "$0$1$2";
@@ -113,20 +116,20 @@ public class AttrBase implements Keyed {
 	public void initializeBasicValues() {
 		switch(type) {
 			case RANGE -> {
-				final String[] values = statCfg.getString(toString() + ".range-value", getDefaultValue() + "-" + getDefaultPerLevel(), true).replace(" ", "").split("-");
+				final String[] values = attrConf.getString(toString() + ".range-value", defValue + "-" + defPerLevel, true).replace(" ", "").split("-");
 				if (values.length < 2) {
 					EText.warn(toString() + ": found incorrect template, don't set only one value for this stat, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
-					EText.warn(toString() + ": initialisation skipped.. using " + getDefaultValue() + "-" + getDefaultPerLevel() + " as base value");
-					base = ValuePair.of(getDefaultValue(), getDefaultPerLevel());
+					EText.warn(toString() + ": initialisation skipped.. using " + defValue + "-" + defPerLevel + " as base value");
+					base = ValuePair.of(defValue, defPerLevel);
 				} else
 					try {
 						base = ValuePair.of(Double.parseDouble(values[0]), Double.parseDouble(values[1])).checkSwap();
 					} catch(final NumberFormatException e) {
 						EText.warn("RANGE value: &5" + toString()+ ": &5" + values[0] + "-" + values[1] + " |  has incorrect symbols, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
-						base = ValuePair.of(getDefaultValue(), getDefaultPerLevel()).checkSwap();
+						base = ValuePair.of(defValue, defPerLevel).checkSwap();
 					}
 			}
-			case SINGLE -> base.first(statCfg.getDouble(toString() + ".value", getDefaultValue(), true));
+			case SINGLE -> base.first(attrConf.getDouble(toString() + ".value", defValue, true));
 		}
 	}
 
@@ -150,7 +153,7 @@ public class AttrBase implements Keyed {
 		@Getter private int priority;
 
 		public static int before(AttrBase stat) {
-			return stat.getPriority()-1;
+			return stat.priority--;
 		}
 
 		/**
@@ -160,7 +163,7 @@ public class AttrBase implements Keyed {
 		 * @return a int
 		 */
 		public static int after(AttrBase stat) {
-			return stat.getPriority()+1;
+			return stat.priority++;
 		}
 
 	}
