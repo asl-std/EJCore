@@ -2,9 +2,9 @@ package org.aslstd.core.listener;
 
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.equip.EquipSlot;
-import org.aslstd.api.bukkit.events.equipment.PrepareEquipEvent;
-import org.aslstd.api.bukkit.events.player.PlayerBlockMoveEvent;
 import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.ejcore.event.equipment.PrepareEquipEvent;
+import org.aslstd.api.ejcore.event.player.PlayerBlockMoveEvent;
 import org.aslstd.api.ejcore.player.EPlayer;
 import org.aslstd.api.ejcore.plugin.BukkitListener;
 import org.aslstd.api.ejcore.plugin.Named;

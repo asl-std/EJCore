@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.events;
+package org.aslstd.api.ejcore.event;
 
 /**
  * <p>DamageType class.</p>

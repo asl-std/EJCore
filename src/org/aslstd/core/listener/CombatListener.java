@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.aslstd.api.attributes.AttrManager;
 import org.aslstd.api.attributes.AttrBase;
-import org.aslstd.api.bukkit.events.combat.CombatEvent;
-import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
-import org.aslstd.api.bukkit.events.combat.EntityDamagePrepareEvent;
+import org.aslstd.api.ejcore.event.combat.CombatEvent;
+import org.aslstd.api.ejcore.event.combat.EntityDamagePrepareEvent;
+import org.aslstd.api.ejcore.event.combat.CombatEvent.CombatType;
 import org.aslstd.api.ejcore.plugin.BukkitListener;
 import org.aslstd.api.ejcore.plugin.Named;
 import org.bukkit.Bukkit;

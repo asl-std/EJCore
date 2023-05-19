@@ -1,6 +1,6 @@
-package org.aslstd.api.bukkit.events.combat;
+package org.aslstd.api.ejcore.event.combat;
 
-import org.aslstd.api.bukkit.events.combat.CombatEvent.CombatType;
+import org.aslstd.api.ejcore.event.combat.CombatEvent.CombatType;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

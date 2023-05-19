@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.events.combat;
+package org.aslstd.api.ejcore.event.combat;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;

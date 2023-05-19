@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.events.equipment;
+package org.aslstd.api.ejcore.event.equipment;
 
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.bukkit.Bukkit;

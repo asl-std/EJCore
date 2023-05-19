@@ -1,4 +1,4 @@
-package org.aslstd.api.bukkit.events.player;
+package org.aslstd.api.ejcore.event.player;
 
 import org.aslstd.api.bukkit.location.Vector3D;
 import org.bukkit.Location;
