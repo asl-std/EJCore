@@ -107,7 +107,7 @@
 			<scope>compile</scope>
 		</dependency> -->
 		<dependency>
-			<groupId>com.elmakers.mine.bukkit.effects</groupId>
+			<groupId>com.elmakers.mine.bukkit</groupId>
 			<artifactId>EffectLib</artifactId>
 			<version>10.0-SNAPSHOT</version>
 			<scope>compile</scope>
