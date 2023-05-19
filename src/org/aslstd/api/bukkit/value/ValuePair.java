@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Accessors(fluent = true)
-public class ValuePair<T extends Number> {
+public class ValuePair<T extends Number> implements Cloneable {
 
 	@Getter @Setter @NonNull private String key;
 
@@ -59,7 +59,7 @@ public class ValuePair<T extends Number> {
 	}
 
 	@Override
-	protected ValuePair<T> clone() {
+	public ValuePair<T> clone() {
 		return new ValuePair<>(key, first, second);
 	}
 

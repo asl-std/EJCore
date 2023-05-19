@@ -31,8 +31,7 @@ public class AttrStorage {
 	}
 
 	public ValuePair<Double> calculate() {
-		return (calculated = mods.calculate());
+		return (calculated = base.clone().add(mods.calculate()));
 	}
-
 
 }
