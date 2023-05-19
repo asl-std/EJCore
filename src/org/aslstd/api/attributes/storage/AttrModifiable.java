@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.aslstd.api.attributes.AttrType;
 import org.aslstd.api.bukkit.value.ValuePair;
 
 import com.google.common.collect.ForwardingList;
@@ -28,22 +27,16 @@ public class AttrModifiable extends ForwardingList<ValuePair<Double>> {
 		return list;
 	}
 
-	public ValuePair<Double> calculate(AttrType type) {
-		final ValuePair<Double> f = ValuePair.of(0d, 0d);
-		switch(type) {
-			case RANGE -> {
-				for (final ValuePair<Double> pair : list) {
-					f.setFirst(f.getFirst() + pair.getFirst());
-					f.setSecond(f.getSecond() + pair.getSecond());
-				}
-			}
-			default -> {
-				for (final ValuePair<Double> pair : list) {
-					f.setFirst(f.getFirst() + pair.getFirst());
-				}
-			}
-		}
-		return f;
+	public ValuePair<Double> calculate() {
+		final ValuePair<Double> additive = ValuePair.of(0d, 0d);
+		final ValuePair<Double> multiplicative = ValuePair.of(0d, 0d);
+		for(final ValuePair<Double> val : list)
+			if (val.percents())
+				multiplicative.add(val);
+			else
+				additive.add(val);
+
+		return additive.mult(multiplicative);
 	}
 
 }

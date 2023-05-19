@@ -5,22 +5,24 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
- * <p>ValuePair class.</p>
- *
- * @author ZooMMaX
- * @version $Id: $Id
+ * <p>ValuePair is Pair Number representation, realised for using with floating point numbers (double, float)</p>
+ * <br>Use this class for long at your risk, do not use operation methods (add, mult) if u store numbers bigger than 2⁵³
  */
+@SuppressWarnings("unchecked")
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class ValuePair<T> {
+@Accessors(fluent = true)
+public class ValuePair<T extends Number> {
 
-	@Getter @Setter @NonNull public String key;
+	@Getter @Setter @NonNull private String key;
 
-	@Getter @Setter public ModifierType type = ModifierType.POSITIVE;
+	/** For internal use only */
+	@Getter @Setter private boolean percents = false;
 
-	@Getter @Setter @NonNull public T first, second;
+	@Getter @Setter @NonNull private T first, second;
 
 	public ValuePair<T> swap() {
 		final T cache = first;
@@ -29,11 +31,35 @@ public class ValuePair<T> {
 		return this;
 	}
 
-	public static <V> ValuePair<V> of(V first, V second) {
+	public ValuePair<T> checkSwap() {
+		if (first.doubleValue() > second.doubleValue())
+			return swap();
+		return this;
+	}
+
+	public ValuePair<T> add(ValuePair<T> val) {
+		first((T) Double.valueOf(first.doubleValue()+val.first.doubleValue()));
+		second((T) Double.valueOf(second.doubleValue()+val.second.doubleValue()));
+		return this;
+	}
+
+	public ValuePair<T> mult(ValuePair<Double> val) {
+		first((T) Double.valueOf(first.doubleValue()*val.first.doubleValue()));
+		second((T) Double.valueOf(second.doubleValue()*val.second.doubleValue()));
+		return this;
+	}
+
+
+	public static <V extends Number> ValuePair<V> of(V first, V second) {
 		return new ValuePair<>(null, first, second);
 	}
 
-	public static <V> ValuePair<V> of(String key, V first, V second) {
+	public static <V extends Number> ValuePair<V> of(String key, V first, V second) {
+		return new ValuePair<>(key, first, second);
+	}
+
+	@Override
+	protected ValuePair<T> clone() {
 		return new ValuePair<>(key, first, second);
 	}
 

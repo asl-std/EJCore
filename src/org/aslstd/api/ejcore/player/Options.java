@@ -77,10 +77,10 @@ public final class Options {
 	}
 
 	public Options writeRange(String key, ValuePair<Double> range) {
-		if (range.first < range.second) range.swap();
+		range.checkSwap();
 
-		writeValue(key + ".first", range.first);
-		return writeValue(key + ".second", range.second);
+		writeValue(key + ".first", range.first());
+		return writeValue(key + ".second", range.second());
 	}
 
 	public Options writeRange(String key, double first, double second) {

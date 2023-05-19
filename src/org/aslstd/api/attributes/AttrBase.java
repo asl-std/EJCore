@@ -38,9 +38,9 @@ public class AttrBase implements Keyed {
 
 	public double getAndScale(int modifier) {
 		if (getType() != AttrType.SINGLE)
-			return base.getFirst();
+			return base.first();
 
-		return base.getFirst() + base.getSecond() * modifier;
+		return base.first() + base.second() * modifier;
 	}
 
 	public AttrBase(String keyName, String path, double defBase, double defPerLevel) {
@@ -120,18 +120,13 @@ public class AttrBase implements Keyed {
 					base = ValuePair.of(getDefaultValue(), getDefaultPerLevel());
 				} else
 					try {
-						final ValuePair<Double> val = ValuePair.of(Double.parseDouble(values[0]), Double.parseDouble(values[1]));
-
-						if (val.second < val.first)
-							val.swap();
-
-						base = val;
+						base = ValuePair.of(Double.parseDouble(values[0]), Double.parseDouble(values[1])).checkSwap();
 					} catch(final NumberFormatException e) {
 						EText.warn("RANGE value: &5" + toString()+ ": &5" + values[0] + "-" + values[1] + " |  has incorrect symbols, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
-						base = ValuePair.of(getDefaultValue(), getDefaultPerLevel());
+						base = ValuePair.of(getDefaultValue(), getDefaultPerLevel()).checkSwap();
 					}
 			}
-			case SINGLE -> base.setFirst(statCfg.getDouble(toString() + ".value", getDefaultValue(), true));
+			case SINGLE -> base.first(statCfg.getDouble(toString() + ".value", getDefaultValue(), true));
 		}
 	}
 

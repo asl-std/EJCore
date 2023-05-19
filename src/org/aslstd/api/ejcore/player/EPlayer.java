@@ -25,7 +25,7 @@ public final class EPlayer extends UPlayer {
 
 	public EPlayer(UUID uid) {
 		super(Bukkit.getPlayer(uid));
-		dataFile = PlayerFileStorage.getDatabases().get(Core.instance().getName()).getPlayerFile(player);
+		dataFile = PlayerFileStorage.getDatabases().get(Core.instance()).getPlayerFile(player);
 		options = new Options(this);
 		equip = new EquipInventory();
 	}
