@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.aslstd.api.bukkit.yaml.Yaml;
+import org.aslstd.api.ejcore.collection.Stash;
 import org.aslstd.api.ejcore.util.Obj;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,11 +32,11 @@ public class PlayerFileStorage {
 	}
 
 	private JavaPlugin plugin;
-	private ConcurrentMap<UUID, Yaml> database;
+	private Stash<UUID, Yaml> database;
 
 	private PlayerFileStorage(JavaPlugin plugin) {
 		this.plugin = plugin;
-		database = new ConcurrentHashMap<>();
+		database = Stash.of(u -> Yaml.of("players/" + u + ".yml", plugin));
 		initDatabase();
 	}
 
@@ -60,13 +61,7 @@ public class PlayerFileStorage {
 	}
 
 	public @NotNull Yaml getPlayerFile(@NotNull OfflinePlayer player) {
-		Obj.checkNull(player);
-		Yaml pfile = database.get(player.getUniqueId());
-
-		if (pfile == null)
-			pfile = Yaml.of("players/" + player.getUniqueId() + ".yml", plugin);
-
-		return pfile;
+		return database.get(player.getUniqueId());
 	}
 
 }

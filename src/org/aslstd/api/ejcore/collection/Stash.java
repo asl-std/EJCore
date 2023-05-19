@@ -51,7 +51,7 @@ public class Stash<K,V> extends ForwardingMap<K,V> {
 	@Override
 	public V remove(Object key) {
 		final V val = map.remove(key);
-		if (val != null)
+		if (val != null && removeFunc != null)
 			removeFunc.accept(val);
 		return val;
 	}
