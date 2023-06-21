@@ -40,7 +40,7 @@ public class Yaml {
 	protected File				file;
 
 	/**
-	 * <p>Constructor for YAML.</p>
+	 * <p>Constructor for Yaml.</p>
 	 *
 	 * @param file a {@link java.io.File} object
 	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
@@ -77,7 +77,7 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>Constructor for YAML.</p>
+	 * <p>Constructor for Yaml.</p>
 	 *
 	 * @param path a {@link String} object
 	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
@@ -85,14 +85,14 @@ public class Yaml {
 	public Yaml(String path, JavaPlugin plugin) { this(new File(path), plugin, null); }
 
 	/**
-	 * <p>Constructor for YAML.</p>
+	 * <p>Constructor for Yaml.</p>
 	 *
 	 * @param path a {@link String} object
 	 */
 	public Yaml(String path) { this(new File(path), null, null); }
 
 	/**
-	 * <p>Constructor for YAML.</p>
+	 * <p>Constructor for Yaml.</p>
 	 *
 	 * @param file a {@link java.io.File} object
 	 */
@@ -401,7 +401,7 @@ public class Yaml {
 
 	/**
 	 * @param path - a file name without file extension.
-	 * @return YAML - a file from "plugins/ejCore/data/<b>path</b>.yml
+	 * @return Yaml - a file from "plugins/ejCore/data/<b>path</b>.yml
 	 */
 	public static Yaml getCustomStorage(String path) {
 		return new Yaml(new File("plugins/ejCore/data/" + path + ".yml"));
@@ -410,7 +410,7 @@ public class Yaml {
 	/**
 	 * @param path - a file name with extension.
 	 * @param plugin - a plugin what used for data folder
-	 * @return YAML - a file from "plugins/plugin.getDataFolder()/path"
+	 * @return Yaml - a file from "plugins/plugin.getDataFolder()/path"
 	 */
 	public static Yaml of(String path, JavaPlugin plugin) {
 		return new Yaml(plugin.getDataFolder() + "/" + path, plugin);
@@ -420,7 +420,7 @@ public class Yaml {
 	 *
 	 * @param path - a file name with extension.
 	 * @return a file from "plugins/ejCore/path" if ejCore is enabled<br>
-	 * otherwise returns new YAML(path)
+	 * otherwise returns new Yaml(path)
 	 */
 	public static Yaml of(String path) {
 		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");

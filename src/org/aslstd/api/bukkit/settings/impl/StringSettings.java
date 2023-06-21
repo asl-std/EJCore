@@ -102,7 +102,7 @@ public class StringSettings extends Settings<String> {
 	}
 
 	/**
-	 * <p>exportToYAML.</p>
+	 * <p>exportToYaml.</p>
 	 *
 	 * @param file a {@link Yaml} object
 	 * @param section a {@link String} object

@@ -43,6 +43,21 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.26</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.4.1</version>
 				<configuration>
@@ -136,7 +151,7 @@
 			<version>2.11.3</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- FoliaAPI -->
 		<dependency>
 			<groupId>dev.folia</groupId>
@@ -144,7 +159,7 @@
 			<version>1.20.1-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- SpigotAPI -->
 		<dependency>
 			<groupId>com.destroystokyo.paper</groupId>
