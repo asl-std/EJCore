@@ -4,11 +4,11 @@ import org.bukkit.Location;
 
 public class Area3D {
 
-	private Vector3D from, to;
+	private Vec3 from, to;
 
-	public Area3D(Vector3D fPos, Vector3D sPos) {
-		from = Vector3D.getMinimum(fPos, sPos);
-		to = Vector3D.getMaximum(fPos, sPos);
+	public Area3D(Vec3 fPos, Vec3 sPos) {
+		from = Vec3.min(fPos, sPos);
+		to = Vec3.max(fPos, sPos);
 	}
 
 	public Area3D toOddRadius() {
@@ -21,22 +21,22 @@ public class Area3D {
 		return this;
 	}
 
-	public Vector3D getFirstPosition() { return from.clone(); }
+	public Vec3 getFirstPosition() { return from.clone(); }
 
-	public Vector3D getSecondPosition() { return to.clone(); }
+	public Vec3 getSecondPosition() { return to.clone(); }
 
-	public boolean isInArea2D(Location loc) { return isInArea2D(Vector3D.fromLocation(loc)); }
+	public boolean isInArea2D(Location loc) { return isInArea2D(Vec3.of(loc)); }
 
-	public boolean isInArea3D(Location loc) { return isInArea3D(Vector3D.fromLocation(loc)); }
+	public boolean isInArea3D(Location loc) { return isInArea3D(Vec3.of(loc)); }
 
-	public boolean isInArea2D(Vector3D point) {
+	public boolean isInArea2D(Vec3 point) {
 		return 	point.getX() >= from.getX() &&
 				point.getX() <= to.getX() &&
 				point.getZ() >= from.getZ() &&
 				point.getZ() <= to.getZ();
 	}
 
-	public boolean isInArea3D(Vector3D point) {
+	public boolean isInArea3D(Vec3 point) {
 		return  point.getX() >= from.getX() &&
 				point.getX() <= to.getX() &&
 				point.getY() >= from.getY() &&

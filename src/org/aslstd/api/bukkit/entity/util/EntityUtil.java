@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.aslstd.api.bukkit.location.Area3D;
-import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.bukkit.location.Vec3;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
@@ -70,9 +70,9 @@ public final class EntityUtil {
 	 * @return a {@link org.aslstd.api.bukkit.location.Area3D} object
 	 */
 	public static Area3D getAreaAroundPlayer(Player p, double x, double y, double z) {
-		final Vector3D origin = new Vector3D(x/2,y/2,z/2);
+		final Vec3 origin = Vec3.of(x/2,y/2,z/2);
 
-		return new Area3D(Vector3D.fromLocation(p.getLocation()).substract(origin), Vector3D.fromLocation(p.getLocation()).add(origin));
+		return new Area3D(Vec3.of(p.getLocation()).substract(origin), Vec3.of(p.getLocation()).add(origin));
 	}
 
 	public static Player getOnlinePlayer(String name) {

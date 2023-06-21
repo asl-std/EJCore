@@ -3,7 +3,7 @@ package org.aslstd.api.bukkit.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.bukkit.location.Vec3;
 import org.bukkit.block.Block;
 
 /**
@@ -32,7 +32,7 @@ public class BlockUtil {
 		for (int x = -radius ; x < (radius+1) ; x++)
 			for (int y = -radius ; y < (radius+1) ; y++)
 				for (int z = -radius ; z < (radius+1) ; z++)
-					blocks.add(target.getWorld().getBlockAt(new Vector3D(x,y,z).addTo(target.getLocation())));
+					blocks.add(target.getWorld().getBlockAt(Vec3.of(x,y,z).merge(target.getLocation())));
 
 		return blocks;
 	}
@@ -55,7 +55,7 @@ public class BlockUtil {
 
 		for (int x = -radius ; x < (radius+1) ; x++)
 			for (int z = -radius ; z < (radius+1) ; z++)
-				blocks.add(target.getWorld().getBlockAt(new Vector3D(x,0,z).addTo(target.getLocation())));
+				blocks.add(target.getWorld().getBlockAt(Vec3.of(x,0,z).merge(target.getLocation())));
 
 		return blocks;
 

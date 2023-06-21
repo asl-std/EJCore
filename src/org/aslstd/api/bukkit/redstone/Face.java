@@ -3,7 +3,7 @@ package org.aslstd.api.bukkit.redstone;
 import java.util.Arrays;
 import java.util.List;
 
-import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.bukkit.location.Vec3;
 import org.aslstd.api.bukkit.value.Pair;
 import org.bukkit.block.BlockFace;
 
@@ -16,21 +16,21 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public enum Face {
-	NORTH(new Vector3D(0,0,-1)),
-	WEST(new Vector3D(-1,0,0)),
-	SOUTH(new Vector3D(0,0,1)),
-	EAST(new Vector3D(1,0,0)),
-	UP(new Vector3D(0,1,0)),
-	DOWN(new Vector3D(0,-1,0));
+	NORTH(Vec3.of(0,0,-1)),
+	WEST(Vec3.of(-1,0,0)),
+	SOUTH(Vec3.of(0,0,1)),
+	EAST(Vec3.of(1,0,0)),
+	UP(Vec3.of(0,1,0)),
+	DOWN(Vec3.of(0,-1,0));
 
 	/**
 	 * <p>vec.</p>
 	 *
-	 * @return a {@link org.aslstd.api.bukkit.location.Vector3D} object
+	 * @return a {@link org.aslstd.api.bukkit.location.Vec3} object
 	 */
-	final Vector3D vec;
+	final Vec3 vec;
 
-	public Vector3D vec() {
+	public Vec3 vec() {
 		return vec;
 	}
 
@@ -40,12 +40,12 @@ public enum Face {
 	 * @param height a int
 	 * @return a {@link List} object
 	 */
-	public static List<Pair<Face, Vector3D>> sides(int height) {
+	public static List<Pair<Face, Vec3>> sides(int height) {
 		return Arrays.asList(
-				new Pair<>(NORTH, NORTH.vec.setY(height)),
-				new Pair<>(WEST, WEST.vec.setY(height)),
-				new Pair<>(SOUTH, SOUTH.vec.setY(height)),
-				new Pair<>(EAST, EAST.vec.setY(height))
+				new Pair<>(NORTH, NORTH.vec.y(height)),
+				new Pair<>(WEST, WEST.vec.y(height)),
+				new Pair<>(SOUTH, SOUTH.vec.y(height)),
+				new Pair<>(EAST, EAST.vec.y(height))
 				);
 	}
 

@@ -7,25 +7,25 @@ package org.aslstd.api.bukkit.location;
  * @author Snoop1CattZ69
  */
 public enum Direction {
-	XZ(new Vector3D(1,0,1)),
-	XZR(new Vector3D(1,0,-1)),
-	ZX(new Vector3D(-1,0,1)),
-	ZXR(new Vector3D(-1,0,-1)),
-	X(new Vector3D(1,0,0)),
-	Y(new Vector3D(0,1,0)),
-	Z(new Vector3D(0,0,1)),
+	XZ(Vec3.of(1,0,1)),
+	XZR(Vec3.of(1,0,-1)),
+	ZX(Vec3.of(-1,0,1)),
+	ZXR(Vec3.of(-1,0,-1)),
+	X(Vec3.of(1,0,0)),
+	Y(Vec3.of(0,1,0)),
+	Z(Vec3.of(0,0,1)),
 	NULL;
 
-	Vector3D vec = new Vector3D(0,0,0);
+	Vec3 vec = Vec3.of(0,0,0);
 
 	Direction() {}
-	Direction(Vector3D vec) { this.vec = vec; }
+	Direction(Vec3 vec) { this.vec = vec; }
 
 	/**
 	 * <p>getVector3D.</p>
 	 *
-	 * @return a {@link org.aslstd.api.bukkit.location.Vector3D} object
+	 * @return a {@link org.aslstd.api.bukkit.location.Vec3} object
 	 */
-	public Vector3D getVector3D() { return vec.clone(); }
+	public Vec3 getVector3D() { return vec.clone(); }
 
 }

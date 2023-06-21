@@ -1,6 +1,6 @@
 package org.aslstd.api.openlib.event.player;
 
-import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.bukkit.location.Vec3;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -26,8 +26,8 @@ public class PlayerBlockMoveEvent extends PlayerEvent implements Cancellable {
 	 */
 	public static HandlerList getHandlerList() { return HANDLERS; }
 
-	@Getter @Setter private Vector3D from;
-	@Getter  private Vector3D to;
+	@Getter @Setter private Vec3 from;
+	@Getter  private Vec3 to;
 
 	@Getter @Setter private boolean cancelled;
 
@@ -42,16 +42,16 @@ public class PlayerBlockMoveEvent extends PlayerEvent implements Cancellable {
 	 */
 	public PlayerBlockMoveEvent(Player who, Location from, Location to) {
 		super(who);
-		this.from = Vector3D.fromLocation(from);
-		this.to = Vector3D.fromLocation(to);
+		this.from = Vec3.of(from);
+		this.to = Vec3.of(to);
 	}
 
 	/**
 	 * <p>Setter for the field <code>to</code>.</p>
 	 *
-	 * @param to a {@link org.aslstd.api.bukkit.location.Vector3D} object
+	 * @param to a {@link org.aslstd.api.bukkit.location.Vec3} object
 	 */
-	public void setTo(Vector3D to) {
+	public void setTo(Vec3 to) {
 		this.to = to;
 		locChanged = true;
 	}

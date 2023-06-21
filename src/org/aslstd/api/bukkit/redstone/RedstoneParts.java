@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.bukkit.location.Vec3;
 import org.aslstd.api.bukkit.redstone.impl.RedstoneParts1_13;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -46,8 +46,8 @@ public abstract class RedstoneParts {
 
 		for (final Block b : list)
 			if (b.getType().isSolid() && b.isBlockPowered())
-				for (final Vector3D vec : FloorRedstoneTorch.vectors)
-					powered.add(b.getLocation().getWorld().getBlockAt(vec.addTo(b.getLocation())));
+				for (final Vec3 vec : FloorRedstoneTorch.vectors)
+					powered.add(b.getLocation().getWorld().getBlockAt(vec.merge(b.getLocation())));
 
 		if (!powered.isEmpty())
 			list.addAll(powered);
@@ -65,8 +65,8 @@ public abstract class RedstoneParts {
 		final List<Block> near = new ArrayList<>();
 		final World w = from.getLocation().getWorld();
 
-		for (final Vector3D vec : FloorRedstoneTorch.vectors)
-			near.add(w.getBlockAt(vec.addTo(from.getLocation())));
+		for (final Vec3 vec : FloorRedstoneTorch.vectors)
+			near.add(w.getBlockAt(vec.merge(from.getLocation())));
 
 		return near;
 	}
@@ -81,8 +81,8 @@ public abstract class RedstoneParts {
 		final List<Block> powered = new ArrayList<>();
 		final World w = from.getLocation().getWorld();
 
-		for (final Vector3D vec : FloorRedstoneTorch.vectors)
-			powered.add(w.getBlockAt(vec.addTo(from.getLocation())));
+		for (final Vec3 vec : FloorRedstoneTorch.vectors)
+			powered.add(w.getBlockAt(vec.merge(from.getLocation())));
 
 		return !powered.stream().filter(b -> (b.isBlockPowered() || redstoneParts.isEnabledRedstone(b.getType()))).collect(Collectors.toList()).isEmpty();
 	}
@@ -94,11 +94,11 @@ public abstract class RedstoneParts {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			final Block relative = w.getBlockAt(face.opposite().vec().addTo(from.getLocation()));
+			final Block relative = w.getBlockAt(face.opposite().vec().merge(from.getLocation()));
 
-			for (final Vector3D vec : FloorRedstoneTorch.vectors) {
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
-				blocks.add(w.getBlockAt(vec.addTo(relative.getLocation())));
+			for (final Vec3 vec : FloorRedstoneTorch.vectors) {
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
+				blocks.add(w.getBlockAt(vec.merge(relative.getLocation())));
 			}
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
@@ -113,11 +113,11 @@ public abstract class RedstoneParts {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			for (final Vector3D vec : FloorRedstoneTorch.vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : FloorRedstoneTorch.vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
-			for (final Vector3D vec : PressurePlate.vectors)
-				blocks.add(w.getBlockAt(vec.reverse().addTo(from.getLocation())));
+			for (final Vec3 vec : PressurePlate.vectors)
+				blocks.add(w.getBlockAt(vec.reverse().merge(from.getLocation())));
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
 		}
@@ -131,14 +131,14 @@ public abstract class RedstoneParts {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			for (final Vector3D vec : FloorRedstoneTorch.vectors)
+			for (final Vec3 vec : FloorRedstoneTorch.vectors)
 				if (vec.getY() != 1)
-					blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+					blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 				else
-					blocks.add(w.getBlockAt(vec.reverse().addTo(from.getLocation())));
+					blocks.add(w.getBlockAt(vec.reverse().merge(from.getLocation())));
 
-			for (final Vector3D vec : PressurePlate.vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : PressurePlate.vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
 		}
@@ -148,23 +148,23 @@ public abstract class RedstoneParts {
 	protected static class PressurePlate {
 		private PressurePlate() {}
 
-		private static final Vector3D[] vectors = {
-		                                           new Vector3D(-1, -1, 0),
-		                                           new Vector3D(1, -1, 0),
-		                                           new Vector3D(0, -1, 1),
-		                                           new Vector3D(0, -1, -1),
-		                                           new Vector3D(0, -2, 0)
+		private static final Vec3[] vectors = {
+		                                       Vec3.of(-1, -1, 0),
+		                                       Vec3.of(1, -1, 0),
+		                                       Vec3.of(0, -1, 1),
+		                                       Vec3.of(0, -1, -1),
+		                                       Vec3.of(0, -2, 0)
 		};
 
 		public static List<Block> getBlocks(Block from) {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			for (final Vector3D vec : vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
-			for (final Vector3D vec : FloorRedstoneTorch.vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : FloorRedstoneTorch.vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
 		}
@@ -174,23 +174,23 @@ public abstract class RedstoneParts {
 	protected static class RedstoneWire {
 		private RedstoneWire() {}
 
-		private static final Vector3D[] vectors = {
-		                                           new Vector3D(-1, -1, 0),
-		                                           new Vector3D(1, -1, 0),
-		                                           new Vector3D(0, -1, 1),
-		                                           new Vector3D(0, -1, -1),
-		                                           new Vector3D(0, -2, 0)
+		private static final Vec3[] vectors = {
+		                                       Vec3.of(-1, -1, 0),
+		                                       Vec3.of(1, -1, 0),
+		                                       Vec3.of(0, -1, 1),
+		                                       Vec3.of(0, -1, -1),
+		                                       Vec3.of(0, -2, 0)
 		};
 
 		public static List<Block> getBlocks(Block from) {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			for (final Vector3D vec : vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
-			for (final Vector3D vec : FloorRedstoneTorch.vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : FloorRedstoneTorch.vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
 		}
@@ -200,21 +200,21 @@ public abstract class RedstoneParts {
 	protected static class FloorRedstoneTorch { //Floor Redstone Torch
 		private FloorRedstoneTorch() {}
 
-		private static final Vector3D[] vectors = {
-		                                           new Vector3D(1, 0, 0),
-		                                           new Vector3D(-1, 0, 0),
-		                                           new Vector3D(0, 1, 0),
-		                                           new Vector3D(0, -1, 0),
-		                                           new Vector3D(0, 0, 1),
-		                                           new Vector3D(0, 0, -1),
+		private static final Vec3[] vectors = {
+		                                       Vec3.of(1, 0, 0),
+		                                       Vec3.of(-1, 0, 0),
+		                                       Vec3.of(0, 1, 0),
+		                                       Vec3.of(0, -1, 0),
+		                                       Vec3.of(0, 0, 1),
+		                                       Vec3.of(0, 0, -1),
 		};
 
 		public static List<Block> getBlocks(Block from, boolean isTorch) {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			for (final Vector3D vec : vectors)
-				blocks.add(w.getBlockAt(vec.addTo(from.getLocation())));
+			for (final Vec3 vec : vectors)
+				blocks.add(w.getBlockAt(vec.merge(from.getLocation())));
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
 		}
@@ -228,15 +228,15 @@ public abstract class RedstoneParts {
 			final List<Block> blocks = new ArrayList<>();
 			final World w = from.getWorld();
 
-			blocks.add(w.getBlockAt(face.vec().addTo(from.getLocation())));
-			blocks.add(w.getBlockAt(face.next().vec().addTo(from.getLocation())));
-			blocks.add(w.getBlockAt(face.previous().vec().addTo(from.getLocation())));
+			blocks.add(w.getBlockAt(face.vec().merge(from.getLocation())));
+			blocks.add(w.getBlockAt(face.next().vec().merge(from.getLocation())));
+			blocks.add(w.getBlockAt(face.previous().vec().merge(from.getLocation())));
 
-			final Block block = w.getBlockAt(Face.UP.vec().addTo(from.getLocation()));
+			final Block block = w.getBlockAt(Face.UP.vec().merge(from.getLocation()));
 			if (block.getType().isSolid())
-				blocks.add(w.getBlockAt(new Vector3D(0,2,0).addTo(from.getLocation())));
+				blocks.add(w.getBlockAt(Vec3.of(0,2,0).merge(from.getLocation())));
 			blocks.add(block);
-			blocks.add(w.getBlockAt(Face.DOWN.vec().addTo(from.getLocation())));
+			blocks.add(w.getBlockAt(Face.DOWN.vec().merge(from.getLocation())));
 
 			return collectPoweredBlocks(blocks.stream().filter(b -> b.getType() != Material.AIR).collect(Collectors.toList()));
 		}

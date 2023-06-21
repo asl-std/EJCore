@@ -2,7 +2,7 @@ package org.aslstd.core.listener;
 
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.equip.EquipSlot;
-import org.aslstd.api.bukkit.location.Vector3D;
+import org.aslstd.api.bukkit.location.Vec3;
 import org.aslstd.api.openlib.event.equipment.PrepareEquipEvent;
 import org.aslstd.api.openlib.event.player.PlayerBlockMoveEvent;
 import org.aslstd.api.openlib.player.OPlayer;
@@ -75,7 +75,7 @@ public class PlayerListener implements BukkitListener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void throwPlayerBlockMove(PlayerMoveEvent e) {
 		if (!e.isCancelled())
-			if (Vector3D.blockEquals(e.getFrom(), e.getTo())) {
+			if (Vec3.blockEquals(e.getFrom(), e.getTo())) {
 				final PlayerBlockMoveEvent event = new PlayerBlockMoveEvent(e.getPlayer(),e.getFrom(),e.getTo());
 				Bukkit.getPluginManager().callEvent(event);
 				if (event.isCancelled()) {
