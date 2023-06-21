@@ -3,11 +3,13 @@ package org.aslstd.api.openlib.plugin.hook;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
@@ -16,12 +18,15 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
  *
  * @author Snoop1CattZ69
  */
-public abstract class PAPI extends PlaceholderExpansion {
+@Accessors(fluent = true)
+public abstract class Placeholders extends PlaceholderExpansion {
 
 	@Getter private static final ConcurrentMap<String, PlaceholderExpansion> preRegister = new ConcurrentHashMap<>();
 
+	@Getter private static final boolean enabled = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
+
 	public static final String parseBracketPlaceholders(OfflinePlayer target, String text) {
-		if (!HookManager.isPapiEnabled())
+		if (!enabled)
 			throw new IllegalStateException(
 					"This error appear because something tries to use method, "
 							+ "but PlaceholderAPI not installed, "
@@ -32,7 +37,7 @@ public abstract class PAPI extends PlaceholderExpansion {
 	}
 
 	public static final String parsePlaceholders(OfflinePlayer target, String text) {
-		if (!HookManager.isPapiEnabled())
+		if (!enabled)
 			throw new IllegalStateException(
 					"This error appear because something tries to use method, "
 							+ "but PlaceholderAPI not installed, "
@@ -52,7 +57,7 @@ public abstract class PAPI extends PlaceholderExpansion {
 	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 * @param identifier a {@link String} object
 	 */
-	public PAPI(JavaPlugin plugin, String identifier) {
+	public Placeholders(JavaPlugin plugin, String identifier) {
 		this.plugin = plugin;
 		this.identifier = identifier;
 		preRegister.put(identifier, this);

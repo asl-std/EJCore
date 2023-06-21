@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.entity.util.EntityUtil;
 import org.aslstd.api.bukkit.yaml.Yaml;
-import org.aslstd.api.openlib.plugin.hook.PAPI;
+import org.aslstd.api.openlib.plugin.hook.Placeholders;
 import org.aslstd.core.OpenLib;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 
-public class DataExpansion extends PAPI {
+public class DataExpansion extends Placeholders {
 
 	public DataExpansion() {
 		super(OpenLib.instance(), "ejcdata");

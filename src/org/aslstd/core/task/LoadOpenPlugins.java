@@ -6,7 +6,6 @@ import java.util.Set;
 import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.openlib.plugin.OpenPlugin;
 import org.aslstd.core.listener.temp.CancelJoinBeforeFullLoading;
-import org.aslstd.core.manager.ModuleManager;
 import org.aslstd.core.service.ListenerRegistrator;
 import org.aslstd.core.update.CheckUpdates;
 import org.bukkit.Bukkit;
@@ -38,8 +37,6 @@ public class LoadOpenPlugins extends BukkitRunnable {
 		});
 
 		CheckUpdates.Task.runTask();
-
-		ModuleManager.enableModules();
 
 		ListenerRegistrator.register();
 

@@ -11,8 +11,7 @@ import org.aslstd.api.bukkit.utils.ServerVersion;
 import org.aslstd.api.openlib.player.OPlayer;
 import org.aslstd.api.openlib.plugin.Incompatibility;
 import org.aslstd.api.openlib.plugin.OpenPlugin;
-import org.aslstd.api.openlib.plugin.hook.HookManager;
-import org.aslstd.api.openlib.plugin.hook.PAPI;
+import org.aslstd.api.openlib.plugin.hook.Placeholders;
 import org.aslstd.api.openlib.util.Obj;
 import org.aslstd.api.openlib.worker.WorkerService;
 import org.aslstd.api.provider.permission.PermProvider;
@@ -25,7 +24,6 @@ import org.aslstd.core.listener.EquipListener;
 import org.aslstd.core.listener.PaneInteractListener;
 import org.aslstd.core.listener.PlayerListener;
 import org.aslstd.core.listener.temp.CancelJoinBeforeFullLoading;
-import org.aslstd.core.manager.ModuleManager;
 import org.aslstd.core.platform.scheduler.provider.BukkitSchedulerProvider;
 import org.aslstd.core.platform.scheduler.provider.FoliaSchedulerProvider;
 import org.aslstd.core.platform.scheduler.provider.SchedulerProvider;
@@ -125,7 +123,7 @@ public class OpenLib extends OpenPlugin {
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
 
-		if (HookManager.tryHookPAPI()) {
+		if (Placeholders.enabled()) {
 			Text.fine("PAPI expansion loaded!");
 			new DataExpansion();
 		} else
@@ -136,7 +134,6 @@ public class OpenLib extends OpenPlugin {
 
 		handler = new CoreCommandHandler().registerHandler();
 
-		ModuleManager.loadModules(getClassLoader());
 
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin instanceof OpenPlugin && !plugin.getName().equalsIgnoreCase(this.getName()))
@@ -146,7 +143,6 @@ public class OpenLib extends OpenPlugin {
 			Text.fine("&amoLibrary found OpenPlugins, wait while all plugins enables.. ");
 			new LoadOpenPlugins(plugins).runTaskTimer(this, 0, 40L);
 		} else {
-			ModuleManager.enableModules();
 			ListenerRegistrator.register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
@@ -154,8 +150,8 @@ public class OpenLib extends OpenPlugin {
 		Text.fine("&amoLibrary succesfuly loaded in " + Text.format((System.nanoTime() - bef) / 1e9) + " sec.");
 		Text.sendLB();
 		Incompatibility.check();
-		if (HookManager.isPapiEnabled() && !PAPI.getPreRegister().isEmpty())
-			PAPI.getPreRegister().values().forEach(PlaceholderExpansion::register);
+		if (Placeholders.enabled() && !Placeholders.preRegister().isEmpty())
+			Placeholders.preRegister().values().forEach(PlaceholderExpansion::register);
 	}
 
 	@Override

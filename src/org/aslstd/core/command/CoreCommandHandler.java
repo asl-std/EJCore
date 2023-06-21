@@ -10,7 +10,7 @@ import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.entity.util.EntityUtil;
 import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.yaml.Yaml;
-import org.aslstd.api.openlib.plugin.hook.HookManager;
+import org.aslstd.api.openlib.plugin.hook.Placeholders;
 import org.aslstd.core.OpenLib;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -68,7 +68,7 @@ public class CoreCommandHandler extends BasicCommandHandler {
 			return null;
 		}));
 
-		if (HookManager.isPapiEnabled())
+		if (Placeholders.enabled())
 			registerCommand(new BasicCommand(this, "data", (s, args) -> {
 				if (args.length < 4)
 					return "&c[moLib] Not enough arguments: /mol data <player/custom> <name/uid/file> <key> <value>";
