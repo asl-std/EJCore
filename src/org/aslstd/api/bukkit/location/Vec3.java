@@ -25,11 +25,11 @@ public class Vec3 implements Cloneable {
 	}
 
 	public static Vec3 of(double x, double y, double z) {
-		return Vec3.of(x, y, z);
+		return new Vec3(x, y, z);
 	}
 
 	public static Vec3 of(double x, double y, double z, World world) {
-		return Vec3.of(x, y, z, world);
+		return new Vec3(x, y, z, world);
 	}
 
 	public static Vec3 of(Location loc) {

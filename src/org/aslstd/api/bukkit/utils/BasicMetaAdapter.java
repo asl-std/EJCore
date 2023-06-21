@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -143,18 +144,12 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param flags a {@link org.bukkit.inventory.ItemFlag} object
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */
-	@Deprecated
 	public static ItemStack setHideFlags(ItemStack stack, ItemFlag... flags) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
-		final ItemMeta meta = stack.getItemMeta();
+		stack.editMeta(meta -> {
+			Stream.of(flags).filter(f -> !meta.hasItemFlag(f)).forEach(meta::addItemFlags);
+		});
 
-		for (final ItemFlag flag : flags)
-			if (meta.hasItemFlag(flag))
-				continue;
-			else
-				meta.addItemFlags(flag);
-
-		stack.setItemMeta(meta);
 		return stack;
 	}
 
@@ -169,14 +164,13 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static ItemStack addEnchant(ItemStack stack, Enchantment ench, int lvl, boolean ignoreLvl) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
-		final ItemMeta meta = stack.getItemMeta();
 
-		if (meta.hasEnchant(ench))
-			meta.removeEnchant(ench);
+		stack.editMeta(meta -> {
+			if (meta.hasEnchant(ench))
+				meta.removeEnchant(ench);
+			meta.addEnchant(ench, lvl, ignoreLvl);
+		});
 
-		meta.addEnchant(ench, lvl, ignoreLvl);
-
-		stack.setItemMeta(meta);
 		return stack;
 	}
 
@@ -189,12 +183,11 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static ItemStack setDisplayName(ItemStack stack, String display) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
-		final ItemMeta meta = stack.getItemMeta();
-		if (display != null)
-			meta.displayName(Component.text(Text.c(display)));
-		else
-			meta.displayName(null);
-		stack.setItemMeta(meta);
+
+		stack.editMeta(meta -> {
+			meta.displayName(display == null ? null : Component.text(Text.c(display)));
+		});
+
 		return stack;
 	}
 

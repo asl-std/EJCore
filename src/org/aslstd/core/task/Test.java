@@ -1,5 +1,6 @@
 package org.aslstd.core.task;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,16 @@ import org.bukkit.inventory.ItemStack;
  * @author Snoop1CattZ69
  */
 public class Test {
+
+	public static void main(String[ ] args) {
+		final List<String> s = new ArrayList<>();
+		s.add("some");
+		s.add("string");
+		s.add("fuck");
+		s.add("pointers");
+
+		s.stream().filter(st -> st.contains("s")).forEach(t -> System.out.println(t));
+	}
 
 	private static boolean tested = false;
 
