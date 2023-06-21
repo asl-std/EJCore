@@ -6,8 +6,7 @@ import org.bukkit.event.HandlerList;
 /**
  * <p>PageReturnItemsEvent class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class PageReturnItemsEvent extends Event {
 

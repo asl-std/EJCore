@@ -4,7 +4,7 @@ package org.aslstd.api.attributes;
  * Enum collection of attributes calculating types.
  *
  * @author Snoopy
- * @version $Id: $Id
+
  */
 public enum AttrType {
 	/**

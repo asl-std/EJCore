@@ -11,8 +11,7 @@ import org.bukkit.block.data.Directional;
 /**
  * <p>RedstoneParts1_13 class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class RedstoneParts1_13 extends RedstoneParts {
 

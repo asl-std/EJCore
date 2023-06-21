@@ -10,10 +10,9 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 /**
- *  To get Id for HAND you must use {link ru.asl.api.ejcore.entity.EPlayer#????}
+ *  To get Id for HAND you must use {link ru.asl.api.openlib.entity.EPlayer#????}
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @AllArgsConstructor
 @Accessors(fluent = true)
@@ -26,7 +25,7 @@ public enum EquipSlot {
 	 * <p>byID.</p>
 	 *
 	 * @param id a int
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
+	 * @return a {@link org.aslstd.api.openlib.equip.EquipSlot} object
 	 */
 	public static EquipSlot id(int id) {
 		for (final EquipSlot slot : values())
@@ -39,7 +38,7 @@ public enum EquipSlot {
 	 *
 	 * @param mat a {@link org.bukkit.Material} object
 	 * @param checkoff a boolean
-	 * @return a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
+	 * @return a {@link org.aslstd.api.openlib.equip.EquipSlot} object
 	 */
 	public static EquipSlot get(Material mat, boolean checkoff) {
 		if (ItemStackUtil.isHelmet(mat)) return HEAD;
@@ -53,7 +52,7 @@ public enum EquipSlot {
 	/**
 	 * <p>getStackFromSlot.</p>
 	 *
-	 * @param slot a {@link ru.aslcraft.api.ejcore.equip.EquipSlot} object
+	 * @param slot a {@link org.aslstd.api.openlib.equip.EquipSlot} object
 	 * @param p a {@link org.bukkit.entity.Player} object
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */

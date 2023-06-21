@@ -5,8 +5,7 @@ import org.bukkit.command.CommandSender;
 /**
  * <p>ECommand interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface ECommand extends Perms {
 
@@ -20,21 +19,21 @@ public interface ECommand extends Perms {
 	/**
 	 * <p>getDescription.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	String getDescription();
 
 	/**
 	 * <p>getName.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	String getName();
 
 	/**
 	 * <p>getUsage.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	String getUsage();
 
@@ -44,7 +43,7 @@ public interface ECommand extends Perms {
 	 * <p>use.</p>
 	 *
 	 * @param sender a {@link org.bukkit.command.CommandSender} object
-	 * @param args an array of {@link java.lang.String} objects
+	 * @param args an array of {@link String} objects
 	 * @return
 	 */
 	String use(CommandSender sender, String[] args);

@@ -3,15 +3,14 @@ package org.aslstd.api.expression.parser;
 /**
  * <p>ExpressionException class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @SuppressWarnings("serial")
 public class ExpressionException extends RuntimeException {
 	/**
 	 * <p>Constructor for ExpressionException.</p>
 	 *
-	 * @param message a {@link java.lang.String} object
+	 * @param message a {@link String} object
 	 */
 	public ExpressionException(final String message) {
 		super(message);

@@ -3,10 +3,10 @@ package org.aslstd.api.attributes;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.WordUtils;
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.value.ValuePair;
 import org.aslstd.api.bukkit.yaml.Yaml;
-import org.aslstd.core.Core;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 public class AttrBase implements Keyed {
 
 	public static final Pattern getRegexPattern(AttrBase stat) { //\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)
-		return Pattern.compile(EText.e(stat.getVisualName().toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
+		return Pattern.compile(Text.e(stat.getVisualName().toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
 
 	protected Yaml attrConf = null;
@@ -51,14 +51,14 @@ public class AttrBase implements Keyed {
 	}
 
 	public AttrBase(String keyName, String path, double defValue, double defPerLevel, AttrType type) {
-		this.key = new NamespacedKey(Core.instance(), keyName);
+		this.key = new NamespacedKey(OpenLib.instance(), keyName);
 		this.confPath = path;
 		this.defValue = defValue;
 		this.defPerLevel = defPerLevel;
 		this.type = type;
 
 		if (attrConf == null)
-			attrConf = Yaml.of("attr/" + toString() + ".yml", Core.instance());
+			attrConf = Yaml.of("attr/" + toString() + ".yml", OpenLib.instance());
 
 		initCustomSettings();
 		initializeBasicValues();
@@ -79,7 +79,7 @@ public class AttrBase implements Keyed {
 	/**
 	 * <p>getVisualTemplate.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public String getVisualTemplate() {
 		if (type == AttrType.RANGE)
@@ -91,8 +91,8 @@ public class AttrBase implements Keyed {
 	/**
 	 * <p>convertToLore.</p>
 	 *
-	 * @param values a {@link java.lang.String} object
-	 * @return a {@link java.lang.String} object
+	 * @param values a {@link String} object
+	 * @return a {@link String} object
 	 */
 	public String convertToLore(String... values) {
 		String converted = getVisualTemplate();
@@ -118,14 +118,14 @@ public class AttrBase implements Keyed {
 			case RANGE -> {
 				final String[] values = attrConf.getString(toString() + ".range-value", defValue + "-" + defPerLevel, true).replace(" ", "").split("-");
 				if (values.length < 2) {
-					EText.warn(toString() + ": found incorrect template, don't set only one value for this stat, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
-					EText.warn(toString() + ": initialisation skipped.. using " + defValue + "-" + defPerLevel + " as base value");
+					Text.warn(toString() + ": found incorrect template, don't set only one value for this stat, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
+					Text.warn(toString() + ": initialisation skipped.. using " + defValue + "-" + defPerLevel + " as base value");
 					base = ValuePair.of(defValue, defPerLevel);
 				} else
 					try {
 						base = ValuePair.of(Double.parseDouble(values[0]), Double.parseDouble(values[1])).checkSwap();
 					} catch(final NumberFormatException e) {
-						EText.warn("RANGE value: &5" + toString()+ ": &5" + values[0] + "-" + values[1] + " |  has incorrect symbols, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
+						Text.warn("RANGE value: &5" + toString()+ ": &5" + values[0] + "-" + values[1] + " |  has incorrect symbols, you must write 2 values separated them with &a'-'&4 symbol. For example: &a'2.5-5.0'");
 						base = ValuePair.of(defValue, defPerLevel).checkSwap();
 					}
 			}

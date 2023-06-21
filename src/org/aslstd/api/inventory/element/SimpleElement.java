@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import org.aslstd.api.bukkit.items.IStatus;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.utils.BasicMetaAdapter;
 import org.aslstd.api.inventory.Element;
 import org.bukkit.Material;
@@ -18,8 +18,7 @@ import lombok.Getter;
 /**
  * <p>SimpleElement class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class SimpleElement implements Element {
 
@@ -124,11 +123,11 @@ public class SimpleElement implements Element {
 	/**
 	 * <p>setIconDisplayName.</p>
 	 *
-	 * @param name a {@link java.lang.String} object
+	 * @param name a {@link String} object
 	 */
 	public void setIconDisplayName(String name) {
 		if (name != null)
-			BasicMetaAdapter.setDisplayName(icon, EText.c(name));
+			BasicMetaAdapter.setDisplayName(icon, Text.c(name));
 	}
 
 	/**

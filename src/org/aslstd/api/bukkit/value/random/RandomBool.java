@@ -6,8 +6,7 @@ import org.aslstd.api.bukkit.value.util.MathUtil;
 /**
  * <p>RandomBooleanValue class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class RandomBool implements RandomVal {
 

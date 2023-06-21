@@ -1,6 +1,6 @@
 package org.aslstd.api.bukkit.items;
 
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -9,8 +9,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * <p>InventoryUtil class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public final class InventoryUtil {
 
@@ -70,7 +69,7 @@ public final class InventoryUtil {
 	 * <p>decreaseItemChecksNameAmount.</p>
 	 *
 	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param name a {@link java.lang.String} object
+	 * @param name a {@link String} object
 	 * @param p a {@link org.bukkit.entity.Player} object
 	 * @param amount a int
 	 */
@@ -78,7 +77,7 @@ public final class InventoryUtil {
 		if (stack == null) return;
 		int value = amount;
 		final ItemStack[] storage = p.getInventory().getStorageContents();
-		final String toCheck = EText.e(name == null ? stack.getType().name() : ItemStackUtil.getDisplayName(stack));
+		final String toCheck = Text.e(name == null ? stack.getType().name() : ItemStackUtil.getDisplayName(stack));
 
 		final Material type = stack.getType();
 		for (int i = 0; i < storage.length; i++) {

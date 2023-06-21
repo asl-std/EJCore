@@ -10,8 +10,7 @@ import org.aslstd.api.expression.exception.OverflowException;
 /**
  * <p>Abstract AbstractBinaryOperation class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public abstract class AbstractBinaryOperation implements CommonExpression {
 	EnumBinaryOperation op;
@@ -52,7 +51,7 @@ public abstract class AbstractBinaryOperation implements CommonExpression {
 	/**
 	 * <p>getOperation.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public String getOperation() {
 		return EnumBinaryOperation.getStringByOp(op);

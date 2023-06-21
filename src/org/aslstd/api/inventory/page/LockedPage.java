@@ -20,8 +20,7 @@ import lombok.Setter;
 /**
  * <p>LockedPage class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class LockedPage implements Page {
 
@@ -48,7 +47,7 @@ public class LockedPage implements Page {
 	 * <p>Constructor for LockedPage.</p>
 	 *
 	 * @param height a int
-	 * @param title a {@link java.lang.String} object
+	 * @param title a {@link String} object
 	 */
 	public LockedPage(int height, @NonNull String title) {
 		this(height);

@@ -7,13 +7,13 @@ import org.aslstd.api.expression.exception.ParsingException;
  * <p>Parser interface.</p>
  *
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
- * @version $Id: $Id
+
  */
 public interface Parser {
 	/**
 	 * <p>parse.</p>
 	 *
-	 * @param expression a {@link java.lang.String} object
+	 * @param expression a {@link String} object
 	 * @return a {@link org.aslstd.api.expression.Expression} object
 	 * @throws org.aslstd.api.expression.exception.ParsingException if any.
 	 */

@@ -15,8 +15,7 @@ import lombok.Getter;
 /**
  * <p>Abstract RedstoneParts class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public abstract class RedstoneParts {
 

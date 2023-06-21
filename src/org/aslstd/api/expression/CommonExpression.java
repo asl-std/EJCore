@@ -3,8 +3,7 @@ package org.aslstd.api.expression;
 /**
  * <p>CommonExpression interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface CommonExpression extends Expression {
 	/**

@@ -3,15 +3,14 @@ package org.aslstd.api.expression.exception;
 /**
  * <p>IllegalVariableNameException class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @SuppressWarnings("serial")
 public class IllegalVariableNameException extends ParsingException {
 	/**
 	 * <p>Constructor for IllegalVariableNameException.</p>
 	 *
-	 * @param name a {@link java.lang.String} object
+	 * @param name a {@link String} object
 	 */
 	public IllegalVariableNameException(final String name) {
 		super("Invalid variable name: " + name);
@@ -19,7 +18,7 @@ public class IllegalVariableNameException extends ParsingException {
 	/**
 	 * <p>Constructor for IllegalVariableNameException.</p>
 	 *
-	 * @param name a {@link java.lang.String} object
+	 * @param name a {@link String} object
 	 * @param pos a int
 	 */
 	public IllegalVariableNameException(final String name, final int pos) {

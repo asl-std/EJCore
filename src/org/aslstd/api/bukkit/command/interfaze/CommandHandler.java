@@ -5,8 +5,7 @@ import org.bukkit.command.CommandExecutor;
 /**
  * <p>CommandHandler interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface CommandHandler extends CommandExecutor {
 

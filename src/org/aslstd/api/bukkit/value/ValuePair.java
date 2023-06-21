@@ -3,7 +3,6 @@ package org.aslstd.api.bukkit.value;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -12,17 +11,20 @@ import lombok.experimental.Accessors;
  * <br>Use this class for long at your risk, do not use operation methods (add, mult) if u store numbers bigger than 2⁵³
  */
 @SuppressWarnings("unchecked")
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Accessors(fluent = true)
 public class ValuePair<T extends Number> implements Cloneable {
 
-	@Getter @Setter @NonNull private String key;
+	@Getter @Setter private String key;
 
 	/** For internal use only */
 	@Getter @Setter private boolean percents = false;
 
 	@Getter @Setter @NonNull private T first, second;
+
+	public ValuePair(String key, T first, T second) {
+		this.key = key ; this.first = first ; this.second = second;
+	}
 
 	public ValuePair<T> swap() {
 		final T cache = first;

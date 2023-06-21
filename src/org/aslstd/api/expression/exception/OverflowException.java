@@ -3,8 +3,7 @@ package org.aslstd.api.expression.exception;
 /**
  * <p>OverflowException class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @SuppressWarnings("serial")
 public class OverflowException extends ArithmeticException {

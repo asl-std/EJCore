@@ -8,8 +8,7 @@ import org.aslstd.api.expression.CommonExpression;
 /**
  * <p>Const class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Const implements CommonExpression {
 	private final Number num;

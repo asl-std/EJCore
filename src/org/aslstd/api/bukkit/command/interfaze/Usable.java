@@ -3,8 +3,7 @@ package org.aslstd.api.bukkit.command.interfaze;
 /**
  * <p>Usable interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface Usable<C, A> {
 

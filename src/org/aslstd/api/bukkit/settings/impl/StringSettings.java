@@ -12,8 +12,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * <p>StringSettings class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class StringSettings extends Settings<String> {
 
@@ -21,7 +20,7 @@ public class StringSettings extends Settings<String> {
 	 * <p>importArray.</p>
 	 *
 	 * @param array a {@link java.util.List} object
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 */
 	public void importArray(@NotNull List<? extends Object> array, String key) {
 		for (int i = 0; i < array.size(); i++)
@@ -31,7 +30,7 @@ public class StringSettings extends Settings<String> {
 	/**
 	 * <p>removeArray.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 */
 	public void removeArray(@NotNull String key) {
 		for (int i = 0; hasKey(String.valueOf(key) + "." + i); i++)
@@ -41,7 +40,7 @@ public class StringSettings extends Settings<String> {
 	/**
 	 * <p>exportArray.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<String> exportArray(@NotNull String key) {
@@ -82,7 +81,7 @@ public class StringSettings extends Settings<String> {
 	/**
 	 * <p>importFromSettings.</p>
 	 *
-	 * @param settings a {@link ru.aslcraft.api.ejcore.value.Settings} object
+	 * @param settings a {@link org.aslstd.api.openlib.value.Settings} object
 	 */
 	public void importFromSettings(@NotNull Settings<String> settings) {
 		final Set<Map.Entry<String, String>> keys = settings.getKeys();
@@ -105,8 +104,8 @@ public class StringSettings extends Settings<String> {
 	/**
 	 * <p>exportToYAML.</p>
 	 *
-	 * @param file a {@link Yaml.aslcraft.api.ejcore.yaml.YAML} object
-	 * @param section a {@link java.lang.String} object
+	 * @param file a {@link Yaml.aslstd.api.openlib.yaml.YAML} object
+	 * @param section a {@link String} object
 	 */
 	public void exportYaml(@NotNull Yaml file, @NotNull String section) {
 		if (!section.equalsIgnoreCase(""))

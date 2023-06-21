@@ -3,13 +3,13 @@ package org.aslstd.core.listener;
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.location.Vector3D;
-import org.aslstd.api.ejcore.event.equipment.PrepareEquipEvent;
-import org.aslstd.api.ejcore.event.player.PlayerBlockMoveEvent;
-import org.aslstd.api.ejcore.player.EPlayer;
-import org.aslstd.api.ejcore.plugin.BukkitListener;
-import org.aslstd.api.ejcore.plugin.Named;
-import org.aslstd.core.Core;
-import org.aslstd.core.update.EJUpdateChecker;
+import org.aslstd.api.openlib.event.equipment.PrepareEquipEvent;
+import org.aslstd.api.openlib.event.player.PlayerBlockMoveEvent;
+import org.aslstd.api.openlib.player.OPlayer;
+import org.aslstd.api.openlib.plugin.BukkitListener;
+import org.aslstd.api.openlib.plugin.Named;
+import org.aslstd.core.OpenLib;
+import org.aslstd.core.update.CheckUpdates;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,8 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 /**
  * <p>PlayerListener class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @Named(key = "playerJoin")
 public class PlayerListener implements BukkitListener {
@@ -38,12 +37,12 @@ public class PlayerListener implements BukkitListener {
 
 			@Override
 			public void run() {
-				final EPlayer p = Pick.of(e.getPlayer());
+				final OPlayer p = Pick.of(e.getPlayer());
 
 				for (final EquipSlot slot : EquipSlot.values())
 					Bukkit.getServer().getPluginManager().callEvent(new PrepareEquipEvent(slot, EquipSlot.get(slot, e.getPlayer()), e.getPlayer()));
 
-				for (final String param : Core.config().PLAYER_DATA_DEFAULTS) {
+				for (final String param : OpenLib.config().PLAYER_DATA_DEFAULTS) {
 					final String[] data = param.split(":");
 					if (data.length < 2) return;
 
@@ -52,10 +51,10 @@ public class PlayerListener implements BukkitListener {
 				}
 			}
 
-		}.runTask(Core.instance());
+		}.runTask(OpenLib.instance());
 
 		if (e.getPlayer().isOp() || e.getPlayer().hasPermission("*"))
-			EJUpdateChecker.sendUpdateMessage(e.getPlayer());
+			CheckUpdates.sendUpdateMessage(e.getPlayer());
 	}
 
 	/**
@@ -65,7 +64,7 @@ public class PlayerListener implements BukkitListener {
 	 */
 	@EventHandler
 	public void unregisterEPlayer(PlayerQuitEvent e) {
-		EPlayer.stash().remove(e.getPlayer().getUniqueId());
+		OPlayer.stash().remove(e.getPlayer().getUniqueId());
 	}
 
 	/**

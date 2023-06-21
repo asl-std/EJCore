@@ -8,10 +8,10 @@ import org.aslstd.api.bukkit.command.BasicCommandHandler;
 import org.aslstd.api.bukkit.command.interfaze.ECommand;
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.entity.util.EntityUtil;
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.yaml.Yaml;
-import org.aslstd.api.ejcore.plugin.hook.HookManager;
-import org.aslstd.core.Core;
+import org.aslstd.api.openlib.plugin.hook.HookManager;
+import org.aslstd.core.OpenLib;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,15 +24,14 @@ import me.clip.placeholderapi.PlaceholderAPI;
  * CoreCommandHandler class.
  * </p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class CoreCommandHandler extends BasicCommandHandler {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		final List<String> list = new ArrayList<>();
-		if (command.getName().equalsIgnoreCase("ejc")) {
+		if (command.getName().equalsIgnoreCase("mol")) {
 			if (args.length == 1) {
 				list.add(getDefaultCommand().getName());
 				for (final ECommand cmd : getRegisteredCommands())
@@ -45,41 +44,41 @@ public class CoreCommandHandler extends BasicCommandHandler {
 	}
 
 	public CoreCommandHandler() {
-		super(Core.instance(), "ejc");
+		super(OpenLib.instance(), "mol");
 		registerCommand(new BasicCommand(this, "help", (s, args) -> {
-			EText.send(s, "&c»------>&5[&6Elephant&Jaguar Plugin Core&5&l]");
+			Text.send(s, "&c»------>&5[&6Minecraft Open Plugin Library&5&l]");
 			final List<ECommand> commands = new ArrayList<>(getRegisteredCommands());
 			commands.add(getDefaultCommand());
 			for (final ECommand command : commands)
 				if (command.testConditions(s))
-					EText.send(s, "&6" + command.getUsage() + " - &2" + command.getDescription()
+					Text.send(s, "&6" + command.getUsage() + " - &2" + command.getDescription()
 					+ (s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
-			EText.send(s, "&c»------>&5[&6Elephant&Jaguar Plugin Core&5&l]");
+			Text.send(s, "&c»------>&5[&6Minecraft Open Plugin Library&5&l]");
 			return null;
 		}))
 
 		.registerCommand(new BasicCommand(this, "dump", (s, args) -> {
-			EText.dump((Player)s);
+			Text.dump((Player)s);
 			return null;
 		}))
 
 		.registerCommand(new BasicCommand(this, "reload", (s, args) -> {
-			Core.instance().reloadPlugin();
-			Core.instance().reloadPlugins();
+			OpenLib.instance().reloadPlugin();
+			OpenLib.instance().reloadPlugins();
 			return null;
 		}));
 
 		if (HookManager.isPapiEnabled())
 			registerCommand(new BasicCommand(this, "data", (s, args) -> {
 				if (args.length < 4)
-					return "&c[ejCore] Not enough arguments: /ejc data <player/custom> <name/uid/file> <key> <value>";
+					return "&c[moLib] Not enough arguments: /mol data <player/custom> <name/uid/file> <key> <value>";
 
 				switch (args[0].toLowerCase()) {
 					case "player":
 						final OfflinePlayer player = EntityUtil.getPlayer(args[1]);
 
 						if (player == null)
-							return "&c[ejCore] Player with name/uuid " + args[1] + " was not found";
+							return "&c[moLib] Player with name/uuid " + args[1] + " was not found";
 
 						String value = args[3];
 						final StringBuilder b = new StringBuilder(value);
@@ -96,11 +95,11 @@ public class CoreCommandHandler extends BasicCommandHandler {
 						if (player.isOnline())
 							Pick.of(player.getPlayer()).options().writeData(args[2], value);
 						else {
-							final Yaml pfile = Core.playerDatabase().getPlayerFile(player);
+							final Yaml pfile = OpenLib.playerDatabase().getPlayerFile(player);
 							pfile.set(args[2], value);
 						}
 
-						return "&a[ejCore] Successfully added data " + args[2] + ": " + value + " to a player " + args[1];
+						return "&a[moLib] Successfully added data " + args[2] + ": " + value + " to a player " + args[1];
 					case "custom":
 						final Yaml data = Yaml.getCustomStorage(args[1]);
 
@@ -117,14 +116,14 @@ public class CoreCommandHandler extends BasicCommandHandler {
 						val = PlaceholderAPI.setPlaceholders(null, bu.toString());
 
 						data.set(args[2], val);
-						return "&a[ejCore] Successfully added data " + args[2] + ": " + val + " to file " + data.getFile().getName();
+						return "&a[moLib] Successfully added data " + args[2] + ": " + val + " to file " + data.getFile().getName();
 					default:
-						return "&a[ejCore] Incorrect usage: /ejc data &c<player/custom>&a <name/uid/file> <key> <value>";
+						return "&a[moLib] Incorrect usage: /mol data &c<player/custom>&a <name/uid/file> <key> <value>";
 				}
 
 			}));
 		else
-			registerCommand(new BasicCommand(this, "data", (s, args) -> "&c[ejCore] PlaceholderAPI not installed, this command was disabled"));
+			registerCommand(new BasicCommand(this, "data", (s, args) -> "&c[moLib] PlaceholderAPI not installed, this command was disabled"));
 	}
 
 }

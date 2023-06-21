@@ -3,8 +3,7 @@ package org.aslstd.api.bukkit.items;
 /**
  * <p>IStatus class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public enum IStatus {
 	HAS_MATERIAL,

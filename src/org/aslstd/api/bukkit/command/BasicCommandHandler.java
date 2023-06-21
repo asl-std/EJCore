@@ -11,7 +11,7 @@ import java.util.Map;
 import org.aslstd.api.bukkit.command.interfaze.CommandHandler;
 import org.aslstd.api.bukkit.command.interfaze.ECommand;
 import org.aslstd.api.bukkit.command.interfaze.SenderType;
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.yaml.Yaml;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,8 +25,7 @@ import lombok.Getter;
 /**
  * <p>Abstract BasicCommandHandler class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
@@ -48,8 +47,8 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 	/**
 	 * <p>Constructor for BasicCommandHandler.</p>
 	 *
-	 * @param plugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
-	 * @param label a {@link java.lang.String} object
+	 * @param plugin a {@link org.aslstd.api.bukkit.plugin.OpenPlugin} object
+	 * @param label a {@link String} object
 	 */
 	public BasicCommandHandler(JavaPlugin plugin, String label) {
 		this.plugin = plugin;
@@ -96,13 +95,13 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 		if (args.length == 0 || commands.get(args[0]) == null) cmd = defaultCommand;
 		else {
 			cmd = commands.get(args[0]);
-			args = EText.trimArgs(args);
+			args = Text.trimArgs(args);
 		}
 
 		if (cmd.getPermission() == null || cmd.testConditions(sender) || sender.isOp()) {
 			final String feedback = cmd.use(sender, args);
 			if (feedback != null)
-				EText.send(sender, feedback);
+				Text.send(sender, feedback);
 		} else
 			sender.sendMessage("Unknown command!");
 
@@ -127,16 +126,16 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 		public HelpCommand(BasicCommandHandler handler) {
 			super(handler, "help", (s,args) -> {
-				EText.send(s, "&c»------>&5[&6" + handler.plugin.getName() +"&5&l]");
+				Text.send(s, "&c»------>&5[&6" + handler.plugin.getName() +"&5&l]");
 				final List<ECommand> commands = new ArrayList<>(handler.getRegisteredCommands());
 				commands.add(handler.getDefaultCommand());
 				for (final ECommand command : commands)
 					if (command.testConditions(s))
-						EText.send(s,
+						Text.send(s,
 								"&6" + command.getUsage() +
 								" - &2" + command.getDescription() +
 								(s.isOp() || s.hasPermission("*") ? " &f- &5" + command.getPermission() : ""));
-				EText.send(s, "&c»------>&5[&6" + handler.plugin.getName() +"&5&l]");
+				Text.send(s, "&c»------>&5[&6" + handler.plugin.getName() +"&5&l]");
 				return null;
 			});
 		}
@@ -150,11 +149,11 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 
 		static {
 			try {
-				EJPLUGIN = Class.forName("org.aslstd.api.ejcore.plugin.EJPlugin");
+				EJPLUGIN = Class.forName("org.aslstd.api.openlib.plugin.EJPlugin");
 				reloadPlugin = EJPLUGIN.getDeclaredMethod("reloadPlugin");
 			} catch (final ClassNotFoundException | NoSuchMethodException | SecurityException e) {
 				EJPLUGIN = null;
-				EText.warn("EJPlugin class not finded, maybe you has installed an built-in version of this API. Default reload command cannot be initialised.");
+				Text.warn("EJPlugin class not finded, maybe you has installed an built-in version of this API. Default reload command cannot be initialised.");
 			}
 		}
 
@@ -164,11 +163,11 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 					try {
 						reloadPlugin.invoke(handler.plugin);
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-						EText.warn("Something went wrong while executing reloadPlugin method for plugin " + handler.plugin.getName() + ", maybe you has issues with ejCore below");
+						Text.warn("Something went wrong while executing reloadPlugin method for plugin " + handler.plugin.getName() + ", maybe you has issues with ejCore below");
 						e.printStackTrace();
 					}
 				} else {
-					EText.warn("Plugin " + handler.plugin.getName() + " tried to use built-in ejCore reload command, but not extends from EJPlugin class");
+					Text.warn("Plugin " + handler.plugin.getName() + " tried to use built-in ejCore reload command, but not extends from EJPlugin class");
 				}
 				return null;
 			});

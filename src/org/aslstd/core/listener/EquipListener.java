@@ -2,12 +2,13 @@ package org.aslstd.core.listener;
 
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.equip.EquipSlot;
-import org.aslstd.api.ejcore.event.equipment.PrepareEquipEvent;
-import org.aslstd.api.ejcore.player.EPlayer;
-import org.aslstd.api.ejcore.plugin.BukkitListener;
-import org.aslstd.api.ejcore.plugin.Named;
-import org.aslstd.core.Core;
-import org.bukkit.Bukkit;
+import org.aslstd.api.bukkit.items.ItemStackUtil;
+import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.openlib.event.equipment.PrepareEquipEvent;
+import org.aslstd.api.openlib.player.OPlayer;
+import org.aslstd.api.openlib.plugin.BukkitListener;
+import org.aslstd.api.openlib.plugin.Named;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -17,7 +18,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDispenseArmorEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -26,7 +26,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.scheduler.BukkitRunnable;
+
+import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 
 @Named(key = "equip")
 public class EquipListener implements BukkitListener {
@@ -36,18 +37,18 @@ public class EquipListener implements BukkitListener {
 		if (e.isCancelled()) return;
 		if (!e.getWhoClicked().getInventory().equals(e.getClickedInventory())) return;
 
-		final EPlayer p = Pick.of((Player)e.getWhoClicked());
+		final OPlayer p = Pick.of((Player)e.getWhoClicked());
 
 		if (e.isShiftClick() && e.getCurrentItem() != null) {
 			final EquipSlot slot = EquipSlot.get(e.getCurrentItem().getType(), false);
 
-			Bukkit.getScheduler().runTask(Core.instance(), () -> {
+			OpenLib.scheduler().schedule(OpenLib.instance(), p.getPlayer(), () -> {
 				PrepareEquipEvent.call(slot, EquipSlot.get(slot, p.getPlayer()), p.getPlayer());
 				PrepareEquipEvent.call(EquipSlot.HAND, null, p.getPlayer());
 			});
 		}
 
-		Bukkit.getScheduler().runTask(Core.instance(), () -> {
+		OpenLib.scheduler().schedule(OpenLib.instance(), p.getPlayer(), () -> {
 			if (e.getSlotType() == SlotType.QUICKBAR) {
 				if (p.getPlayer().getInventory().getHeldItemSlot() == e.getSlot())
 					PrepareEquipEvent.call(EquipSlot.HAND, null, p.getPlayer());
@@ -70,8 +71,8 @@ public class EquipListener implements BukkitListener {
 		if (e.useInteractedBlock() == Result.DENY || e.useItemInHand() == Result.DENY) return;
 
 		final Material stack = e.getMaterial();
-		Bukkit.getScheduler().runTask(Core.instance(), () -> {
-			if (stack.name().equalsIgnoreCase(e.getPlayer().getInventory().getItemInMainHand().getType().name())) return;
+		OpenLib.scheduler().schedule(OpenLib.instance(), e.getPlayer(), () -> {
+			if (stack == e.getPlayer().getInventory().getItemInMainHand().getType()) return;
 
 			if ( ( e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK ) && stack != null) {
 
@@ -89,9 +90,9 @@ public class EquipListener implements BukkitListener {
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onDragEvent(InventoryDragEvent e) {
 		if (e.isCancelled()) return;
-		final EPlayer p = Pick.of((Player)e.getWhoClicked());
+		final OPlayer p = Pick.of((Player)e.getWhoClicked());
 
-		Bukkit.getScheduler().runTask(Core.instance(), () -> {
+		OpenLib.scheduler().schedule(OpenLib.instance(), p.getPlayer(), () -> {
 			for (final int i : e.getRawSlots()) {
 				final int converted = e.getView().convertSlot(i);
 				switch(e.getView().getSlotType(i)) {
@@ -136,21 +137,14 @@ public class EquipListener implements BukkitListener {
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerDie(PlayerDeathEvent e) {
-		if (e.getKeepInventory()) return;
-
-		new BukkitRunnable() {
-
-			@Override
-			public void run() {
-				if (e.getEntity().isDead()) return;
-
-				PrepareEquipEvent.call(EquipSlot.ALL, null, e.getEntity());
-
-				cancel();
-			}
-
-		}.runTaskTimer(Core.instance(), 1L, 2L);
+	public void onPlayerDie(PlayerPostRespawnEvent e) {
+		OpenLib.scheduler().schedule(OpenLib.instance(), e.getPlayer(), () -> PrepareEquipEvent.call(EquipSlot.ALL, null, e.getPlayer()) );
 	}
+
+	@EventHandler()
+	public void onEquipEvent(PrepareEquipEvent e) {
+		Text.debug("Called " + e.getEquipSlot().name() + " " + ItemStackUtil.toString(e.getItemStack()));
+	}
+
 
 }

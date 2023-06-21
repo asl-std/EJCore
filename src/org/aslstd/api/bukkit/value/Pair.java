@@ -9,8 +9,7 @@ import lombok.Setter;
 /**
  * <p>Pair class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @AllArgsConstructor
 public class Pair<T1, T2> {

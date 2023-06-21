@@ -5,8 +5,7 @@ import java.util.Random;
 /**
  * <p>MathUtil class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class MathUtil {
 
@@ -87,9 +86,9 @@ public class MathUtil {
 	/**
 	 * <p>incrementRangeValue.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
-	 * @param increment a {@link java.lang.String} object
-	 * @return a {@link java.lang.String} object
+	 * @param value a {@link String} object
+	 * @param increment a {@link String} object
+	 * @return a {@link String} object
 	 */
 	public static String incrementRangeValue(String value, String increment) {
 		final String[] incSplit = increment.split("-");
@@ -114,9 +113,9 @@ public class MathUtil {
 	/**
 	 * <p>incrementRangeByPercents.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @param percents a double
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public static String incrementRangeByPercents(String value, double percents) {
 		final double[] values = NumUtil.parseDouble(value.split("-"));
@@ -131,9 +130,9 @@ public class MathUtil {
 	/**
 	 * <p>incrementRangeValue.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @param increment a double
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public static String incrementRangeValue(String value, double increment) {
 		final double[] values = NumUtil.parseDouble(value.split("-"));

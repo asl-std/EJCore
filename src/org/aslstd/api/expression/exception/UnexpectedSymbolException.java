@@ -3,15 +3,14 @@ package org.aslstd.api.expression.exception;
 /**
  * <p>UnexpectedSymbolException class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @SuppressWarnings("serial")
 public class UnexpectedSymbolException extends ParsingException {
 	/**
 	 * <p>Constructor for UnexpectedSymbolException.</p>
 	 *
-	 * @param message a {@link java.lang.String} object
+	 * @param message a {@link String} object
 	 */
 	public UnexpectedSymbolException(final String message) {
 		super(message);
@@ -19,7 +18,7 @@ public class UnexpectedSymbolException extends ParsingException {
 	/**
 	 * <p>Constructor for UnexpectedSymbolException.</p>
 	 *
-	 * @param message a {@link java.lang.String} object
+	 * @param message a {@link String} object
 	 * @param pos a int
 	 */
 	public UnexpectedSymbolException(final String message, final int pos) {

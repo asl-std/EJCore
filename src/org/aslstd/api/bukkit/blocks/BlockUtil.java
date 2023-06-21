@@ -9,8 +9,7 @@ import org.bukkit.block.Block;
 /**
  * <p>BlockUtil class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class BlockUtil {
 

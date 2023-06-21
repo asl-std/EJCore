@@ -9,15 +9,14 @@ import org.bukkit.inventory.ItemStack;
 /**
  * <p>Page interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface Page {
 
 	/**
 	 * <p>getTitle.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	String getTitle();
 

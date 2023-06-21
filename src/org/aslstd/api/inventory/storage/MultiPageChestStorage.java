@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.aslstd.api.bukkit.items.IStatus;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.value.util.ArrayUtil;
 import org.aslstd.api.bukkit.yaml.Yaml;
 import org.aslstd.api.inventory.Chest;
@@ -65,7 +65,7 @@ public class MultiPageChestStorage implements Chest {
 		size = pagesAmount*45;
 		pages = new Inventory[pagesAmount];
 		for (int i = 0 ; i < pagesAmount ; i++)
-			pages[i] = Bukkit.createInventory(this, 54, EText.c(title));
+			pages[i] = Bukkit.createInventory(this, 54, Text.c(title));
 	}
 
 	private void placeControls(int i) {

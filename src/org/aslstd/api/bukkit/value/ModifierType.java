@@ -6,8 +6,7 @@ import java.util.regex.Pattern;
 /**
  * <p>ModifierType class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public enum ModifierType {
 	POSITIVE,
@@ -23,8 +22,8 @@ public enum ModifierType {
 	/**
 	 * <p>getFromValue.</p>
 	 *
-	 * param val a {@link java.lang.String} object
-	 * return a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
+	 * param val a {@link String} object
+	 * return a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
 	 */
 	public static ModifierType getFromValue(String val) {
 		boolean positive, isPercents;
@@ -56,7 +55,7 @@ public enum ModifierType {
 	 *
 	 * @param value a double
 	 * @param percents a boolean
-	 * @return a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
+	 * @return a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
 	 */
 	public static ModifierType getFromValue(double value, boolean percents) {
 		if (value > 0)
@@ -105,18 +104,18 @@ public enum ModifierType {
 	/**
 	 * <p>reverse.</p>
 	 *
-	 * @return a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
+	 * @return a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
 	 */
 	public ModifierType reverse() {
 		switch(this) {
-		case NEGATIVE:
-			return POSITIVE;
-		case NEGATIVE_PERCENTS:
-			return POSITIVE_PERCENTS;
-		case POSITIVE_PERCENTS:
-			return NEGATIVE_PERCENTS;
-		default:
-			return NEGATIVE;
+			case NEGATIVE:
+				return POSITIVE;
+			case NEGATIVE_PERCENTS:
+				return POSITIVE_PERCENTS;
+			case POSITIVE_PERCENTS:
+				return NEGATIVE_PERCENTS;
+			default:
+				return NEGATIVE;
 		}
 	}
 }

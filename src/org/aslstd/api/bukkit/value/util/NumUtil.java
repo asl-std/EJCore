@@ -5,15 +5,14 @@ import java.util.Random;
 /**
  * <p>ValueUtil class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class NumUtil {
 
 	/**
 	 * <p>isNegative.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a boolean
 	 */
 	public static boolean isNegative(String value) {
@@ -26,7 +25,7 @@ public class NumUtil {
 	/**
 	 * <p>isNumber.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a boolean
 	 */
 	public static boolean isNumber(String value) {
@@ -62,7 +61,7 @@ public class NumUtil {
 	/**
 	 * <p>isString.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a boolean
 	 */
 	public static boolean isString(String value) {
@@ -72,7 +71,7 @@ public class NumUtil {
 	/**
 	 * <p>isPercent.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a boolean
 	 */
 	public static boolean isPercent(String value) {
@@ -83,7 +82,7 @@ public class NumUtil {
 	/**
 	 * <p>parseLong.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a {@link java.lang.Long} object
 	 */
 	public static Long parseLong(String value) {
@@ -98,7 +97,7 @@ public class NumUtil {
 	/**
 	 * <p>parseDouble.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a {@link java.lang.Double} object
 	 */
 	public static Double parseDouble(String value) {
@@ -113,7 +112,7 @@ public class NumUtil {
 	/**
 	 * <p>parseDouble.</p>
 	 *
-	 * @param values a {@link java.lang.String} object
+	 * @param values a {@link String} object
 	 * @return an array of {@link double} objects
 	 */
 	public static double[] parseDouble(String... values) {
@@ -130,7 +129,7 @@ public class NumUtil {
 	/**
 	 * <p>parseInteger.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a {@link java.lang.Integer} object
 	 */
 	public static Integer parseInteger(String value) {
@@ -144,7 +143,7 @@ public class NumUtil {
 	/**
 	 * <p>parseShort.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a {@link java.lang.Short} object
 	 */
 	public static Short parseShort(String value) {
@@ -158,7 +157,7 @@ public class NumUtil {
 	/**
 	 * <p>parseFloat.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a {@link java.lang.Float} object
 	 */
 	public static Float parseFloat(String value) {

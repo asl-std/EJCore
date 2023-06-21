@@ -30,7 +30,7 @@ public class ArrayUtil {
 	public static <T> List<T> getRandomized(int amount, BiPredicate<List<T>, ? super T> filter, List<T> origin) {
 		if (origin == null || origin.isEmpty()) return new ArrayList<>();
 
-		final List<T> copy = new ArrayList<>(origin);
+		final List<T> copy = List.copyOf(origin);
 		final List<T> result = new ArrayList<>();
 
 		int i = 0;

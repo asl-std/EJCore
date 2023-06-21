@@ -3,8 +3,7 @@ package org.aslstd.api.expression.parser;
 /**
  * <p>ExpressionSource interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface ExpressionSource {
 	/**
@@ -22,7 +21,7 @@ public interface ExpressionSource {
 	/**
 	 * <p>error.</p>
 	 *
-	 * @param message a {@link java.lang.String} object
+	 * @param message a {@link String} object
 	 * @return a {@link org.aslstd.api.expression.parser.ExpressionException} object
 	 */
 	ExpressionException error(final String message);

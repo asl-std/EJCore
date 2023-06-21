@@ -14,8 +14,7 @@ import org.bukkit.entity.Player;
 /**
  * <p>BasicCommand class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class BasicCommand implements ECommand {
 
@@ -33,7 +32,7 @@ public class BasicCommand implements ECommand {
 	 * <p>Constructor for BasicCommand.</p>
 	 *
 	 * @param handler a {@link org.aslstd.api.bukkit.command.BasicCommandHandler} object
-	 * @param label a {@link java.lang.String} object
+	 * @param label a {@link String} object
 	 * @param func a {@link org.aslstd.api.bukkit.command.interfaze.Usable} object
 	 */
 	public BasicCommand(BasicCommandHandler handler, String label, Usable<CommandSender, String[]> func) {
@@ -56,7 +55,7 @@ public class BasicCommand implements ECommand {
 	/**
 	 * <p>getHelp.</p>
 	 *
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public String getHelp() { return ChatColor.GOLD + getUsage() + " - " + ChatColor.GREEN + getDescription(); }
 

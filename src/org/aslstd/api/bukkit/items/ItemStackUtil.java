@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.utils.BasicMetaAdapter;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.Material;
@@ -22,8 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 /**
  * <p>ItemStackUtil class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public final class ItemStackUtil {
 
@@ -68,7 +67,7 @@ public final class ItemStackUtil {
 		final String[] params = stack.split("@");
 
 		if (params.length < 2)
-			EText.warn("&4Need to set skull owner: &5" + stack + "&4 template: SKULL@<skullUid/base64>@DisplayName@Lore;Lore;Lore");
+			Text.warn("&4Need to set skull owner: &5" + stack + "&4 template: SKULL@<skullUid/base64>@DisplayName@Lore;Lore;Lore");
 
 		ItemStack skull = SkullCreator.itemFromBase64(params[1]);
 
@@ -306,12 +305,12 @@ public final class ItemStackUtil {
 		if (item == null)
 			return new ItemStack(Material.AIR, 0);
 		ItemMeta meta = item.getItemMeta();
-		if (params[1] != null) meta.setDisplayName(EText.c(params[1]));
+		if (params[1] != null) meta.setDisplayName(Text.c(params[1]));
 		if (params[2] != null) {// ♦Lore◘Lore◘Lore
 			final String[] opt2 = params[2].split("◘");
 			final List<String> lore = new ArrayList<>();
 			for (final String str : opt2)
-				lore.add(EText.c(str));
+				lore.add(Text.c(str));
 			meta.setLore(lore);
 		}
 		if (params[3] != null) {// ♣Enchant:Level;Enchant:Level

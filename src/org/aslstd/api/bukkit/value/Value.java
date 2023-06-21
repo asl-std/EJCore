@@ -8,8 +8,7 @@ import lombok.Setter;
 /**
  * <p>Value class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Value {
 
@@ -22,7 +21,7 @@ public class Value {
 	/**
 	 * <p>Setter for the field <code>value</code>.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 */
 	public void setValue(String value) {
 		this.value = value.replaceAll("%", "");
@@ -42,7 +41,7 @@ public class Value {
 	 *
 	 * @param scale a double
 	 * @param lvl a double
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public String getAndScale(double scale, double lvl) {
 		if (value == null) return null;
@@ -53,9 +52,9 @@ public class Value {
 	/**
 	 * <p>getAndScale.</p>
 	 *
-	 * @param scale a {@link java.lang.String} object
+	 * @param scale a {@link String} object
 	 * @param lvl a double
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public String getAndScale(String scale, double lvl) {
 		if (value == null) return null;
@@ -77,7 +76,7 @@ public class Value {
 	/**
 	 * <p>Constructor for Value.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 */
 	public Value(String value) {
 		setValue(value);
@@ -95,8 +94,8 @@ public class Value {
 	/**
 	 * <p>Constructor for Value.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
-	 * @param type a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
+	 * @param value a {@link String} object
+	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
 	 */
 	public Value(String value, ModifierType type) {
 		this(value);
@@ -107,7 +106,7 @@ public class Value {
 	 * <p>Constructor for Value.</p>
 	 *
 	 * @param value a {@link java.lang.Number} object
-	 * @param type a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
+	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
 	 */
 	public Value(Number value, ModifierType type) {
 		this(value);

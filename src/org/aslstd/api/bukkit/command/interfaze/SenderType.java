@@ -3,8 +3,7 @@ package org.aslstd.api.bukkit.command.interfaze;
 /**
  * <p>SenderType class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public enum SenderType {
 	ALL,
@@ -15,7 +14,7 @@ public enum SenderType {
 	/**
 	 * <p>fromString.</p>
 	 *
-	 * @param type a {@link java.lang.String} object
+	 * @param type a {@link String} object
 	 * @return a {@link org.aslstd.api.bukkit.command.interfaze.SenderType} object
 	 */
 	public static SenderType fromString(String type) {

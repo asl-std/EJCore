@@ -11,8 +11,7 @@ import org.aslstd.api.bukkit.value.random.RandomVal;
 /**
  * <p>ValueGenerator class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class ValueParser {
 
@@ -22,8 +21,8 @@ public class ValueParser {
 	/**
 	 * <p>getRandomHolder.</p>
 	 *
-	 * @param from a {@link java.lang.String} object
-	 * @return a {@link RandomVal.aslcraft.api.ejcore.value.random.RandomValue} object
+	 * @param from a {@link String} object
+	 * @return a {@link RandomVal.aslstd.api.openlib.value.random.RandomValue} object
 	 */
 	public static RandomVal getRandomValue(String from) {
 		RandomVal val = getSingleValue(from);
@@ -37,8 +36,8 @@ public class ValueParser {
 	/**
 	 * <p>getSingleValue.</p>
 	 *
-	 * @param from a {@link java.lang.String} object
-	 * @return a {@link RandomSingle.aslcraft.api.ejcore.value.random.RandomSingleValue} object
+	 * @param from a {@link String} object
+	 * @return a {@link RandomSingle.aslstd.api.openlib.value.random.RandomSingleValue} object
 	 */
 	public static RandomSingle getSingleValue(String from) {
 		final Matcher match = singlePattern.matcher(from.toLowerCase());
@@ -59,8 +58,8 @@ public class ValueParser {
 	/**
 	 * <p>getRangeValue.</p>
 	 *
-	 * @param from a {@link java.lang.String} object
-	 * @return a {@link RandomRange.aslcraft.api.ejcore.value.random.RandomRangeValue} object
+	 * @param from a {@link String} object
+	 * @return a {@link RandomRange.aslstd.api.openlib.value.random.RandomRangeValue} object
 	 */
 	public static RandomRange getRangeValue(String from) {
 		final Matcher match = rangePattern.matcher(from.toLowerCase());

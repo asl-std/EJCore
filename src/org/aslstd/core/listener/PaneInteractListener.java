@@ -1,11 +1,11 @@
 package org.aslstd.core.listener;
 
 import org.aslstd.api.bukkit.items.InventoryUtil;
-import org.aslstd.api.ejcore.plugin.BukkitListener;
-import org.aslstd.api.ejcore.plugin.Named;
 import org.aslstd.api.inventory.Chest;
 import org.aslstd.api.inventory.Pane;
-import org.aslstd.core.Core;
+import org.aslstd.api.openlib.plugin.BukkitListener;
+import org.aslstd.api.openlib.plugin.Named;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,8 +20,7 @@ import org.bukkit.inventory.PlayerInventory;
 /**
  * <p>PaneInteractListener class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @Named(key = "paneInteract")
 public class PaneInteractListener implements BukkitListener {
@@ -58,7 +57,7 @@ public class PaneInteractListener implements BukkitListener {
 				event.setCurrentItem(null);
 				event.getView().setItem(event.getRawSlot(), curr);
 
-				Bukkit.getScheduler().scheduleSyncDelayedTask(Core.instance(), () -> whoClicked.updateInventory());
+				Bukkit.getScheduler().scheduleSyncDelayedTask(OpenLib.instance(), () -> whoClicked.updateInventory());
 			}
 		}
 	}

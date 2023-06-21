@@ -3,12 +3,12 @@ package org.aslstd.core.listener;
 import java.util.List;
 
 import org.aslstd.api.attributes.AttrManager;
+import org.aslstd.api.openlib.event.combat.CombatEvent;
+import org.aslstd.api.openlib.event.combat.EntityDamagePrepareEvent;
+import org.aslstd.api.openlib.event.combat.CombatEvent.CombatType;
+import org.aslstd.api.openlib.plugin.BukkitListener;
+import org.aslstd.api.openlib.plugin.Named;
 import org.aslstd.api.attributes.AttrBase;
-import org.aslstd.api.ejcore.event.combat.CombatEvent;
-import org.aslstd.api.ejcore.event.combat.EntityDamagePrepareEvent;
-import org.aslstd.api.ejcore.event.combat.CombatEvent.CombatType;
-import org.aslstd.api.ejcore.plugin.BukkitListener;
-import org.aslstd.api.ejcore.plugin.Named;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
@@ -19,8 +19,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 /**
  * <p>CombatListener class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @Named(key = "combatEventCustom")
 public class CombatListener implements BukkitListener {

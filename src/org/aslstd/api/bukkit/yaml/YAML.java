@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -20,8 +20,7 @@ import lombok.Getter;
 /**
  * Basic wrapper for default .yml files
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Yaml {
 
@@ -44,8 +43,8 @@ public class Yaml {
 	 * <p>Constructor for YAML.</p>
 	 *
 	 * @param file a {@link java.io.File} object
-	 * @param plugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
-	 * @param extendedPath a {@link java.lang.String} object
+	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
+	 * @param extendedPath a {@link String} object
 	 */
 	public Yaml(File file, JavaPlugin plugin, String extendedPath) {
 		this.file = file;
@@ -80,15 +79,15 @@ public class Yaml {
 	/**
 	 * <p>Constructor for YAML.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
-	 * @param plugin a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
+	 * @param path a {@link String} object
+	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 */
 	public Yaml(String path, JavaPlugin plugin) { this(new File(path), plugin, null); }
 
 	/**
 	 * <p>Constructor for YAML.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 */
 	public Yaml(String path) { this(new File(path), null, null); }
 
@@ -102,7 +101,7 @@ public class Yaml {
 	/**
 	 * <p>contains.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a boolean
 	 */
 	public boolean contains(String path) {
@@ -118,7 +117,7 @@ public class Yaml {
 	/**
 	 * <p>getBoolean.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a boolean
 	 */
 	public boolean getBoolean(String path) {
@@ -128,7 +127,7 @@ public class Yaml {
 	/**
 	 * <p>getBoolean.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param def a boolean
 	 * @param restore a boolean
 	 * @return a boolean
@@ -141,7 +140,7 @@ public class Yaml {
 	/**
 	 * <p>getDouble.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a double
 	 */
 	public double getDouble(String path) {
@@ -151,7 +150,7 @@ public class Yaml {
 	/**
 	 * <p>getDouble.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param def a double
 	 * @param restore a boolean
 	 * @return a double
@@ -164,7 +163,7 @@ public class Yaml {
 	/**
 	 * <p>getDoubleList.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Double>  getDoubleList(String path) { return yaml.getDoubleList(path); }
@@ -179,7 +178,7 @@ public class Yaml {
 	/**
 	 * <p>getFloat.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a float
 	 */
 	public float getFloat(String path) {
@@ -190,7 +189,7 @@ public class Yaml {
 	/**
 	 * <p>getFloat.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param def a float
 	 * @param restore a boolean
 	 * @return a float
@@ -203,7 +202,7 @@ public class Yaml {
 	/**
 	 * <p>getFloatList.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Float>   getFloatList(String path) { return yaml.getFloatList(path); }
@@ -211,7 +210,7 @@ public class Yaml {
 	/**
 	 * <p>getInt.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a int
 	 */
 	public int getInt(String path) {
@@ -222,7 +221,7 @@ public class Yaml {
 	/**
 	 * <p>getInt.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param def a int
 	 * @param restore a boolean
 	 * @return a int
@@ -235,7 +234,7 @@ public class Yaml {
 	/**
 	 * <p>getIntList.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Integer> getIntList(String path) { return yaml.getIntegerList(path); }
@@ -253,7 +252,7 @@ public class Yaml {
 	/**
 	 * <p>getLong.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a long
 	 */
 	public long getLong(String path) {
@@ -263,7 +262,7 @@ public class Yaml {
 	/**
 	 * <p>getLong.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param def a long
 	 * @param restore a boolean
 	 * @return a long
@@ -276,7 +275,7 @@ public class Yaml {
 	/**
 	 * <p>getLongList.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Long>    getLongList(String path) { return yaml.getLongList(path); }
@@ -284,7 +283,7 @@ public class Yaml {
 	/**
 	 * <p>getSection.</p>
 	 *
-	 * @param section a {@link java.lang.String} object
+	 * @param section a {@link String} object
 	 * @return a {@link org.bukkit.configuration.ConfigurationSection} object
 	 */
 	public ConfigurationSection getSection(String section) {
@@ -294,7 +293,7 @@ public class Yaml {
 	/**
 	 * <p>getShort.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a short
 	 */
 	public short getShort(String path) {
@@ -305,7 +304,7 @@ public class Yaml {
 	/**
 	 * <p>getShort.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param def a short
 	 * @param restore a boolean
 	 * @return a short
@@ -318,7 +317,7 @@ public class Yaml {
 	/**
 	 * <p>getShortList.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Short> getShortList(String path) { return yaml.getShortList(path); }
@@ -326,8 +325,8 @@ public class Yaml {
 	/**
 	 * <p>getString.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
-	 * @return a {@link java.lang.String} object
+	 * @param path a {@link String} object
+	 * @return a {@link String} object
 	 */
 	public String getString(String path) {
 		return yaml.getString(path);
@@ -336,10 +335,10 @@ public class Yaml {
 	/**
 	 * <p>getString.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
-	 * @param def a {@link java.lang.String} object
+	 * @param path a {@link String} object
+	 * @param def a {@link String} object
 	 * @param restore a boolean
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public String getString(String path, String def, boolean restore) {
 		if (restore) if (this.getString(path) == null) set(path, def);
@@ -348,7 +347,7 @@ public class Yaml {
 	/**
 	 * <p>getStringList.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<String>  getStringList(String path) {
@@ -379,7 +378,7 @@ public class Yaml {
 	/**
 	 * <p>set.</p>
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param path a {@link String} object
 	 * @param value a {@link java.lang.Object} object
 	 */
 	public void set(String path, Object value) {
@@ -391,7 +390,7 @@ public class Yaml {
 	 * <p>getFileExtension.</p>
 	 *
 	 * @param file a {@link java.io.File} object
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public static String getFileExtension(File file) {
 		final String fileName = file.getName();
@@ -435,8 +434,8 @@ public class Yaml {
 	/**
 	 * <p>hasFileInJar.</p>
 	 *
-	 * @param jarPath a {@link java.lang.String} object
-	 * @param from a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
+	 * @param jarPath a {@link String} object
+	 * @param from a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 * @return a boolean
 	 */
 	public static boolean hasFileInJar(String jarPath, JavaPlugin from) {
@@ -450,8 +449,8 @@ public class Yaml {
 	/**
 	 * <p>exportFile.</p>
 	 *
-	 * @param jarPath a {@link java.lang.String} object
-	 * @param from a {@link ru.aslcraft.api.bukkit.plugin.EJPlugin} object
+	 * @param jarPath a {@link String} object
+	 * @param from a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 * @param toFolder a {@link java.io.File} object
 	 */
 	public static void exportFile(String jarPath, JavaPlugin from, File toFolder) {
@@ -475,13 +474,13 @@ public class Yaml {
 					out.write(buffer, 0, read);
 				}
 
-				EText.fine("Default file " + split[split.length-1] + " was exported!");
+				Text.fine("Default file " + split[split.length-1] + " was exported!");
 			} catch (final IOException e) {
 				e.printStackTrace();
 				return;
 			}
 
-		} else EText.warn("File " + jarPath + " does not exist in jar file, Skipped");
+		} else Text.warn("File " + jarPath + " does not exist in jar file, Skipped");
 	}
 
 }

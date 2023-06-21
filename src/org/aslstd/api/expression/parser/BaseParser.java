@@ -6,8 +6,7 @@ import org.aslstd.api.expression.exception.UnexpectedSymbolException;
 /**
  * <p>BaseParser class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class BaseParser {
 	private ExpressionSource source;
@@ -89,7 +88,7 @@ public class BaseParser {
 	/**
 	 * <p>test.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a boolean
 	 */
 	protected boolean test(final String value) {
@@ -143,7 +142,7 @@ public class BaseParser {
 	/**
 	 * <p>expect.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @throws org.aslstd.api.expression.exception.ParsingException if any.
 	 */
 	protected void expect(final String value) throws ParsingException {

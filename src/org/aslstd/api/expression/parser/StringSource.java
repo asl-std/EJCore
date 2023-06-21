@@ -3,8 +3,7 @@ package org.aslstd.api.expression.parser;
 /**
  * <p>StringSource class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class StringSource implements ExpressionSource {
 	final String data;
@@ -13,7 +12,7 @@ public class StringSource implements ExpressionSource {
 	/**
 	 * <p>Constructor for StringSource.</p>
 	 *
-	 * @param data a {@link java.lang.String} object
+	 * @param data a {@link String} object
 	 */
 	public StringSource(final String data) {
 		this.data = data;

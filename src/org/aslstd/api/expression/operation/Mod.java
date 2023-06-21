@@ -10,8 +10,7 @@ import org.aslstd.api.expression.exception.OverflowException;
 /**
  * <p>Mod class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Mod extends AbstractBinaryOperation {
 	/**

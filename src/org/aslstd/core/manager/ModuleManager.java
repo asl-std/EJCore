@@ -11,31 +11,30 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.ejcore.module.EJAddon;
-import org.aslstd.api.ejcore.module.EJModule;
-import org.aslstd.core.Core;
+import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.openlib.module.OpenAddon;
+import org.aslstd.api.openlib.module.OpenModule;
+import org.aslstd.core.OpenLib;
 
 import lombok.Getter;
 
 /**
  * <p>ModuleManager class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class ModuleManager {
 
-	@Getter private static final HashMap<String, EJModule> eJModules = new HashMap<>();
+	@Getter private static final HashMap<String, OpenModule> eJModules = new HashMap<>();
 	private static final ArrayList<String> loadedJars = new ArrayList<>();
 
 	/**
 	 * <p>enableModules.</p>
 	 */
 	public static void enableModules() {
-		for (final EJModule module : ModuleManager.getEJModules().values()) {
+		for (final OpenModule module : ModuleManager.getEJModules().values()) {
 			module.load();
-			EText.fine("&aModule: &5'" + module.name() + "' &aloaded, version: &5" + module.version());
+			Text.fine("&aModule: &5'" + module.name() + "' &aloaded, version: &5" + module.version());
 		}
 	}
 
@@ -45,7 +44,7 @@ public class ModuleManager {
 	 * @param loader a {@link java.lang.ClassLoader} object
 	 */
 	public static void loadModules(ClassLoader loader) {
-		final File folder = new File(Core.instance().getDataFolder(), "modules");
+		final File folder = new File(OpenLib.instance().getDataFolder(), "modules");
 		folder.mkdirs();
 
 		final List<URL> urls = new ArrayList<>();
@@ -59,14 +58,14 @@ public class ModuleManager {
 						final String name = addon.getName().replace(".jar", "").substring(0, addon.getName().indexOf("-"));
 
 						if (!loadedJars.contains(addon.getName().toLowerCase())) {
-							if (!Core.config().contains("modules.enable-" + name.toLowerCase()))
-								EText.warn("New module &a'" + addon.getName() + "'&4 founded, enable it in config if you need this");
+							if (!OpenLib.config().contains("modules.enable-" + name.toLowerCase()))
+								Text.warn("New module &a'" + addon.getName() + "'&4 founded, enable it in config if you need this");
 
-							if (Core.config().getBoolean("modules.enable-" + name.toLowerCase(), Core.config().MODULES_BY_DEFAULT, true)) {
+							if (OpenLib.config().getBoolean("modules.enable-" + name.toLowerCase(), OpenLib.config().MODULES_BY_DEFAULT, true)) {
 								try {
 									urls.add(new URL("jar:file:" + addon.getPath() + "!/"));
 									toLoad.add(addon);
-								} catch (final MalformedURLException e) { EText.send("Module " + name + " cannot be loaded correctly"); }
+								} catch (final MalformedURLException e) { Text.send("Module " + name + " cannot be loaded correctly"); }
 							}
 						}
 					}
@@ -89,21 +88,21 @@ public class ModuleManager {
 
 					try {
 						final Class<?> c = Class.forName(className, true, loader);
-						if (EJAddon.class.isAssignableFrom(c)) {
+						if (OpenAddon.class.isAssignableFrom(c)) {
 							final Object instance = c.getConstructor().newInstance();
 							final String name = (String)c.getMethod("getModuleName").invoke(instance);
 
-							eJModules.put(name.toLowerCase(), (EJModule) instance);
+							eJModules.put(name.toLowerCase(), (OpenModule) instance);
 							loadedJars.add(addon.getName().toLowerCase());
 						}
 					} catch (final Exception e) {
-						EText.warn("Unable to load module from file: " + addon.getName());
+						Text.warn("Unable to load module from file: " + addon.getName());
 						e.printStackTrace();
 					}
 				}
 			}
 		} catch (final Exception e) {
-			EText.warn("Unable to load module from file: " + addon.getName());
+			Text.warn("Unable to load module from file: " + addon.getName());
 			e.printStackTrace();
 			return;
 		}
@@ -120,7 +119,7 @@ public class ModuleManager {
 	/**
 	 * <p>isRegistered.</p>
 	 *
-	 * @param moduleName a {@link java.lang.String} object
+	 * @param moduleName a {@link String} object
 	 * @return a boolean
 	 */
 	public static boolean isRegistered(String moduleName) {
@@ -131,7 +130,7 @@ public class ModuleManager {
 	 * <p>reloadModules.</p>
 	 */
 	public static void reloadModules() {
-		for (final EJModule module : eJModules.values())
+		for (final OpenModule module : eJModules.values())
 			module.reload();
 	}
 

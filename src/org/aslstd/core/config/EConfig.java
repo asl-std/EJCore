@@ -3,17 +3,16 @@ package org.aslstd.core.config;
 import java.util.Collections;
 import java.util.List;
 
-import org.aslstd.api.bukkit.message.EText;
-import org.aslstd.api.bukkit.yaml.EJConf;
-import org.aslstd.api.ejcore.plugin.EJPlugin;
+import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.yaml.OConf;
+import org.aslstd.api.openlib.plugin.OpenPlugin;
 
 /**
  * <p>EConfig class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
-public class EConfig extends EJConf {
+public class EConfig extends OConf {
 
 	public boolean	ONE_HP_BAR, ENABLE_CONSOLE_COLORS;
 	public int		HEALTH_PER_BAR, UPDATE_PERIOD;
@@ -30,10 +29,10 @@ public class EConfig extends EJConf {
 	/**
 	 * <p>Constructor for EConfig.</p>
 	 *
-	 * @param fileName a {@link java.lang.String} object
-	 * @param plugin a {@link org.aslstd.api.ejcore.plugin.EJPlugin} object
+	 * @param fileName a {@link String} object
+	 * @param plugin a {@link org.aslstd.api.openlib.plugin.OpenPlugin} object
 	 */
-	public EConfig(String fileName, EJPlugin plugin) {
+	public EConfig(String fileName, OpenPlugin plugin) {
 		super(fileName, plugin);
 	}
 
@@ -45,9 +44,9 @@ public class EConfig extends EJConf {
 		HEALTH_PER_BAR = this.getInt("health-bar.health-per-bar", 20, true);
 
 		DEBUG_RUNNING = this.getBoolean("debug.enable-debug", true, true);
-		EText.setDebug(DEBUG_RUNNING);
+		Text.setDebug(DEBUG_RUNNING);
 		CONSOLE_FEEDBACK = this.getBoolean("debug.console-feedback", true, true);
-		EText.setConsoleFeedback(CONSOLE_FEEDBACK);
+		Text.setConsoleFeedback(CONSOLE_FEEDBACK);
 		LESS_CONSOLE = this.getBoolean("debug.less-console-messages", false, true);
 		ENABLE_ATTACK_COOLDOWN = this.getBoolean("enable-attack-cooldown", true, true);
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);

@@ -1,10 +1,10 @@
 package org.aslstd.api.attributes;
 
-import org.aslstd.core.Core;
+import org.aslstd.core.OpenLib;
 import org.bukkit.NamespacedKey;
 
 public class Attributes {
-	private static final NamespacedKey of(String keyName) { return new NamespacedKey(Core.instance(), keyName); }
+	private static final NamespacedKey of(String keyName) { return new NamespacedKey(OpenLib.instance(), keyName); }
 
 	public static final NamespacedKey
 

@@ -11,7 +11,7 @@ import org.aslstd.api.inventory.Page;
 import org.aslstd.api.inventory.Pane;
 import org.aslstd.api.inventory.element.SimpleElement;
 import org.aslstd.api.inventory.page.LockedPage;
-import org.aslstd.core.Core;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -21,8 +21,7 @@ import org.bukkit.inventory.Inventory;
 /**
  * <p>MultiPagePane class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class MultiPagePane implements Pane {
 	/* Обычнай заглушка */
@@ -51,7 +50,7 @@ public class MultiPagePane implements Pane {
 	/**
 	 * <p>Constructor for MultiPagePane.</p>
 	 *
-	 * @param title a {@link java.lang.String} object
+	 * @param title a {@link String} object
 	 * @param size a int
 	 * @param addButtons a boolean
 	 * @param pages a {@link org.aslstd.api.inventory.Page} object
@@ -65,7 +64,7 @@ public class MultiPagePane implements Pane {
 	/**
 	 * <p>Constructor for MultiPagePane.</p>
 	 *
-	 * @param title a {@link java.lang.String} object
+	 * @param title a {@link String} object
 	 * @param size a int
 	 * @param addButtons a boolean
 	 */
@@ -127,7 +126,7 @@ public class MultiPagePane implements Pane {
 		Arrays.asList(players).stream()
 		.filter(p -> p != null)
 		.forEach(p -> {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Core.instance(), () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(OpenLib.instance(), () -> {
 				p.closeInventory(); p.openInventory(inventory);
 			});
 		});

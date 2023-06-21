@@ -7,8 +7,8 @@ import java.util.Objects;
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.entity.util.EntityUtil;
 import org.aslstd.api.bukkit.yaml.Yaml;
-import org.aslstd.api.ejcore.plugin.hook.PAPI;
-import org.aslstd.core.Core;
+import org.aslstd.api.openlib.plugin.hook.PAPI;
+import org.aslstd.core.OpenLib;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 public class DataExpansion extends PAPI {
 
 	public DataExpansion() {
-		super(Core.instance(), "ejcdata");
+		super(OpenLib.instance(), "ejcdata");
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class DataExpansion extends PAPI {
 
 					return value == null ? "value not exist in this player" : value;
 				} else {
-					final Yaml pfile = Core.playerDatabase().getPlayerFile(player);
+					final Yaml pfile = OpenLib.playerDatabase().getPlayerFile(player);
 					final String val = pfile.getString(params[2], "value not exist in this player", false);
 					return val;
 				}

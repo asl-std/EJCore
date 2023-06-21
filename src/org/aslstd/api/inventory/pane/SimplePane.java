@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.aslstd.api.inventory.Page;
 import org.aslstd.api.inventory.Pane;
 import org.aslstd.api.inventory.page.LockedPage;
-import org.aslstd.core.Core;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -18,8 +18,7 @@ import lombok.Setter;
 /**
  * <p>SimplePane class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class SimplePane implements Pane {
 	/* Заглушка */
@@ -36,7 +35,7 @@ public class SimplePane implements Pane {
 	/**
 	 * <p>Constructor for SimplePane.</p>
 	 *
-	 * @param title a {@link java.lang.String} object
+	 * @param title a {@link String} object
 	 * @param size a int
 	 * @param page a {@link org.aslstd.api.inventory.Page} object
 	 */
@@ -50,7 +49,7 @@ public class SimplePane implements Pane {
 	/**
 	 * <p>Setter for the field <code>title</code>.</p>
 	 *
-	 * @param title a {@link java.lang.String} object
+	 * @param title a {@link String} object
 	 */
 	public void setTitle(String title) { this.title = title; }
 
@@ -89,7 +88,7 @@ public class SimplePane implements Pane {
 		Arrays.asList(players).stream()
 		.filter(p -> p != null)
 		.forEach(p -> {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Core.instance(), () -> {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(OpenLib.instance(), () -> {
 				p.closeInventory(); p.openInventory(inventory);
 			});
 		});

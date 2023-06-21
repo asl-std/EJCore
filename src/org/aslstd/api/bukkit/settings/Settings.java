@@ -10,8 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * <p>Settings class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Settings<T> {
 	public ConcurrentMap<String, T> settings = new ConcurrentHashMap<>();
@@ -28,7 +27,7 @@ public class Settings<T> {
 	/**
 	 * <p>hasKey.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 * @return a boolean
 	 */
 	public boolean hasKey(String key) {
@@ -42,7 +41,7 @@ public class Settings<T> {
 	/**
 	 * <p>setValue.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 * @param value a T object
 	 */
 	public void setValue(String key, T value) {
@@ -52,7 +51,7 @@ public class Settings<T> {
 	/**
 	 * <p>getValue.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 * @return a T object
 	 */
 	public T getValue(String key) {
@@ -62,7 +61,7 @@ public class Settings<T> {
 	/**
 	 * <p>hasValue.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 * @return a boolean
 	 */
 	public boolean hasValue(String key) {
@@ -72,7 +71,7 @@ public class Settings<T> {
 	/**
 	 * <p>remove.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
+	 * @param key a {@link String} object
 	 */
 	public T remove(String key) {
 		if (hasKey(key))
@@ -92,7 +91,7 @@ public class Settings<T> {
 	/**
 	 * <p>removeKey.</p>
 	 *
-	 * @param keyPart a {@link java.lang.String} object
+	 * @param keyPart a {@link String} object
 	 */
 	public void removeKey(String keyPart) {
 		for (final Map.Entry<String, T> entry : this.settings.entrySet()) {
@@ -104,7 +103,7 @@ public class Settings<T> {
 	/**
 	 * <p>getKey.</p>
 	 *
-	 * @param keyPart a {@link java.lang.String} object
+	 * @param keyPart a {@link String} object
 	 * @return a {@link java.util.List} object
 	 */
 	public List<Map.Entry<String, T>> getKey(String keyPart) {

@@ -1,15 +1,14 @@
 package org.aslstd.core.config;
 
-import org.aslstd.api.bukkit.yaml.EJConf;
-import org.aslstd.api.ejcore.plugin.EJPlugin;
+import org.aslstd.api.bukkit.yaml.OConf;
+import org.aslstd.api.openlib.plugin.OpenPlugin;
 
 /**
  * <p>LangConfig class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
-public class LangConfig extends EJConf {
+public class LangConfig extends OConf {
 
 	public String NAME_DURABILITY, DURABILITY_SUFFIX_COLOR_DECORATOR;
 	public String ERR_CONSOLE, ERR_NO_PERMISSION, ERR_ARG_CANT_BE_NULL, ERR_PLAYER_ONLINE;
@@ -17,10 +16,10 @@ public class LangConfig extends EJConf {
 	/**
 	 * <p>Constructor for LangConfig.</p>
 	 *
-	 * @param fileName a {@link java.lang.String} object
-	 * @param plugin a {@link org.aslstd.api.ejcore.plugin.EJPlugin} object
+	 * @param fileName a {@link String} object
+	 * @param plugin a {@link org.aslstd.api.openlib.plugin.OpenPlugin} object
 	 */
-	public LangConfig(String fileName, EJPlugin plugin) {
+	public LangConfig(String fileName, OpenPlugin plugin) {
 		super(fileName, plugin);
 	}
 

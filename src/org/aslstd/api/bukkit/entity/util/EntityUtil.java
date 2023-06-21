@@ -14,8 +14,7 @@ import org.bukkit.entity.Player;
 /**
  * <p>EntityUtil class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public final class EntityUtil {
 

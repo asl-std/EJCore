@@ -3,11 +3,12 @@ package org.aslstd.api.bukkit.command.interfaze;
 /**
  * <p>Perms interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
- */
+ * @author Snoop1CattZ69 */
 /**
  * <p>getPermission.</p>
  *
  */
-public interface Perms { String getPermission(); }
+public interface Perms {
+
+	String getPermission();
+}

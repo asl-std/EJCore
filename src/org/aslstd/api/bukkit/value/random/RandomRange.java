@@ -12,8 +12,7 @@ import lombok.NonNull;
 /**
  * <p>RandomRangeValue class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class RandomRange implements RandomVal {
 
@@ -33,10 +32,10 @@ public class RandomRange implements RandomVal {
 	 * <p>Constructor for RandomRangeValue.</p>
 	 *
 	 * @param chance a double
-	 * @param firstValue a {@link java.lang.String} object
-	 * @param secondValue a {@link java.lang.String} object
-	 * @param perLevelValue a {@link java.lang.String} object
-	 * @param type a {@link ru.aslcraft.api.ejcore.value.abstrakt.ModifierType} object
+	 * @param firstValue a {@link String} object
+	 * @param secondValue a {@link String} object
+	 * @param perLevelValue a {@link String} object
+	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
 	 */
 	public RandomRange(double chance, @NonNull String firstValue, @NonNull String secondValue, String perLevelValue, @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }

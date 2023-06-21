@@ -12,8 +12,7 @@ import lombok.AllArgsConstructor;
 /**
  * <p>Face class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @AllArgsConstructor
 public enum Face {
@@ -73,7 +72,7 @@ public enum Face {
 	/**
 	 * <p>next.</p>
 	 *
-	 * @return a {@link ru.aslcraft.api.ejcore.redstone.Face} object
+	 * @return a {@link org.aslstd.api.openlib.redstone.Face} object
 	 */
 	public Face next() {
 		switch(this) {
@@ -97,7 +96,7 @@ public enum Face {
 	/**
 	 * <p>previous.</p>
 	 *
-	 * @return a {@link ru.aslcraft.api.ejcore.redstone.Face} object
+	 * @return a {@link org.aslstd.api.openlib.redstone.Face} object
 	 */
 	public Face previous() {
 		switch(this) {
@@ -121,7 +120,7 @@ public enum Face {
 	/**
 	 * <p>opposite.</p>
 	 *
-	 * @return a {@link ru.aslcraft.api.ejcore.redstone.Face} object
+	 * @return a {@link org.aslstd.api.openlib.redstone.Face} object
 	 */
 	public Face opposite() {
 		switch(this) {
@@ -169,8 +168,8 @@ public enum Face {
 	/**
 	 * <p>fromString.</p>
 	 *
-	 * @param face a {@link java.lang.String} object
-	 * @return a {@link ru.aslcraft.api.ejcore.redstone.Face} object
+	 * @param face a {@link String} object
+	 * @return a {@link org.aslstd.api.openlib.redstone.Face} object
 	 */
 	public static Face fromString(String face) {
 		switch(face.toUpperCase()) {

@@ -4,8 +4,7 @@ package org.aslstd.api.bukkit.location;
 /**
  * <p>Direction class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public enum Direction {
 	XZ(new Vector3D(1,0,1)),

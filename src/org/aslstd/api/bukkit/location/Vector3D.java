@@ -7,8 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import com.sk89q.worldedit.math.BlockVector3;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -166,10 +164,6 @@ public class Vector3D implements Cloneable {
 
 	public Location toLocation() {
 		return new Location(world, x, y, z);
-	}
-
-	public BlockVector3 toBlockVector3() {
-		return BlockVector3.at(x,y,z);
 	}
 
 	@Override

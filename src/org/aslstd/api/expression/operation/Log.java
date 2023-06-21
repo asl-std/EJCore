@@ -9,8 +9,7 @@ import org.aslstd.api.expression.EnumBinaryOperation;
 /**
  * <p>Log class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Log extends AbstractBinaryOperation {
 	/**

@@ -6,8 +6,7 @@ import java.util.Map;
 /**
  * <p>EnumUnaryOperation class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 @SuppressWarnings("serial")
 public enum EnumUnaryOperation {
@@ -28,7 +27,7 @@ public enum EnumUnaryOperation {
 	/**
 	 * <p>Getter for the field <code>opByString</code>.</p>
 	 *
-	 * @param op a {@link java.lang.String} object
+	 * @param op a {@link String} object
 	 * @return a {@link org.aslstd.api.expression.EnumUnaryOperation} object
 	 */
 	public static EnumUnaryOperation getOpByString(final String op) {
@@ -39,7 +38,7 @@ public enum EnumUnaryOperation {
 	 * <p>Getter for the field <code>stringByOp</code>.</p>
 	 *
 	 * @param op a {@link org.aslstd.api.expression.EnumUnaryOperation} object
-	 * @return a {@link java.lang.String} object
+	 * @return a {@link String} object
 	 */
 	public static String getStringByOp(final EnumUnaryOperation op) {
 		return stringByOp.get(op);

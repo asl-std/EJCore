@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.WordUtils;
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.yaml.Yaml;
 
 import lombok.Getter;
@@ -12,8 +12,7 @@ import lombok.Getter;
 /**
  * <p>Abstract CustomParam class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public abstract class CustomParam {
 
@@ -27,7 +26,7 @@ public abstract class CustomParam {
 	/**
 	 * <p>isAllowedValue.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
+	 * @param value a {@link String} object
 	 * @return a boolean
 	 */
 	protected abstract boolean isAllowedValue(String value);
@@ -35,27 +34,27 @@ public abstract class CustomParam {
 	/**
 	 * <p>Constructor for CustomParam.</p>
 	 *
-	 * @param key a {@link java.lang.String} object
-	 * @param file a {@link Yaml.aslcraft.api.ejcore.yaml.YAML} object
+	 * @param key a {@link String} object
+	 * @param file a {@link Yaml} object
 	 */
 	public CustomParam(String key, Yaml file) {
 		this.key = key;
 		visualName = file.getString("eimodule.util." + key, "&7" + WordUtils.capitalizeFully(toString()), true);
 
-		pattern = Pattern.compile(EText.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)", Pattern.CASE_INSENSITIVE);
-		number = Pattern.compile(EText.e(visualName.toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
+		pattern = Pattern.compile(Text.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)", Pattern.CASE_INSENSITIVE);
+		number = Pattern.compile(Text.e(visualName.toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
 
 	/**
 	 * <p>getValue.</p>
 	 *
-	 * @param from a {@link java.lang.String} object
-	 * @return a {@link java.lang.String} object
+	 * @param from a {@link String} object
+	 * @return a {@link String} object
 	 */
 	public final String getValue(String from) {
 		String val = null;
 
-		final Matcher match = pattern.matcher(EText.e(from).toLowerCase());
+		final Matcher match = pattern.matcher(Text.e(from).toLowerCase());
 
 		if (match.find())
 			val = match.group(1);
@@ -66,7 +65,7 @@ public abstract class CustomParam {
 	public final String getDoubleValue(String from) {
 		String val = null;
 
-		final Matcher match = number.matcher(EText.e(from).toLowerCase());
+		final Matcher match = number.matcher(Text.e(from).toLowerCase());
 
 		if (match.find())
 			val = match.group(1);
@@ -77,13 +76,13 @@ public abstract class CustomParam {
 	/**
 	 * <p>convert.</p>
 	 *
-	 * @param value a {@link java.lang.String} object
-	 * @return a {@link java.lang.String} object
+	 * @param value a {@link String} object
+	 * @return a {@link String} object
 	 */
 	public final String convert(String value) {
 		if (!isAllowedValue(value)) return null;
 
-		return EText.c(visualName + ": " + value);
+		return Text.c(visualName + ": " + value);
 	}
 
 	/** {@inheritDoc} */

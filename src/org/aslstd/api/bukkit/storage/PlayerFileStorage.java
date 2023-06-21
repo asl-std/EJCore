@@ -6,8 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.aslstd.api.bukkit.yaml.Yaml;
-import org.aslstd.api.ejcore.collection.Stash;
-import org.aslstd.api.ejcore.util.Obj;
+import org.aslstd.api.openlib.collection.Stash;
+import org.aslstd.api.openlib.util.Obj;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;

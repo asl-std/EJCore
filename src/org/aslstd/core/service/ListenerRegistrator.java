@@ -9,20 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Stream;
 
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.value.Pair;
-import org.aslstd.api.ejcore.plugin.BukkitListener;
-import org.aslstd.api.ejcore.plugin.Named;
-import org.aslstd.api.ejcore.util.Obj;
-import org.aslstd.core.Core;
+import org.aslstd.api.openlib.plugin.BukkitListener;
+import org.aslstd.api.openlib.plugin.Named;
+import org.aslstd.api.openlib.util.Obj;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.ApiStatus.AvailableSince;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@AvailableSince(value = "1.2.19")
 public class ListenerRegistrator {
 
 	private static ConcurrentMap<String, Pair<BukkitListener,Plugin>> listeners = new ConcurrentHashMap<>();
@@ -93,8 +91,8 @@ public class ListenerRegistrator {
 
 	private static void register(@NotNull Pair<BukkitListener,Plugin> pair) {
 		Bukkit.getPluginManager().registerEvents(pair.getFirst(), pair.getSecond());
-		if (Core.config().DEBUG_RUNNING)
-			EText.debug("Loaded listener: " + pair.getFirst().getClass().getName());
+		if (OpenLib.config().DEBUG_RUNNING)
+			Text.debug("Loaded listener: " + pair.getFirst().getClass().getName());
 	}
 
 	private static void unregister(Pair<BukkitListener,Plugin> pair) {

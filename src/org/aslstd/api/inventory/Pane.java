@@ -10,8 +10,7 @@ import org.bukkit.inventory.InventoryHolder;
 /**
  * <p>Pane interface.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public interface Pane extends InventoryHolder {
 

@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.aslstd</groupId>
-	<artifactId>ejcore</artifactId>
-	<version>1.2.19</version>
-	<name>ejCore</name>
+	<artifactId>mc-open-lib</artifactId>
+	<version>1.0.0</version>
+	<name>moLibrary</name>
 
 	<properties>
 		<releaseStatus>SNAPSHOT</releaseStatus>
@@ -99,13 +99,21 @@
 
 	<dependencies>
 
-		<!-- Compile Project: EffectLib 
+		<!-- HikariCP SQL -->
 		<dependency>
-			<groupId>com.elmakers.mine.bukkit</groupId>
-			<artifactId>EffectLib</artifactId>
-		<version>10.2-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency> -->
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>4.0.3</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mojang</groupId>
+			<artifactId>authlib</artifactId>
+			<version>2.1.28</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>com.elmakers.mine.bukkit</groupId>
 			<artifactId>EffectLib</artifactId>
@@ -129,11 +137,18 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>dev.folia</groupId>
+			<artifactId>folia-api</artifactId>
+			<version>1.20.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- SpigotAPI -->
 		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot</artifactId>
-			<version>1.19.4-R0.1-SNAPSHOT</version>
+			<groupId>com.destroystokyo.paper</groupId>
+			<artifactId>paper-api</artifactId>
+			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -174,33 +189,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- WorldGuard -->
-		<dependency>
-			<groupId>com.sk89q.worldguard</groupId>
-			<artifactId>worldguard-bukkit</artifactId>
-			<version>7.0.7</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sk89q.worldedit</groupId>
-			<artifactId>worldedit-bukkit</artifactId>
-			<version>7.2.9</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -213,16 +201,21 @@
 
 	<repositories>
 
-		<!-- Spigot -->
 		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+			<id>minecraft-repo</id>
+			<url>https://libraries.minecraft.net/</url>
+		</repository>
+
+		<!-- Paper Legacy -->
+		<repository>
+			<id>papermc</id>
+			<url>https://papermc.io/repo/repository/maven-public/</url>
 		</repository>
 
 		<!-- Paper -->
 		<repository>
-			<id>papermc</id>
-			<url>https://papermc.io/repo/repository/maven-public/</url>
+			<id>paper</id>
+			<url>https://repo.papermc.io/repository/maven-public/</url>
 		</repository>
 
 		<!-- EngineHub -->
@@ -235,13 +228,6 @@
 		<repository>
 			<id>placeholderapi</id>
 			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-		</repository>
-
-		<!-- Central Repo -->
-		<repository>
-			<id>Maven Central</id>
-			<url>https://repo1.maven.org/maven2/</url>
-			<layout>default</layout>
 		</repository>
 
 		<!-- EffectLib Repo -->

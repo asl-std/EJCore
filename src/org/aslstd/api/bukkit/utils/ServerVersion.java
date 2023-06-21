@@ -1,6 +1,6 @@
 package org.aslstd.api.bukkit.utils;
 
-import org.aslstd.api.bukkit.message.EText;
+import org.aslstd.api.bukkit.message.Text;
 import org.bukkit.OfflinePlayer;
 
 import lombok.Getter;
@@ -8,8 +8,7 @@ import lombok.Getter;
 /**
  * <p>ServerVersion class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public final class ServerVersion {
 
@@ -55,8 +54,8 @@ public final class ServerVersion {
 	/**
 	 * <p>init.</p>
 	 *
-	 * @param version a {@link java.lang.String} object
-	 * @param serverType a {@link java.lang.String} object
+	 * @param version a {@link String} object
+	 * @param serverType a {@link String} object
 	 */
 	public static void init(String version, String serverType) {
 		if (serverType != null) ServerVersion.TYPE = serverType;
@@ -75,7 +74,7 @@ public final class ServerVersion {
 			} catch (final Exception ex) { ServerVersion.VERSION = ServerVersion.LEGACY; }
 		}
 
-		EText.fine("&aServer version: &5'" + ServerVersion.TYPE + "-" + ServerVersion.VERSION + "'");
+		Text.fine("&aServer version: &5'" + ServerVersion.TYPE + "-" + ServerVersion.VERSION + "'");
 	}
 
 	/**

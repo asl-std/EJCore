@@ -3,8 +3,7 @@ package org.aslstd.api.expression;
 /**
  * <p>Abstract DoubleOperations class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public abstract class DoubleOperations {
 	/**

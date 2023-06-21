@@ -5,6 +5,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,19 +16,40 @@ public class UEntity {
 	@Getter
 	protected LivingEntity entity;
 
+	/**
+	 * @return Entity display name
+	 */
 	public String displayName() { return entity.getCustomName() != null ? entity.getCustomName() : entity.getType().name(); }
 
-	public ItemStack hand() { return entity.getEquipment().getItemInMainHand(); }
+	/**
+	 * @return ItemStask what weared in entity main hand
+	 */
+	public @Nullable ItemStack hand() { return entity.getEquipment().getItemInMainHand(); }
 
-	public ItemStack offhand() { return entity.getEquipment().getItemInOffHand(); }
+	/**
+	 * @return ItemStask what weared in entity off hand
+	 */
+	public @Nullable ItemStack offhand() { return entity.getEquipment().getItemInOffHand(); }
 
-	public ItemStack head() { return entity.getEquipment().getHelmet(); }
+	/**
+	 * @return ItemStask what weared on entity head
+	 */
+	public @Nullable ItemStack head() { return entity.getEquipment().getHelmet(); }
 
-	public ItemStack body() { return entity.getEquipment().getChestplate(); }
+	/**
+	 * @return ItemStask what weared on entity chest
+	 */
+	public @Nullable ItemStack body() { return entity.getEquipment().getChestplate(); }
 
-	public ItemStack leggs() { return entity.getEquipment().getLeggings(); }
+	/**
+	 * @return ItemStask what weared on entity leggs
+	 */
+	public @Nullable ItemStack leggs() { return entity.getEquipment().getLeggings(); }
 
-	public ItemStack foots() { return entity.getEquipment().getBoots(); }
+	/**
+	 * @return ItemStask what weared on entity foots
+	 */
+	public @Nullable ItemStack foots() { return entity.getEquipment().getBoots(); }
 
 	public Location location() { return entity.getLocation(); }
 

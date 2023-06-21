@@ -8,8 +8,7 @@ import org.aslstd.api.expression.CommonExpression;
 /**
  * <p>Variable class.</p>
  *
- * @author ZooMMaX
- * @version $Id: $Id
+ * @author Snoop1CattZ69
  */
 public class Variable implements CommonExpression {
 	private final String name;
@@ -17,7 +16,7 @@ public class Variable implements CommonExpression {
 	/**
 	 * <p>Constructor for Variable.</p>
 	 *
-	 * @param name a {@link java.lang.String} object
+	 * @param name a {@link String} object
 	 * @param num a int
 	 */
 	public Variable(final String name, int num) {
