@@ -35,7 +35,7 @@ public class RandomRange implements RandomVal {
 	 * @param firstValue a {@link String} object
 	 * @param secondValue a {@link String} object
 	 * @param perLevelValue a {@link String} object
-	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * @param type a {@link ModifierType} object
 	 */
 	public RandomRange(double chance, @NonNull String firstValue, @NonNull String secondValue, String perLevelValue, @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }

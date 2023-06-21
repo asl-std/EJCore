@@ -25,7 +25,7 @@ public final class EntityUtil {
 	 * @param x a double
 	 * @param y a double
 	 * @param z a double
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public static List<Entity> getNearbyEntities(Player p, double x, double y, double z) {
 		final List<Entity> entities = new ArrayList<>();
@@ -46,7 +46,7 @@ public final class EntityUtil {
 	 * @param x a double
 	 * @param y a double
 	 * @param z a double
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public static List<Player> getNearbyPlayers(Player p, double x, double y, double z) {
 		final List<Player> players = new ArrayList<>();

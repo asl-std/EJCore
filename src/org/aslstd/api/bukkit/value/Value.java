@@ -30,7 +30,7 @@ public class Value {
 	/**
 	 * <p>Setter for the field <code>value</code>.</p>
 	 *
-	 * @param value a {@link java.lang.Number} object
+	 * @param value a {@link Number} object
 	 */
 	public void setValue(Number value) {
 		this.value = String.valueOf(value);
@@ -85,7 +85,7 @@ public class Value {
 	/**
 	 * <p>Constructor for Value.</p>
 	 *
-	 * @param value a {@link java.lang.Number} object
+	 * @param value a {@link Number} object
 	 */
 	public Value(Number value) {
 		setValue(value);
@@ -95,7 +95,7 @@ public class Value {
 	 * <p>Constructor for Value.</p>
 	 *
 	 * @param value a {@link String} object
-	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * @param type a {@link ModifierType} object
 	 */
 	public Value(String value, ModifierType type) {
 		this(value);
@@ -105,8 +105,8 @@ public class Value {
 	/**
 	 * <p>Constructor for Value.</p>
 	 *
-	 * @param value a {@link java.lang.Number} object
-	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * @param value a {@link Number} object
+	 * @param type a {@link ModifierType} object
 	 */
 	public Value(Number value, ModifierType type) {
 		this(value);

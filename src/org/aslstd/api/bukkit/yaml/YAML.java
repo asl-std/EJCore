@@ -164,7 +164,7 @@ public class Yaml {
 	 * <p>getDoubleList.</p>
 	 *
 	 * @param path a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<Double>  getDoubleList(String path) { return yaml.getDoubleList(path); }
 
@@ -203,7 +203,7 @@ public class Yaml {
 	 * <p>getFloatList.</p>
 	 *
 	 * @param path a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<Float>   getFloatList(String path) { return yaml.getFloatList(path); }
 
@@ -235,7 +235,7 @@ public class Yaml {
 	 * <p>getIntList.</p>
 	 *
 	 * @param path a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<Integer> getIntList(String path) { return yaml.getIntegerList(path); }
 
@@ -276,7 +276,7 @@ public class Yaml {
 	 * <p>getLongList.</p>
 	 *
 	 * @param path a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<Long>    getLongList(String path) { return yaml.getLongList(path); }
 
@@ -318,7 +318,7 @@ public class Yaml {
 	 * <p>getShortList.</p>
 	 *
 	 * @param path a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<Short> getShortList(String path) { return yaml.getShortList(path); }
 
@@ -348,7 +348,7 @@ public class Yaml {
 	 * <p>getStringList.</p>
 	 *
 	 * @param path a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<String>  getStringList(String path) {
 		return yaml.getStringList(path);

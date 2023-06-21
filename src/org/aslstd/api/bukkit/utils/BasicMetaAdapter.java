@@ -41,7 +41,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * <p>getStringValue.</p>
 	 *
 	 * @param patt a {@link java.util.regex.Pattern} object
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @return a {@link String} object
 	 */
 	public static @Nonnull String getStringValue(Pattern patt, List<String> lore) {
@@ -87,7 +87,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * <p>setLore.</p>
 	 *
 	 * @param stack a {@link org.bukkit.inventory.ItemStack} object
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @return a {@link org.bukkit.inventory.ItemStack} object
 	 */
 	public static ItemStack setLore(ItemStack stack, List<String> lore) {
@@ -239,7 +239,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * <p>getDoubleValue.</p>
 	 *
 	 * @param patt a {@link java.util.regex.Pattern} object
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @return a double
 	 */
 	public static double getDoubleValue(Pattern patt, List<String> lore) {
@@ -265,7 +265,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	/**
 	 * <p>contains.</p>
 	 *
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a boolean
 	 */
@@ -285,7 +285,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	/**
 	 * <p>indexOf.</p>
 	 *
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a int
 	 */
@@ -304,7 +304,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	/**
 	 * <p>indexOf.</p>
 	 *
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @param check a {@link String} object
 	 * @return a int
 	 */
@@ -320,7 +320,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	/**
 	 * <p>isPercent.</p>
 	 *
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a boolean
 	 */

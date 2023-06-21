@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * <p>Abstract EJPlugin class.</p>
+ * <p>Abstract OpenPlugin class.</p>
  *
  * @author Snoop1CattZ69
  */
@@ -33,9 +33,9 @@ public abstract class OpenPlugin extends JavaPlugin {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * EJPlugin::preInit() used for initialise features without using ListenerLoader and ModuleLoader
+	 * OpenPlugin::preInit() used for initialise features without using ListenerLoader and ModuleLoader
 	 *
-	 * EJPlugin::init() will be started automatically from Core when all EJPlugin's will be enabled
+	 * OpenPlugin::init() will be started automatically from Core when all EJPlugin's will be enabled
 	 */
 	@Override
 	public void onEnable() {
@@ -83,7 +83,7 @@ public abstract class OpenPlugin extends JavaPlugin {
 	/**
 	 * <p>loadConfigurations.</p>
 	 *
-	 * @param configurations a {@link OConf.aslstd.api.openlib.yaml.EJConf} object
+	 * @param configurations a {@link OConf} object
 	 */
 	public void loadConfigurations(OConf... configurations) {
 		Stream.of(configurations).forEach(this::loadConfiguration);
@@ -101,7 +101,7 @@ public abstract class OpenPlugin extends JavaPlugin {
 	/**
 	 * <p>loadConfiguration.</p>
 	 *
-	 * @param cfg a {@link OConf.aslstd.api.openlib.yaml.EJConf} object
+	 * @param cfg a {@link OConf} object
 	 */
 	public void loadConfiguration(OConf cfg) {
 		if (cfg == null) Text.debug("null configuration was providen, skipped");

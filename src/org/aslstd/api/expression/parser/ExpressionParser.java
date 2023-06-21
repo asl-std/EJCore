@@ -170,22 +170,22 @@ public class ExpressionParser extends BaseParser implements Parser {
 			CommonExpression left,
 			CommonExpression right) throws ParsingException {
 		switch (op) {
-		case Add:
-			return new Add(left, right);
-		case Sub:
-			return new Subtract(left, right);
-		case Mult:
-			return new Multiply(left, right);
-		case Div:
-			return new Divide(left, right);
-		case Pow:
-			return new Pow(left, right);
-		case Log:
-			return new Log(left, right);
-		case Mod:
-			return new Mod(left, right);
-		default:
-			throw new IllegalOperatorException(getStringByOp(op));
+			case Add:
+				return new Add(left, right);
+			case Sub:
+				return new Subtract(left, right);
+			case Mult:
+				return new Multiply(left, right);
+			case Div:
+				return new Divide(left, right);
+			case Pow:
+				return new Pow(left, right);
+			case Log:
+				return new Log(left, right);
+			case Mod:
+				return new Mod(left, right);
+			default:
+				throw new IllegalOperatorException(getStringByOp(op));
 		}
 	}
 }

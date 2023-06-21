@@ -98,7 +98,7 @@ public class NumUtil {
 	 * <p>parseDouble.</p>
 	 *
 	 * @param value a {@link String} object
-	 * @return a {@link java.lang.Double} object
+	 * @return a {@link Double} object
 	 */
 	public static Double parseDouble(String value) {
 		try {
@@ -130,7 +130,7 @@ public class NumUtil {
 	 * <p>parseInteger.</p>
 	 *
 	 * @param value a {@link String} object
-	 * @return a {@link java.lang.Integer} object
+	 * @return a {@link Integer} object
 	 */
 	public static Integer parseInteger(String value) {
 		final Long req = parseLong(value);
@@ -144,7 +144,7 @@ public class NumUtil {
 	 * <p>parseShort.</p>
 	 *
 	 * @param value a {@link String} object
-	 * @return a {@link java.lang.Short} object
+	 * @return a {@link Short} object
 	 */
 	public static Short parseShort(String value) {
 		final Integer req = parseInteger(value);
@@ -158,7 +158,7 @@ public class NumUtil {
 	 * <p>parseFloat.</p>
 	 *
 	 * @param value a {@link String} object
-	 * @return a {@link java.lang.Float} object
+	 * @return a {@link Float} object
 	 */
 	public static Float parseFloat(String value) {
 		final Double req = parseDouble(value);

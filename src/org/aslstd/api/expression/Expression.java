@@ -24,7 +24,7 @@ public interface Expression extends ToMiniString {
 	/**
 	 * <p>getVariables.</p>
 	 *
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	List<String> getVariables();
 

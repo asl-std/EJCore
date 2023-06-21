@@ -56,7 +56,6 @@ public class BasicCommandHandler implements CommandHandler, TabCompleter {
 		this.label = label; //cmdFile.getString("main-label", label, true);
 	}
 
-
 	/** {@inheritDoc} */
 	@Override
 	public BasicCommandHandler registerCommand(ECommand command) {

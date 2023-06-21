@@ -17,7 +17,7 @@ public enum EnumBinaryOperation {
 	Add, Sub, Mult, Div, Mod, Pow, Log, Undefined;
 
 	/** Constant <code>stringByOp</code> */
-	public static Map<EnumBinaryOperation, String> stringByOp = new HashMap<EnumBinaryOperation, String>() {{
+	public static Map<EnumBinaryOperation, String> stringByOp = new HashMap<>() {{
 		put(Add,       "+");
 		put(Sub,       "-");
 		put(Mult,      "*");
@@ -29,7 +29,7 @@ public enum EnumBinaryOperation {
 	}};
 
 	/** Constant <code>opByString</code> */
-	public static Map<String, EnumBinaryOperation> opByString = new HashMap<String, EnumBinaryOperation>() {{
+	public static Map<String, EnumBinaryOperation> opByString = new HashMap<>() {{
 		put("+",    Add);
 		put("-",    Sub);
 		put("*",    Mult);

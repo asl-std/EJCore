@@ -33,7 +33,7 @@ public class RandomSingle implements RandomVal {
 	 * @param firstValue a double
 	 * @param secondValue a double
 	 * @param perLevelValue a double
-	 * @param type a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * @param type a {@link ModifierType} object
 	 */
 	public RandomSingle(double chance,	double firstValue, double secondValue, double perLevelValue,  @NonNull ModifierType type) {
 		if (chance > 0 || chance < 100)  { hasChance = true; this.chance = chance; }
@@ -63,7 +63,7 @@ public class RandomSingle implements RandomVal {
 					NumUtil.parseDouble(secondValue.getAndScale(perLevelValue, lvl-1))
 					);
 
-			result.setType(ModifierType.getFromValue(resultValue, type.isPercents()));
+			result.setType(ModifierType.getFromValue(resultValue, type.isPercent()));
 
 			result.setValue(resultValue);
 

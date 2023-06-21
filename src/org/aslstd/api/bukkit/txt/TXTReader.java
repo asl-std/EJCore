@@ -24,7 +24,7 @@ public final class TXTReader {
 	/**
 	 * <p>getLines.</p>
 	 *
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<String> getLines() {
 		final List<String> result = new ArrayList<>();

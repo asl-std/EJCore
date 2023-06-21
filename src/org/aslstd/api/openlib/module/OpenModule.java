@@ -40,7 +40,7 @@ public interface OpenModule {
 	/**
 	 * <p>getUncompatibleModules.</p>
 	 *
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	List<String> uncompatible();
 

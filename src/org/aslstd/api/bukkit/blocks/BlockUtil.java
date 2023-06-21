@@ -18,7 +18,7 @@ public class BlockUtil {
 	 *
 	 * @param target a {@link org.bukkit.block.Block} object
 	 * @param radius a int
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public static List<Block> getBlocksCuboid(Block target, int radius) {
 		final List<Block> blocks = new ArrayList<>();
@@ -42,7 +42,7 @@ public class BlockUtil {
 	 *
 	 * @param target a {@link org.bukkit.block.Block} object
 	 * @param radius a int
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public static List<Block> getBlocksSquare(Block target, int radius) {
 		final List<Block> blocks = new ArrayList<>();

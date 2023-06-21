@@ -13,7 +13,7 @@ public interface RandomVal {
 	 * <p>roll.</p>
 	 *
 	 * @param lvl a double
-	 * @return a {@link org.aslstd.api.openlib.value.random.Value} object
+	 * @return a {@link Value} object
 	 */
 	Value roll(double lvl);
 

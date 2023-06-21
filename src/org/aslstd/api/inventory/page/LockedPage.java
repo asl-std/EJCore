@@ -59,7 +59,7 @@ public class LockedPage implements Page {
 	 *
 	 * @param locX a int
 	 * @param locY a int
-	 * @return a {@link org.aslstd.api.inventory.Element} object
+	 * @return a {@link Element} object
 	 */
 	public Element get(int locX, int locY) {
 		return elements[locX][locY];
@@ -130,7 +130,7 @@ public class LockedPage implements Page {
 	/**
 	 * <p>Getter for the field <code>unlocked</code>.</p>
 	 *
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	@Override
 	public List<Integer> getUnlocked() {
@@ -193,7 +193,7 @@ public class LockedPage implements Page {
 	 * <p>getElement.</p>
 	 *
 	 * @param icon a {@link org.bukkit.inventory.ItemStack} object
-	 * @return a {@link org.aslstd.api.inventory.Element} object
+	 * @return a {@link Element} object
 	 */
 	public Element getElement(ItemStack icon) {
 		if (icon == null) return null;
@@ -228,7 +228,7 @@ public class LockedPage implements Page {
 	 * <p>fillRow.</p>
 	 *
 	 * @param row a int
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 */
 	public void fillRow(int row, Element element) { fillRow(row, element, false); }
 
@@ -236,7 +236,7 @@ public class LockedPage implements Page {
 	 * <p>fillRow.</p>
 	 *
 	 * @param row a int
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 * @param force a boolean
 	 */
 	public void fillRow(int row, Element element, boolean force) {
@@ -248,7 +248,7 @@ public class LockedPage implements Page {
 	 * <p>fillColumn.</p>
 	 *
 	 * @param col a int
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 */
 	public void fillColumn(int col, Element element) { fillColumn(col, element, false); }
 
@@ -256,7 +256,7 @@ public class LockedPage implements Page {
 	 * <p>fillColumn.</p>
 	 *
 	 * @param col a int
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 * @param force a boolean
 	 */
 	public void fillColumn(int col, Element element, boolean force) {

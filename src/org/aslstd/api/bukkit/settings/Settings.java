@@ -82,7 +82,7 @@ public class Settings<T> {
 	/**
 	 * <p>getKeys.</p>
 	 *
-	 * @return a {@link java.util.Set} object
+	 * @return a {@link Set} object
 	 */
 	public Set<Map.Entry<String, T>> getKeys() {
 		return this.settings.entrySet();
@@ -104,7 +104,7 @@ public class Settings<T> {
 	 * <p>getKey.</p>
 	 *
 	 * @param keyPart a {@link String} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public List<Map.Entry<String, T>> getKey(String keyPart) {
 		final List<Map.Entry<String, T>> list = new LinkedList<>();

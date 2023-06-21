@@ -22,7 +22,7 @@ public class ValueParser {
 	 * <p>getRandomHolder.</p>
 	 *
 	 * @param from a {@link String} object
-	 * @return a {@link RandomVal.aslstd.api.openlib.value.random.RandomValue} object
+	 * @return a {@link RandomVal} object
 	 */
 	public static RandomVal getRandomValue(String from) {
 		RandomVal val = getSingleValue(from);
@@ -37,7 +37,7 @@ public class ValueParser {
 	 * <p>getSingleValue.</p>
 	 *
 	 * @param from a {@link String} object
-	 * @return a {@link RandomSingle.aslstd.api.openlib.value.random.RandomSingleValue} object
+	 * @return a {@link RandomSingle} object
 	 */
 	public static RandomSingle getSingleValue(String from) {
 		final Matcher match = singlePattern.matcher(from.toLowerCase());
@@ -59,7 +59,7 @@ public class ValueParser {
 	 * <p>getRangeValue.</p>
 	 *
 	 * @param from a {@link String} object
-	 * @return a {@link RandomRange.aslstd.api.openlib.value.random.RandomRangeValue} object
+	 * @return a {@link RandomRange} object
 	 */
 	public static RandomRange getRangeValue(String from) {
 		final Matcher match = rangePattern.matcher(from.toLowerCase());

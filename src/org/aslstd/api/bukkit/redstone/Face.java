@@ -38,7 +38,7 @@ public enum Face {
 	 * <p>sides.</p>
 	 *
 	 * @param height a int
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public static List<Pair<Face, Vector3D>> sides(int height) {
 		return Arrays.asList(
@@ -56,16 +56,16 @@ public enum Face {
 	 */
 	public int toInt() {
 		switch(this) {
-		case NORTH:
-			return 0;
-		case WEST:
-			return 1;
-		case SOUTH:
-			return 2;
-		case EAST:
-			return 3;
-		default:
-			return -1;
+			case NORTH:
+				return 0;
+			case WEST:
+				return 1;
+			case SOUTH:
+				return 2;
+			case EAST:
+				return 3;
+			default:
+				return -1;
 		}
 	}
 
@@ -76,20 +76,20 @@ public enum Face {
 	 */
 	public Face next() {
 		switch(this) {
-		case NORTH:
-			return WEST;
-		case WEST:
-			return SOUTH;
-		case SOUTH:
-			return EAST;
-		case EAST:
-			return NORTH;
-		case UP:
-			return DOWN;
-		case DOWN:
-			return UP;
-		default:
-			return NORTH;
+			case NORTH:
+				return WEST;
+			case WEST:
+				return SOUTH;
+			case SOUTH:
+				return EAST;
+			case EAST:
+				return NORTH;
+			case UP:
+				return DOWN;
+			case DOWN:
+				return UP;
+			default:
+				return NORTH;
 		}
 	}
 
@@ -100,20 +100,20 @@ public enum Face {
 	 */
 	public Face previous() {
 		switch(this) {
-		case NORTH:
-			return EAST;
-		case WEST:
-			return NORTH;
-		case SOUTH:
-			return WEST;
-		case EAST:
-			return SOUTH;
-		case UP:
-			return DOWN;
-		case DOWN:
-			return UP;
-		default:
-			return NORTH;
+			case NORTH:
+				return EAST;
+			case WEST:
+				return NORTH;
+			case SOUTH:
+				return WEST;
+			case EAST:
+				return SOUTH;
+			case UP:
+				return DOWN;
+			case DOWN:
+				return UP;
+			default:
+				return NORTH;
 		}
 	}
 
@@ -124,20 +124,20 @@ public enum Face {
 	 */
 	public Face opposite() {
 		switch(this) {
-		case NORTH:
-			return SOUTH;
-		case WEST:
-			return EAST;
-		case SOUTH:
-			return NORTH;
-		case EAST:
-			return WEST;
-		case UP:
-			return DOWN;
-		case DOWN:
-			return UP;
-		default:
-			return NORTH;
+			case NORTH:
+				return SOUTH;
+			case WEST:
+				return EAST;
+			case SOUTH:
+				return NORTH;
+			case EAST:
+				return WEST;
+			case UP:
+				return DOWN;
+			case DOWN:
+				return UP;
+			default:
+				return NORTH;
 		}
 	}
 
@@ -148,20 +148,20 @@ public enum Face {
 	 */
 	public BlockFace toBlockFace() {
 		switch(this) {
-		case NORTH:
-			return BlockFace.NORTH;
-		case WEST:
-			return BlockFace.WEST;
-		case SOUTH:
-			return BlockFace.SOUTH;
-		case EAST:
-			return BlockFace.EAST;
-		case UP:
-			return BlockFace.UP;
-		case DOWN:
-			return BlockFace.DOWN;
-		default:
-			return BlockFace.NORTH;
+			case NORTH:
+				return BlockFace.NORTH;
+			case WEST:
+				return BlockFace.WEST;
+			case SOUTH:
+				return BlockFace.SOUTH;
+			case EAST:
+				return BlockFace.EAST;
+			case UP:
+				return BlockFace.UP;
+			case DOWN:
+				return BlockFace.DOWN;
+			default:
+				return BlockFace.NORTH;
 		}
 	}
 
@@ -173,20 +173,20 @@ public enum Face {
 	 */
 	public static Face fromString(String face) {
 		switch(face.toUpperCase()) {
-		case "NORTH":
-			return NORTH;
-		case "WEST":
-			return WEST;
-		case "SOUTH":
-			return SOUTH;
-		case "EAST":
-			return EAST;
-		case "UP":
-			return UP;
-		case "DOWN":
-			return DOWN;
-		default:
-			return NORTH;
+			case "NORTH":
+				return NORTH;
+			case "WEST":
+				return WEST;
+			case "SOUTH":
+				return SOUTH;
+			case "EAST":
+				return EAST;
+			case "UP":
+				return UP;
+			case "DOWN":
+				return DOWN;
+			default:
+				return NORTH;
 		}
 	}
 }

@@ -25,15 +25,15 @@ public interface Page {
 	/**
 	 * <p>add.</p>
 	 *
-	 * @param elements a {@link org.aslstd.api.inventory.Element} object
-	 * @return an array of {@link org.aslstd.api.inventory.Element} objects
+	 * @param elements a {@link Element} object
+	 * @return an array of {@link Element} objects
 	 */
 	Element[] add(Element... elements);
 
 	/**
 	 * <p>add.</p>
 	 *
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 * @return a boolean
 	 */
 	boolean add(Element element);
@@ -41,7 +41,7 @@ public interface Page {
 	/**
 	 * <p>add.</p>
 	 *
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 * @param locX a int
 	 * @param locY a int
 	 * @param ignore a boolean
@@ -71,14 +71,14 @@ public interface Page {
 	/**
 	 * <p>fill.</p>
 	 *
-	 * @param element a {@link org.aslstd.api.inventory.Element} object
+	 * @param element a {@link Element} object
 	 */
 	void fill(Element element);
 
 	/**
 	 * Executes internal functions
 	 *
-	 * @param {@link org.bukkit.event.inventory.InventoryClickEvent} instance
+	 * @param event {@link org.bukkit.event.inventory.InventoryClickEvent} instance
 	 * @return true if execution is done correctly
 	 */
 	boolean fire(InventoryClickEvent event);

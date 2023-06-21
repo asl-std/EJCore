@@ -29,7 +29,7 @@ public abstract class RedstoneParts {
 	 * <p>getBlocks.</p>
 	 *
 	 * @param from a {@link org.bukkit.block.Block} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public abstract List<Block> getBlocks(Block from);
 
@@ -59,7 +59,7 @@ public abstract class RedstoneParts {
 	 * <p>getNearBlocks.</p>
 	 *
 	 * @param from a {@link org.bukkit.block.Block} object
-	 * @return a {@link java.util.List} object
+	 * @return a {@link List} object
 	 */
 	public static List<Block> getNearBlocks(Block from) {
 		final List<Block> near = new ArrayList<>();

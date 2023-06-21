@@ -110,10 +110,10 @@ public class BasicCommand implements ECommand {
 	public static boolean isValid(Object obj, SenderType senderType) {
 		final boolean isPlayer = obj instanceof Player;
 		switch (senderType) {
-		case ALL:			return true;
-		case CONSOLE_ONLY:	return !isPlayer;
-		case PLAYER_ONLY:	return isPlayer;
-		default:			return false;
+			case ALL:			return true;
+			case CONSOLE_ONLY:	return !isPlayer;
+			case PLAYER_ONLY:	return isPlayer;
+			default:			return false;
 		}
 	}
 

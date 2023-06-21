@@ -133,7 +133,7 @@ public class SimpleElement implements Element {
 	/**
 	 * <p>setIconLore.</p>
 	 *
-	 * @param lore a {@link java.util.List} object
+	 * @param lore a {@link List} object
 	 */
 	public void setIconLore(List<String> lore) {
 		if (lore != null)

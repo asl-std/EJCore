@@ -23,7 +23,7 @@ public enum ModifierType {
 	 * <p>getFromValue.</p>
 	 *
 	 * param val a {@link String} object
-	 * return a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * return a {@link ModifierType} object
 	 */
 	public static ModifierType getFromValue(String val) {
 		boolean positive, isPercents;
@@ -55,7 +55,7 @@ public enum ModifierType {
 	 *
 	 * @param value a double
 	 * @param percents a boolean
-	 * @return a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * @return a {@link ModifierType} object
 	 */
 	public static ModifierType getFromValue(double value, boolean percents) {
 		if (value > 0)
@@ -89,22 +89,22 @@ public enum ModifierType {
 	}
 
 	/**
-	 * <p>isPercents.</p>
+	 * <p>isPercent.</p>
 	 *
 	 * @return a boolean
 	 */
-	public boolean isPercents() {
+	public boolean isPercent() {
 		return this == POSITIVE_PERCENTS || this == ModifierType.NEGATIVE_PERCENTS;
 	}
 
 	public boolean isFlat() {
-		return !isPercents();
+		return !isPercent();
 	}
 
 	/**
 	 * <p>reverse.</p>
 	 *
-	 * @return a {@link org.aslstd.api.openlib.value.abstrakt.ModifierType} object
+	 * @return a {@link ModifierType} object
 	 */
 	public ModifierType reverse() {
 		switch(this) {

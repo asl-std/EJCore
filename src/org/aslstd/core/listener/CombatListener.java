@@ -2,13 +2,13 @@ package org.aslstd.core.listener;
 
 import java.util.List;
 
+import org.aslstd.api.attributes.AttrBase;
 import org.aslstd.api.attributes.AttrManager;
 import org.aslstd.api.openlib.event.combat.CombatEvent;
-import org.aslstd.api.openlib.event.combat.EntityDamagePrepareEvent;
 import org.aslstd.api.openlib.event.combat.CombatEvent.CombatType;
+import org.aslstd.api.openlib.event.combat.EntityDamagePrepareEvent;
 import org.aslstd.api.openlib.plugin.BukkitListener;
 import org.aslstd.api.openlib.plugin.Named;
-import org.aslstd.api.attributes.AttrBase;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
