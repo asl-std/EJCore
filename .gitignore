@@ -4,3 +4,4 @@ target/*
 .project
 .classpath
 archive/*
+test-server/
