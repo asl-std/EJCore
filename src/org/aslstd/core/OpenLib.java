@@ -52,17 +52,17 @@ public class OpenLib extends OpenPlugin {
 
 	public static final String[]
 			ANCIITAG = {
-			            "&5#####################################################################",
+			            "&5######################################################################",
 			            "&9",
-			            "&9        ███╗   ███╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗        ",
-			            "&9        ████╗ ████║██╔═══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝        ",
-			            "&9        ██╔████╔██║██║   ██║██║     ██║   ██║██████╔╝█████╗          ",
-			            "&9        ██║╚██╔╝██║██║   ██║██║     ██║   ██║██╔══██╗██╔══╝          ",
-			            "&9        ██║ ╚═╝ ██║╚██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗        ",
-			            "&9        ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝        ",
+			            "&9         ██████╗ ██████╗ ███████╗███╗   ██╗ ██╗     ██╗██████╗        ",
+			            "&9        ██╔═══██╗██╔══██╗██╔════╝████╗  ██║ ██║     ██║██╔══██╗       ",
+			            "&9        ██║   ██║██████╔╝█████╗  ██╔██╗ ██║ ██║     ██║██████╔╝       ",
+			            "&9        ██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║ ██║     ██║██╔══██╗       ",
+			            "&9        ╚██████╔╝██║     ███████╗██║ ╚████║ ███████╗██║██████╔╝       ",
+			            "&9         ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚══════╝╚═╝╚═════╝        ",
 			            "&9",
-			            "&b          MY DISCORD SUPPORT CHANNEL  |  DISCORD.ASLSTD.ORG          ",
-			            "&5#####################################################################", };
+			            "&b           MY DISCORD SUPPORT CHANNEL  |  DISCORD.ASLSTD.ORG          ",
+			            "&5######################################################################", };
 
 	@Getter private static EConfig config;
 	@Getter private static LangConfig lang;
@@ -134,7 +134,6 @@ public class OpenLib extends OpenPlugin {
 
 		handler = new CoreCommandHandler().registerHandler();
 
-
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin instanceof OpenPlugin && !plugin.getName().equalsIgnoreCase(this.getName()))
 				plugins.add((OpenPlugin) plugin);
@@ -147,7 +146,7 @@ public class OpenLib extends OpenPlugin {
 			CancelJoinBeforeFullLoading.unregister();
 		}
 
-		Text.fine("&amoLibrary succesfuly loaded in " + Text.format((System.nanoTime() - bef) / 1e9) + " sec.");
+		Text.fine("&a" + getName() + " succesfuly loaded in " + Text.format((System.nanoTime() - bef) / 1e9) + " sec.");
 		Text.sendLB();
 		Incompatibility.check();
 		if (Placeholders.enabled() && !Placeholders.preRegister().isEmpty())

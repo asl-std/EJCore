@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
+import net.kyori.adventure.text.Component;
+
 /**
  * <p>CancelJoinBeforeFullLoading class.</p>
  *
@@ -47,6 +49,6 @@ public class CancelJoinBeforeFullLoading implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(AsyncPlayerPreLoginEvent e) {
 		e.setLoginResult(Result.KICK_OTHER);
-		e.setKickMessage(Text.c("&cPlease wait while server will be fully loaded!"));
+		e.kickMessage(Component.text(Text.c("&cPlease wait while server will be fully loaded!")));
 	}
 }

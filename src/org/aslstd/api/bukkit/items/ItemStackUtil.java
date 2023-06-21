@@ -17,6 +17,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.Nullable;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 
 // ISUv1
 /**
@@ -88,17 +93,17 @@ public final class ItemStackUtil {
 		return ItemStackUtil.serialize(stack);
 	}
 
-	public static String getDisplayName(ItemStack stack) {
-		if (stack == null) return "null";
-		if (!ItemStackUtil.validate(stack, IStatus.HAS_META)) return stack.getType().name();
+	public static Component getDisplayName(ItemStack stack) {
+		if (stack == null) return Component.text("null");
+		if (!ItemStackUtil.validate(stack, IStatus.HAS_META)) return Component.text(stack.getI18NDisplayName());
 		if (ItemStackUtil.validate(stack, IStatus.HAS_DISPLAYNAME))
-			return stack.getItemMeta().getDisplayName();
-		return stack.getItemMeta().getLocalizedName();
+			return stack.getItemMeta().displayName();
+		return Component.text(stack.getI18NDisplayName());
 	}
 
-	public static List<String> getLore(ItemStack stack) {
-		if (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return Arrays.asList("");
-		return stack.getItemMeta().getLore();
+	public static List<Component> getLore(ItemStack stack) {
+		if (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return Arrays.asList(Component.empty());
+		return stack.getItemMeta().lore();
 	}
 
 	public static ItemStack setDamage(ItemStack stack, int damage) {
@@ -305,13 +310,13 @@ public final class ItemStackUtil {
 		if (item == null)
 			return new ItemStack(Material.AIR, 0);
 		ItemMeta meta = item.getItemMeta();
-		if (params[1] != null) meta.setDisplayName(Text.c(params[1]));
+		if (params[1] != null) meta.displayName(Component.text(Text.c(params[1])));
 		if (params[2] != null) {// ♦Lore◘Lore◘Lore
 			final String[] opt2 = params[2].split("◘");
-			final List<String> lore = new ArrayList<>();
+			final List<Component> lore = new ArrayList<>();
 			for (final String str : opt2)
-				lore.add(Text.c(str));
-			meta.setLore(lore);
+				lore.add(Component.text(Text.c(str)));
+			meta.lore(lore);
 		}
 		if (params[3] != null) {// ♣Enchant:Level;Enchant:Level
 			final String[] opt3 = params[3].split(";");
@@ -355,15 +360,15 @@ public final class ItemStackUtil {
 			hash.append(stack.getAmount()).append(":").append(typeHash > 0 ? typeHash : 0);
 			if (stack.hasItemMeta()) {
 				final ItemMeta meta = stack.getItemMeta();
-				if (meta.hasDisplayName()) hash.append("♥").append(meta.getDisplayName().replace('§', '&'));
+				if (meta.hasDisplayName()) hash.append("♥").append(( (@NonNull TextComponent)meta.displayName() ).content().replace('§', '&'));
 				boolean first = false;
 				if (meta.hasLore()) {
-					final List<String> lore = meta.getLore();
+					final @Nullable List<Component> lore = meta.lore();
 					if (lore.size() > 0) {
 						hash.append("♦");
-						for (final String str : lore)
-							if (!first) { hash.append(str.replace('§', '&')); first = true; }
-							else hash.append("◘").append(str.replace('§', '&'));
+						for (final Component str : lore)
+							if (!first) { hash.append(( (TextComponent)str ).content().replace('§', '&')); first = true; }
+							else hash.append("◘").append(( (TextComponent)str ).content().replace('§', '&'));
 					}
 				}
 				first = false;

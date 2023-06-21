@@ -1,9 +1,5 @@
 package org.aslstd.core.listener;
 
-import java.util.List;
-
-import org.aslstd.api.attributes.AttrBase;
-import org.aslstd.api.attributes.AttrManager;
 import org.aslstd.api.openlib.event.combat.CombatEvent;
 import org.aslstd.api.openlib.event.combat.CombatEvent.CombatType;
 import org.aslstd.api.openlib.event.combat.EntityDamagePrepareEvent;
@@ -50,9 +46,9 @@ public class CombatListener implements BukkitListener {
 		if (attacker != null && receiver != null) {
 			final CombatEvent event = new CombatEvent(attacker, receiver, cause, edpe.getDamage(), CombatType.from(receiver, attacker), ranged, e.isCancelled());
 
-			final List<AttrBase> stats = AttrManager.getSortedList();
+			/*final List<AttrBase> stats = AttrManager.getSortedList();
 
-			/*for (final BasicAttr stat : stats) {
+			for (final BasicAttr stat : stats) {
 				if (stat instanceof ListeningCombat)
 					((ListeningCombat) stat).listen(event);
 

@@ -1,12 +1,12 @@
 package org.aslstd.core.listener;
 
+import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.items.InventoryUtil;
 import org.aslstd.api.inventory.Chest;
 import org.aslstd.api.inventory.Pane;
 import org.aslstd.api.openlib.plugin.BukkitListener;
 import org.aslstd.api.openlib.plugin.Named;
 import org.aslstd.core.OpenLib;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -40,7 +40,7 @@ public class PaneInteractListener implements BukkitListener {
 				return;
 			}
 
-			final Player whoClicked = (Player) event.getWhoClicked();
+			final Player whoClicked = (Player)Pick.of(event.getWhoClicked());
 
 			event.setCancelled(true);
 
@@ -57,7 +57,7 @@ public class PaneInteractListener implements BukkitListener {
 				event.setCurrentItem(null);
 				event.getView().setItem(event.getRawSlot(), curr);
 
-				Bukkit.getScheduler().scheduleSyncDelayedTask(OpenLib.instance(), () -> whoClicked.updateInventory());
+				OpenLib.scheduler().schedule(OpenLib.instance(), whoClicked, () -> whoClicked.updateInventory());
 			}
 		}
 	}

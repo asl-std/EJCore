@@ -18,6 +18,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
+import net.kyori.adventure.text.Component;
+
 /**
  * <p>MultiPagePane class.</p>
  *
@@ -114,7 +116,7 @@ public class MultiPagePane implements Pane {
 	/** {@inheritDoc} */
 	@Override
 	public void showTo(Player... players) {
-		final Inventory inventory = Bukkit.createInventory(this, size, title);
+		final Inventory inventory = Bukkit.createInventory(this, size, Component.text(title));
 
 		if (pages.size() == 0) return;
 

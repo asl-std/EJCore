@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import org.aslstd.api.bukkit.command.interfaze.ECommand;
 import org.aslstd.api.bukkit.command.interfaze.SenderType;
 import org.aslstd.api.bukkit.command.interfaze.Usable;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -57,7 +56,7 @@ public class BasicCommand implements ECommand {
 	 *
 	 * @return a {@link String} object
 	 */
-	public String getHelp() { return ChatColor.GOLD + getUsage() + " - " + ChatColor.GREEN + getDescription(); }
+	public String getHelp() { return "&6" + getUsage() + " - " + "&a" + getDescription(); }
 
 	/** {@inheritDoc} */
 	@Override

@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import net.kyori.adventure.text.Component;
 
 /**
  * <p>SimplePane class.</p>
@@ -81,7 +82,7 @@ public class SimplePane implements Pane {
 	/** {@inheritDoc} */
 	@Override
 	public void showTo(Player... players) {
-		final Inventory inventory = Bukkit.createInventory(this, size, title);
+		final Inventory inventory = Bukkit.createInventory(this, size, Component.text(title));
 
 		page.display(inventory);
 

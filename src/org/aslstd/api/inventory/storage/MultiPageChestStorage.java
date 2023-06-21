@@ -26,6 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import de.tr7zw.changeme.nbtapi.NBTContainer;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 
 public class MultiPageChestStorage implements Chest {
 
@@ -65,7 +66,7 @@ public class MultiPageChestStorage implements Chest {
 		size = pagesAmount*45;
 		pages = new Inventory[pagesAmount];
 		for (int i = 0 ; i < pagesAmount ; i++)
-			pages[i] = Bukkit.createInventory(this, 54, Text.c(title));
+			pages[i] = Bukkit.createInventory(this, 54, Component.text(Text.c(title)));
 	}
 
 	private void placeControls(int i) {

@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import org.aslstd.api.bukkit.items.IStatus;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.message.Text;
 import org.aslstd.api.bukkit.utils.BasicMetaAdapter;
 import org.aslstd.api.inventory.Element;
 import org.bukkit.Material;
@@ -14,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import lombok.Getter;
+import net.kyori.adventure.text.TextComponent;
 
 /**
  * <p>SimpleElement class.</p>
@@ -105,7 +105,7 @@ public class SimpleElement implements Element {
 		if (ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL))
 			changeType(stack.getType());
 		if (ItemStackUtil.validate(stack, IStatus.HAS_DISPLAYNAME))
-			setIconDisplayName(stack.getItemMeta().getDisplayName());
+			setIconDisplayName(( (TextComponent)stack.getItemMeta().displayName() ).content());
 		if (ItemStackUtil.validate(stack, IStatus.HAS_LORE))
 			setIconLore(stack.getItemMeta().getLore());
 	}
@@ -127,7 +127,7 @@ public class SimpleElement implements Element {
 	 */
 	public void setIconDisplayName(String name) {
 		if (name != null)
-			BasicMetaAdapter.setDisplayName(icon, Text.c(name));
+			BasicMetaAdapter.setDisplayName(icon, name);
 	}
 
 	/**

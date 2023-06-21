@@ -28,6 +28,7 @@ import lombok.Setter;
  *
  * @author Snoop1CattZ69
  */
+@SuppressWarnings("deprecation")
 public class Text {
 
 	/** Constant <code>enableConsoleColoring=true</code> */
@@ -89,7 +90,7 @@ public class Text {
 	 * @param msg a {@link String} object
 	 * @param prefix a {@link String} object
 	 */
-	public static void debug(String msg, String prefix) { if (debug) sendRawWithNull("&5[&2"+ prefix +"&5]&f: &3> #&ccc737", msg); }
+	public static void debug(String msg, String prefix) { if (debug) sendRawWithNull("&5[&2"+ prefix +"&5]&f: &3> #ccc737", msg); }
 
 	/** Constant <code>df</code> */
 	public static DecimalFormat df;
@@ -144,7 +145,7 @@ public class Text {
 	}
 
 	public static void sendRawWithNull(String suff, Object msg) {
-		Bukkit.getConsoleSender().sendMessage(msg == null ? suff + "null" : suff + msg.toString());
+		Bukkit.getConsoleSender().sendMessage(c(msg == null ? suff + "null" : suff + msg.toString()));
 	}
 
 	/**
@@ -232,7 +233,7 @@ public class Text {
 	}
 
 	private static String translateHexColorCodes(String message) {
-		final Pattern hexPattern = Pattern.compile("[#" + "([A-Fa-f0-9]{6})" + "]");
+		final Pattern hexPattern = Pattern.compile("\\#([A-Fa-f0-9]{6})");
 		final Matcher matcher = hexPattern.matcher(message);
 		final StringBuffer buffer = new StringBuffer(message.length() + 4 * 8);
 

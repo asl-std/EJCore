@@ -6,6 +6,9 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+
 /**
  * <p>InventoryUtil class.</p>
  *
@@ -77,13 +80,13 @@ public final class InventoryUtil {
 		if (stack == null) return;
 		int value = amount;
 		final ItemStack[] storage = p.getInventory().getStorageContents();
-		final String toCheck = Text.e(name == null ? stack.getType().name() : ItemStackUtil.getDisplayName(stack));
+		final String toCheck = Text.e(name == null ? stack.getType().name() : ( (TextComponent)ItemStackUtil.getDisplayName(stack) ).content());
 
 		final Material type = stack.getType();
 		for (int i = 0; i < storage.length; i++) {
 			if (!ItemStackUtil.validate(storage[i], IStatus.HAS_MATERIAL)) continue;
 			if (ItemStackUtil.getDamage(storage[i]) > 0) continue;
-			if (ItemStackUtil.getDisplayName(storage[i]).equals(toCheck) && storage[i].getType() == type) {
+			if (Component.EQUALS.test(ItemStackUtil.getDisplayName(storage[i]), Component.text(toCheck)) && storage[i].getType() == type) {
 				final ItemStack inv = storage[i];
 
 				if (inv.getAmount() > value) {

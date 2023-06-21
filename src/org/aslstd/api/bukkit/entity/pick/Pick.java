@@ -12,6 +12,8 @@ public class Pick {
 	}
 
 	public static UEntity of(LivingEntity e) {
+		if (e instanceof final Player p)
+			return of(p);
 		return new UEntity(e);
 	}
 

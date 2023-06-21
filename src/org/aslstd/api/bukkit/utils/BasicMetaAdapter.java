@@ -15,6 +15,10 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 
 /**
  * Will be included in ItemStackUtil in future
@@ -34,7 +38,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static @Nonnull String getStringValue(Pattern patt, ItemStack stack) {
 		if  (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return "";
-		return getStringValue(patt, stack.getItemMeta().getLore());
+		return getStringValue(patt, ( (@NonNull TextComponent)stack.getItemMeta().lore() ).content());
 	}
 
 	/**
@@ -70,15 +74,15 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	public static ItemStack addLore(ItemStack stack, String... strings) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
-		List<String> lore = new ArrayList<>();
+		List<Component> lore = new ArrayList<>();
 
 		if (meta.hasLore())
-			lore = meta.getLore();
+			lore = meta.lore();
 
 		for (final String str : strings)
-			lore.add(Text.c(str));
+			lore.add(Component.text(Text.c(str)));
 
-		meta.setLore(lore);
+		meta.lore(lore);
 		stack.setItemMeta(meta);
 		return stack;
 	}
@@ -94,13 +98,13 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL) || lore.isEmpty()) return stack;
 		final ItemMeta meta = stack.getItemMeta();
 
-		final List<String> colored = new ArrayList<>();
+		final List<Component> colored = new ArrayList<>();
 
 		for (final String key : lore)
 			if (key != null)
-				colored.add(Text.c(key));
+				colored.add(Component.text(Text.c(key)));
 
-		meta.setLore(colored);
+		meta.lore(colored);
 		stack.setItemMeta(meta);
 		return stack;
 	}
@@ -116,17 +120,17 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	public static ItemStack setLore(ItemStack stack, int index, String loreString) {
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
-		List<String> lore = new ArrayList<>();
+		List<Component> lore = new ArrayList<>();
 
 		if (meta.hasLore())
-			lore = meta.getLore();
+			lore = meta.lore();
 
 		if (lore.size()-1 >= index)
-			lore.set(index, Text.c(loreString));
+			lore.set(index, Component.text(Text.c(loreString)));
 		else
-			lore.add(Text.c(loreString));
+			lore.add(Component.text(Text.c(loreString)));
 
-		meta.setLore(lore);
+		meta.lore(lore);
 		stack.setItemMeta(meta);
 		return stack;
 	}
@@ -187,9 +191,9 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 		final ItemMeta meta = stack.getItemMeta();
 		if (display != null)
-			meta.setDisplayName(Text.c(display));
+			meta.displayName(Component.text(Text.c(display)));
 		else
-			meta.setDisplayName(null);
+			meta.displayName(null);
 		stack.setItemMeta(meta);
 		return stack;
 	}
