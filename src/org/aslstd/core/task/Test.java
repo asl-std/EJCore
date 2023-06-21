@@ -1,6 +1,5 @@
 package org.aslstd.core.task;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,16 +14,6 @@ import org.bukkit.inventory.ItemStack;
  * @author Snoop1CattZ69
  */
 public class Test {
-
-	public static void main(String[ ] args) {
-		final List<String> s = new ArrayList<>();
-		s.add("some");
-		s.add("string");
-		s.add("fuck");
-		s.add("pointers");
-
-		s.stream().filter(st -> st.contains("s")).forEach(t -> System.out.println(t));
-	}
 
 	private static boolean tested = false;
 
@@ -45,6 +34,7 @@ public class Test {
 
 		for (final String hash : hashes) {
 			final ItemStack stack = ItemStackUtil.toStack(hash);
+			Text.sendRaw(stack.lore().toString());
 			if (!ItemStackUtil.toString(stack).equalsIgnoreCase("IRON_SWORD:1:0♥&9Iron Sword♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--&3Урон: +6.0-8.0")) {
 				Text.warn("ItemHashConverter System: Item cannot be converted from Hash! Serialiser not works properly");
 				Text.sendRaw("IN:  " + hashes.get(0));

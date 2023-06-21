@@ -49,7 +49,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param lore a {@link List} object
 	 * @return a {@link String} object
 	 */
-	public static @Nonnull String getStringValue(Pattern patt, List<String> lore) {
+	public static @Nonnull String getStringValue(Pattern patt, List<Component> lore) {
 		String value = "";
 		if (contains(lore, patt)) {
 			matcher = patt.matcher(Text.e(lore.toString()).toLowerCase());
@@ -229,7 +229,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static double getDoubleValue(Pattern patt, ItemStack stack) {
 		if  (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return 0.0D;
-		return getDoubleValue(patt, stack.getItemMeta().getLore());
+		return getDoubleValue(patt, stack.getItemMeta().lore());
 	}
 
 	/**
@@ -239,7 +239,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param lore a {@link List} object
 	 * @return a double
 	 */
-	public static double getDoubleValue(Pattern patt, List<String> lore) {
+	public static double getDoubleValue(Pattern patt, List<Component> lore) {
 		String value = "0.0D";
 
 		if (contains(lore, patt)) {
@@ -266,7 +266,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a boolean
 	 */
-	public static boolean contains(List<String> lore, Pattern patt) { return patt.matcher(Text.e(lore.toString()).toLowerCase()).find(); }
+	public static boolean contains(List<Component> lore, Pattern patt) { return patt.matcher(Text.e(lore.toString()).toLowerCase()).find(); }
 	/**
 	 * <p>contains.</p>
 	 *
@@ -276,7 +276,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static boolean contains(ItemStack item, Pattern patt) {
 		if (!ItemStackUtil.validate(item, IStatus.HAS_LORE)) return false;
-		return contains(item.getItemMeta().getLore(), patt);
+		return contains(item.getItemMeta().lore(), patt);
 	}
 
 	/**
@@ -286,11 +286,11 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a int
 	 */
-	public static int indexOf(List<String> lore, Pattern patt) {
+	public static int indexOf(List<Component> lore, Pattern patt) {
 		Matcher m;
 
 		for (int l = 0 ; l < lore.size() ; l++) {
-			m = patt.matcher(Text.e(lore.get(l).toLowerCase()));
+			m = patt.matcher(Text.e(( (TextComponent)lore.get(l) ).content().toLowerCase()));
 
 			if (m.find()) return l;
 		}
