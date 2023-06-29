@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public abstract class OConf extends Yaml {
 
 	/**
-	 * <p>Constructor for EJConf.</p>
+	 * <p>Constructor for OConf.</p>
 	 *
 	 * @param fileName a {@link String} object
 	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object

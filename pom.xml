@@ -11,6 +11,7 @@
 	<properties>
 		<releaseStatus>SNAPSHOT</releaseStatus>
 		<java.version>16</java.version>
+		<minecraft.version>1.16</minecraft.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<outputDirectory>test-server\plugins</outputDirectory>
@@ -59,9 +60,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.4.1</version>
+				<version>3.5.0</version>
 				<configuration>
 					<minimizeJar>false</minimizeJar>
+					<shadeSourcesContent>true</shadeSourcesContent>
 					<dependencyReducedPomLocation>
 						${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
 					<relocations>
@@ -70,8 +72,12 @@
 							<shadedPattern>org.aslstd.api.slikey</shadedPattern>
 						</relocation>
 						<relocation>
-							<pattern>de.tr7zw</pattern>
+							<pattern>de.tr7zw.changeme</pattern>
 							<shadedPattern>org.aslstd.api.tr7zw</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>de.tr7zw.annotations</pattern>
+							<shadedPattern>org.aslstd.api.tr7zw.annotations</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>org.bstats</pattern>
@@ -108,6 +114,39 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.5.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<additionalJOption>-Xdoclint:none</additionalJOption>
+					<includeDependencySources>true</includeDependencySources>
+					<dependencySourceIncludes>
+						<dependencySourceInclude>de.tr7zw:*</dependencySourceInclude>
+						<dependencySourceInclude>com.elmakers.mine.bukkit:*</dependencySourceInclude>
+					</dependencySourceIncludes>
+					<additionalDependencies>
+						<additionalDependency>
+							<groupId>com.elmakers.math</groupId>
+							<artifactId>exp4j</artifactId>
+							<version>1.0</version>
+						</additionalDependency>
+					</additionalDependencies>
+					<links>
+						<link>https://jd.papermc.io/paper/${minecraft.version}</link>
+						<link>https://javadoc.io/doc/com.zaxxer/4.0.3/index.html</link>
+					</links>
+				</configuration>
+			</plugin>
+
 		</plugins>
 
 	</build>
@@ -132,7 +171,7 @@
 		<dependency>
 			<groupId>com.elmakers.mine.bukkit</groupId>
 			<artifactId>EffectLib</artifactId>
-			<version>10.0-SNAPSHOT</version>
+			<version>10.2-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -160,7 +199,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- SpigotAPI -->
+		<!-- PaperAPI -->
 		<dependency>
 			<groupId>com.destroystokyo.paper</groupId>
 			<artifactId>paper-api</artifactId>

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.openlib.player.Options;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,24 +29,23 @@ public class Test {
 	}
 
 	private static void testStringBuffer() {
-		Text.debug("ItemHashConverter System: Checking..♥♦♣♠");
-		final List<String> hashes = Arrays.asList("IRON_SWORD:1:0♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--&3Урон: +6.0-8.0♥&9Iron Sword");
+		Texts.debug("ItemHashConverter System: Checking..♥♦♣♠");
+		final List<String> hashes = Arrays.asList("IRON_SWORD:1:0♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--◘&3Урон: +6.0-8.0♥&9Iron Sword");
 
 		for (final String hash : hashes) {
 			final ItemStack stack = ItemStackUtil.toStack(hash);
-			Text.sendRaw(stack.lore().toString());
-			if (!ItemStackUtil.toString(stack).equalsIgnoreCase("IRON_SWORD:1:0♥&9Iron Sword♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--&3Урон: +6.0-8.0")) {
-				Text.warn("ItemHashConverter System: Item cannot be converted from Hash! Serialiser not works properly");
-				Text.sendRaw("IN:  " + hashes.get(0));
-				Text.sendRaw("REQ: IRON_SWORD:1:0♥&9Iron Sword♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--&3Урон: +6.0-8.0");
-				Text.sendRaw("OUT: " + ItemStackUtil.toString(stack));
+			if (!ItemStackUtil.toString(stack).equalsIgnoreCase("IRON_SWORD:1:0♥&9Iron Sword♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--◘&3Урон: +6.0-8.0")) {
+				Texts.warn("ItemHashConverter System: Item cannot be converted from Hash! Serialiser not works properly");
+				Texts.sendRaw("IN:  " + hashes.get(0));
+				Texts.sendRaw("REQ: IRON_SWORD:1:0♥&9Iron Sword♦&4Уровень: 1◘&4Крит-Шанс: +3.0◘&5&m--===[&6&l  Аттрибуты &5&m]===--◘&3Урон: +6.0-8.0");
+				Texts.sendRaw("OUT: " + ItemStackUtil.toString(stack));
 			} else
-				Text.debug("ItemHashConverter System: No any problem found, remember: ♥♦♣♠ not is good game!");
+				Texts.debug("ItemHashConverter System: No any problem found, remember: ♥♦♣♠ not is good game!");
 		}
 	}
 
 	private static void testSettings() {
-		Text.debug("Settings System: Checking..");
+		Texts.debug("Settings System: Checking..");
 		final Options options = new Options();
 
 		options.writeBase("player.equip.chestplate.health", 2);
@@ -80,10 +79,10 @@ public class Test {
 		options.writeBase("player.equip.offhand.damage", 2);
 
 		if (options.tempStore().getSettingsSize() == 14)
-			Text.debug("Settings System: Works correctly!");
+			Texts.debug("Settings System: Works correctly!");
 		else {
-			Text.warn("Settings System: Some problem found.. Please tell to author about with text above!");
-			Text.dumpConsole(options.tempStore());
+			Texts.warn("Settings System: Some problem found.. Please tell to author about with text above!");
+			Texts.dumpConsole(options.tempStore());
 		}
 	}
 

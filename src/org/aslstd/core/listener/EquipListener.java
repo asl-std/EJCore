@@ -3,7 +3,7 @@ package org.aslstd.core.listener;
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.equip.EquipSlot;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.openlib.event.equipment.PrepareEquipEvent;
 import org.aslstd.api.openlib.player.OPlayer;
 import org.aslstd.api.openlib.plugin.BukkitListener;
@@ -143,7 +143,7 @@ public class EquipListener implements BukkitListener {
 
 	@EventHandler()
 	public void onEquipEvent(PrepareEquipEvent e) {
-		Text.debug("Called " + e.getEquipSlot().name() + " " + ItemStackUtil.toString(e.getItemStack()));
+		Texts.debug("Called " + e.getEquipSlot().name() + " " + ItemStackUtil.toString(e.getItemStack()));
 	}
 
 

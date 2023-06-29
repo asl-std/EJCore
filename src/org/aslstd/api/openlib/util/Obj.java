@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.openlib.exceptions.CatchableNullException;
 
 import lombok.SneakyThrows;
@@ -22,7 +22,7 @@ public class Obj {
 		List<Object> obj = Stream.of(objects).filter(Objects::isNull).collect(Collectors.toList());
 		if (!obj.isEmpty()) {
 			for (Object o : obj)
-				Text.send(message + ": " + o.getClass().getName() + " is null");
+				Texts.send(message + ": " + o.getClass().getName() + " is null");
 			throw new CatchableNullException(message);
 		}
 	}

@@ -2,8 +2,8 @@ package org.aslstd.core.listener;
 
 import org.aslstd.api.bukkit.entity.pick.Pick;
 import org.aslstd.api.bukkit.items.InventoryUtil;
-import org.aslstd.api.inventory.Chest;
-import org.aslstd.api.inventory.Pane;
+import org.aslstd.api.openlib.inventory.Chest;
+import org.aslstd.api.openlib.inventory.Pane;
 import org.aslstd.api.openlib.plugin.BukkitListener;
 import org.aslstd.api.openlib.plugin.Named;
 import org.aslstd.core.OpenLib;

@@ -3,7 +3,7 @@ package org.aslstd.core.config;
 import java.util.Collections;
 import java.util.List;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.yaml.OConf;
 import org.aslstd.api.openlib.plugin.OpenPlugin;
 
@@ -44,9 +44,9 @@ public class EConfig extends OConf {
 		HEALTH_PER_BAR = this.getInt("health-bar.health-per-bar", 20, true);
 
 		DEBUG_RUNNING = this.getBoolean("debug.enable-debug", true, true);
-		Text.setDebug(DEBUG_RUNNING);
+		Texts.setDebug(DEBUG_RUNNING);
 		CONSOLE_FEEDBACK = this.getBoolean("debug.console-feedback", true, true);
-		Text.setConsoleFeedback(CONSOLE_FEEDBACK);
+		Texts.setConsoleFeedback(CONSOLE_FEEDBACK);
 		LESS_CONSOLE = this.getBoolean("debug.less-console-messages", false, true);
 		ENABLE_ATTACK_COOLDOWN = this.getBoolean("enable-attack-cooldown", true, true);
 		CHECK_UPDATE = this.getBoolean("check-updates", true, true);

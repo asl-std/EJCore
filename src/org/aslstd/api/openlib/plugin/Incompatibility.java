@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -37,17 +37,17 @@ public class Incompatibility {
 			if (source == null || target == null) continue;
 
 			if (!f) {
-				Text.warn("            <---------- CAUTION ---------->");
+				Texts.warn("            <---------- CAUTION ---------->");
 				f = true;
 			}
 
-			Text.warn(target.getName() + ": Plugin incompatibility found -> " + source.getName());
+			Texts.warn(target.getName() + ": Plugin incompatibility found -> " + source.getName());
 		}
 
 		if (!it.hasNext() && f) {
-			Text.warn("You will not receive any support due to plugin incompatibility");
-			Text.warn("            <---------- CAUTION ---------->");
-			Text.sendLB();
+			Texts.warn("You will not receive any support due to plugin incompatibility");
+			Texts.warn("            <---------- CAUTION ---------->");
+			Texts.sendLB();
 		}
 	}
 

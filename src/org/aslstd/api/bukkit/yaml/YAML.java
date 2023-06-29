@@ -5,15 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
+import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus.Internal;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.yaml.snakeyaml.DumperOptions;
 
 import lombok.Getter;
 
@@ -46,8 +52,9 @@ public class Yaml {
 	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 * @param extendedPath a {@link String} object
 	 */
-	public Yaml(File file, JavaPlugin plugin, String extendedPath) {
+	public Yaml(@NotNull File file, @Nullable JavaPlugin plugin, @Nullable String extendedPath) {
 		this.file = file;
+		width(yaml, Integer.MAX_VALUE);
 		try {
 			if (fileExists())
 				load();
@@ -82,55 +89,55 @@ public class Yaml {
 	 * @param path a {@link String} object
 	 * @param plugin a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 */
-	public Yaml(String path, JavaPlugin plugin) { this(new File(path), plugin, null); }
+	public Yaml(@NotNull String path, @Nullable JavaPlugin plugin) { this(new File(path), plugin, null); }
 
 	/**
 	 * <p>Constructor for Yaml.</p>
 	 *
 	 * @param path a {@link String} object
 	 */
-	public Yaml(String path) { this(new File(path), null, null); }
+	public Yaml(@NotNull String path) { this(new File(path), null, null); }
 
 	/**
 	 * <p>Constructor for Yaml.</p>
 	 *
 	 * @param file a {@link java.io.File} object
 	 */
-	public Yaml(File file) { this(file, null, null); }
+	public Yaml(@NotNull File file) { this(file, null, null); }
 
 	/**
-	 * <p>contains.</p>
+	 * @see YamlConfiguration#contains(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a boolean
+	 * @param path - section path
 	 */
 	public boolean contains(String path) {
 		return yaml.contains(path);
 	}
 
 	/**
-	 * <p>fileExists.</p>
+	 * @see File#exists()
 	 *
-	 * @return a boolean
+	 * @param true if file already exist
 	 */
 	protected boolean fileExists() { return file.exists(); }
+
 	/**
-	 * <p>getBoolean.</p>
+	 * @see YamlConfiguration#getBoolean(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a boolean
+	 * @param path - section path
+	 * @return stored boolean value
 	 */
 	public boolean getBoolean(String path) {
 		return yaml.getBoolean(path);
 	}
 
 	/**
-	 * <p>getBoolean.</p>
+	 * @see YamlConfiguration#getBoolean(String, boolean)
 	 *
-	 * @param path a {@link String} object
-	 * @param def a boolean
-	 * @param restore a boolean
-	 * @return a boolean
+	 * @param path - section path
+	 * @param def - default value if not present
+	 * @param restore - regenerate default value in config if not present
+	 * @return stored boolean value
 	 */
 	public boolean getBoolean(String path, boolean def, boolean restore) {
 		if (restore) if (this.getString(path) == null) set(path, def);
@@ -138,22 +145,22 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getDouble.</p>
+	 * @see YamlConfiguration#getDouble(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a double
+	 * @param path - section path
+	 * @return stored double value
 	 */
 	public double getDouble(String path) {
 		return yaml.getDouble(path);
 	}
 
 	/**
-	 * <p>getDouble.</p>
+	 * @see YamlConfiguration#getDouble(String, double)
 	 *
-	 * @param path a {@link String} object
-	 * @param def a double
-	 * @param restore a boolean
-	 * @return a double
+	 * @param path - section path
+	 * @param def - default value if not present
+	 * @param restore - regenerate default value in config if not present
+	 * @return stored double value
 	 */
 	public double getDouble(String path, double def, boolean restore) {
 		if (restore) if (this.getString(path) == null) set(path, def);
@@ -161,25 +168,23 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getDoubleList.</p>
+	 * @see YamlConfiguration#getDoubleList(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a {@link List} object
+	 * @param path - section path
+	 * @return {@link List} with stored double values or empty list if values not present
 	 */
-	public List<Double>  getDoubleList(String path) { return yaml.getDoubleList(path); }
+	public @NotNull List<Double>  getDoubleList(String path) { return yaml.getDoubleList(path); }
 
 	/**
-	 * <p>Getter for the field <code>file</code>.</p>
-	 *
-	 * @return a {@link java.io.File} object
+	 * @return a {@link java.io.File} linked with this configuration
 	 */
-	public File getFile() { return file; }
+	public @NotNull File getFile() { return file; }
 
 	/**
-	 * <p>getFloat.</p>
+	 * @see YamlConfiguration#getFloat(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a float
+	 * @param path - section path
+	 * @return stored float value
 	 */
 	public float getFloat(String path) {
 		final double request = this.getDouble(path);
@@ -187,12 +192,12 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getFloat.</p>
+	 * @see YamlConfiguration#getFloat(String, double)
 	 *
-	 * @param path a {@link String} object
-	 * @param def a float
-	 * @param restore a boolean
-	 * @return a float
+	 * @param path - section path
+	 * @param def - default value if not present
+	 * @param restore - regenerate default value in config if not present
+	 * @return stored float value
 	 */
 	public float getFloat(String path, float def, boolean restore) {
 		if (restore) if (this.getString(path) == null) set(path, def);
@@ -200,12 +205,12 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getFloatList.</p>
+	 * @see YamlConfiguration#getFloatList(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a {@link List} object
+	 * @param path - section path
+	 * @return {@link List} with stored float values or empty list if values not present
 	 */
-	public List<Float>   getFloatList(String path) { return yaml.getFloatList(path); }
+	public @NotNull List<Float>   getFloatList(String path) { return yaml.getFloatList(path); }
 
 	/**
 	 * <p>getInt.</p>
@@ -232,12 +237,12 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getIntList.</p>
+	 * @see YamlConfiguration#getIntegerList(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a {@link List} object
+	 * @param path - section path
+	 * @return {@link List} with stored integer values or empty list if values not present
 	 */
-	public List<Integer> getIntList(String path) { return yaml.getIntegerList(path); }
+	public @NotNull List<Integer> getIntList(String path) { return yaml.getIntegerList(path); }
 
 	/**
 	 * <p>getKeys.</p>
@@ -245,7 +250,7 @@ public class Yaml {
 	 * @param deep a boolean
 	 * @return a {@link java.util.Set} object
 	 */
-	public Set<String> getKeys(boolean deep) {
+	public @NotNull Set<String> getKeys(boolean deep) {
 		return yaml.getKeys(deep);
 	}
 
@@ -273,12 +278,12 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getLongList.</p>
+	 * @see YamlConfiguration#getLongList(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a {@link List} object
+	 * @param path - section path
+	 * @return {@link List} with stored long values or empty list if values not present
 	 */
-	public List<Long>    getLongList(String path) { return yaml.getLongList(path); }
+	public @NotNull List<Long>    getLongList(String path) { return yaml.getLongList(path); }
 
 	/**
 	 * <p>getSection.</p>
@@ -315,12 +320,12 @@ public class Yaml {
 	}
 
 	/**
-	 * <p>getShortList.</p>
+	 * @see YamlConfiguration#getShortList(String)
 	 *
-	 * @param path a {@link String} object
-	 * @return a {@link List} object
+	 * @param path - section path
+	 * @return {@link List} with stored short values or empty list if values not present
 	 */
-	public List<Short> getShortList(String path) { return yaml.getShortList(path); }
+	public @NotNull List<Short> getShortList(String path) { return yaml.getShortList(path); }
 
 	/**
 	 * <p>getString.</p>
@@ -328,7 +333,7 @@ public class Yaml {
 	 * @param path a {@link String} object
 	 * @return a {@link String} object
 	 */
-	public String getString(String path) {
+	public @Nullable String getString(String path) {
 		return yaml.getString(path);
 	}
 
@@ -340,7 +345,7 @@ public class Yaml {
 	 * @param restore a boolean
 	 * @return a {@link String} object
 	 */
-	public String getString(String path, String def, boolean restore) {
+	public @NotNull String getString(String path, @NotNull String def, boolean restore) {
 		if (restore) if (this.getString(path) == null) set(path, def);
 		return this.getString(path);
 	}
@@ -350,7 +355,7 @@ public class Yaml {
 	 * @param path a {@link String} object
 	 * @return a {@link List} object
 	 */
-	public List<String>  getStringList(String path) {
+	public @NotNull List<String>  getStringList(String path) {
 		return yaml.getStringList(path);
 	}
 	/**
@@ -360,6 +365,7 @@ public class Yaml {
 	 * @throws java.io.IOException if any.
 	 * @throws org.bukkit.configuration.InvalidConfigurationException if any.
 	 */
+	@Internal
 	public void load() throws FileNotFoundException, IOException, InvalidConfigurationException { yaml.load(file); }
 	/**
 	 * <p>reload.</p>
@@ -374,6 +380,7 @@ public class Yaml {
 	/**
 	 * <p>save.</p>
 	 */
+	@Internal
 	public void save() { try { yaml.save(file); } catch (final IOException e) { e.printStackTrace(); } }
 	/**
 	 * <p>set.</p>
@@ -381,7 +388,7 @@ public class Yaml {
 	 * @param path a {@link String} object
 	 * @param value a {@link java.lang.Object} object
 	 */
-	public void set(String path, Object value) {
+	public void set(@NotNull String path, @Nullable Object value) {
 		yaml.set(path, value);
 		save();
 	}
@@ -392,7 +399,8 @@ public class Yaml {
 	 * @param file a {@link java.io.File} object
 	 * @return a {@link String} object
 	 */
-	public static String getFileExtension(File file) {
+	@Internal
+	public static @NotNull String getFileExtension(File file) {
 		final String fileName = file.getName();
 
 		if (fileName.lastIndexOf(".") > 0) return fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -401,10 +409,10 @@ public class Yaml {
 
 	/**
 	 * @param path - a file name without file extension.
-	 * @return Yaml - a file from "plugins/ejCore/data/<b>path</b>.yml
+	 * @return Yaml - a file from "plugins/MC-OpenLibrary/data/<b>path</b>.yml
 	 */
-	public static Yaml getCustomStorage(String path) {
-		return new Yaml(new File("plugins/ejCore/data/" + path + ".yml"));
+	public static Yaml getCustomStorage(@NotNull String path) {
+		return new Yaml(new File("plugins/" + OpenLib.instance().getName() + "/data/" + path + ".yml"));
 	}
 
 	/**
@@ -412,7 +420,7 @@ public class Yaml {
 	 * @param plugin - a plugin what used for data folder
 	 * @return Yaml - a file from "plugins/plugin.getDataFolder()/path"
 	 */
-	public static Yaml of(String path, JavaPlugin plugin) {
+	public static Yaml of(@NotNull String path, @Nullable JavaPlugin plugin) {
 		return new Yaml(plugin.getDataFolder() + "/" + path, plugin);
 	}
 
@@ -422,8 +430,8 @@ public class Yaml {
 	 * @return a file from "plugins/ejCore/path" if ejCore is enabled<br>
 	 * otherwise returns new Yaml(path)
 	 */
-	public static Yaml of(String path) {
-		final JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("ejCore");
+	public static @NotNull Yaml of(@NotNull String path) {
+		final JavaPlugin plugin = OpenLib.instance();
 
 		if (plugin != null && plugin.isEnabled())
 			return of(path, plugin);
@@ -438,11 +446,11 @@ public class Yaml {
 	 * @param from a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 * @return a boolean
 	 */
-	public static boolean hasFileInJar(String jarPath, JavaPlugin from) {
+	public static boolean hasFileInJar(@NotNull String jarPath, @NotNull JavaPlugin from) {
 		return from.getClass().getResourceAsStream("/" + jarPath) != null;
 	}
 
-	private static void exportFile(String jarPath, JavaPlugin from, String toFolder) {
+	public static void exportFile(@NotNull String jarPath, @NotNull JavaPlugin from, @NotNull String toFolder) {
 		exportFile(jarPath, from, new File(toFolder));
 	}
 
@@ -453,7 +461,7 @@ public class Yaml {
 	 * @param from a {@link org.bukkit.plugin.java.JavaPlugin} object
 	 * @param toFolder a {@link java.io.File} object
 	 */
-	public static void exportFile(String jarPath, JavaPlugin from, File toFolder) {
+	public static void exportFile(@NotNull String jarPath, @NotNull JavaPlugin from, @NotNull File toFolder) {
 		if (from.getClass().getResourceAsStream("/" + jarPath) != null) {
 			final String[] split = jarPath.split("/");
 
@@ -474,13 +482,29 @@ public class Yaml {
 					out.write(buffer, 0, read);
 				}
 
-				Text.fine("Default file " + split[split.length-1] + " was exported!");
+				Texts.fine("Default file " + split[split.length-1] + " was exported!");
 			} catch (final IOException e) {
 				e.printStackTrace();
 				return;
 			}
 
-		} else Text.warn("File " + jarPath + " does not exist in jar file, Skipped");
+		} else Texts.warn("File " + jarPath + " does not exist in jar file, Skipped");
+	}
+
+	private static void width(YamlConfiguration yaml, int width) {
+		try {
+			yaml.options().width(width);
+		} catch(final NoSuchMethodError ex) {
+			Field f;
+
+			try {
+				f = yaml.getClass().getField("yamlOptions");
+				f.setAccessible(true);
+
+				final DumperOptions opt = (DumperOptions)f.get(yaml);
+				opt.setWidth(width);
+			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ignore) {}
+		}
 	}
 
 }

@@ -1,3 +1,9 @@
 general:
-  prev-page: 'ARROW:1:0:0♥&6Previous Page'
+  prev-page: '{
+    "material": "ARROW",
+    "amount": "1",
+    "display": [
+      "name": "&6Next Page"
+    ]
+  }'
   next-page: 'ARROW:1:0:0♥&6Next Page'

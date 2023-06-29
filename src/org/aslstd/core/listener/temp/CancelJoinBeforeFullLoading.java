@@ -1,6 +1,6 @@
 package org.aslstd.core.listener.temp;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -49,6 +49,6 @@ public class CancelJoinBeforeFullLoading implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(AsyncPlayerPreLoginEvent e) {
 		e.setLoginResult(Result.KICK_OTHER);
-		e.kickMessage(Component.text(Text.c("&cPlease wait while server will be fully loaded!")));
+		e.kickMessage(Component.text(Texts.c("&cPlease wait while server will be fully loaded!")));
 	}
 }

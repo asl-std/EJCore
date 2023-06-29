@@ -15,10 +15,3 @@ folia-supported: true
 
 libraries:
 - com.zaxxer:HikariCP:4.0.3
-
-commands:
-  mol:        
-    description: Main command
-    aliases: [molib]
-    permission: mol.help
-    usage: /mol help

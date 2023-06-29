@@ -10,13 +10,12 @@ import javax.annotation.Nonnull;
 
 import org.aslstd.api.bukkit.items.IStatus;
 import org.aslstd.api.bukkit.items.ItemStackUtil;
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -39,7 +38,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static @Nonnull String getStringValue(Pattern patt, ItemStack stack) {
 		if  (!ItemStackUtil.validate(stack, IStatus.HAS_LORE)) return "";
-		return getStringValue(patt, ( (@NonNull TextComponent)stack.getItemMeta().lore() ).content());
+		return getStringValue(patt, stack.getItemMeta().lore().toString() );
 	}
 
 	/**
@@ -52,13 +51,13 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	public static @Nonnull String getStringValue(Pattern patt, List<Component> lore) {
 		String value = "";
 		if (contains(lore, patt)) {
-			matcher = patt.matcher(Text.e(lore.toString()).toLowerCase());
+			matcher = patt.matcher(Texts.e(lore.toString()).toLowerCase());
 			if (matcher.find())
 				try {
 					value = matcher.group(1);
 				} catch (final IllegalStateException e) {
-					Text.debug(patt.pattern());
-					Text.debug(lore.toString());
+					Texts.debug(patt.pattern());
+					Texts.debug(lore.toString());
 				}
 		}
 
@@ -81,7 +80,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 			lore = meta.lore();
 
 		for (final String str : strings)
-			lore.add(Component.text(Text.c(str)));
+			lore.add(Component.text(Texts.c(str)));
 
 		meta.lore(lore);
 		stack.setItemMeta(meta);
@@ -103,7 +102,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 
 		for (final String key : lore)
 			if (key != null)
-				colored.add(Component.text(Text.c(key)));
+				colored.add(Component.text(Texts.c(key)));
 
 		meta.lore(colored);
 		stack.setItemMeta(meta);
@@ -127,9 +126,9 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 			lore = meta.lore();
 
 		if (lore.size()-1 >= index)
-			lore.set(index, Component.text(Text.c(loreString)));
+			lore.set(index, Component.text(Texts.c(loreString)));
 		else
-			lore.add(Component.text(Text.c(loreString)));
+			lore.add(Component.text(Texts.c(loreString)));
 
 		meta.lore(lore);
 		stack.setItemMeta(meta);
@@ -185,7 +184,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		if (!ItemStackUtil.validate(stack, IStatus.HAS_MATERIAL)) return stack;
 
 		stack.editMeta(meta -> {
-			meta.displayName(display == null ? null : Component.text(Text.c(display)));
+			meta.displayName(display == null ? null : Component.text(Texts.c(display)));
 		});
 
 		return stack;
@@ -202,7 +201,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		String value = "";
 
 		if (contains(loreString, patt)) {
-			matcher = patt.matcher(Text.e(loreString).toLowerCase());
+			matcher = patt.matcher(Texts.e(loreString).toLowerCase());
 			if (matcher.find()) value = matcher.group(1);
 		}
 
@@ -217,7 +216,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @return a {@link String} object
 	 */
 	public static String getLore(String key, String value) {
-		return Text.c(key + ": " + value);
+		return Texts.c(key + ": " + value);
 	}
 
 	/**
@@ -243,7 +242,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		String value = "0.0D";
 
 		if (contains(lore, patt)) {
-			matcher = patt.matcher(Text.e(lore.toString()).toLowerCase());
+			matcher = patt.matcher(Texts.e(lore.toString()).toLowerCase());
 			if (matcher.find())
 				value = matcher.group(1);
 		}
@@ -258,7 +257,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a boolean
 	 */
-	public static boolean contains(String loreString, Pattern patt) { return patt.matcher(Text.e(loreString).toLowerCase()).find(); }
+	public static boolean contains(String loreString, Pattern patt) { return patt.matcher(Texts.e(loreString).toLowerCase()).find(); }
 	/**
 	 * <p>contains.</p>
 	 *
@@ -266,7 +265,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 * @param patt a {@link java.util.regex.Pattern} object
 	 * @return a boolean
 	 */
-	public static boolean contains(List<Component> lore, Pattern patt) { return patt.matcher(Text.e(lore.toString()).toLowerCase()).find(); }
+	public static boolean contains(List<Component> lore, Pattern patt) { return patt.matcher(Texts.e(lore.toString()).toLowerCase()).find(); }
 	/**
 	 * <p>contains.</p>
 	 *
@@ -290,7 +289,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 		Matcher m;
 
 		for (int l = 0 ; l < lore.size() ; l++) {
-			m = patt.matcher(Text.e(( (TextComponent)lore.get(l) ).content().toLowerCase()));
+			m = patt.matcher(Texts.e(( (TextComponent)lore.get(l) ).content().toLowerCase()));
 
 			if (m.find()) return l;
 		}
@@ -307,7 +306,7 @@ public final class BasicMetaAdapter { // Basic Lore Adapter
 	 */
 	public static int indexOf(List<String> lore, String check) {
 		for (int i = 0 ; i < lore.size() ; i++) {
-			if (Text.e(lore.get(i)).startsWith(Text.e(check)))
+			if (Texts.e(lore.get(i)).startsWith(Texts.e(check)))
 				return i;
 		}
 

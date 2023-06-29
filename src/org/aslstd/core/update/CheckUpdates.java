@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.aslstd.api.openlib.plugin.OpenPlugin;
 import org.aslstd.core.OpenLib;
@@ -40,30 +40,30 @@ public class CheckUpdates {
 
 	public static void sendUpdateMessage(CommandSender p) {
 		if (p instanceof ConsoleCommandSender)
-			Text.sendLB();
+			Texts.sendLB();
 
-		final String prefix = ((p instanceof ConsoleCommandSender) ? "&5[&2EJC&5]&f: &3> " : "");
+		final String prefix = ((p instanceof ConsoleCommandSender) ? "&5[&2MOL&5]&f: &3> " : "");
 
 		if (p instanceof Player)
-			Text.send(p, "&c»------>&5 ejCore Update Checker");
+			Texts.send(p, "&c»------>&5 OpenLibrary Update Checker");
 
 		for (final OpenPlugin plugin : registeredEJPlugins) {
 
 			final boolean isUpToDate = plugin.getBuild() >= plugin.getLatestBuild();
 
 			if (isUpToDate)
-				Text.send(p, prefix + " &2• " + plugin.getDescription().getFullName() + ": No new updates");
+				Texts.send(p, prefix + " &2• " + plugin.getDescription().getFullName() + ": No new updates");
 			else
-				Text.send(p, prefix + " &2• " + plugin.getDescription().getFullName() + ": New Update - " + plugin.getLatestVersion());
+				Texts.send(p, prefix + " &2• " + plugin.getDescription().getFullName() + ": New Update - " + plugin.getLatestVersion());
 		}
-		Text.send(p, prefix + "&6You can download new versions here:");
-		Text.send(p, prefix + "&3https://www.spigotmc.org/resources/authors/115181/");
+		Texts.send(p, prefix + "&6You can download new versions here:");
+		Texts.send(p, prefix + "&3https://www.spigotmc.org/resources/authors/115181/");
 
 		if (p instanceof Player)
-			Text.send(p, "&c»------>&5 ejCore Update Checker");
+			Texts.send(p, "&c»------>&5 OpenLibrary Update Checker");
 
 		if (p instanceof ConsoleCommandSender)
-			Text.sendLB();
+			Texts.sendLB();
 	}
 
 	private static void getVersion(final Consumer<String> consumer, OpenPlugin plugin) {
@@ -77,7 +77,7 @@ public class CheckUpdates {
 					consumer.accept(scanner.next());
 
 			} catch (final IOException exception) {
-				Text.warn("Cannot look for updates (" + plugin.getName() + "): " + exception.getMessage());
+				Texts.warn("Cannot look for updates (" + plugin.getName() + "): " + exception.getMessage());
 			}
 		});
 	}

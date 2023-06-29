@@ -2,8 +2,8 @@ package org.aslstd.api.bukkit.entity.pick;
 
 import java.util.List;
 
-import org.aslstd.api.bukkit.message.Text;
-import org.aslstd.api.provider.permission.PermProvider;
+import org.aslstd.api.bukkit.message.Texts;
+import org.aslstd.api.openlib.provider.permission.PermProvider;
 import org.aslstd.core.OpenLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -32,7 +32,7 @@ public class UPlayer extends UEntity {
 
 	public String name() { return player.getName(); }
 
-	public void send(String message) { Text.send(player, message); }
+	public void send(String message) { Texts.send(player, message); }
 
 	public void execute(Consumer<Player> function) { function.accept(player); }
 

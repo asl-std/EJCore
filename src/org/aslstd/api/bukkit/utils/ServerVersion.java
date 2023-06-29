@@ -1,6 +1,6 @@
 package org.aslstd.api.bukkit.utils;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.bukkit.OfflinePlayer;
 
 import lombok.Getter;
@@ -74,7 +74,7 @@ public final class ServerVersion {
 			} catch (final Exception ex) { ServerVersion.VERSION = ServerVersion.LEGACY; }
 		}
 
-		Text.fine("&aServer version: &5'" + ServerVersion.TYPE + "-" + ServerVersion.VERSION + "'");
+		Texts.fine("&aServer version: &5'" + ServerVersion.TYPE + "-" + ServerVersion.VERSION + "'");
 	}
 
 	/**

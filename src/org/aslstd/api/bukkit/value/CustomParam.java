@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.WordUtils;
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.yaml.Yaml;
 
 import lombok.Getter;
@@ -41,8 +41,8 @@ public abstract class CustomParam {
 		this.key = key;
 		visualName = file.getString("eimodule.util." + key, "&7" + WordUtils.capitalizeFully(toString()), true);
 
-		pattern = Pattern.compile(Text.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)", Pattern.CASE_INSENSITIVE);
-		number = Pattern.compile(Text.e(visualName.toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
+		pattern = Pattern.compile(Texts.e(visualName.toLowerCase()) + ":\\s*([\\wa-zA-Zа-я-А-Я]*)", Pattern.CASE_INSENSITIVE);
+		number = Pattern.compile(Texts.e(visualName.toLowerCase() + ".?\\s*([+-]?\\d+\\.?\\d*\\-?\\d*\\.?\\d*[%]?)"), Pattern.CASE_INSENSITIVE);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public abstract class CustomParam {
 	public final String getValue(String from) {
 		String val = null;
 
-		final Matcher match = pattern.matcher(Text.e(from).toLowerCase());
+		final Matcher match = pattern.matcher(Texts.e(from).toLowerCase());
 
 		if (match.find())
 			val = match.group(1);
@@ -65,7 +65,7 @@ public abstract class CustomParam {
 	public final String getDoubleValue(String from) {
 		String val = null;
 
-		final Matcher match = number.matcher(Text.e(from).toLowerCase());
+		final Matcher match = number.matcher(Texts.e(from).toLowerCase());
 
 		if (match.find())
 			val = match.group(1);
@@ -82,7 +82,7 @@ public abstract class CustomParam {
 	public final String convert(String value) {
 		if (!isAllowedValue(value)) return null;
 
-		return Text.c(visualName + ": " + value);
+		return Texts.c(visualName + ": " + value);
 	}
 
 	/** {@inheritDoc} */

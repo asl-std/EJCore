@@ -1,6 +1,6 @@
 package org.aslstd.api.bukkit.items;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -80,7 +80,7 @@ public final class InventoryUtil {
 		if (stack == null) return;
 		int value = amount;
 		final ItemStack[] storage = p.getInventory().getStorageContents();
-		final String toCheck = Text.e(name == null ? stack.getType().name() : ( (TextComponent)ItemStackUtil.getDisplayName(stack) ).content());
+		final String toCheck = Texts.e(name == null ? stack.getType().name() : ( (TextComponent)ItemStackUtil.getDisplayName(stack) ).content());
 
 		final Material type = stack.getType();
 		for (int i = 0; i < storage.length; i++) {

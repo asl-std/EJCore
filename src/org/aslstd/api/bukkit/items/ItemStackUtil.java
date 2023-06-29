@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.utils.BasicMetaAdapter;
 import org.aslstd.api.bukkit.value.util.NumUtil;
 import org.bukkit.Material;
@@ -72,7 +72,7 @@ public final class ItemStackUtil {
 		final String[] params = stack.split("@");
 
 		if (params.length < 2)
-			Text.warn("&4Need to set skull owner: &5" + stack + "&4 template: SKULL@<skullUid/base64>@DisplayName@Lore;Lore;Lore");
+			Texts.warn("&4Need to set skull owner: &5" + stack + "&4 template: SKULL@<skullUid/base64>@DisplayName@Lore;Lore;Lore");
 
 		ItemStack skull = SkullCreator.itemFromBase64(params[1]);
 
@@ -310,12 +310,12 @@ public final class ItemStackUtil {
 		if (item == null)
 			return new ItemStack(Material.AIR, 0);
 		ItemMeta meta = item.getItemMeta();
-		if (params[1] != null) meta.displayName(Component.text(Text.c(params[1])));
+		if (params[1] != null) meta.displayName(Component.text(Texts.c(params[1])));
 		if (params[2] != null) {// ♦Lore◘Lore◘Lore
 			final String[] opt2 = params[2].split("◘");
 			final List<Component> lore = new ArrayList<>();
 			for (final String str : opt2)
-				lore.add(Component.text(Text.c(str)));
+				lore.add(Component.text(Texts.c(str)));
 			meta.lore(lore);
 		}
 		if (params[3] != null) {// ♣Enchant:Level;Enchant:Level

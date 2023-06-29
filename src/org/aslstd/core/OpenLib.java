@@ -3,8 +3,8 @@ package org.aslstd.core;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.aslstd.api.bukkit.command.BasicCommandHandler;
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.command.impl.CommandHandler;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.redstone.RedstoneParts;
 import org.aslstd.api.bukkit.storage.PlayerFileStorage;
 import org.aslstd.api.bukkit.utils.ServerVersion;
@@ -12,9 +12,9 @@ import org.aslstd.api.openlib.player.OPlayer;
 import org.aslstd.api.openlib.plugin.Incompatibility;
 import org.aslstd.api.openlib.plugin.OpenPlugin;
 import org.aslstd.api.openlib.plugin.hook.Placeholders;
+import org.aslstd.api.openlib.provider.permission.PermProvider;
 import org.aslstd.api.openlib.util.Obj;
 import org.aslstd.api.openlib.worker.WorkerService;
-import org.aslstd.api.provider.permission.PermProvider;
 import org.aslstd.core.command.CoreCommandHandler;
 import org.aslstd.core.config.EConfig;
 import org.aslstd.core.config.LangConfig;
@@ -27,8 +27,9 @@ import org.aslstd.core.listener.temp.CancelJoinBeforeFullLoading;
 import org.aslstd.core.platform.scheduler.provider.BukkitSchedulerProvider;
 import org.aslstd.core.platform.scheduler.provider.FoliaSchedulerProvider;
 import org.aslstd.core.platform.scheduler.provider.SchedulerProvider;
-import org.aslstd.core.service.ListenerRegistrator;
-import org.aslstd.core.service.ListenerRegistrator.Collector;
+import org.aslstd.core.service.Commands;
+import org.aslstd.core.service.Listeners;
+import org.aslstd.core.service.Listeners.Collector;
 import org.aslstd.core.task.LoadOpenPlugins;
 import org.aslstd.core.task.Test;
 import org.bstats.bukkit.Metrics;
@@ -73,7 +74,7 @@ public class OpenLib extends OpenPlugin {
 
 	@Getter private static WorkerService workers;
 
-	@Getter private static BasicCommandHandler handler;
+	@Getter private static CommandHandler handler;
 
 	@Getter private static OpenLib instance = null;
 
@@ -96,10 +97,10 @@ public class OpenLib extends OpenPlugin {
 
 		if (Obj.classExist("io.papermc.paper.threadedregions.RegionizedServer")) {
 			scheduler = new FoliaSchedulerProvider();
-			Text.debug("Folia found - Using Folia Scheduler");
+			Texts.debug("Folia found - Using Folia Scheduler");
 		} else {
 			scheduler = new BukkitSchedulerProvider();
-			Text.debug("Folia not found - Using Bukkit Scheduler");
+			Texts.debug("Folia not found - Using Bukkit Scheduler");
 		}
 	}
 
@@ -119,35 +120,36 @@ public class OpenLib extends OpenPlugin {
 		RedstoneParts.init();
 
 		if (!config.LESS_CONSOLE)
-			for (final String str : ANCIITAG) Text.send(str);
+			for (final String str : ANCIITAG) Texts.send(str);
 
 		ServerVersion.init(Bukkit.getBukkitVersion(), Bukkit.getName());
 
 		if (Placeholders.enabled()) {
-			Text.fine("PAPI expansion loaded!");
+			Texts.fine("PAPI expansion loaded!");
 			new DataExpansion();
 		} else
-			Text.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
+			Texts.warn("I can't create new PAPI expansion because PlaceholderAPI not installed.");
 
 		Test.start();
 		Collector.forPlugin(this).collect(new PlayerListener(), new PaneInteractListener(), new CombatListener(), new EquipListener()).push();
 
-		handler = new CoreCommandHandler().registerHandler();
+		handler = new CoreCommandHandler();
+		Commands.registerCommand(this, handler);
 
 		for (final Plugin plugin : Bukkit.getPluginManager().getPlugins())
 			if (plugin instanceof OpenPlugin && !plugin.getName().equalsIgnoreCase(this.getName()))
 				plugins.add((OpenPlugin) plugin);
 
 		if (plugins.size() > 0) {
-			Text.fine("&amoLibrary found OpenPlugins, wait while all plugins enables.. ");
+			Texts.fine("&a" + getName() + " found OpenPlugins, wait while all plugins enables.. ");
 			new LoadOpenPlugins(plugins).runTaskTimer(this, 0, 40L);
 		} else {
-			ListenerRegistrator.register();
+			Listeners.register();
 			CancelJoinBeforeFullLoading.unregister();
 		}
 
-		Text.fine("&a" + getName() + " succesfuly loaded in " + Text.format((System.nanoTime() - bef) / 1e9) + " sec.");
-		Text.sendLB();
+		Texts.fine("&a" + getName() + " succesfuly loaded in " + Texts.format((System.nanoTime() - bef) / 1e9) + " sec.");
+		Texts.sendLB();
 		Incompatibility.check();
 		if (Placeholders.enabled() && !Placeholders.preRegister().isEmpty())
 			Placeholders.preRegister().values().forEach(PlaceholderExpansion::register);
@@ -156,12 +158,13 @@ public class OpenLib extends OpenPlugin {
 	@Override
 	public void disable() {
 		OPlayer.stash().clear();
-		ListenerRegistrator.unregister();
+		Listeners.unregister();
 		workers.shutdown();
 	}
 
 	public void reloadPlugins() {
 		plugins.forEach(OpenPlugin::reloadPlugin);
+
 	}
 
 }

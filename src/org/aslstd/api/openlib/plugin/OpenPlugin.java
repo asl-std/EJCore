@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.aslstd.api.bukkit.message.Text;
+import org.aslstd.api.bukkit.message.Texts;
 import org.aslstd.api.bukkit.yaml.OConf;
-import org.aslstd.api.bukkit.yaml.Yaml;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -104,7 +103,7 @@ public abstract class OpenPlugin extends JavaPlugin {
 	 * @param cfg a {@link OConf} object
 	 */
 	public void loadConfiguration(OConf cfg) {
-		if (cfg == null) Text.debug("null configuration was providen, skipped");
+		if (cfg == null) Texts.debug("null configuration was providen, skipped");
 		if (!configurations.contains(cfg))
 			configurations.add(cfg);
 	}
@@ -113,7 +112,7 @@ public abstract class OpenPlugin extends JavaPlugin {
 	 * <p>reloadConfigurations.</p>
 	 */
 	public void reloadConfigurations() {
-		configurations.forEach(Yaml::reload);
+		configurations.forEach(OConf::reload);
 	}
 
 
